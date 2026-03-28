@@ -121,12 +121,14 @@
       opacity: 1;
       pointer-events: all;
       transform: translateY(0);
+      z-index: 5;
     }
     .slide.exit {
       opacity: 0;
       pointer-events: none;
       transform: translateY(-50px) scale(0.96);
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 4;
     }
 
     .slide-inner {
@@ -577,7 +579,12 @@ function goTo(targetIdx, direction = 'forward') {
   toSlide.style.opacity = '0';
 
   setTimeout(() => {
+    // Snap the exiting slide to hidden without re-triggering any transition
+    fromSlide.style.transition = 'none';
     fromSlide.classList.remove('exit');
+    fromSlide.style.opacity = '0';
+    requestAnimationFrame(() => { fromSlide.style.transition = ''; fromSlide.style.opacity = ''; });
+
     currentSlide = targetIdx;
     updateUI();
 
