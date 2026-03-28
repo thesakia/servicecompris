@@ -8,24 +8,24 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0f;
-      --surface: #13131a;
-      --border: rgba(255,255,255,0.07);
-      --accent: #6c63ff;
-      --accent2: #ff6584;
-      --text: #e8e8f0;
-      --muted: #6b6b80;
+      --bg:      #0b1624;
+      --navy:    #0f1e30;
+      --green:   #86d62a;
+      --green2:  #5fa81e;
+      --white:   #ffffff;
+      --muted:   #5a7a9a;
+      --border:  rgba(134,214,42,0.15);
     }
 
     html, body {
       height: 100%;
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: var(--bg);
-      color: var(--text);
+      color: var(--white);
       overflow: hidden;
     }
 
-    /* Animated gradient orbs */
+    /* Glow orbs */
     .orbs {
       position: fixed;
       inset: 0;
@@ -35,46 +35,47 @@
     .orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.18;
-      animation: drift 12s ease-in-out infinite;
+      filter: blur(90px);
+      animation: drift 14s ease-in-out infinite;
     }
     .orb-1 {
       width: 500px; height: 500px;
-      background: var(--accent);
-      top: -120px; left: -80px;
+      background: var(--green);
+      opacity: 0.07;
+      top: -150px; left: -100px;
       animation-delay: 0s;
     }
     .orb-2 {
       width: 400px; height: 400px;
-      background: var(--accent2);
-      bottom: -100px; right: -60px;
-      animation-delay: -5s;
+      background: var(--green);
+      opacity: 0.05;
+      bottom: -120px; right: -80px;
+      animation-delay: -6s;
     }
     .orb-3 {
-      width: 300px; height: 300px;
-      background: #38bdf8;
+      width: 600px; height: 600px;
+      background: #1a3a5c;
+      opacity: 0.4;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      animation-delay: -8s;
-      opacity: 0.09;
+      animation-delay: -10s;
     }
 
     @keyframes drift {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33%       { transform: translate(30px, -20px) scale(1.05); }
-      66%       { transform: translate(-20px, 15px) scale(0.97); }
+      0%, 100% { transform: translate(0, 0); }
+      40%       { transform: translate(25px, -18px); }
+      70%       { transform: translate(-15px, 20px); }
     }
 
-    /* Noise texture overlay */
-    body::before {
-      content: '';
+    /* Hexagon background shape */
+    .hex-bg {
       position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      opacity: 0.4;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(560px, 90vw);
+      opacity: 0.04;
+      z-index: 0;
       pointer-events: none;
-      z-index: 1;
     }
 
     /* Layout */
@@ -94,99 +95,81 @@
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: var(--surface);
+      gap: 8px;
+      background: rgba(134,214,42,0.08);
       border: 1px solid var(--border);
       border-radius: 999px;
-      padding: 6px 16px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+      padding: 7px 18px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 2rem;
+      color: var(--green);
+      margin-bottom: 2.5rem;
     }
     .badge-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 6px var(--accent);
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
       animation: pulse 2s ease-in-out infinite;
     }
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.5; transform: scale(0.8); }
+      50%       { opacity: 0.4; transform: scale(0.75); }
     }
 
-    /* Logo / Brand */
+    /* Brand */
     .brand {
-      font-size: clamp(2.4rem, 6vw, 4.2rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      margin-bottom: 1.2rem;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
     }
-    .brand span {
-      background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 50%, var(--accent2) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    .brand .service  { color: var(--white); display: block; }
+    .brand .compris  { color: var(--green); display: block; }
 
     /* Tagline */
-    .tagline {
-      font-size: clamp(0.95rem, 2vw, 1.15rem);
+    .tagline-sub {
+      font-size: clamp(0.6rem, 1.5vw, 0.78rem);
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
       color: var(--muted);
-      max-width: 420px;
-      line-height: 1.65;
-      margin-bottom: 2.8rem;
+      margin-bottom: 3rem;
     }
 
     /* Divider */
     .divider {
-      width: 48px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      border-radius: 2px;
-      margin: 0 auto 2.8rem;
-    }
-
-    /* Card */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem 2rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
-      max-width: 380px;
+      gap: 14px;
       width: 100%;
-      backdrop-filter: blur(12px);
-      transition: border-color 0.2s;
+      max-width: 340px;
+      margin-bottom: 2.5rem;
     }
-    .card:hover { border-color: rgba(108,99,255,0.35); }
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+    .divider-hex {
+      width: 10px; height: 10px;
+      background: var(--green);
+      clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+      opacity: 0.6;
+    }
 
-    .card-icon {
-      font-size: 1.5rem;
-      flex-shrink: 0;
-    }
-    .card-text {
-      text-align: left;
-    }
-    .card-text strong {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--text);
-      margin-bottom: 2px;
-    }
-    .card-text a {
-      font-size: 0.82rem;
+    /* Message */
+    .message {
+      font-size: clamp(0.88rem, 2vw, 1rem);
       color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
+      line-height: 1.7;
+      max-width: 360px;
     }
-    .card-text a:hover { color: var(--accent); }
+    .message strong { color: var(--white); font-weight: 600; }
 
     /* Footer */
     footer {
@@ -194,10 +177,12 @@
       bottom: 1.5rem;
       left: 0; right: 0;
       text-align: center;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--muted);
       z-index: 2;
-      opacity: 0.6;
+      opacity: 0.5;
     }
   </style>
 </head>
@@ -209,23 +194,37 @@
     <div class="orb orb-3"></div>
   </div>
 
+  <!-- Hexagon SVG background -->
+  <svg class="hex-bg" viewBox="0 0 200 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="100,5 190,52 190,178 100,225 10,178 10,52" stroke="white" stroke-width="3" fill="none"/>
+  </svg>
+
   <main>
     <div class="badge">
       <span class="badge-dot"></span>
       En construction
     </div>
 
-    <h1 class="brand">Service<br><span>Compris</span></h1>
+    <h1 class="brand">
+      <span class="service">Service</span>
+      <span class="compris">Compris</span>
+    </h1>
 
-    <p class="tagline">
-      Quelque chose de bien arrive.<br>
+    <p class="tagline-sub">Digital CHR Intelligence</p>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-hex"></div>
+      <div class="divider-line"></div>
+    </div>
+
+    <p class="message">
+      Quelque chose de <strong>bien</strong> arrive.<br>
       On travaille dessus, revenez bientôt.
     </p>
-
-    <div class="divider"></div>
   </main>
 
-  <footer>© 2026 Service Compris</footer>
+  <footer>© 2026 Service Compris — Digital CHR Intelligence</footer>
 
 </body>
 </html>
