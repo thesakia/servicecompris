@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brief Restaurant — Service Compris</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0C0B10;
+      --section-color: #6366F1;
+      --glow-opacity: 0.18;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Animated glow background ── */
+    #glow-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    #glow-bg::before {
+      content: '';
+      position: absolute;
+      width: 900px;
+      height: 900px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, var(--section-color) 0%, transparent 70%);
+      opacity: var(--glow-opacity);
+      animation: glow-pulse 4s ease-in-out infinite;
+      transition: background 0.8s ease, opacity 0.8s ease;
+    }
+    @keyframes glow-pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: var(--glow-opacity); }
+      50% { transform: translate(-50%, -50%) scale(1.15); opacity: calc(var(--glow-opacity) * 1.5); }
+    }
+
+    /* ── Progress bar ── */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--section-color);
+      z-index: 100;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background 0.6s ease;
+      box-shadow: 0 0 10px var(--section-color);
+    }
+
+    /* ── Question counter ── */
+    #q-counter {
+      position: fixed;
+      top: 18px;
+      right: 24px;
+      z-index: 100;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    #q-counter.visible { opacity: 1; }
+
+    /* ── Flash overlay ── */
+    #flash {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.05s ease;
+    }
+    #flash.active {
+      opacity: 1;
+      transition: opacity 0.2s ease;
+    }
+
+    /* ── Slides container ── */
+    #slides {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+    }
+
+    /* ── Individual slide ── */
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px 100px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(60px);
+      transition: opacity 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    .slide.exit {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-50px) scale(0.96);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .slide-inner {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* ── Section badge ── */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--section-color);
+      padding: 5px 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      background: rgba(255,255,255,0.04);
+      width: fit-content;
+    }
+    .section-badge::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--section-color);
+      box-shadow: 0 0 6px var(--section-color);
+    }
+
+    /* ── Slide heading ── */
+    .slide-question {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .slide-hint {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.45);
+      font-weight: 400;
+      line-height: 1.6;
+      margin-top: -12px;
+    }
+
+    /* ── Intro heading ── */
+    .intro-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: #fff;
+      letter-spacing: -0.02em;
+      white-space: pre-line;
+    }
+    .intro-subtitle {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    /* ── Inputs ── */
+    .field-wrap { display: flex; flex-direction: column; gap: 0; }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: none;
+      border-bottom: 2px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 16px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      outline: none;
+      transition: border-color 0.25s ease, background 0.25s ease;
+      resize: none;
+    }
+    input[type="text"]::placeholder,
+    textarea::placeholder {
+      color: rgba(255,255,255,0.25);
+    }
+    input[type="text"]:focus,
+    textarea:focus {
+      border-bottom: 2px solid var(--section-color);
+      background: rgba(255,255,255,0.07);
+    }
+    textarea { resize: vertical; min-height: 120px; }
+
+    /* ── Buttons ── */
+    .btn-next {
+      width: 100%;
+      padding: 18px 24px;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      position: relative;
+      overflow: visible;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      letter-spacing: 0.01em;
+    }
+    .btn-next:hover { transform: translateY(-2px); }
+    .btn-next:active { transform: translateY(0); }
+
+    .btn-intro {
+      background: #fff;
+      color: #0C0B10;
+      box-shadow: 0 4px 24px rgba(255,255,255,0.15);
+    }
+    .btn-intro:hover { box-shadow: 0 8px 32px rgba(255,255,255,0.25); }
+
+    .btn-section {
+      background: var(--section-color);
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+    .btn-section:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px var(--section-color); }
+
+    .btn-success {
+      background: #10B981;
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(16,185,129,0.3);
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+    .btn-success:hover { box-shadow: 0 8px 32px rgba(16,185,129,0.45); }
+
+    /* ── Prev link ── */
+    #prev-link {
+      position: fixed;
+      bottom: 32px;
+      left: 32px;
+      z-index: 50;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.35);
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s ease, opacity 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #prev-link:hover { color: rgba(255,255,255,0.75); }
+    #prev-link.visible { opacity: 1; pointer-events: all; }
+
+    /* ── Success slide ── */
+    .checkmark-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+    .checkmark-svg {
+      width: 80px;
+      height: 80px;
+    }
+    .checkmark-circle {
+      fill: none;
+      stroke: #10B981;
+      stroke-width: 3;
+      stroke-dasharray: 226;
+      stroke-dashoffset: 226;
+    }
+    .checkmark-check {
+      fill: none;
+      stroke: #10B981;
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 80;
+      stroke-dashoffset: 80;
+    }
+    .slide.active .checkmark-circle {
+      animation: draw-circle 0.5s 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    .slide.active .checkmark-check {
+      animation: draw-check 0.4s 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    @keyframes draw-circle {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes draw-check {
+      to { stroke-dashoffset: 0; }
+    }
+    .success-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+    }
+    .success-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    /* ── Particles ── */
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+      font-size: var(--size, 1.2rem);
+      opacity: 1;
+      user-select: none;
+      animation: particle-anim var(--duration, 0.8s) var(--ease, cubic-bezier(0.2, 0.8, 0.4, 1)) forwards;
+      transform-origin: center;
+    }
+    @keyframes particle-anim {
+      0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      60% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--dx), var(--dy)) scale(0.3) rotate(var(--rot, 360deg));
+        opacity: 0;
+      }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .slide { padding: 48px 16px 90px; }
+      .intro-title { font-size: 2rem; }
+      .slide-question { font-size: 1.4rem; }
+      #prev-link { left: 16px; bottom: 24px; }
+    }
+    @media (min-width: 1025px) {
+      .slide-inner { max-width: 720px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="glow-bg"></div>
+<div id="progress-bar"></div>
+<div id="q-counter"></div>
+<div id="flash"></div>
+
+<div id="slides"></div>
+
+<div id="prev-link">← Précédent</div>
+
+<script>
+// ──────────────────────────────────────────
+// DATA
+// ──────────────────────────────────────────
+const SECTIONS = [
+  { label: 'Votre positionnement', color: '#6366F1', slides: [1,2,3] },
+  { label: 'Ambiance visuelle',    color: '#EC4899', slides: [4,5,6] },
+  { label: 'Le contenu mis en avant', color: '#10B981', slides: [7,8,9] },
+  { label: 'Les détails qui comptent', color: '#F59E0B', slides: [10,11,12] },
+];
+
+const QUESTIONS = [
+  // 0 = intro (special)
+  null,
+  // 1-3
+  { q: "Si votre restaurant était une personne, ce serait qui ?", hint: "Personnalité, caractère, façon de parler...", ph: "Simone Veil, George Clooney, votre grand-mère italienne..." },
+  { q: "Qu'est-ce qui vous différencie vraiment des autres dans votre ville ?", hint: "Ce truc que vous voulez qu'on ressente dès la page d'accueil.", ph: "Notre terrasse au bord de l'eau, notre chef autodidacte..." },
+  { q: "Quel sentiment voulez-vous que le visiteur ait en arrivant sur le site ?", hint: "Envie immédiate de réserver, curiosité, dépaysement, confiance...", ph: "Je veux qu'il se sente déjà là-bas, qu'il ait faim..." },
+  // 4-6
+  { q: "Avez-vous des références de sites ou d'univers graphiques qui vous correspondent ?", hint: "Pas forcément dans la restauration. Sites, Instagram, marques...", ph: "J'aime le site de Noma, le feed de @..., l'univers de..." },
+  { q: "Grande photo immersive et sobre, ou quelque chose de plus animé et dynamique ?", hint: "Votre intuition visuelle...", ph: "Plutôt sobre et élégant, ou alors vivant et chaleureux..." },
+  { q: "Y a-t-il des codes visuels que vous voulez absolument éviter ?", hint: "Trop bistrot vintage, trop luxe froid, trop fast food coloré...", ph: "Je veux éviter le côté..." },
+  // 7-9
+  { q: "Qu'est-ce qui doit apparaître en premier sur le site ?", hint: "Le lieu, les plats, le chef, l'histoire, les valeurs...", ph: "En premier le cadre, puis les plats, puis..." },
+  { q: "La carte / le menu : affiché directement sur le site ou renvoi vers un PDF ? Elle change souvent ?", hint: "", ph: "On change la carte chaque semaine, PDF serait mieux..." },
+  { q: "Avez-vous des photos exploitables, ou on part de zéro côté visuels ?", hint: "", ph: "J'ai quelques belles photos du photographe X, sinon..." },
+  // 10-12
+  { q: "Y a-t-il une anecdote ou un détail sur votre établissement qu'on doit absolument raconter ?", hint: "", ph: "Le restaurant existe depuis 1926, on a une source naturelle..." },
+  { q: "Comment parlez-vous à vos clients au quotidien ?", hint: "Vouvoiement, tutoiement, ton formel, décontracté, humour...", ph: "On vouvoie toujours, on est chaleureux mais jamais familier..." },
+  { q: "Avez-vous vu sur un site concurrent quelque chose qui vous a agacé ou plu ?", hint: "", ph: "J'ai détesté le pop-up de X, j'ai adoré la galerie de Y..." },
+];
+
+const TOTAL_QUESTIONS = 12; // slides 1–12
+const PARTICLES = ['✨','⭐','💫','🌟','✦','◆','●','✸','❋','✺','★','⬥','▸','✧','⚡','🔥','💥','◉','✴','⬟'];
+
+// ──────────────────────────────────────────
+// STATE
+// ──────────────────────────────────────────
+let currentSlide = 0;
+let draft = { name: '', answers: {} };
+let isAnimating = false;
+
+function getSectionForSlide(idx) {
+  for (const s of SECTIONS) {
+    if (s.slides.includes(idx)) return s;
+  }
+  return null;
+}
+
+function getSectionColor(idx) {
+  if (idx === 0 || idx === 13) return '#6366F1';
+  const s = getSectionForSlide(idx);
+  return s ? s.color : '#6366F1';
+}
+
+// ──────────────────────────────────────────
+// BUILD SLIDES HTML
+// ──────────────────────────────────────────
+function buildSlides() {
+  const container = document.getElementById('slides');
+  container.innerHTML = '';
+
+  // Slide 0 – intro
+  container.appendChild(buildIntroSlide());
+
+  // Slides 1–12
+  for (let i = 1; i <= 12; i++) {
+    container.appendChild(buildQuestionSlide(i));
+  }
+
+  // Slide 13 – success
+  container.appendChild(buildSuccessSlide());
+}
+
+function buildIntroSlide() {
+  const div = document.createElement('div');
+  div.className = 'slide';
+  div.dataset.slide = '0';
+  div.innerHTML = `
+    <div class="slide-inner">
+      <p style="font-size:0.8rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Service Compris</p>
+      <h1 class="intro-title">Votre brief,<br>en 12 questions.</h1>
+      <p class="intro-subtitle">Nous allons créer votre site sur mesure.<br>Comptez 5 à 10 minutes.</p>
+      <div class="field-wrap">
+        <input type="text" id="input-name" placeholder="Nom de votre restaurant" autocomplete="off" spellcheck="false" />
+      </div>
+      <button class="btn-next btn-intro" data-action="next">C'est parti →</button>
+    </div>
+  `;
+  return div;
+}
+
+function buildQuestionSlide(idx) {
+  const data = QUESTIONS[idx];
+  const section = getSectionForSlide(idx);
+  const div = document.createElement('div');
+  div.className = 'slide';
+  div.dataset.slide = String(idx);
+
+  const hintHtml = data.hint ? `<p class="slide-hint">${data.hint}</p>` : '';
+  const isLast = idx === 12;
+
+  div.innerHTML = `
+    <div class="slide-inner">
+      <span class="section-badge">${section.label}</span>
+      <h2 class="slide-question">${data.q}</h2>
+      ${hintHtml}
+      <div class="field-wrap">
+        <textarea id="answer-${idx}" rows="4" placeholder="${data.ph}" spellcheck="false"></textarea>
+      </div>
+      <button class="btn-next btn-section" data-action="next">${isLast ? 'Terminer →' : 'Suivant →'}</button>
+    </div>
+  `;
+  return div;
+}
+
+function buildSuccessSlide() {
+  const div = document.createElement('div');
+  div.className = 'slide';
+  div.dataset.slide = '13';
+  div.innerHTML = `
+    <div class="slide-inner" style="align-items:center;text-align:center;gap:20px;">
+      <div class="checkmark-wrap">
+        <svg class="checkmark-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle class="checkmark-circle" cx="40" cy="40" r="36"/>
+          <polyline class="checkmark-check" points="24,40 35,52 56,28"/>
+        </svg>
+      </div>
+      <p class="success-title">Merci !</p>
+      <p class="success-sub">Vos réponses ont bien été enregistrées.<br>Notre équipe les analysera avant votre première réunion.</p>
+      <a href="resultats.html" class="btn-next btn-success">Voir tous les questionnaires →</a>
+    </div>
+  `;
+  return div;
+}
+
+// ──────────────────────────────────────────
+// NAVIGATION
+// ──────────────────────────────────────────
+function goTo(targetIdx, direction = 'forward') {
+  if (isAnimating) return;
+  if (targetIdx < 0 || targetIdx > 13) return;
+
+  // Validate slide 0 input
+  if (currentSlide === 0 && direction === 'forward') {
+    const nameInput = document.getElementById('input-name');
+    const val = nameInput ? nameInput.value.trim() : '';
+    if (!val) {
+      nameInput.style.borderBottom = '2px solid #EF4444';
+      nameInput.focus();
+      setTimeout(() => { nameInput.style.borderBottom = ''; }, 1200);
+      return;
+    }
+    draft.name = val;
+    draft.answers[0] = val;
+  }
+
+  // Save current answer if on a question slide
+  if (currentSlide >= 1 && currentSlide <= 12) {
+    const ta = document.getElementById(`answer-${currentSlide}`);
+    if (ta) draft.answers[currentSlide] = ta.value.trim();
+  }
+
+  // On reaching success slide, persist to localStorage
+  if (targetIdx === 13) {
+    persistBrief();
+  }
+
+  const fromSlide = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+  const toSlide   = document.querySelector(`.slide[data-slide="${targetIdx}"]`);
+  if (!fromSlide || !toSlide) return;
+
+  isAnimating = true;
+
+  // Trigger particles + flash on forward
+  if (direction === 'forward' && currentSlide !== 13) {
+    const btn = fromSlide.querySelector('.btn-next');
+    if (btn) spawnParticles(btn);
+    triggerFlash(getSectionColor(currentSlide));
+  }
+
+  // Exit current
+  fromSlide.classList.remove('active');
+  fromSlide.classList.add('exit');
+
+  // Prep incoming slide direction
+  toSlide.style.transform = direction === 'forward' ? 'translateY(60px)' : 'translateY(-60px)';
+  toSlide.style.opacity = '0';
+
+  setTimeout(() => {
+    fromSlide.classList.remove('exit');
+    currentSlide = targetIdx;
+    updateUI();
+
+    // Force reflow so transition fires
+    void toSlide.offsetWidth;
+    toSlide.style.transform = '';
+    toSlide.style.opacity = '';
+    toSlide.classList.add('active');
+
+    // Restore focus
+    if (targetIdx >= 1 && targetIdx <= 12) {
+      const ta = document.getElementById(`answer-${targetIdx}`);
+      if (ta) setTimeout(() => ta.focus(), 380);
+    } else if (targetIdx === 0) {
+      const inp = document.getElementById('input-name');
+      if (inp) setTimeout(() => inp.focus(), 380);
+    }
+
+    setTimeout(() => { isAnimating = false; }, 360);
+  }, 200);
+}
+
+function updateUI() {
+  // Section color
+  const color = getSectionColor(currentSlide);
+  document.documentElement.style.setProperty('--section-color', color);
+
+  // Flash background color
+  document.getElementById('flash').style.background = color;
+
+  // Progress bar
+  const bar = document.getElementById('progress-bar');
+  bar.style.background = color;
+  bar.style.boxShadow = `0 0 10px ${color}`;
+  if (currentSlide === 0 || currentSlide === 13) {
+    bar.style.width = currentSlide === 13 ? '100%' : '0%';
+  } else {
+    bar.style.width = `${(currentSlide / TOTAL_QUESTIONS) * 100}%`;
+  }
+
+  // Counter
+  const counter = document.getElementById('q-counter');
+  if (currentSlide >= 1 && currentSlide <= 12) {
+    counter.textContent = `Question ${currentSlide} / ${TOTAL_QUESTIONS}`;
+    counter.classList.add('visible');
+  } else {
+    counter.classList.remove('visible');
+  }
+
+  // Prev link
+  const prev = document.getElementById('prev-link');
+  if (currentSlide > 0 && currentSlide <= 12) {
+    prev.classList.add('visible');
+  } else {
+    prev.classList.remove('visible');
+  }
+
+  // Restore saved answer if returning to a slide
+  if (currentSlide >= 1 && currentSlide <= 12) {
+    const ta = document.getElementById(`answer-${currentSlide}`);
+    if (ta && draft.answers[currentSlide]) {
+      ta.value = draft.answers[currentSlide];
+    }
+  }
+
+  // Update btn-section colors dynamically
+  document.querySelectorAll('.btn-section').forEach(btn => {
+    btn.style.background = color;
+  });
+}
+
+// ──────────────────────────────────────────
+// PARTICLES
+// ──────────────────────────────────────────
+function spawnParticles(btn) {
+  const rect = btn.getBoundingClientRect();
+  const originX = rect.left + rect.width / 2;
+  const originY = rect.top + rect.height / 2;
+  const count = 22;
+
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+
+    const emoji = PARTICLES[Math.floor(Math.random() * PARTICLES.length)];
+    p.textContent = emoji;
+
+    const angle = (Math.random() * 360) * (Math.PI / 180);
+    const dist  = 80 + Math.random() * 220;
+    const dx    = Math.cos(angle) * dist;
+    const dy    = Math.sin(angle) * dist - (Math.random() * 80);
+    const size  = 0.8 + Math.random() * 1.4;
+    const dur   = 0.55 + Math.random() * 0.55;
+    const rot   = (Math.random() > 0.5 ? 1 : -1) * (180 + Math.random() * 360);
+
+    p.style.cssText = `
+      left: ${originX}px;
+      top: ${originY}px;
+      --dx: ${dx}px;
+      --dy: ${dy}px;
+      --size: ${size}rem;
+      --duration: ${dur}s;
+      --rot: ${rot}deg;
+      font-size: ${size}rem;
+    `;
+
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), dur * 1000 + 50);
+  }
+}
+
+// ──────────────────────────────────────────
+// FLASH
+// ──────────────────────────────────────────
+function triggerFlash(color) {
+  const flash = document.getElementById('flash');
+  flash.style.background = color;
+  flash.style.opacity = '0.18';
+  setTimeout(() => { flash.style.opacity = '0'; }, 200);
+}
+
+// ──────────────────────────────────────────
+// STORAGE
+// ──────────────────────────────────────────
+function persistBrief() {
+  if (!draft.name) return;
+  let store = {};
+  try { store = JSON.parse(localStorage.getItem('sc_briefs') || '{}'); } catch(e) {}
+  store[draft.name] = {
+    name: draft.name,
+    date: new Date().toISOString(),
+    answers: { ...draft.answers }
+  };
+  localStorage.setItem('sc_briefs', JSON.stringify(store));
+}
+
+// ──────────────────────────────────────────
+// EVENT LISTENERS
+// ──────────────────────────────────────────
+function attachEvents() {
+  document.addEventListener('click', (e) => {
+    const action = e.target.closest('[data-action]');
+    if (action && action.dataset.action === 'next') {
+      goTo(currentSlide + 1, 'forward');
+    }
+  });
+
+  document.getElementById('prev-link').addEventListener('click', () => {
+    goTo(currentSlide - 1, 'backward');
+  });
+
+  // Enter on name input = submit
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      if (e.target.id === 'input-name') {
+        e.preventDefault();
+        goTo(1, 'forward');
+      }
+      // On textarea: do nothing (allow default or just block submission)
+      if (e.target.tagName === 'TEXTAREA') {
+        // Allow natural newline, don't submit
+        e.stopPropagation();
+      }
+    }
+  });
+}
+
+// ──────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────
+function init() {
+  buildSlides();
+  attachEvents();
+  updateUI();
+
+  // Show intro slide
+  const introSlide = document.querySelector('.slide[data-slide="0"]');
+  introSlide.style.transform = 'translateY(0)';
+  introSlide.style.opacity = '1';
+  introSlide.classList.add('active');
+
+  setTimeout(() => {
+    const inp = document.getElementById('input-name');
+    if (inp) inp.focus();
+  }, 300);
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
