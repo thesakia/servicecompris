@@ -1,11 +1,1218 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Philip</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Philip | Cuisine Provençale depuis 1926 | Fontaine-de-Vaucluse</title>
+  <meta name="description" content="Restaurant familial depuis 1926 au pied de la fontaine de Vaucluse. Cuisine traditionnelle provençale, terrasse sur la Sorgue. Guide Michelin, Gault &amp; Millau. Réservation par téléphone.">
+  <meta name="keywords" content="restaurant fontaine de vaucluse, restaurant philip, cuisine provençale, guide michelin vaucluse, terrasse sorgue, restaurant familial provence, truffe vaucluse, truite sorgue">
+  <meta property="og:title" content="Restaurant Philip | Cuisine Provençale depuis 1926">
+  <meta property="og:description" content="Restaurant familial depuis 1926 au pied de la fontaine de Vaucluse. Cuisine traditionnelle provençale, terrasse sur la Sorgue.">
+  <meta property="og:type" content="restaurant.restaurant">
+  <meta property="og:locale" content="fr_FR">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%233D4F2F'/><text y='74' x='50' text-anchor='middle' font-size='68' font-family='Georgia,serif' fill='%23C9A96E' font-weight='bold'>P</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Libre+Bodoni:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=Work+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Restaurant Philip",
+    "alternateName": "Restaurant Philip Jardin de Pétrarque",
+    "description": "Restaurant familial depuis 1926 au pied de la fontaine de Vaucluse. Cuisine traditionnelle provençale, terrasse au bord de la Sorgue.",
+    "telephone": "+33975592863",
+    "email": "restphilipjardinpetrarque@orange.fr",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "510 Chemin de la Fontaine",
+      "addressLocality": "Fontaine-de-Vaucluse",
+      "postalCode": "84800",
+      "addressRegion": "Vaucluse",
+      "addressCountry": "FR"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 43.92137, "longitude": 5.130576 },
+    "servesCuisine": ["Française", "Provençale", "Traditionnelle"],
+    "priceRange": "€€-€€€",
+    "foundingDate": "1926",
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.4", "reviewCount": "1930", "bestRating": "5" },
+    "paymentAccepted": "Cash, Credit Card, Visa, Mastercard",
+    "amenityFeature": [
+      {"@type": "LocationFeatureSpecification", "name": "Terrace", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "WiFi", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Pets Allowed", "value": true}
+    ]
+  }
+  </script>
+
+  <style>
+    /* ============================
+       RESET
+    ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; background: none; border: none; }
+
+    /* ============================
+       THEME VARIABLES
+    ============================ */
+    body.t1 {
+      --bg:          #FAF8F0;
+      --bg2:         #F0EAD6;
+      --surface:     #FFFFFF;
+      --text:        #2A2218;
+      --muted:       #7A6A52;
+      --accent:      #3D4F2F;
+      --gold:        #C9A96E;
+      --terracotta:  #B5654A;
+      --btn:         #3D4F2F;
+      --btn-text:    #FAF8F0;
+      --btn-hover:   #2A3820;
+      --border:      rgba(61,79,47,0.15);
+      --divider:     #C9A96E;
+      --overlay:     rgba(20,15,5,0.48);
+      --header-bg:   rgba(250,248,240,0.96);
+      --hf:          'Playfair Display', Georgia, serif;
+      --bf:          'Lora', Georgia, serif;
+    }
+    body.t2 {
+      --bg:          #FFFFFF;
+      --bg2:         #EEF7F6;
+      --surface:     #F5FBFA;
+      --text:        #1A3A4A;
+      --muted:       #5A7A8A;
+      --accent:      #2E8B8B;
+      --gold:        #B8D8D0;
+      --terracotta:  #E8DCC8;
+      --btn:         #2E8B8B;
+      --btn-text:    #FFFFFF;
+      --btn-hover:   #1F6B6B;
+      --border:      rgba(46,139,139,0.18);
+      --divider:     #2E8B8B;
+      --overlay:     rgba(10,30,45,0.52);
+      --header-bg:   rgba(255,255,255,0.96);
+      --hf:          'DM Serif Display', Georgia, serif;
+      --bf:          'Source Serif 4', Georgia, serif;
+    }
+    body.t3 {
+      --bg:          #1C1A17;
+      --bg2:         #231F1A;
+      --surface:     #2A241E;
+      --text:        #F2EDE4;
+      --muted:       #9A9080;
+      --accent:      #C4703F;
+      --gold:        #C4703F;
+      --terracotta:  #7A8B6F;
+      --btn:         #C4703F;
+      --btn-text:    #F2EDE4;
+      --btn-hover:   #A85C30;
+      --border:      rgba(242,237,228,0.1);
+      --divider:     #C4703F;
+      --overlay:     rgba(10,8,5,0.58);
+      --header-bg:   rgba(28,26,23,0.97);
+      --hf:          'Libre Bodoni', Georgia, serif;
+      --bf:          'Work Sans', system-ui, sans-serif;
+    }
+
+    /* ============================
+       BASE
+    ============================ */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--bf);
+      line-height: 1.7;
+      transition: background .35s, color .35s;
+    }
+    h1, h2, h3, h4 { font-family: var(--hf); line-height: 1.15; }
+
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+    section { padding: 96px 0; }
+    .alt { background: var(--bg2); }
+
+    .label {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: .6rem;
+    }
+    .title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+    .title em { font-style: italic; color: var(--accent); }
+
+    .rule {
+      height: 2px;
+      background: var(--divider);
+      border-radius: 2px;
+      width: 56px;
+      margin-bottom: 2.4rem;
+    }
+    .rule.center { margin-left: auto; margin-right: auto; }
+
+    /* ============================
+       BUTTONS
+    ============================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--btn);
+      color: var(--btn-text);
+      font-family: var(--bf);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 13px 26px;
+      border-radius: 4px;
+      transition: background .2s, transform .2s;
+    }
+    .btn:hover { background: var(--btn-hover); transform: translateY(-1px); }
+    .btn svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
+    .btn-ghost {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,.55);
+      color: #fff;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.12); transform: translateY(-1px); }
+
+    /* ============================
+       HEADER
+    ============================ */
+    #hdr {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      background: var(--header-bg);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .hdr-in {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 28px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .logo-wrap { display: flex; flex-direction: column; line-height: 1; }
+    .logo-name { font-family: var(--hf); font-size: 1.2rem; font-weight: 700; }
+    .logo-since {
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-size: .74rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      position: relative;
+      transition: color .2s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform .25s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .hbg {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .hbg span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+
+    /* ============================
+       HERO
+    ============================ */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 580px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('img/hero-village-riviere.jpg') center/cover no-repeat;
+      will-change: transform;
+    }
+    .hero-ov { position: absolute; inset: 0; background: var(--overlay); }
+    .hero-body {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: #fff;
+      padding: 0 24px;
+      max-width: 820px;
+    }
+    .hero-pill {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.85);
+      border: 1px solid rgba(255,255,255,.35);
+      padding: 6px 18px;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-h1 {
+      font-family: var(--hf);
+      font-size: clamp(3.2rem, 9vw, 6.5rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: .95;
+      margin-bottom: 1.1rem;
+      text-shadow: 0 2px 40px rgba(0,0,0,.3);
+    }
+    .hero-sub {
+      font-family: var(--bf);
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: rgba(255,255,255,.82);
+      font-style: italic;
+      margin-bottom: 2.5rem;
+    }
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero-arrow {
+      position: absolute;
+      bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,.55);
+      font-size: .62rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      z-index: 1;
+    }
+    .hero-arrow i {
+      display: block;
+      width: 16px; height: 16px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      animation: arrowbounce 2s infinite;
+    }
+    @keyframes arrowbounce {
+      0%,100% { transform: rotate(45deg) translateY(0); }
+      50%      { transform: rotate(45deg) translateY(5px); }
+    }
+
+    /* ============================
+       HISTOIRE
+    ============================ */
+    .histoire-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .histoire-text p {
+      font-size: 1.02rem;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+    .timeline { margin-top: 2.5rem; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 13px; top: 0; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .tl-item {
+      display: flex;
+      gap: 1.2rem;
+      margin-bottom: 1.75rem;
+    }
+    .tl-dot {
+      width: 26px; height: 26px;
+      min-width: 26px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .tl-dot::after {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .tl-year {
+      font-family: var(--hf);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+    }
+    .tl-desc { font-size: .88rem; color: var(--muted); margin-top: 2px; }
+
+    .hist-imgs {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 14px;
+      height: 520px;
+    }
+    .hist-img {
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .hist-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+    .hist-img:hover img { transform: scale(1.05); }
+
+    /* ============================
+       CADRE
+    ============================ */
+    #cadre { text-align: center; }
+    .cadre-text {
+      max-width: 660px;
+      margin: 0 auto 3rem;
+      font-size: 1.02rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 265px 265px;
+      gap: 10px;
+      text-align: left;
+    }
+    .g-item {
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .g-item:first-child { grid-row: span 2; }
+    .g-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s, filter .3s;
+    }
+    .g-item:hover img { transform: scale(1.06); filter: brightness(.88); }
+    .g-ov {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0);
+      transition: background .3s;
+    }
+    .g-ov svg {
+      width: 28px; height: 28px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 1.8;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .g-item:hover .g-ov { background: rgba(0,0,0,.22); }
+    .g-item:hover .g-ov svg { opacity: 1; }
+
+    /* ============================
+       CARTE
+    ============================ */
+    .carte-intro { font-size: 1.02rem; color: var(--muted); max-width: 640px; margin-bottom: .5rem; }
+    .carte-note { font-size: .8rem; font-style: italic; color: var(--muted); margin-bottom: 2.8rem; opacity: .7; }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 2.5rem;
+    }
+    .tab {
+      font-family: var(--bf);
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 9px 20px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      transition: all .2s;
+    }
+    .tab.on, .tab:hover { background: var(--btn); color: var(--btn-text); border-color: var(--btn); }
+
+    .panel { display: none; }
+    .panel.on { display: grid; grid-template-columns: 1fr 1fr; gap: 0 52px; }
+
+    .mi {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: .95rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mi:last-child { border-bottom: none; }
+    .mi-name { font-family: var(--hf); font-size: .98rem; font-weight: 600; color: var(--text); }
+    .mi-desc { font-size: .8rem; color: var(--muted); font-style: italic; margin-top: 2px; }
+    .mi-price { font-size: .88rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
+
+    .menus-cards {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1.5rem;
+    }
+    .mc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem 1.75rem;
+      text-align: center;
+    }
+    .mc.star { background: var(--btn); border-color: var(--btn); }
+    .mc-label { font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: .4rem; }
+    .mc.star .mc-label { color: rgba(255,255,255,.7); }
+    .mc-name { font-family: var(--hf); font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: .4rem; }
+    .mc.star .mc-name { color: var(--btn-text); }
+    .mc-price { font-family: var(--hf); font-size: 2.2rem; font-weight: 900; color: var(--accent); }
+    .mc.star .mc-price { color: var(--btn-text); }
+    .mc-price sup { font-size: 1rem; vertical-align: super; }
+    .mc-desc { font-size: .82rem; color: var(--muted); margin-top: 1rem; line-height: 1.65; }
+    .mc.star .mc-desc { color: rgba(255,255,255,.75); }
+
+    .carte-photo {
+      width: 100%;
+      max-height: 340px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 3rem;
+    }
+
+    /* ============================
+       DISTINCTIONS
+    ============================ */
+    #distinctions { text-align: center; }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-bottom: 3.5rem;
+    }
+    .badge {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem 1.8rem;
+      min-width: 150px;
+      transition: border-color .2s, transform .2s;
+    }
+    .badge:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .badge-ico { font-size: 1.6rem; display: block; margin-bottom: .4rem; }
+    .badge-name { font-family: var(--hf); font-size: .9rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 2px; }
+    .badge-sub { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); }
+
+    .pullquote {
+      max-width: 680px;
+      margin: 0 auto 3.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1.8rem 2.4rem;
+      text-align: left;
+    }
+    .pq-text {
+      font-family: var(--hf);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.65;
+      margin-bottom: .75rem;
+    }
+    .pq-source { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+    .stat-val { font-family: var(--hf); font-size: 2.5rem; font-weight: 900; color: var(--accent); display: block; line-height: 1; }
+    .stat-lbl { font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-top: 4px; }
+
+    /* ============================
+       INFOS
+    ============================ */
+    .infos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .infos-grid iframe {
+      width: 100%;
+      height: 380px;
+      border: 0;
+      border-radius: 8px;
+    }
+    .info-block { margin-bottom: 1.8rem; }
+    .info-block h4 {
+      font-family: var(--hf);
+      font-size: .98rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .5rem;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .info-block p, .info-block li { font-size: .9rem; color: var(--muted); line-height: 1.75; }
+    .info-block ul { padding-left: 1.1rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+    .chip {
+      font-size: .7rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+    }
+    .info-cta {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .info-cta p { font-size: .88rem; color: var(--muted); font-style: italic; margin-bottom: .85rem; }
+    .tel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--hf);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      transition: color .2s;
+    }
+    .tel-link:hover { color: var(--btn-hover); }
+    .tel-link svg { width: 22px; height: 22px; fill: currentColor; }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 64px 0 40px;
+    }
+    .ft-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .ft-brand p { font-size: .85rem; color: var(--muted); margin-top: .75rem; line-height: 1.7; }
+    .ft-col h4 { font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); margin-bottom: .9rem; }
+    .ft-col ul { list-style: none; }
+    .ft-col li { margin-bottom: .45rem; }
+    .ft-col a { font-size: .86rem; color: var(--muted); transition: color .2s; }
+    .ft-col a:hover { color: var(--accent); }
+    .ft-social { display: flex; gap: .65rem; margin-top: 1rem; }
+    .soc {
+      width: 36px; height: 36px;
+      border-radius: 6px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, border-color .2s;
+    }
+    .soc svg { width: 15px; height: 15px; fill: var(--muted); transition: fill .2s; }
+    .soc:hover { background: var(--btn); border-color: var(--btn); }
+    .soc:hover svg { fill: var(--btn-text); }
+    .ft-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .75rem;
+    }
+    .ft-bottom p, .ft-bottom a { font-size: .72rem; color: var(--muted); }
+    .ft-bottom a:hover { color: var(--accent); }
+
+    /* ============================
+       THEME SWITCHER
+    ============================ */
+    .switcher {
+      position: fixed;
+      bottom: 1.5rem; right: 1.5rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.15);
+    }
+    .sw {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2.5px solid transparent;
+      transition: transform .2s, border-color .2s;
+    }
+    .sw:hover { transform: scale(1.15); }
+    .sw.on { border-color: var(--text); }
+    .sw1 { background: #3D4F2F; }
+    .sw2 { background: #2E8B8B; }
+    .sw3 { background: #C4703F; }
+
+    /* ============================
+       MOBILE CTA
+    ============================ */
+    .mob-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 800;
+      padding: 12px 16px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .mob-cta .btn { width: 100%; justify-content: center; }
+
+    /* ============================
+       LIGHTBOX
+    ============================ */
+    #lb {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,.93);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    #lb.open { display: flex; }
+    #lb img { max-width: 92vw; max-height: 88vh; object-fit: contain; border-radius: 4px; }
+    #lb-x {
+      position: absolute;
+      top: 1rem; right: 1.5rem;
+      color: #fff;
+      font-size: 2.2rem;
+      line-height: 1;
+      opacity: .65;
+      transition: opacity .2s;
+    }
+    #lb-x:hover { opacity: 1; }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 1024px) {
+      .histoire-grid, .infos-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .hist-imgs { height: 280px; grid-template-rows: 1fr; grid-template-columns: 1fr 1fr; }
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .gallery .g-item:first-child { grid-row: span 1; }
+      .menus-cards { grid-template-columns: 1fr; }
+      .ft-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 68px 0; }
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 70px; left: 0; right: 0;
+        background: var(--header-bg);
+        flex-direction: column;
+        padding: 1.5rem 2rem;
+        gap: 1.25rem;
+        border-bottom: 1px solid var(--border);
+        z-index: 800;
+        backdrop-filter: blur(14px);
+      }
+      .nav-links.open { display: flex; }
+      .hbg { display: flex; }
+      .hdr-in .btn { display: none; }
+      .mob-cta { display: block; }
+      .panel.on { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .ft-grid { grid-template-columns: 1fr; }
+      .ft-bottom { flex-direction: column; text-align: center; }
+      .stats { gap: 2rem; }
+      .switcher { bottom: 5rem; }
+    }
+  </style>
 </head>
-<body>
-  <p>à venir</p>
+<body class="t1">
+
+<!-- ========== HEADER ========== -->
+<header id="hdr">
+  <div class="hdr-in">
+    <a href="#hero" class="logo-wrap">
+      <span class="logo-name">Restaurant Philip</span>
+      <span class="logo-since">Depuis 1926</span>
+    </a>
+    <nav class="nav-links" id="nav">
+      <a href="#histoire">Notre histoire</a>
+      <a href="#cadre">Le cadre</a>
+      <a href="#carte">La carte</a>
+      <a href="#distinctions">Distinctions</a>
+      <a href="#infos">Infos pratiques</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <a href="tel:+33975592863" class="btn">
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        Réserver
+      </a>
+      <button class="hbg" id="hbg" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section id="hero">
+  <div class="hero-bg" id="hbg-img"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-body">
+    <span class="hero-pill">Depuis 1926 · Fontaine-de-Vaucluse</span>
+    <h1 class="hero-h1">Restaurant<br>Philip</h1>
+    <p class="hero-sub">Au pied de la fontaine, au coeur du Jardin de Pétrarque</p>
+    <div class="hero-ctas">
+      <a href="tel:+33975592863" class="btn">
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        Réserver par téléphone
+      </a>
+      <a href="#cadre" class="btn btn-ghost">Découvrir</a>
+    </div>
+  </div>
+  <div class="hero-arrow">
+    <span>Défiler</span>
+    <i></i>
+  </div>
+</section>
+
+<!-- ========== HISTOIRE ========== -->
+<section id="histoire" class="alt">
+  <div class="container">
+    <div class="histoire-grid">
+      <div data-aos="fade-right">
+        <span class="label">Notre histoire</span>
+        <h2 class="title">Une histoire<br>de <em>famille</em></h2>
+        <div class="rule"></div>
+        <p>En 1926, une famille ouvre les portes d'un restaurant au coeur de Fontaine-de-Vaucluse. Presque un siècle plus tard, la même passion se transmet de génération en génération.</p>
+        <p>Aujourd'hui, Camille, 4e génération, perpétue cet héritage aux fourneaux. Ici, la cuisine se transmet comme un secret de famille : avec amour, exigence et le respect absolu du produit.</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <span class="tl-year">1926</span>
+              <p class="tl-desc">Fondation de la maison familiale à Fontaine-de-Vaucluse</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <span class="tl-year">Années 60</span>
+              <p class="tl-desc">Première sélection au Guide Michelin, début d'une longue fidélité</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <span class="tl-year">Aujourd'hui</span>
+              <p class="tl-desc">Camille Legrand, 4e génération, perpétue l'art d'une cuisine provençale d'exception</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hist-imgs" data-aos="fade-left">
+        <div class="hist-img" onclick="lb('img/cuisine-flambe.jpg')">
+          <img src="img/cuisine-flambe.jpg" alt="Savoir-faire en cuisine" loading="lazy">
+        </div>
+        <div class="hist-img" onclick="lb('img/chef-en-cuisine.jpg')">
+          <img src="img/chef-en-cuisine.jpg" alt="Le chef en cuisine" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CADRE ========== -->
+<section id="cadre">
+  <div class="container">
+    <span class="label" data-aos="fade-up">Le cadre</span>
+    <h2 class="title center" style="text-align:center" data-aos="fade-up">Un cadre<br><em>hors du temps</em></h2>
+    <div class="rule center" data-aos="fade-up"></div>
+    <p class="cadre-text" data-aos="fade-up">Au bout du chemin, là où la Sorgue jaillit de la roche, notre terrasse s'ouvre sur un spectacle naturel rare. L'eau cristalline affleure les tables. Les cascades murmurent en toile de fond. Face aux vestiges de l'ancien canal romain, dans le Jardin de Pétrarque, chaque repas devient un moment suspendu.</p>
+    <div class="gallery" data-aos="fade-up">
+      <div class="g-item" onclick="lb('img/hero-village-riviere.jpg')">
+        <img src="img/hero-village-riviere.jpg" alt="Village au bord de la Sorgue" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="g-item" onclick="lb('img/cadre-salle-interieure.jpg')">
+        <img src="img/cadre-salle-interieure.jpg" alt="Salle intérieure" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="g-item" onclick="lb('img/boisson-fraicheur.jpg')">
+        <img src="img/boisson-fraicheur.jpg" alt="Fraîcheur en terrasse" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="g-item" onclick="lb('img/cuisine-dressage.jpg')">
+        <img src="img/cuisine-dressage.jpg" alt="Dressage en cuisine" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="g-item" onclick="lb('img/produits-frais-terroir.jpg')">
+        <img src="img/produits-frais-terroir.jpg" alt="Produits frais du terroir" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CARTE ========== -->
+<section id="carte" class="alt">
+  <div class="container">
+    <span class="label" data-aos="fade-up">La carte</span>
+    <h2 class="title" data-aos="fade-up">Cuisine de terroir,<br><em>produits d'exception</em></h2>
+    <div class="rule" data-aos="fade-up"></div>
+    <p class="carte-intro" data-aos="fade-up">Notre cuisine s'inspire des saisons et du terroir provençal. Truffe des Monts du Vaucluse, truite de la Sorgue, écrevisses de notre vivier, agneau de Sisteron... Chaque assiette raconte notre terre.</p>
+    <p class="carte-note" data-aos="fade-up">Carte variable selon la saison et les arrivages du marché.</p>
+
+    <div class="tabs" data-aos="fade-up">
+      <button class="tab on" onclick="tab(this,'p-ent')">Entrées</button>
+      <button class="tab" onclick="tab(this,'p-poi')">Poissons &amp; crustacés</button>
+      <button class="tab" onclick="tab(this,'p-via')">Viandes</button>
+      <button class="tab" onclick="tab(this,'p-des')">Desserts</button>
+      <button class="tab" onclick="tab(this,'p-men')">Nos menus</button>
+    </div>
+
+    <!-- Entrées -->
+    <div class="panel on" id="p-ent">
+      <div class="mi"><div><div class="mi-name">Asperges du pays</div><div class="mi-desc">Vapeur, tempura ou mousse, vertes et blanches selon arrivage</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Escargots de Provence</div><div class="mi-desc">Beurre aux herbes, tradition maison</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Omelette aux truffes</div><div class="mi-desc">Truffe des Monts du Vaucluse, en saison</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Quenelle à la truffe</div><div class="mi-desc">Truffe d'été du Vaucluse, beurre noisette</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Velouté maison</div><div class="mi-desc">Selon les légumes du marché</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Salade de saison</div><div class="mi-desc">Produits locaux, vinaigrette maison</div></div><span class="mi-price">Carte</span></div>
+    </div>
+
+    <!-- Poissons -->
+    <div class="panel" id="p-poi">
+      <div class="mi"><div><div class="mi-name">Truite de la Sorgue</div><div class="mi-desc">En trois cuissons, pommes de terre et épinards - plat signature</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Ecrevisses du vivier</div><div class="mi-desc">Pêchées dans notre vivier alimenté par la Sorgue</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Coquilles Saint-Jacques</div><div class="mi-desc">En saison, préparation maison</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Cuisses de grenouille</div><div class="mi-desc">Persillade, beurre noisette</div></div><span class="mi-price">Carte</span></div>
+    </div>
+
+    <!-- Viandes -->
+    <div class="panel" id="p-via">
+      <div class="mi"><div><div class="mi-name">Agneau de Sisteron</div><div class="mi-desc">Préparation traditionnelle, légumes de saison</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Canard du terroir</div><div class="mi-desc">Selon la tradition provençale</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Ratatouille maison</div><div class="mi-desc">Légumes du pays, mijotée lentement</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Suggestion du marché</div><div class="mi-desc">Selon les arrivages, demandez en salle</div></div><span class="mi-price">Carte</span></div>
+    </div>
+
+    <!-- Desserts -->
+    <div class="panel" id="p-des">
+      <div class="mi"><div><div class="mi-name">Saint-Honoré maison</div><div class="mi-desc">Signature de la maison, pâtisserie fine</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Tartelette fraises et abricot</div><div class="mi-desc">Fraises du pays, fond d'abricot</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Fromages de la région</div><div class="mi-desc">Servis avec confiture de gigerine maison</div></div><span class="mi-price">Carte</span></div>
+      <div class="mi"><div><div class="mi-name">Pâtisseries maison du jour</div><div class="mi-desc">Meringues, verrines, créations selon l'inspiration</div></div><span class="mi-price">Carte</span></div>
+    </div>
+
+    <!-- Menus -->
+    <div class="panel" id="p-men">
+      <div class="menus-cards">
+        <div class="mc" data-aos="fade-up">
+          <span class="mc-label">Menu</span>
+          <div class="mc-name">Découverte</div>
+          <div class="mc-price">29<sup>€</sup></div>
+          <p class="mc-desc">Entrée + Plat + Dessert<br>Le meilleur rapport qualité/plaisir<br>pour découvrir notre cuisine</p>
+        </div>
+        <div class="mc star" data-aos="fade-up" data-aos-delay="80">
+          <span class="mc-label">Menu</span>
+          <div class="mc-name">Terroir</div>
+          <div class="mc-price">39<sup>€</sup></div>
+          <p class="mc-desc">Entrée + Plat + Fromage + Dessert<br>Le coeur de notre cuisine provençale<br>avec les produits du marché</p>
+        </div>
+        <div class="mc" data-aos="fade-up" data-aos-delay="160">
+          <span class="mc-label">Menu</span>
+          <div class="mc-name">Prestige</div>
+          <div class="mc-price">58<sup>€</sup></div>
+          <p class="mc-desc">Entrée + Plat signature + Fromage + Dessert<br>Truite de la Sorgue, truffe, produits d'exception<br>L'expérience Philip dans sa plénitude</p>
+        </div>
+      </div>
+    </div>
+
+    <img src="img/plat-viande-gastronomique.jpg" alt="Gastronomie provençale" class="carte-photo" loading="lazy" data-aos="fade-up">
+  </div>
+</section>
+
+<!-- ========== DISTINCTIONS ========== -->
+<section id="distinctions">
+  <div class="container">
+    <span class="label" style="text-align:center;display:block" data-aos="fade-up">Reconnus</span>
+    <h2 class="title" style="text-align:center" data-aos="fade-up">Ils parlent<br><em>de nous</em></h2>
+    <div class="rule center" data-aos="fade-up"></div>
+
+    <div class="badges" data-aos="fade-up">
+      <div class="badge"><span class="badge-ico">★</span><span class="badge-name">Guide Michelin</span><span class="badge-sub">Sélectionné depuis 60 ans</span></div>
+      <div class="badge"><span class="badge-ico">◆</span><span class="badge-name">Gault &amp; Millau</span><span class="badge-sub">Sélectionné</span></div>
+      <div class="badge"><span class="badge-ico">●</span><span class="badge-name">Petit Futé</span><span class="badge-sub">Référencé</span></div>
+      <div class="badge"><span class="badge-ico">▲</span><span class="badge-name">Guide du Routard</span><span class="badge-sub">Référencé</span></div>
+      <div class="badge"><span class="badge-ico">✦</span><span class="badge-name">TripAdvisor</span><span class="badge-sub">Travellers' Choice · N°2</span></div>
+    </div>
+
+    <div class="pullquote" data-aos="fade-up">
+      <p class="pq-text">"Au pied de la célèbre fontaine d'où jaillit la Sorgue, cette adresse sait jouer de ses charmes bucoliques. Pere et fille proposent une cuisine qui joue efficacement la carte de la tradition."</p>
+      <span class="pq-source">Guide Michelin</span>
+    </div>
+
+    <div class="stats" data-aos="fade-up">
+      <div class="stat-item"><span class="stat-val">4.4</span><span class="stat-lbl">Restaurant Guru<br>1930+ avis</span></div>
+      <div class="stat-item"><span class="stat-val">9.1</span><span class="stat-lbl">PACA Tourisme<br>Excellent</span></div>
+      <div class="stat-item"><span class="stat-val">800+</span><span class="stat-lbl">Avis TripAdvisor<br>N°2 sur 22</span></div>
+      <div class="stat-item"><span class="stat-val">60+</span><span class="stat-lbl">Années au<br>Guide Michelin</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== INFOS ========== -->
+<section id="infos" class="alt">
+  <div class="container">
+    <span class="label" data-aos="fade-up">Venir nous voir</span>
+    <h2 class="title" data-aos="fade-up">Nous <em>trouver</em></h2>
+    <div class="rule" data-aos="fade-up"></div>
+    <div class="infos-grid">
+      <div data-aos="fade-right">
+        <iframe
+          src="https://maps.google.com/maps?q=43.92137,5.130576&z=16&output=embed"
+          loading="lazy"
+          title="Localisation Restaurant Philip"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div data-aos="fade-left">
+        <div class="info-block">
+          <h4><span>📍</span> Adresse</h4>
+          <p>510 Chemin de la Fontaine<br>84800 Fontaine-de-Vaucluse</p>
+          <p style="margin-top:6px;font-size:.82rem;font-style:italic">Dernier restaurant avant la source. Parking P2 à 300 m.</p>
+        </div>
+        <div class="info-block">
+          <h4><span>🗓️</span> Saison et horaires</h4>
+          <ul>
+            <li>Ouvert du 1er avril au 30 septembre</li>
+            <li>Tous les jours de 10h à 20h30</li>
+            <li>Service du soir de mi-juin à fin août uniquement</li>
+          </ul>
+        </div>
+        <div class="info-block">
+          <div class="chips">
+            <span class="chip">💳 CB acceptée</span>
+            <span class="chip">♿ Accessible PMR</span>
+            <span class="chip">🐾 Animaux tolérés</span>
+            <span class="chip">📶 WiFi disponible</span>
+            <span class="chip">🅿️ Parking à 300 m</span>
+          </div>
+        </div>
+        <div class="info-cta">
+          <p>La réservation est obligatoire en saison. Appelez-nous directement.</p>
+          <a href="tel:+33975592863" class="tel-link">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            +33 9 75 59 28 63
+          </a>
+          <div style="margin-top:1.5rem">
+            <a href="tel:+33975592863" class="btn">Appeler pour réserver</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="logo-wrap">
+          <span class="logo-name">Restaurant Philip</span>
+          <span class="logo-since">Depuis 1926</span>
+        </div>
+        <p>Jardin de Pétrarque<br>510 Chemin de la Fontaine<br>84800 Fontaine-de-Vaucluse</p>
+        <div class="ft-social">
+          <a href="https://www.facebook.com/p/Restaurant-Philip-depuis-1926-100063526208458/" target="_blank" rel="noopener" class="soc" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/restaurantphilip/" target="_blank" rel="noopener" class="soc" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#histoire">Notre histoire</a></li>
+          <li><a href="#cadre">Le cadre</a></li>
+          <li><a href="#carte">La carte</a></li>
+          <li><a href="#distinctions">Distinctions</a></li>
+          <li><a href="#infos">Infos pratiques</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+33975592863">+33 9 75 59 28 63</a></li>
+          <li><a href="mailto:restphilipjardinpetrarque@orange.fr">Envoyer un email</a></li>
+        </ul>
+        <div style="margin-top:1.4rem">
+          <a href="tel:+33975592863" class="btn" style="font-size:.76rem;padding:10px 18px">Réserver</a>
+        </div>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <p>© 2026 Restaurant Philip Jardin de Pétrarque, SARL - RCS Avignon 642 620 181</p>
+      <a href="#">Mentions légales</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile CTA -->
+<div class="mob-cta">
+  <a href="tel:+33975592863" class="btn">
+    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+    Appeler pour réserver
+  </a>
+</div>
+
+<!-- Theme switcher -->
+<div class="switcher" role="group" aria-label="Choisir un thème">
+  <button class="sw sw1 on" onclick="setTheme('t1',this)" title="Provence Eternelle"></button>
+  <button class="sw sw2"    onclick="setTheme('t2',this)" title="Eau Vive"></button>
+  <button class="sw sw3"    onclick="setTheme('t3',this)" title="Terroir Brut"></button>
+</div>
+
+<!-- Lightbox -->
+<div id="lb" role="dialog" aria-modal="true">
+  <button id="lb-x" onclick="closeLb()" aria-label="Fermer">&times;</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 680, once: true, offset: 70 });
+
+  // Theme
+  function setTheme(t, el) {
+    document.body.className = t;
+    document.querySelectorAll('.sw').forEach(s => s.classList.remove('on'));
+    el.classList.add('on');
+    localStorage.setItem('ph-theme', t);
+  }
+  (function() {
+    const s = localStorage.getItem('ph-theme');
+    if (s) {
+      const el = document.querySelector('.sw' + s.slice(-1));
+      if (el) setTheme(s, el);
+    }
+  })();
+
+  // Tabs
+  function tab(btn, id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+    btn.classList.add('on');
+    document.getElementById(id).classList.add('on');
+  }
+
+  // Lightbox
+  function lb(src) {
+    document.getElementById('lb-img').src = src;
+    document.getElementById('lb').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() {
+    document.getElementById('lb').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('lb').addEventListener('click', function(e) { if (e.target === this) closeLb(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+  // Mobile nav
+  document.getElementById('hbg').addEventListener('click', function() {
+    document.getElementById('nav').classList.toggle('open');
+  });
+  document.querySelectorAll('#nav a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('nav').classList.remove('open'));
+  });
+
+  // Hero parallax
+  const heroBg = document.getElementById('hbg-img');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY < window.innerHeight)
+      heroBg.style.transform = 'translateY(' + (window.scrollY * 0.28) + 'px)';
+  }, { passive: true });
+</script>
 </body>
 </html>
