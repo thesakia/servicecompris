@@ -575,6 +575,66 @@
     .footer-bottom a { color: rgba(148,163,184,.45); text-decoration: underline; }
 
     /* ========================
+       NAV LINKS
+    ======================== */
+    .nav-links {
+      display: none;
+      gap: 2px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--slate);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,.05); }
+
+    /* ========================
+       TEAM SECTION
+    ======================== */
+    #equipe { padding: 80px 0; }
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .team-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 32px 24px;
+      text-align: center;
+      transition: border-color .2s, transform .2s;
+    }
+    .team-card:hover { border-color: rgba(190,242,100,.2); transform: translateY(-2px); }
+    .team-avatar {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 20px;
+      border: 2px solid rgba(190,242,100,.3);
+    }
+    .team-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .team-role {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 14px;
+    }
+    .team-bio { font-size: .85rem; color: var(--slate); line-height: 1.65; }
+
+    /* ========================
        RESPONSIVE - TABLET +
     ======================== */
     @media (min-width: 640px) {
@@ -582,6 +642,11 @@
       .btn-lime-lg { width: auto; }
       .cards-3 { grid-template-columns: 1fr 1fr; }
       .pricing-grid { grid-template-columns: 1fr 1fr; }
+      .team-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (min-width: 768px) {
+      .nav-links { display: flex; }
     }
 
     @media (min-width: 900px) {
@@ -601,11 +666,16 @@
 <nav>
   <div class="container nav-in">
     <a href="/" class="nav-logo" aria-label="Service Compris">
+      <span class="nav-logo-text"><span>Service</span> Compris</span>
     </a>
-    <div style="display:flex;gap:10px;align-items:center">
-      <a href="#tarifs" class="btn btn-outline" style="display:none" id="nav-tarifs">Tarifs</a>
-      <a href="#tarifs" class="btn btn-lime">Voir les offres</a>
+    <div class="nav-links">
+      <a href="#probleme">Notre approche</a>
+      <a href="#galerie">Réalisations</a>
+      <a href="#innovation">Menu numérique</a>
+      <a href="#equipe">L'équipe</a>
+      <a href="#tarifs">Tarifs</a>
     </div>
+    <a href="#tarifs" class="btn btn-lime">Voir les offres</a>
   </div>
 </nav>
 
@@ -896,6 +966,39 @@
   </div>
 </section>
 
+<!-- ========== TEAM ========== -->
+<section id="equipe">
+  <div class="container">
+    <span class="section-label reveal">L'équipe</span>
+    <h2 class="section-title reveal">Des experts qui<br><span class="lime">maîtrisent votre secteur.</span></h2>
+    <p class="reveal" style="color:var(--slate);font-size:.95rem;max-width:560px;margin-top:-20px">Nous ne sommes pas une agence généraliste. Chaque membre connaît les contraintes du monde de la restauration.</p>
+    <div class="team-grid">
+
+      <div class="team-card reveal">
+        <img src="https://i.pravatar.cc/200?img=12" alt="François Thomas" class="team-avatar" loading="lazy">
+        <div class="team-name">François Thomas</div>
+        <div class="team-role">Fondateur & Directeur</div>
+        <p class="team-bio">Entrepreneur passionné par la restauration, François pilote la stratégie et développe les outils — dont la carte numérique en temps réel.</p>
+      </div>
+
+      <div class="team-card reveal" style="transition-delay:.1s">
+        <img src="https://i.pravatar.cc/200?img=47" alt="Sophie Léger" class="team-avatar" loading="lazy">
+        <div class="team-name">Sophie Léger</div>
+        <div class="team-role">Stratégiste Réseaux Sociaux</div>
+        <p class="team-bio">Experte en contenu CHR, Sophie conçoit les stratégies éditoriales et supervise la production des visuels pour chaque établissement.</p>
+      </div>
+
+      <div class="team-card reveal" style="transition-delay:.2s">
+        <img src="https://i.pravatar.cc/200?img=33" alt="Maxime Girard" class="team-avatar" loading="lazy">
+        <div class="team-name">Maxime Girard</div>
+        <div class="team-role">Développeur Web & QR</div>
+        <p class="team-bio">Architecte des sites sur mesure et du système de menu numérique dynamique, Maxime garantit performance et simplicité de mise à jour.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ========== CTA BAND ========== -->
 <section id="cta-band">
   <div class="container">
@@ -918,6 +1021,7 @@
         <ul>
           <li><a href="#probleme">Notre approche</a></li>
           <li><a href="#innovation">Menu numérique</a></li>
+          <li><a href="#equipe">L'équipe</a></li>
           <li><a href="#tarifs">Tarifs</a></li>
           <li><a href="philip/">Exemple client</a></li>
           <li><a href="questionnaire/">Brief questionnaire</a></li>
@@ -951,12 +1055,6 @@
     });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // Nav secondary link visible on scroll
-  const navTarifs = document.getElementById('nav-tarifs');
-  window.addEventListener('scroll', () => {
-    navTarifs.style.display = window.scrollY > 300 ? 'flex' : 'none';
-  }, { passive: true });
 
   // Stripe placeholder — replace href values with actual Stripe payment links
   // data-stripe="web"   → Pack Web payment link
