@@ -1,0 +1,22 @@
+{
+  "name": "Service Compris — Plaquette",
+  "short_name": "SC Plaquette",
+  "description": "Plaquette commerciale Service Compris",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
