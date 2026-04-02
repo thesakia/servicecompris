@@ -11,9 +11,10 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0C0B10;
-      --section-color: #6366F1;
-      --glow-opacity: 0.18;
+      --bg: #020617;
+      --surface: #0a0f1e;
+      --section-color: #bef264;
+      --glow-opacity: 0.14;
     }
 
     html, body {
@@ -23,6 +24,7 @@
       background: var(--bg);
       color: #fff;
       font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* ── Animated glow background ── */
@@ -36,19 +38,19 @@
     #glow-bg::before {
       content: '';
       position: absolute;
-      width: 900px;
-      height: 900px;
-      top: 50%;
+      width: 1000px;
+      height: 700px;
+      top: 30%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: radial-gradient(circle, var(--section-color) 0%, transparent 70%);
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, var(--section-color) 0%, transparent 70%);
       opacity: var(--glow-opacity);
-      animation: glow-pulse 4s ease-in-out infinite;
+      animation: glow-pulse 8s ease-in-out infinite;
       transition: background 0.8s ease, opacity 0.8s ease;
     }
     @keyframes glow-pulse {
-      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: var(--glow-opacity); }
-      50% { transform: translate(-50%, -50%) scale(1.15); opacity: calc(var(--glow-opacity) * 1.5); }
+      0%, 100% { transform: translate(-50%, -50%) scale(1);    opacity: var(--glow-opacity); }
+      50%       { transform: translate(-50%, -50%) scale(1.08); opacity: calc(var(--glow-opacity) * 0.65); }
     }
 
     /* ── Progress bar ── */
@@ -205,9 +207,9 @@
     input[type="text"],
     textarea {
       width: 100%;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.03);
       border: none;
-      border-bottom: 2px solid rgba(255,255,255,0.15);
+      border-bottom: 2px solid rgba(255,255,255,0.1);
       border-radius: 8px;
       padding: 16px;
       color: #fff;
@@ -220,12 +222,12 @@
     }
     input[type="text"]::placeholder,
     textarea::placeholder {
-      color: rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.2);
     }
     input[type="text"]:focus,
     textarea:focus {
       border-bottom: 2px solid var(--section-color);
-      background: rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.05);
     }
     textarea { resize: vertical; min-height: 120px; }
 
@@ -248,18 +250,20 @@
     .btn-next:active { transform: translateY(0); }
 
     .btn-intro {
-      background: #fff;
-      color: #0C0B10;
-      box-shadow: 0 4px 24px rgba(255,255,255,0.15);
+      background: #bef264;
+      color: #020617;
+      font-weight: 800;
+      box-shadow: 0 4px 32px rgba(190,242,100,0.25);
     }
-    .btn-intro:hover { box-shadow: 0 8px 32px rgba(255,255,255,0.25); }
+    .btn-intro:hover { box-shadow: 0 8px 40px rgba(190,242,100,0.4); }
 
     .btn-section {
       background: var(--section-color);
-      color: #fff;
+      color: #020617;
+      font-weight: 800;
       box-shadow: 0 4px 24px rgba(0,0,0,0.3);
     }
-    .btn-section:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px var(--section-color); }
+    .btn-section:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 24px var(--section-color); }
 
     .btn-success {
       background: #10B981;
@@ -394,10 +398,10 @@
 // DATA
 // ──────────────────────────────────────────
 const SECTIONS = [
-  { label: 'Votre positionnement', color: '#6366F1', slides: [1,2,3] },
-  { label: 'Ambiance visuelle',    color: '#EC4899', slides: [4,5,6] },
-  { label: 'Le contenu mis en avant', color: '#10B981', slides: [7,8,9] },
-  { label: 'Les détails qui comptent', color: '#F59E0B', slides: [10,11,12] },
+  { label: 'Votre positionnement',     color: '#bef264', slides: [1,2,3]   },
+  { label: 'Ambiance visuelle',        color: '#86efac', slides: [4,5,6]   },
+  { label: 'Le contenu mis en avant',  color: '#5eead4', slides: [7,8,9]   },
+  { label: 'Les détails qui comptent', color: '#a3e635', slides: [10,11,12] },
 ];
 
 const QUESTIONS = [
@@ -439,9 +443,9 @@ function getSectionForSlide(idx) {
 }
 
 function getSectionColor(idx) {
-  if (idx === 0 || idx === 13) return '#6366F1';
+  if (idx === 0 || idx === 13) return '#bef264';
   const s = getSectionForSlide(idx);
-  return s ? s.color : '#6366F1';
+  return s ? s.color : '#bef264';
 }
 
 // ──────────────────────────────────────────
@@ -653,6 +657,7 @@ function updateUI() {
   // Update btn-section colors dynamically
   document.querySelectorAll('.btn-section').forEach(btn => {
     btn.style.background = color;
+    btn.style.color = '#020617';
   });
 }
 

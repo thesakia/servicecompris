@@ -3,15 +3,15 @@
    ============================================= */
 
 :root {
-  --bg:         #0a0a0a;
-  --surface:    #141414;
-  --surface2:   #1c1c1c;
-  --gold:       #c8a96e;
-  --gold-light: #e8cfa0;
-  --gold-dim:   rgba(200, 169, 110, 0.10);
-  --gold-brd:   rgba(200, 169, 110, 0.25);
-  --text:       #f0ede8;
-  --muted:      #888888;
+  --bg:         #020617;
+  --surface:    #0a0f1e;
+  --surface2:   #0f172a;
+  --gold:       #bef264;
+  --gold-light: #d9fb8c;
+  --gold-dim:   rgba(190, 242, 100, 0.08);
+  --gold-brd:   rgba(190, 242, 100, 0.22);
+  --text:       #f1f5f9;
+  --muted:      #94a3b8;
   --r:          12px;
   --trans:      0.55s cubic-bezier(0.77, 0, 0.175, 1);
 }
@@ -143,13 +143,18 @@ h3 {
 /* =============================================
    SLIDE 01 — Ouverture
    ============================================= */
-.s1 { background: #000; }
+.s1 { background: #020617; }
 .s1-glow {
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse at 25% 55%, rgba(90, 48, 0, 0.45), transparent 55%),
-    radial-gradient(ellipse at 75% 35%, rgba(60, 30, 0, 0.30), transparent 50%),
-    radial-gradient(ellipse at 50% 85%, rgba(110, 55, 0, 0.20), transparent 40%);
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(190, 242, 100, 0.10), transparent 70%),
+    radial-gradient(ellipse at 20% 70%, rgba(163, 230, 53, 0.06), transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(190, 242, 100, 0.05), transparent 45%);
+  animation: glow-breathe 8s ease-in-out infinite;
+}
+@keyframes glow-breathe {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
 }
 .s1-body {
   position: relative; z-index: 2;
@@ -576,13 +581,14 @@ h3 {
 .pack-btn-gold { border-color: var(--gold) !important; }
 .stripe-btn {
   display: flex; align-items: center; justify-content: center; gap: 12px;
-  background: var(--gold); color: #000; text-decoration: none;
+  background: var(--gold); color: #020617; text-decoration: none;
   padding: 17px 38px; border-radius: 10px;
-  font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700;
-  transition: opacity 0.2s, transform 0.15s;
+  font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 800;
+  transition: box-shadow 0.2s, transform 0.15s;
   letter-spacing: 0.02em;
+  box-shadow: 0 4px 32px rgba(190,242,100,0.25);
 }
-.stripe-btn:hover { opacity: 0.88; transform: scale(1.01); }
+.stripe-btn:hover { box-shadow: 0 8px 48px rgba(190,242,100,0.45); transform: scale(1.01); }
 .stripe-s {
   background: #6772e5; color: #fff;
   font-size: 11px; font-weight: 800; font-style: italic;
