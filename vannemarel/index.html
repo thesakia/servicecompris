@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Vanne Marel · Restaurant au bord de la Sorgue · Fontaine de Vaucluse</title>
+  <meta name="description" content="Restaurant au bord de la Sorgue à Fontaine de Vaucluse. Cuisine provençale traditionnelle, truite fumée maison, terrasse sur l'eau. Menus 31,90€ et 41,90€.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================
+       VARIABLES
+    ======================== */
+    :root {
+      --water:    #1e3d52;
+      --water2:   #2e5570;
+      --water3:   #4a7a96;
+      --stone:    #7a7268;
+      --cream:    #f8f4ee;
+      --cream2:   #efe9df;
+      --sand:     #d2c5a8;
+      --moss:     #5e6e4e;
+      --terra:    #b86542;
+      --dark:     #18140e;
+      --text:     #322c24;
+      --muted:    #7a7060;
+      --border:   #ddd5c0;
+    }
+
+    /* ========================
+       RESET & BASE
+    ======================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ========================
+       TYPOGRAPHY
+    ======================== */
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    .section-label {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--water3);
+      margin-bottom: .9rem;
+      display: block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      color: var(--dark);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 500px;
+    }
+
+    /* ========================
+       WAVE ORNAMENT
+    ======================== */
+    .wave-divider {
+      width: 60px;
+      margin: 1.25rem 0;
+      opacity: .35;
+    }
+    .wave-divider-center {
+      margin: 1.25rem auto;
+    }
+
+    /* ========================
+       REVEAL
+    ======================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .75s ease, transform .75s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ========================
+       NAVIGATION
+    ======================== */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.4rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background .4s, padding .4s, box-shadow .4s;
+    }
+    #nav.scrolled {
+      background: rgba(248,244,238,.96);
+      padding: 1rem 2.5rem;
+      box-shadow: 0 1px 0 var(--border);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-weight: 500;
+      letter-spacing: .04em;
+      color: #fff;
+      transition: color .4s;
+      line-height: 1.1;
+    }
+    .nav-logo small {
+      display: block;
+      font-size: .65rem;
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 300;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      opacity: .8;
+    }
+    #nav.scrolled .nav-logo { color: var(--dark); }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 2.2rem;
+    }
+    .nav-links a {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.8);
+      transition: color .25s;
+    }
+    .nav-links a:hover { color: #fff; }
+    #nav.scrolled .nav-links a { color: var(--muted); }
+    #nav.scrolled .nav-links a:hover { color: var(--dark); }
+
+    .nav-reserve {
+      background: var(--water) !important;
+      color: #fff !important;
+      padding: .5rem 1.3rem;
+      border-radius: 2px;
+      transition: background .25s !important;
+    }
+    .nav-reserve:hover { background: var(--water2) !important; }
+    #nav.scrolled .nav-reserve { background: var(--water) !important; color: #fff !important; }
+
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .nav-burger span {
+      width: 22px; height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: background .4s;
+    }
+    #nav.scrolled .nav-burger span { background: var(--dark); }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--water);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: #fff;
+      font-weight: 300;
+    }
+    .nav-mobile-close {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      font-size: 2rem;
+      cursor: pointer;
+      color: rgba(255,255,255,.6);
+      line-height: 1;
+    }
+
+    /* ========================
+       HERO
+    ======================== */
+    #hero {
+      position: relative;
+      height: 100dvh;
+      min-height: 580px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/d9/f4/ec/salle.jpg');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.06);
+      transition: transform 9s ease;
+    }
+    #hero.loaded .hero-bg { transform: scale(1); }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(18,35,48,.75) 0%,
+        rgba(18,35,48,.45) 50%,
+        rgba(18,35,48,.72) 100%
+      );
+    }
+
+    /* Water shimmer at bottom */
+    .hero-water {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, rgba(10,25,38,.8), transparent);
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      color: #fff;
+      padding: 0 1.5rem;
+      max-width: 800px;
+    }
+
+    .hero-eyebrow {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp .9s .3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.5rem, 13vw, 9rem);
+      font-weight: 300;
+      letter-spacing: -.01em;
+      line-height: .92;
+      margin-bottom: .5rem;
+      opacity: 0;
+      animation: fadeUp .9s .5s forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,.75);
+      font-size: 55%;
+      display: block;
+      letter-spacing: .08em;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      font-weight: 300;
+      color: rgba(255,255,255,.8);
+      letter-spacing: .04em;
+      margin-top: 1.25rem;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp .9s .7s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .9s .9s forwards;
+    }
+
+    .btn-water {
+      background: var(--water);
+      color: #fff;
+      padding: .9rem 2.4rem;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background .25s, transform .2s;
+    }
+    .btn-water:hover { background: var(--water2); transform: translateY(-1px); }
+
+    .btn-ghost-w {
+      border: 1px solid rgba(255,255,255,.5);
+      color: #fff;
+      padding: .9rem 2.4rem;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: border-color .25s, background .25s;
+    }
+    .btn-ghost-w:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      color: rgba(255,255,255,.45);
+      font-size: .6rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp .9s 1.1s forwards;
+    }
+    .hero-scroll-line {
+      width: 1px; height: 38px;
+      background: rgba(255,255,255,.35);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%,100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(.35); opacity: .35; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========================
+       LAYOUT
+    ======================== */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 7rem 0; }
+
+    /* ========================
+       INTRO
+    ======================== */
+    #intro {
+      background: var(--cream);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .intro-text .section-sub { max-width: 100%; }
+    .intro-text p + p { margin-top: 1rem; }
+
+    .intro-badges {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .intro-badge strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--water);
+      line-height: 1;
+      margin-bottom: .2rem;
+    }
+    .intro-badge span {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+    }
+
+    .intro-img-wrap { position: relative; }
+    .intro-img-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+    .intro-img-tag {
+      position: absolute;
+      bottom: -1.5rem; left: -1.5rem;
+      background: var(--water);
+      color: #fff;
+      padding: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.5;
+      max-width: 170px;
+      border-radius: 2px;
+    }
+
+    /* ========================
+       SORGUE BAND
+    ======================== */
+    #sorgue-band {
+      padding: 0;
+      background: var(--water);
+      overflow: hidden;
+    }
+    .sorgue-inner {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+    }
+    .sorgue-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      object-position: center 60%;
+    }
+    .sorgue-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3.5rem 4rem;
+      color: #fff;
+    }
+    .sorgue-text .section-label { color: rgba(255,255,255,.5); }
+    .sorgue-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 300;
+      line-height: 1.45;
+      color: rgba(255,255,255,.9);
+      margin-bottom: 1.25rem;
+    }
+    .sorgue-quote-author {
+      font-size: .78rem;
+      color: rgba(255,255,255,.45);
+      letter-spacing: .1em;
+    }
+
+    /* ========================
+       CARTE
+    ======================== */
+    #carte { background: var(--cream2); }
+
+    .carte-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .carte-header .section-sub { margin: 0 auto; text-align: center; }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: none; border: none;
+      padding: .9rem 1.8rem;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      position: relative;
+      transition: color .25s;
+    }
+    .tab-btn::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 2px;
+      background: var(--water);
+      transform: scaleX(0);
+      transition: transform .25s;
+    }
+    .tab-btn:hover { color: var(--dark); }
+    .tab-btn.active { color: var(--water); }
+    .tab-btn.active::after { transform: scaleX(1); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Formules */
+    .formules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .formule-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+    .formule-card.featured {
+      border-color: var(--water);
+      box-shadow: 0 0 0 1px var(--water);
+    }
+    .formule-star {
+      position: absolute;
+      top: -1px; left: 50%; transform: translateX(-50%);
+      background: var(--water);
+      color: #fff;
+      font-size: .62rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .2rem .8rem;
+      border-radius: 0 0 4px 4px;
+    }
+    .formule-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 400;
+      margin-bottom: .5rem;
+    }
+    .formule-includes {
+      font-size: .82rem; color: var(--muted);
+      line-height: 1.6; margin-bottom: 1.5rem;
+    }
+    .formule-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300;
+      color: var(--water); line-height: 1;
+    }
+    .formule-price sub { font-size: 1.2rem; vertical-align: baseline; }
+
+    /* Dishes */
+    .dish-grid {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .dish {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1.5rem;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .dish:first-child { border-top: 1px solid var(--border); }
+    .dish-info { flex: 1; }
+    .dish-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 500;
+      color: var(--dark); margin-bottom: .2rem;
+    }
+    .dish-desc {
+      font-size: .82rem; color: var(--muted);
+      font-style: italic; line-height: 1.5;
+    }
+    .dish-highlight { color: var(--water3); font-size: .72rem; margin-top: .2rem; }
+    .dish-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; color: var(--water);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .menu-note {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-style: italic;
+      color: var(--muted); font-size: .88rem;
+    }
+
+    /* ========================
+       GALERIE
+    ======================== */
+    #galerie {
+      background: var(--dark);
+      padding-bottom: 0;
+    }
+    .galerie-head {
+      text-align: center;
+      padding-bottom: 3rem;
+    }
+    .galerie-head .section-label { color: var(--sand); }
+    .galerie-head .section-title { color: #fff; }
+
+    .galerie-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 280px 200px;
+      gap: 3px;
+    }
+    .galerie-item {
+      overflow: hidden; position: relative; cursor: pointer;
+    }
+    .galerie-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .galerie-item:hover img { transform: scale(1.07); }
+    .galerie-overlay {
+      position: absolute; inset: 0;
+      background: rgba(18,35,48,0);
+      display: flex; align-items: flex-end;
+      padding: 1.25rem;
+      transition: background .3s;
+    }
+    .galerie-item:hover .galerie-overlay { background: rgba(18,35,48,.5); }
+    .galerie-caption {
+      color: #fff; font-style: italic; font-size: .82rem;
+      opacity: 0; transform: translateY(5px);
+      transition: opacity .3s, transform .3s;
+    }
+    .galerie-item:hover .galerie-caption { opacity: 1; transform: translateY(0); }
+    .galerie-item:nth-child(1) { grid-column: span 2; }
+
+    /* ========================
+       INFOS PRATIQUES
+    ======================== */
+    #infos {
+      background: var(--cream);
+    }
+
+    .infos-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .infos-block { margin-bottom: 2.5rem; }
+    .infos-block-label {
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--water3); margin-bottom: .75rem;
+    }
+    .infos-block-val {
+      font-size: .95rem; color: var(--text); line-height: 1.75;
+    }
+    .infos-block-val a { color: var(--water); transition: color .2s; }
+    .infos-block-val a:hover { color: var(--water2); }
+
+    .horaires-table { width: 100%; border-collapse: collapse; }
+    .horaires-table tr { border-bottom: 1px solid var(--border); }
+    .horaires-table td { padding: .6rem 0; font-size: .88rem; }
+    .horaires-table td:first-child { color: var(--muted); width: 45%; }
+    .horaires-table .closed td { opacity: .4; }
+
+    .access-note {
+      background: var(--cream2);
+      border-left: 3px solid var(--water3);
+      padding: 1.25rem 1.5rem;
+      font-size: .85rem; color: var(--muted);
+      line-height: 1.7; margin-top: 1.5rem;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* Contact CTAs */
+    .contact-ctas { display: flex; flex-direction: column; gap: 1rem; }
+
+    .cta-tel {
+      display: flex; align-items: center; gap: 1.25rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--water);
+      border-radius: 2px;
+      transition: background .25s;
+    }
+    .cta-tel:hover { background: var(--water2); }
+    .cta-tel-ico { font-size: 1.3rem; }
+    .cta-tel-text strong {
+      display: block; font-size: 1.15rem;
+      color: #fff; letter-spacing: .02em;
+    }
+    .cta-tel-text span { font-size: .75rem; color: rgba(255,255,255,.6); }
+
+    .cta-mail {
+      display: flex; align-items: center; gap: 1.25rem;
+      padding: 1.25rem 1.5rem;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      transition: border-color .25s;
+    }
+    .cta-mail:hover { border-color: var(--water3); }
+    .cta-mail-text strong {
+      display: block; font-size: .92rem;
+      color: var(--dark);
+    }
+    .cta-mail-text span { font-size: .75rem; color: var(--muted); }
+
+    .cta-tripadvisor {
+      display: flex; align-items: center; gap: 1.25rem;
+      padding: 1rem 1.5rem;
+      border: 1.5px solid var(--border);
+      border-radius: 2px;
+      transition: border-color .25s;
+    }
+    .cta-tripadvisor:hover { border-color: #34e0a1; }
+    .cta-tripadvisor-text {
+      font-size: .82rem; color: var(--muted);
+    }
+    .cta-tripadvisor-text strong { color: var(--dark); display: block; margin-bottom: .1rem; }
+    .stars { color: #34e0a1; font-size: .85rem; }
+
+    /* ========================
+       FOOTER
+    ======================== */
+    #footer {
+      background: var(--water);
+      padding: 2.5rem 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: rgba(255,255,255,.7);
+    }
+    .footer-copy {
+      font-size: .74rem;
+      color: rgba(255,255,255,.3);
+      text-align: center;
+    }
+    .footer-links {
+      list-style: none; display: flex; gap: 1.5rem;
+    }
+    .footer-links a {
+      font-size: .74rem;
+      color: rgba(255,255,255,.35);
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,.7); }
+
+    /* ========================
+       LIGHTBOX
+    ======================== */
+    .lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.92);
+      z-index: 200; align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; }
+    .lb-close {
+      position: absolute; top: 1.5rem; right: 2rem;
+      font-size: 2rem; color: rgba(255,255,255,.5);
+      cursor: pointer; line-height: 1;
+      transition: color .2s;
+    }
+    .lb-close:hover { color: #fff; }
+    .lb-caption {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      font-style: italic; font-size: .82rem;
+      color: rgba(255,255,255,.4); white-space: nowrap;
+    }
+
+    /* ========================
+       RESPONSIVE
+    ======================== */
+    @media (max-width: 900px) {
+      .intro-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+      .intro-img-tag { left: 0; }
+      .sorgue-inner { grid-template-columns: 1fr; }
+      .sorgue-img { height: 220px; }
+      .infos-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+      .formules-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .galerie-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+      .galerie-item:nth-child(1) { grid-column: 1; }
+    }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      section { padding: 4.5rem 0; }
+      .hero-title { font-size: clamp(3.8rem, 17vw, 7rem); }
+      .galerie-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">
+      La Vanne Marel
+      <small>Fontaine de Vaucluse</small>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#intro">Le Restaurant</a></li>
+      <li><a href="#carte">La Carte</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#infos">Contact</a></li>
+      <li><a href="tel:+33490203256" class="nav-reserve">Réserver</a></li>
+    </ul>
+    <div class="nav-burger" id="burger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="nav-mobile" id="navMobile">
+    <span class="nav-mobile-close" id="navClose">×</span>
+    <a href="#intro" class="nav-ml">Le Restaurant</a>
+    <a href="#carte" class="nav-ml">La Carte</a>
+    <a href="#galerie" class="nav-ml">Galerie</a>
+    <a href="#infos" class="nav-ml">Contact</a>
+    <a href="tel:+33490203256" style="color:rgba(255,255,255,.6);font-size:1rem;letter-spacing:.08em">04 90 20 32 56</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-water"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Restaurant · Terrasse sur la Sorgue · Fontaine de Vaucluse</p>
+      <h1 class="hero-title serif">
+        La Vanne<br>Marel
+        <em>Au fil de l'eau</em>
+      </h1>
+      <p class="hero-tagline">Cuisine provençale · Truite fumée maison · Terrasse sur la Sorgue</p>
+      <div class="hero-actions">
+        <a href="tel:+33490203256" class="btn-water">Réserver une table</a>
+        <a href="#intro" class="btn-ghost-w">Découvrir</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      Défiler
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section id="intro">
+    <div class="container">
+      <div class="intro-grid">
+        <div>
+          <span class="section-label reveal">Notre histoire</span>
+          <h2 class="section-title reveal">Le murmure de la Sorgue<br><em>en accompagnement</em></h2>
+          <svg class="wave-divider reveal" viewBox="0 0 60 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 6 Q7.5 0 15 6 Q22.5 12 30 6 Q37.5 0 45 6 Q52.5 12 60 6" stroke="#4a7a96" stroke-width="1.5" fill="none"/>
+          </svg>
+          <p class="section-sub reveal">
+            Installé au bord de la Sorgue, La Vanne Marel vous invite à une parenthèse provençale. La terrasse surplombe la rivière — le bruit de l'eau, l'ombre des platanes, le temps suspendu.
+          </p>
+          <p class="section-sub reveal" style="margin-top:1rem">
+            Ici on cuisine avec ce que la région produit : truite fumée maison, foie gras façon du chef, légumes du marché de Fontaine, vins du Ventoux et du Luberon. Simple, honnête, savoureux.
+          </p>
+          <div class="intro-badges">
+            <div class="intro-badge reveal">
+              <strong>231</strong>
+              <span>Avis TripAdvisor</span>
+            </div>
+            <div class="intro-badge reveal" style="transition-delay:.1s">
+              <strong>4/5</strong>
+              <span>Note moyenne</span>
+            </div>
+            <div class="intro-badge reveal" style="transition-delay:.2s">
+              <strong>#7</strong>
+              <span>Sur 22 à Fontaine</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="intro-img-wrap reveal" style="transition-delay:.1s">
+          <img
+            class="intro-img-main"
+            src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/26/c5/19/ad/caption.jpg"
+            alt="La Vanne Marel, terrasse sur la Sorgue"
+            loading="lazy"
+          >
+          <div class="intro-img-tag">
+            "Cadre fantastique le long de la Sorgue"
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SORGUE BAND -->
+  <div id="sorgue-band">
+    <div class="sorgue-inner">
+      <img
+        class="sorgue-img"
+        src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/32/c2/54/03/caption.jpg"
+        alt="Terrasse La Vanne Marel bord de Sorgue"
+        loading="lazy"
+      >
+      <div class="sorgue-text">
+        <span class="section-label">La signature</span>
+        <p class="sorgue-quote">"La truite fumée maison — un classique de la maison depuis toujours."</p>
+        <p class="sorgue-quote-author">Truite locale de la Sorgue · Fumage artisanal</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARTE -->
+  <section id="carte">
+    <div class="container">
+      <div class="carte-header">
+        <span class="section-label reveal">À table</span>
+        <h2 class="section-title reveal">La Carte</h2>
+        <p class="section-sub reveal">Produits frais du terroir provençal, cuisinés avec soin. Une cuisine de saison qui change au rythme des marchés.</p>
+      </div>
+
+      <div class="tabs reveal">
+        <button class="tab-btn active" data-tab="formules">Formules</button>
+        <button class="tab-btn" data-tab="entrees">Entrées</button>
+        <button class="tab-btn" data-tab="plats">Plats</button>
+        <button class="tab-btn" data-tab="desserts">Desserts</button>
+      </div>
+
+      <!-- FORMULES -->
+      <div class="tab-panel active" id="tab-formules">
+        <div class="formules-grid">
+          <div class="formule-card reveal">
+            <div class="formule-name">Menu Découverte</div>
+            <div class="formule-includes">Entrée · Plat · Dessert maison<br>au choix parmi notre sélection du jour</div>
+            <div class="formule-price">31<sub>,90€</sub></div>
+          </div>
+          <div class="formule-card featured reveal" style="transition-delay:.12s">
+            <div class="formule-star">Notre menu</div>
+            <div class="formule-name">Menu Gourmand</div>
+            <div class="formule-includes">Entrée · Plat · Dessert maison<br>sélection élargie et plats signatures</div>
+            <div class="formule-price">41<sub>,90€</sub></div>
+          </div>
+        </div>
+        <p class="menu-note">Menu enfant disponible · Compter environ 40 € par personne hors boissons</p>
+      </div>
+
+      <!-- ENTREES -->
+      <div class="tab-panel" id="tab-entrees">
+        <div class="dish-grid">
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Truite locale fumée maison</div>
+              <div class="dish-desc">Fumage artisanal, truite pêchée dans la Sorgue</div>
+              <div class="dish-highlight">Spécialité de la maison</div>
+            </div>
+            <div class="dish-price">16 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Foie gras façon du chef</div>
+              <div class="dish-desc">Préparation maison, chutney de saison</div>
+            </div>
+            <div class="dish-price">21 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Planche charcuterie provençale</div>
+              <div class="dish-desc">Sélection de charcuteries régionales, condiments du Vaucluse</div>
+            </div>
+            <div class="dish-price">14 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Soupe au pistou</div>
+              <div class="dish-desc">La recette traditionnelle provençale, légumes frais du marché</div>
+              <div class="dish-highlight">Classique saisonnier</div>
+            </div>
+            <div class="dish-price">11 €</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PLATS -->
+      <div class="tab-panel" id="tab-plats">
+        <div class="dish-grid">
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Truite meunière Isloise</div>
+              <div class="dish-desc">Beurre citronné, amandes effilées, légumes de saison</div>
+              <div class="dish-highlight">Spécialité de la maison</div>
+            </div>
+            <div class="dish-price">21 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Retour de pêche</div>
+              <div class="dish-desc">Poissons et fruits de mer du marché, sauce provençale</div>
+            </div>
+            <div class="dish-price">22 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Ravioles aux truffes</div>
+              <div class="dish-desc">Truffes du Vaucluse, beurre noisette, parmesan</div>
+            </div>
+            <div class="dish-price">23 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Cuisses de grenouille</div>
+              <div class="dish-desc">Persillées à la provençale, ail doux</div>
+            </div>
+            <div class="dish-price">19 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Pavé de bœuf aux cèpes</div>
+              <div class="dish-desc">Cèpes de saison, jus corsé, gratin dauphinois</div>
+            </div>
+            <div class="dish-price">22 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Cassolette Saint-Jacques &amp; écrevisse</div>
+              <div class="dish-desc">Sauce crémée au safran, riz de Camargue</div>
+            </div>
+            <div class="dish-price">23 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Magret de canard</div>
+              <div class="dish-desc">Sauce aux figues du Luberon, polenta crémeuse</div>
+            </div>
+            <div class="dish-price">22 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Couscous provençal</div>
+              <div class="dish-desc">Légumes du soleil, merguez artisanales, bouillon parfumé</div>
+            </div>
+            <div class="dish-price">21 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Daube provençale</div>
+              <div class="dish-desc">Bœuf mijoté au vin rouge, olives, thym, laurier</div>
+              <div class="dish-highlight">Recette traditionnelle</div>
+            </div>
+            <div class="dish-price">19 €</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESSERTS -->
+      <div class="tab-panel" id="tab-desserts">
+        <div class="dish-grid">
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Tiramisu au citron</div>
+              <div class="dish-desc">Mascarpone, citron de Menton, biscuits croquants</div>
+              <div class="dish-highlight">Fait maison</div>
+            </div>
+            <div class="dish-price">9 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Crème brûlée à la lavande</div>
+              <div class="dish-desc">Lavande de Haute-Provence, caramel craquant</div>
+            </div>
+            <div class="dish-price">8 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Fondant au chocolat noir</div>
+              <div class="dish-desc">Cœur coulant, glace vanille de Madagascar</div>
+            </div>
+            <div class="dish-price">8 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Tarte tatin aux abricots</div>
+              <div class="dish-desc">Abricots du Luberon, crème fraîche, caramel beurre salé</div>
+            </div>
+            <div class="dish-price">8 €</div>
+          </div>
+          <div class="dish reveal">
+            <div class="dish-info">
+              <div class="dish-name">Assiette de fromages affinés</div>
+              <div class="dish-desc">Sélection de fromages provençaux, miel de bruyère, noix</div>
+            </div>
+            <div class="dish-price">10 €</div>
+          </div>
+        </div>
+        <p class="menu-note">Tous les desserts sont faits maison · Carte des vins du Ventoux et du Luberon disponible en salle</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section id="galerie">
+    <div class="container">
+      <div class="galerie-head">
+        <span class="section-label reveal">En images</span>
+        <h2 class="section-title reveal">La Vanne Marel<br><em>en toutes saisons</em></h2>
+      </div>
+    </div>
+    <div class="galerie-grid">
+      <div class="galerie-item" data-caption="La terrasse au bord de la Sorgue">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/32/c2/54/02/caption.jpg" alt="Terrasse" loading="lazy">
+        <div class="galerie-overlay"><span class="galerie-caption">La terrasse</span></div>
+      </div>
+      <div class="galerie-item" data-caption="La salle du restaurant">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/d9/f4/ec/salle.jpg" alt="Salle" loading="lazy">
+        <div class="galerie-overlay"><span class="galerie-caption">La salle</span></div>
+      </div>
+      <div class="galerie-item" data-caption="Foie gras façon du chef">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/d9/f4/ef/foie-gras.jpg" alt="Foie gras" loading="lazy">
+        <div class="galerie-overlay"><span class="galerie-caption">Foie gras maison</span></div>
+      </div>
+      <div class="galerie-item" data-caption="La carte de La Vanne Marel">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/d9/f4/e5/carte.jpg" alt="La carte" loading="lazy">
+        <div class="galerie-overlay"><span class="galerie-caption">La carte</span></div>
+      </div>
+      <div class="galerie-item" data-caption="Au bord de la Sorgue">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/32/c2/54/04/caption.jpg" alt="Bord de Sorgue" loading="lazy">
+        <div class="galerie-overlay"><span class="galerie-caption">La Sorgue</span></div>
+      </div>
+      <div class="galerie-item" data-caption="La Vanne Marel">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/32/74/72/6b/caption.jpg" alt="La Vanne Marel" loading="lazy">
+        <div class="galerie-overlay"><span class="galerie-caption">L'entrée</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOS PRATIQUES -->
+  <section id="infos">
+    <div class="container">
+      <div class="infos-grid">
+        <div>
+          <span class="section-label reveal">Nous rejoindre</span>
+          <h2 class="section-title reveal">Infos pratiques<br><em>&amp; Contact</em></h2>
+          <svg class="wave-divider reveal" viewBox="0 0 60 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 6 Q7.5 0 15 6 Q22.5 12 30 6 Q37.5 0 45 6 Q52.5 12 60 6" stroke="#4a7a96" stroke-width="1.5" fill="none"/>
+          </svg>
+
+          <div class="infos-block reveal">
+            <div class="infos-block-label">Adresse</div>
+            <div class="infos-block-val">
+              Place de la Colonne / Rue des Bourgades<br>
+              84800 Fontaine de Vaucluse, Vaucluse
+            </div>
+          </div>
+
+          <div class="infos-block reveal">
+            <div class="infos-block-label">Horaires d'ouverture</div>
+            <div class="infos-block-val">
+              <table class="horaires-table">
+                <tr><td>Lundi – Jeudi</td><td>12h – 14h &nbsp;/&nbsp; 19h – 21h</td></tr>
+                <tr><td>Vendredi</td><td>12h – 21h (service continu)</td></tr>
+                <tr><td>Samedi</td><td>12h – 14h &nbsp;/&nbsp; 19h – 21h</td></tr>
+                <tr><td>Dimanche</td><td>12h – 14h30 &nbsp;/&nbsp; 19h – 21h</td></tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="access-note reveal">
+            Stationnement municipal disponible près de la place de la Colonne. Le restaurant est accessible aux personnes à mobilité réduite. Les animaux sont acceptés sur la terrasse.
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="contact-ctas">
+            <a href="tel:+33490203256" class="cta-tel">
+              <span class="cta-tel-ico">📞</span>
+              <div class="cta-tel-text">
+                <strong>04 90 20 32 56</strong>
+                <span>Réservation &amp; renseignements</span>
+              </div>
+            </a>
+            <a href="mailto:eur-pierrette@orange.fr" class="cta-mail">
+              <span style="font-size:1.3rem">✉️</span>
+              <div class="cta-mail-text">
+                <strong>eur-pierrette@orange.fr</strong>
+                <span>Réponse sous 24 h</span>
+              </div>
+            </a>
+            <a href="https://www.tripadvisor.com/Restaurant_Review-g608806-d1338865-Reviews-La_Vanne_Marel-Fontaine_de_Vaucluse_Vaucluse_Provence_Alpes_Cote_d_Azur.html" target="_blank" class="cta-tripadvisor">
+              <span style="font-size:1.3rem">⭐</span>
+              <div class="cta-tripadvisor-text">
+                <strong>TripAdvisor · 4.0/5</strong>
+                <span class="stars">★★★★</span>
+                <span>231 avis · #7 à Fontaine de Vaucluse</span>
+              </div>
+            </a>
+          </div>
+
+          <div style="margin-top:2rem;padding:1.75rem;background:var(--cream2);border:1px solid var(--border);border-radius:2px" class="reveal">
+            <div class="infos-block-label">Bon à savoir</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:.65rem;font-size:.85rem;color:var(--muted);line-height:1.6">
+              <li>· Réservation fortement conseillée en saison</li>
+              <li>· Menu enfant disponible</li>
+              <li>· Wifi gratuit</li>
+              <li>· Cartes bancaires et NFC acceptés</li>
+              <li>· Terrasse acceptant les animaux</li>
+              <li>· Accessible fauteuil roulant</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">La Vanne Marel</div>
+        <p class="footer-copy">© 2026 La Vanne Marel · Place de la Colonne, 84800 Fontaine de Vaucluse</p>
+        <ul class="footer-links">
+          <li><a href="mailto:eur-pierrette@orange.fr">Contact</a></li>
+          <li><a href="http://www.lavannemarel.fr" target="_blank">Site actuel</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <span class="lb-close" id="lbClose">×</span>
+    <img id="lbImg" src="" alt="">
+    <div class="lb-caption" id="lbCaption"></div>
+  </div>
+
+  <script>
+    // Hero Ken Burns
+    document.getElementById('hero').classList.add('loaded');
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Mobile nav
+    document.getElementById('burger').addEventListener('click', () => {
+      document.getElementById('navMobile').classList.add('open');
+    });
+    document.getElementById('navClose').addEventListener('click', () => {
+      document.getElementById('navMobile').classList.remove('open');
+    });
+    document.querySelectorAll('.nav-ml').forEach(l => {
+      l.addEventListener('click', () => document.getElementById('navMobile').classList.remove('open'));
+    });
+
+    // Reveal
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const panel = document.getElementById('tab-' + btn.dataset.tab);
+        panel.classList.add('active');
+        panel.querySelectorAll('.reveal').forEach(el => {
+          if (!el.classList.contains('visible')) obs.observe(el);
+        });
+      });
+    });
+
+    // Lightbox
+    const lb = document.getElementById('lightbox');
+    document.querySelectorAll('.galerie-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.getElementById('lbImg').src = item.querySelector('img').src;
+        document.getElementById('lbCaption').textContent = item.dataset.caption || '';
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    document.getElementById('lbClose').addEventListener('click', closeLb);
+    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+    function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  </script>
+</body>
+</html>

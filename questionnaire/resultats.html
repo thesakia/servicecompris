@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Questionnaires · Service Compris</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #020617;
+      --surface: #0a0f1e;
+      --card-bg: rgba(255,255,255,0.03);
+      --card-border: rgba(255,255,255,0.07);
+      --text: #fff;
+      --text-muted: rgba(255,255,255,0.45);
+      --lime: #bef264;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+    }
+
+    /* ── Glow bg ── */
+    .page-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(ellipse 900px 500px at 50% 0%, rgba(190,242,100,0.07) 0%, transparent 70%);
+    }
+
+    /* ── Layout ── */
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 48px 0 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 48px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .header-left {}
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .header-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+    .header-count {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 6px 14px;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    /* ── Grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 640px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      header { padding: 32px 0 28px; margin-bottom: 32px; }
+    }
+
+    /* ── Card ── */
+    .restaurant-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      position: relative;
+    }
+    .restaurant-card:hover {
+      border-color: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .card-info { flex: 1; min-width: 0; }
+    .card-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .card-delete {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: rgba(255,255,255,0.2);
+      padding: 4px;
+      border-radius: 6px;
+      transition: color 0.2s ease, background 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-delete:hover {
+      color: #EF4444;
+      background: rgba(239,68,68,0.1);
+    }
+
+    .card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lime);
+      background: rgba(190,242,100,0.08);
+      border: 1px solid rgba(190,242,100,0.2);
+      border-radius: 100px;
+      padding: 4px 10px;
+      width: fit-content;
+    }
+    .card-badge::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 6px var(--lime);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-view, .btn-export {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 9px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-align: center;
+      transition: all 0.2s ease;
+      letter-spacing: 0.02em;
+    }
+    .btn-view {
+      background: rgba(190,242,100,0.1);
+      color: var(--lime);
+      border-color: rgba(190,242,100,0.25);
+    }
+    .btn-view:hover {
+      background: rgba(190,242,100,0.2);
+      border-color: rgba(190,242,100,0.5);
+      color: #d9fb8c;
+    }
+    .btn-export {
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.55);
+      border-color: rgba(255,255,255,0.1);
+    }
+    .btn-export:hover {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.9);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    /* ── Empty state ── */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+      text-align: center;
+      gap: 20px;
+      grid-column: 1 / -1;
+    }
+    .empty-icon {
+      font-size: 3rem;
+      opacity: 0.3;
+    }
+    .empty-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.5);
+    }
+    .empty-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.3);
+    }
+    .empty-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--lime);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid rgba(190,242,100,0.3);
+      border-radius: 9px;
+      transition: all 0.2s ease;
+      background: rgba(190,242,100,0.08);
+    }
+    .empty-link:hover {
+      background: rgba(190,242,100,0.16);
+      border-color: rgba(190,242,100,0.55);
+    }
+
+    /* ── Modal ── */
+    #modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #modal {
+      background: #18171f;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px 20px 0 0;
+      width: 100%;
+      max-width: 720px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(40px);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: hidden;
+    }
+    #modal-overlay.open #modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 28px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      flex-shrink: 0;
+    }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .modal-date {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .modal-close {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .modal-close:hover {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+
+    .modal-body {
+      overflow-y: auto;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+    .modal-body::-webkit-scrollbar { width: 4px; }
+    .modal-body::-webkit-scrollbar-track { background: transparent; }
+    .modal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+    .modal-section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .modal-qna {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .qna-item {}
+    .qna-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .qna-answer {
+      font-size: 0.98rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.65;
+      font-weight: 400;
+    }
+    .qna-empty {
+      font-style: italic;
+      color: rgba(255,255,255,0.2);
+      font-size: 0.88rem;
+    }
+
+    /* ── Scrollbar global ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<div class="page-glow"></div>
+
+<div class="page-wrap">
+  <header>
+    <div class="header-left">
+      <div class="logo-text">Service Compris</div>
+      <div class="header-subtitle">Questionnaires complétés</div>
+    </div>
+    <div class="header-count" id="header-count">0 questionnaire</div>
+  </header>
+
+  <div class="cards-grid" id="cards-grid"></div>
+</div>
+
+<!-- Modal -->
+<div id="modal-overlay">
+  <div id="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="modal-title"></div>
+        <div class="modal-date" id="modal-date"></div>
+      </div>
+      <button class="modal-close" id="modal-close-btn">Fermer ✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ──────────────────────────────────────────
+// DATA DEFINITIONS
+// ──────────────────────────────────────────
+const SECTIONS = [
+  {
+    label: 'Votre positionnement',
+    color: '#6366F1',
+    questions: [
+      { idx: 1, q: "Si votre restaurant était une personne, ce serait qui ?" },
+      { idx: 2, q: "Qu'est-ce qui vous différencie vraiment des autres dans votre ville ?" },
+      { idx: 3, q: "Quel sentiment voulez-vous que le visiteur ait en arrivant sur le site ?" },
+    ]
+  },
+  {
+    label: 'Ambiance visuelle',
+    color: '#EC4899',
+    questions: [
+      { idx: 4, q: "Avez-vous des références de sites ou d'univers graphiques qui vous correspondent ?" },
+      { idx: 5, q: "Grande photo immersive et sobre, ou quelque chose de plus animé et dynamique ?" },
+      { idx: 6, q: "Y a-t-il des codes visuels que vous voulez absolument éviter ?" },
+    ]
+  },
+  {
+    label: 'Le contenu mis en avant',
+    color: '#10B981',
+    questions: [
+      { idx: 7, q: "Qu'est-ce qui doit apparaître en premier sur le site ?" },
+      { idx: 8, q: "La carte / le menu : affiché directement sur le site ou renvoi vers un PDF ? Elle change souvent ?" },
+      { idx: 9, q: "Avez-vous des photos exploitables, ou on part de zéro côté visuels ?" },
+    ]
+  },
+  {
+    label: 'Les détails qui comptent',
+    color: '#F59E0B',
+    questions: [
+      { idx: 10, q: "Y a-t-il une anecdote ou un détail sur votre établissement qu'on doit absolument raconter ?" },
+      { idx: 11, q: "Comment parlez-vous à vos clients au quotidien ?" },
+      { idx: 12, q: "Avez-vous vu sur un site concurrent quelque chose qui vous a agacé ou plu ?" },
+    ]
+  },
+];
+
+// ──────────────────────────────────────────
+// HELPERS
+// ──────────────────────────────────────────
+function loadBriefs() {
+  try { return JSON.parse(localStorage.getItem('sc_briefs') || '{}'); }
+  catch(e) { return {}; }
+}
+
+function saveBriefs(data) {
+  localStorage.setItem('sc_briefs', JSON.stringify(data));
+}
+
+function hashColor(str) {
+  const palette = [
+    '#bef264','#86efac','#5eead4','#a3e635',
+    '#6ee7b7','#d9f99d','#34d399','#4ade80',
+    '#99f6e4','#bbf7d0',
+  ];
+  let h = 0;
+  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) | 0;
+  return palette[Math.abs(h) % palette.length];
+}
+
+function formatDateFr(isoStr) {
+  const d = new Date(isoStr);
+  if (isNaN(d)) return '—';
+  const months = ['janvier','février','mars','avril','mai','juin',
+                  'juillet','août','septembre','octobre','novembre','décembre'];
+  return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function countAnswers(brief) {
+  let count = 0;
+  for (let i = 1; i <= 12; i++) {
+    if (brief.answers && brief.answers[i] && brief.answers[i].trim()) count++;
+  }
+  return count;
+}
+
+// ──────────────────────────────────────────
+// RENDER CARDS
+// ──────────────────────────────────────────
+function renderCards() {
+  const briefs = loadBriefs();
+  const grid = document.getElementById('cards-grid');
+  const count = Object.keys(briefs).length;
+
+  // Update header count
+  const hc = document.getElementById('header-count');
+  hc.textContent = count === 0 ? 'Aucun' : count === 1 ? '1 questionnaire' : `${count} questionnaires`;
+
+  grid.innerHTML = '';
+
+  if (count === 0) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📋</div>
+        <p class="empty-title">Aucun questionnaire complété pour le moment.</p>
+        <p class="empty-sub">Les réponses des restaurants apparaîtront ici une fois le formulaire envoyé.</p>
+        <a href="index.html" class="empty-link">← Remplir un questionnaire</a>
+      </div>
+    `;
+    return;
+  }
+
+  // Sort by date desc
+  const sorted = Object.values(briefs).sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
+
+  sorted.forEach(brief => {
+    const card = buildCard(brief);
+    grid.appendChild(card);
+  });
+}
+
+function buildCard(brief) {
+  const div = document.createElement('div');
+  div.className = 'restaurant-card';
+
+  const color = hashColor(brief.name || '?');
+  const initial = (brief.name || '?').charAt(0).toUpperCase();
+  const dateFr = formatDateFr(brief.date);
+  const answers = countAnswers(brief);
+
+  div.innerHTML = `
+    <button class="card-delete" title="Supprimer" data-name="${encodeURIComponent(brief.name)}">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M1 3h12M5 3V2h4v1M2 3l.875 9.25a1 1 0 001 .75h6.25a1 1 0 001-.75L12 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M5.5 6.5v4M8.5 6.5v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="card-top">
+      <div class="avatar" style="background: ${color}22; color: ${color}; border: 1.5px solid ${color}40;">${initial}</div>
+      <div class="card-info">
+        <div class="card-name">${escHtml(brief.name)}</div>
+        <div class="card-date">${dateFr}</div>
+      </div>
+    </div>
+    <div class="card-badge">${answers} réponse${answers !== 1 ? 's' : ''}</div>
+    <div class="card-actions">
+      <button class="btn-view" data-name="${encodeURIComponent(brief.name)}">Voir les réponses</button>
+      <button class="btn-export" data-name="${encodeURIComponent(brief.name)}">Exporter .MD</button>
+    </div>
+  `;
+
+  // Events
+  div.querySelector('.btn-view').addEventListener('click', () => openModal(brief));
+  div.querySelector('.btn-export').addEventListener('click', () => exportMarkdown(brief));
+  div.querySelector('.card-delete').addEventListener('click', () => deleteBrief(brief.name));
+
+  return div;
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// ──────────────────────────────────────────
+// DELETE
+// ──────────────────────────────────────────
+function deleteBrief(name) {
+  if (!confirm(`Supprimer le questionnaire de "${name}" ? Cette action est irréversible.`)) return;
+  const briefs = loadBriefs();
+  delete briefs[name];
+  saveBriefs(briefs);
+  renderCards();
+}
+
+// ──────────────────────────────────────────
+// MODAL
+// ──────────────────────────────────────────
+function openModal(brief) {
+  document.getElementById('modal-title').textContent = brief.name;
+  document.getElementById('modal-date').textContent = 'Complété le ' + formatDateFr(brief.date);
+
+  const body = document.getElementById('modal-body');
+  body.innerHTML = '';
+
+  SECTIONS.forEach(section => {
+    const sec = document.createElement('div');
+
+    const title = document.createElement('div');
+    title.className = 'modal-section-title';
+    title.style.color = section.color;
+    title.textContent = section.label;
+    sec.appendChild(title);
+
+    const qna = document.createElement('div');
+    qna.className = 'modal-qna';
+
+    section.questions.forEach(({ idx, q }) => {
+      const item = document.createElement('div');
+      item.className = 'qna-item';
+
+      const answer = brief.answers && brief.answers[idx] ? brief.answers[idx].trim() : '';
+
+      item.innerHTML = `
+        <span class="qna-label">${q}</span>
+        ${answer
+          ? `<div class="qna-answer">${escHtml(answer).replace(/\n/g, '<br>')}</div>`
+          : `<div class="qna-answer qna-empty">Aucune réponse</div>`
+        }
+      `;
+      qna.appendChild(item);
+    });
+
+    sec.appendChild(qna);
+    body.appendChild(sec);
+  });
+
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+document.getElementById('modal-overlay').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ──────────────────────────────────────────
+// EXPORT MARKDOWN
+// ──────────────────────────────────────────
+function exportMarkdown(brief) {
+  const dateFr = formatDateFr(brief.date);
+  let md = `# Brief Restaurant : ${brief.name}\n`;
+  md += `> Complété le ${dateFr}\n\n`;
+  md += `---\n\n`;
+
+  SECTIONS.forEach(section => {
+    md += `## ${section.label}\n\n`;
+    section.questions.forEach(({ idx, q }) => {
+      const answer = brief.answers && brief.answers[idx] ? brief.answers[idx].trim() : '';
+      md += `**${q}**\n`;
+      md += answer ? `${answer}\n` : `*Aucune réponse*\n`;
+      md += '\n';
+    });
+  });
+
+  // Generate file
+  const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const slug = brief.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  a.href     = url;
+  a.download = `brief-${slug}.md`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// ──────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderCards();
+});
+</script>
+</body>
+</html>

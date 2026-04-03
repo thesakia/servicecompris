@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>Service Compris</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<div class="orient-warn">
+  <p>Tournez votre tablette<br>en mode paysage</p>
+</div>
+
+<div class="pres" id="pres">
+
+  <div class="top-bar">
+    <span class="counter" id="counter">01 / 12</span>
+    <span class="brand">SERVICE COMPRIS</span>
+  </div>
+
+  <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+
+  <div class="bot-bar">
+    <button class="nav-btn" id="prevBtn" onclick="prevSlide()">&#8592;</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn" id="nextBtn" onclick="nextSlide()">&#8594;</button>
+  </div>
+
+  <div class="slides" id="slides">
+
+    <!-- 01: Ouverture -->
+    <section class="slide s1">
+      <div class="s1-glow"></div>
+      <div class="s1-body">
+        <div class="s1-logo">
+          <img src="https://servicecompris.pro/assets/logo_service.png" alt="Service Compris" style="height:180px;width:auto;display:block;margin:0 auto">
+        </div>
+        <div class="s1-rule"></div>
+        <p class="s1-slogan">Votre image en ligne,<br>bien cuisinée.</p>
+      </div>
+    </section>
+
+    <!-- 02: Le Miroir -->
+    <section class="slide s2">
+      <div class="slide-inner s2-inner">
+        <div class="slide-label">La réalité</div>
+        <h2>Voici comment vos clients<br>vous perçoivent aujourd'hui.</h2>
+        <div class="mirror">
+          <div class="url-row">
+            <input type="url" id="photoUrl" class="url-input" placeholder="https://photos.google.com/..." />
+            <button class="btn-gold" onclick="loadProspectPhoto()">Afficher</button>
+          </div>
+          <div class="photo-zone" id="photoZone">
+            <div class="ph-empty" id="phEmpty">
+              <div class="ph-icon">🔗</div>
+              <p>Collez l'URL d'une photo<br>TripAdvisor ou Google</p>
+            </div>
+            <img id="prospectImg" class="prospect-img" src="" alt="" style="display:none">
+          </div>
+        </div>
+        <div class="int-note">&#8505;&nbsp; Montrez les photos smartphone du prospect — l'amateurisme perçu par les internautes parle de lui-même.</div>
+      </div>
+    </section>
+
+    <!-- 03: L'Électrochoc -->
+    <section class="slide s3">
+      <div class="slide-inner s3-inner">
+        <div class="slide-label">La solution</div>
+        <h2>Voici l'écrin que<br>votre cuisine mérite.</h2>
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dots">
+              <i class="bd bd-r"></i><i class="bd bd-y"></i><i class="bd bd-g"></i>
+            </div>
+            <div class="browser-url">servicecompris.pro/philip/</div>
+            <a href="https://servicecompris.pro/philip/" target="_blank" rel="noopener" class="live-btn">
+              Voir en direct &#8599;
+            </a>
+          </div>
+          <a href="https://servicecompris.pro/philip/" target="_blank" rel="noopener" class="screenshot-wrap">
+            <img
+              src="assets/screenshot.jpg"
+              alt="Aperçu du site servicecompris.pro/philip/"
+              class="site-screenshot"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            />
+            <div class="screenshot-placeholder" style="display:none">
+              <div class="sph-icon">🖼</div>
+              <p>Ajoutez une capture d'écran du site<br>dans <code>assets/screenshot.jpg</code></p>
+              <span class="sph-cta">Cliquer pour ouvrir le site en direct ↗</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04: La Promesse -->
+    <section class="slide s4">
+      <div class="slide-inner centered">
+        <div class="slide-label">Notre promesse</div>
+        <h2>Vous cuisinez, nous remplissons<br>votre vitrine numérique.</h2>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pil-icon">🌐</div>
+            <h3>Site web d'élite</h3>
+            <p>Ultra-rapide, optimisé Google, pensé pour convertir les visiteurs en clients.</p>
+          </div>
+          <div class="pillar pillar-gold">
+            <div class="pil-icon">📷</div>
+            <h3>Direction artistique professionnelle</h3>
+            <p>Photos haute définition et vidéo 4K — vos plats à leur juste valeur.</p>
+          </div>
+          <div class="pillar">
+            <div class="pil-icon">📱</div>
+            <h3>Réseaux sociaux quotidiens</h3>
+            <p>Publication, modération, montage — nous gérons tout, chaque jour.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05: Web & QR -->
+    <section class="slide s5">
+      <div class="slide-inner">
+        <div class="slide-label">Pilier 1 — Web</div>
+        <h2>Une fondation technologique<br>incassable.</h2>
+        <div class="feat-row">
+          <div class="feat-card">
+            <div class="feat-icon">&#9889;</div>
+            <h3>Site ultra-rapide</h3>
+            <p>Chargement en moins d'une seconde. Google vous récompense, vos concurrents vous regardent.</p>
+          </div>
+          <div class="feat-card feat-gold">
+            <div class="feat-icon">📱</div>
+            <h3>Menu QR dynamique</h3>
+            <p>Fini les frais d'imprimerie. Mettez à jour votre carte en temps réel depuis votre téléphone. Un seul QR code, pour toujours.</p>
+            <span class="saving-badge">Économie moyenne : 400 €/an</span>
+          </div>
+          <div class="feat-card">
+            <div class="feat-icon">📍</div>
+            <h3>SEO local</h3>
+            <p>Visible sur "restaurant [votre ville]". Fiche Google My Business optimisée et synchronisée automatiquement.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06: Image -->
+    <section class="slide s6">
+      <div class="slide-inner centered">
+        <div class="slide-label">Pilier 2 — Image</div>
+        <h2>Fini le smartphone,<br>place à la haute définition.</h2>
+        <div class="pack-nums">
+          <div class="pack-n">
+            <span class="big-n">15</span>
+            <span class="big-n-label">photographies culinaires<br>professionnelles</span>
+          </div>
+          <div class="pack-plus">+</div>
+          <div class="pack-n">
+            <span class="big-n">1</span>
+            <span class="big-n-label">vidéo héroïque<br>60 secondes en 4K</span>
+          </div>
+        </div>
+        <div class="team-pill">
+          <div class="team-av">D</div>
+          <div class="team-txt">
+            <strong>Damien</strong> — Directeur artistique
+            <span>Se déplace dans votre établissement. Met en scène vos plats, votre équipe, votre identité.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07: Social -->
+    <section class="slide s7">
+      <div class="slide-inner">
+        <div class="slide-label">Pilier 3 — Social</div>
+        <h2>Vos réseaux sociaux<br>animés tous les jours.</h2>
+        <div class="steps">
+          <div class="step-card">
+            <div class="step-n">1</div>
+            <h3>Vous filmez</h3>
+            <p>La vie du restaurant, les plats du jour, les coulisses. Votre smartphone suffit.</p>
+          </div>
+          <div class="step-arr">&#8594;</div>
+          <div class="step-card">
+            <div class="step-n">2</div>
+            <h3>Vincent monte</h3>
+            <p>Montage pro, sous-titres, musique, format optimisé pour chaque réseau.</p>
+          </div>
+          <div class="step-arr">&#8594;</div>
+          <div class="step-card">
+            <div class="step-n">3</div>
+            <h3>Nous gérons tout</h3>
+            <p>Publications quotidiennes. Modération des avis Google <strong>24h/24, 7j/7</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08: Preuve sociale -->
+    <section class="slide s8">
+      <div class="slide-inner centered">
+        <div class="slide-label">Preuve sociale</div>
+        <h2>Ils ont franchi le cap<br>dans votre quartier.</h2>
+        <div class="ba-wrap">
+          <div class="ba-side">
+            <div class="ba-tag">Avant</div>
+            <div class="ba-box ba-before">
+              <span>📸</span>
+              <p>Photo smartphone<br>basse qualité</p>
+            </div>
+            <div class="ba-stats">
+              <div class="stat-bad">&#11088; 3.8 / 5 Google</div>
+              <div class="stat-bad">&#128201; &minus;12&nbsp;% réservations</div>
+            </div>
+          </div>
+          <div class="ba-mid">&#8594;</div>
+          <div class="ba-side">
+            <div class="ba-tag ba-tag-gold">Après</div>
+            <div class="ba-box ba-after">
+              <span>📷</span>
+              <p>Haute définition<br>Damien &amp; Vincent</p>
+            </div>
+            <div class="ba-stats">
+              <div class="stat-good">&#11088; 4.7 / 5 Google</div>
+              <div class="stat-good">&#128200; +34&nbsp;% réservations</div>
+            </div>
+          </div>
+        </div>
+        <p class="ref-line">— Le Bistrot des Arènes, Lyon 6<sup>e</sup></p>
+      </div>
+    </section>
+
+    <!-- 09: Tarifs -->
+    <section class="slide s9">
+      <div class="slide-inner centered">
+        <div class="slide-label">Tarification</div>
+        <h2>Des fondations numériques<br>accessibles.</h2>
+        <div class="price-row">
+          <div class="price-box">
+            <div class="pb-icon">🌐</div>
+            <h3>Pack Web</h3>
+            <div class="pb-setup">499 &euro; <span>setup</span></div>
+            <div class="pb-monthly">159 &euro;<em>/mois</em></div>
+            <ul>
+              <li>Site web haute performance</li>
+              <li>Menu QR dynamique</li>
+              <li>Hébergement inclus</li>
+              <li>SEO local optimisé</li>
+            </ul>
+          </div>
+          <div class="price-box">
+            <div class="pb-icon">📱</div>
+            <h3>Pack Social</h3>
+            <div class="pb-setup">499 &euro; <span>setup</span></div>
+            <div class="pb-monthly">299 &euro;<em>/mois</em></div>
+            <ul>
+              <li>15 photos pro + vidéo 4K</li>
+              <li>Publications quotidiennes</li>
+              <li>Montage vidéo professionnel</li>
+              <li>Modération avis 24/7</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10: Combo -->
+    <section class="slide s10">
+      <div class="slide-inner centered">
+        <div class="slide-label">L'offre ultime</div>
+        <h2>L'image bien cuisinée<br>de A à Z.</h2>
+        <div class="combo">
+          <div class="combo-badge">MEILLEURE OFFRE</div>
+          <div class="combo-name">Pack Combo</div>
+          <div class="combo-price-row">
+            <div class="combo-setup">799 &euro; <em>setup</em></div>
+            <div class="combo-monthly">399 &euro;<em>/mois</em></div>
+          </div>
+          <div class="combo-math">
+            <div class="math-crossed">Séparés&nbsp;: 998 &euro; setup + 458 &euro;/mois</div>
+            <div class="math-save">Vous économisez 199 &euro; + 59 &euro;/mois</div>
+          </div>
+          <div class="combo-feats">
+            <span>&#10003; Site web d'élite</span>
+            <span>&#10003; Menu QR dynamique</span>
+            <span>&#10003; 15 photos + vidéo 4K</span>
+            <span>&#10003; Réseaux quotidiens</span>
+            <span>&#10003; Avis Google 24/7</span>
+            <span>&#10003; Un seul interlocuteur</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11: Plan d'action -->
+    <section class="slide s11">
+      <div class="slide-inner centered">
+        <div class="slide-label">Plan d'action</div>
+        <h2>Votre nouvelle image en ligne<br>dès demain matin.</h2>
+        <div class="tl-outer">
+          <div class="tl-dot-row">
+            <div class="tl-col"><div class="tl-dot"></div></div>
+            <div class="tl-col"><div class="tl-dot tl-dot-g"></div></div>
+            <div class="tl-col"><div class="tl-dot tl-dot-g"></div></div>
+          </div>
+          <div class="tl-label-row">
+            <div class="tl-col">
+              <div class="tl-when">Aujourd'hui</div>
+              <div class="tl-what">Validation du site</div>
+              <p>François-Thomas active votre site en 15 minutes chrono.</p>
+            </div>
+            <div class="tl-col">
+              <div class="tl-when">Demain</div>
+              <div class="tl-what">Shooting photo</div>
+              <p>Damien se déplace dans votre restaurant pour le shooting haute définition.</p>
+            </div>
+            <div class="tl-col">
+              <div class="tl-when">Dans 48h</div>
+              <div class="tl-what">Lancement officiel</div>
+              <p>Vincent publie le premier contenu. Votre présence en ligne est en marche.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12: CTA -->
+    <section class="slide s12">
+      <div class="slide-inner centered">
+        <div class="slide-label">Dernière étape</div>
+        <h2>On valide votre intégration&nbsp;?</h2>
+        <div class="cta-wrap">
+          <div class="pack-btns">
+            <button class="pack-btn" onclick="selectPack(this,'web')">Pack Web — 499 &euro;</button>
+            <button class="pack-btn" onclick="selectPack(this,'social')">Pack Social — 499 &euro;</button>
+            <button class="pack-btn pack-btn-gold active" onclick="selectPack(this,'combo')">Pack Combo — 799 &euro; &#10003;</button>
+          </div>
+          <a id="stripeLink" href="https://buy.stripe.com/EXEMPLE_COMBO" target="_blank" rel="noopener" class="stripe-btn">
+            <span class="stripe-s">stripe</span>
+            Valider et payer en sécurité
+          </a>
+          <p class="stripe-info">Paiement 100&nbsp;% sécurisé &middot; Chiffrement SSL &middot; Reçu automatique par e-mail</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- .slides -->
+</div><!-- .pres -->
+
+<script src="js/slider.js"></script>
+</body>
+</html>

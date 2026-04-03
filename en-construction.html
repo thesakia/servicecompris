@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>En construction · Service Compris</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23020617'/><text y='70' x='50' text-anchor='middle' font-size='58' font-family='Inter,sans-serif' fill='%23bef264' font-weight='900'>SC</text></svg>">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #020617;
+      color: #f8fafc;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: #bef264;
+      margin-bottom: 3rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(190,242,100,.1);
+      border: 1px solid rgba(190,242,100,.25);
+      color: #bef264;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .35rem .85rem;
+      border-radius: 999px;
+      margin-bottom: 2rem;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #bef264;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .4; transform: scale(.7); }
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -.03em;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 span { color: #bef264; }
+
+    p {
+      font-size: 1.1rem;
+      color: #94a3b8;
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact {
+      font-size: .9rem;
+      color: #64748b;
+    }
+
+    .contact a {
+      color: #bef264;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="logo">Service Compris</div>
+
+  <div class="badge">En construction</div>
+
+  <h1>Quelque chose<br>de <span>grand</span> arrive.</h1>
+
+  <p>Notre site est en cours de finalisation. Revenez très bientôt pour découvrir ce que nous préparons pour votre restaurant.</p>
+
+  <div class="contact">
+    Une question ? <a href="mailto:contact@servicecompris.pro">contact@servicecompris.pro</a>
+  </div>
+</body>
+</html>
