@@ -260,7 +260,7 @@
       gap: 10px;
     }
 
-    .btn-view, .btn-export {
+    .btn-view, .btn-export, .btn-share {
       flex: 1;
       padding: 10px 14px;
       border-radius: 9px;
@@ -292,6 +292,16 @@
       background: rgba(255,255,255,0.1);
       color: rgba(255,255,255,0.9);
       border-color: rgba(255,255,255,0.2);
+    }
+    .btn-share {
+      background: rgba(99,102,241,0.1);
+      color: #a5b4fc;
+      border-color: rgba(99,102,241,0.25);
+    }
+    .btn-share:hover {
+      background: rgba(99,102,241,0.2);
+      border-color: rgba(99,102,241,0.5);
+      color: #c7d2fe;
     }
 
     /* ── Empty state ── */
@@ -542,6 +552,15 @@
       background: rgba(0,0,0,0.08);
       color: rgba(0,0,0,0.8);
       border-color: rgba(0,0,0,0.18);
+    }
+    html.light .btn-share {
+      background: rgba(99,102,241,0.07);
+      color: #4F46E5;
+      border-color: rgba(99,102,241,0.2);
+    }
+    html.light .btn-share:hover {
+      background: rgba(99,102,241,0.14);
+      border-color: rgba(99,102,241,0.4);
     }
     html.light .empty-title { color: rgba(0,0,0,0.45); }
     html.light .empty-sub { color: rgba(0,0,0,0.3); }
@@ -855,13 +874,19 @@ function buildCard(brief) {
         : ''}
     </div>
     <div class="card-actions">
-      <button class="btn-view" data-name="${encodeURIComponent(brief.name)}">Voir les réponses</button>
-      <button class="btn-export" data-name="${encodeURIComponent(brief.name)}">Exporter .MD</button>
+      <button class="btn-view">Voir les réponses</button>
+      <button class="btn-share">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:5px">
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/>
+        </svg>Partager
+      </button>
+      <button class="btn-export">Exporter .MD</button>
     </div>
   `;
 
   // Events
   div.querySelector('.btn-view').addEventListener('click', () => openModal(brief));
+  div.querySelector('.btn-share').addEventListener('click', () => shareBrief(brief));
   div.querySelector('.btn-export').addEventListener('click', () => exportMarkdown(brief));
   div.querySelector('.card-delete').addEventListener('click', () => deleteBrief(brief.name));
 
@@ -949,14 +974,43 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ──────────────────────────────────────────
+// SHARE
+// ──────────────────────────────────────────
+async function shareBrief(brief) {
+  const md    = buildMarkdown(brief);
+  const slug  = brief.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const title = `Brief restaurant · ${brief.name}`;
+
+  // iOS / Android : Web Share API avec fichier
+  if (navigator.canShare) {
+    const file = new File([md], `brief-${slug}.md`, { type: 'text/markdown' });
+    if (navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ title, files: [file] }); return; } catch(e) { if (e.name === 'AbortError') return; }
+    }
+  }
+
+  // Fallback : partage texte seul (sans fichier)
+  if (navigator.share) {
+    try { await navigator.share({ title, text: md }); return; } catch(e) { if (e.name === 'AbortError') return; }
+  }
+
+  // Dernier recours : copier dans le presse-papier
+  try {
+    await navigator.clipboard.writeText(md);
+    alert('Contenu copié dans le presse-papier.');
+  } catch(e) {
+    alert('Le partage n\'est pas disponible sur ce navigateur.');
+  }
+}
+
+// ──────────────────────────────────────────
 // EXPORT MARKDOWN
 // ──────────────────────────────────────────
-function exportMarkdown(brief) {
+function buildMarkdown(brief) {
   const dateFr = formatDateFr(brief.date);
   let md = `# Brief Restaurant : ${brief.name}\n`;
   md += `> Complété le ${dateFr}\n\n`;
   md += `---\n\n`;
-
   SECTIONS.forEach(section => {
     md += `## ${section.label}\n\n`;
     section.questions.forEach(({ idx, q }) => {
@@ -966,6 +1020,11 @@ function exportMarkdown(brief) {
       md += '\n';
     });
   });
+  return md;
+}
+
+function exportMarkdown(brief) {
+  const md = buildMarkdown(brief);
 
   // Generate file
   const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
