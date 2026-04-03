@@ -1,0 +1,6 @@
+# Bloquer l'accès direct au fichier de données
+<Files "briefs_data.json">
+    Require all denied
+    Order allow,deny
+    Deny from all
+</Files>
