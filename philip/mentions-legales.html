@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentions légales | Restaurant Philip</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%233D6B32'/><text y='74' x='50' text-anchor='middle' font-size='68' font-family='Georgia,serif' fill='%23A87E18' font-weight='bold'>P</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    a { text-decoration: none; color: inherit; }
+
+    :root {
+      --bg:        #FAFDF6;
+      --surface:   #FFFFFF;
+      --text:      #18280F;
+      --muted:     #556B46;
+      --accent:    #3D6B32;
+      --divider:   #A87E18;
+      --border:    rgba(61,107,50,0.15);
+      --header-bg: rgba(250,253,246,0.96);
+      --hf:        'Playfair Display', Georgia, serif;
+      --bf:        'Lora', Georgia, serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--bf);
+      line-height: 1.75;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--header-bg);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .hdr-in {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 28px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo-wrap { display: flex; flex-direction: column; line-height: 1; }
+    .logo-name { font-family: var(--hf); font-size: 1.1rem; font-weight: 700; }
+    .logo-since { font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-top: 2px; }
+    .back-link { font-size: .78rem; font-weight: 600; letter-spacing: .06em; color: var(--muted); display: flex; align-items: center; gap: 6px; transition: color .2s; }
+    .back-link:hover { color: var(--accent); }
+    .back-link svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 64px 28px 96px;
+    }
+
+    .page-title {
+      font-family: var(--hf);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+    .rule {
+      height: 2px;
+      background: var(--divider);
+      border-radius: 2px;
+      width: 48px;
+      margin: 1.2rem 0 2.8rem;
+    }
+
+    .ml-section { margin-bottom: 2.8rem; }
+    .ml-section h2 {
+      font-family: var(--hf);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .9rem;
+    }
+    .ml-section p, .ml-section li { font-size: .95rem; color: var(--muted); margin-bottom: .4rem; }
+    .ml-section a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .ml-todo {
+      display: inline-block;
+      font-size: .78rem;
+      font-style: italic;
+      color: var(--divider);
+      border: 1px dashed var(--divider);
+      border-radius: 4px;
+      padding: 2px 8px;
+      margin-left: 4px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px;
+      text-align: center;
+      font-size: .76rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-in">
+    <a href="index.html" class="logo-wrap">
+      <span class="logo-name">Restaurant Philip</span>
+      <span class="logo-since">Depuis 1926</span>
+    </a>
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Retour au site
+    </a>
+  </div>
+</header>
+
+<main>
+  <h1 class="page-title">Mentions légales</h1>
+  <div class="rule"></div>
+
+  <div class="ml-section">
+    <h2>Éditeur du site</h2>
+    <p>Restaurant Philip Jardin de Pétrarque</p>
+    <!-- [À COMPLÉTER PAR LE CLIENT] -->
+    <p>SARL au capital de <span class="ml-todo">à compléter</span></p>
+    <p>RCS Avignon 642 620 181</p>
+    <p>510 Chemin de la Fontaine, 84800 Fontaine-de-Vaucluse</p>
+    <p>Téléphone : <a href="tel:+33975592863">+33 9 75 59 28 63</a></p>
+    <p>Email : <a href="mailto:restphilipjardinpetrarque@orange.fr">restphilipjardinpetrarque@orange.fr</a></p>
+  </div>
+
+  <div class="ml-section">
+    <h2>Directeur de la publication</h2>
+    <!-- [À COMPLÉTER PAR LE CLIENT] -->
+    <p><span class="ml-todo">Prénom Nom à compléter</span></p>
+  </div>
+
+  <div class="ml-section">
+    <h2>Hébergement</h2>
+    <!-- [À COMPLÉTER PAR LE CLIENT — nom, adresse et téléphone de l'hébergeur] -->
+    <p><span class="ml-todo">Nom de l'hébergeur à compléter</span></p>
+    <p><span class="ml-todo">Adresse à compléter</span></p>
+  </div>
+
+  <div class="ml-section">
+    <h2>Conception et réalisation</h2>
+    <p><a href="https://servicecompris.pro" target="_blank" rel="noopener">servicecompris.pro</a></p>
+  </div>
+
+  <div class="ml-section">
+    <h2>Propriété intellectuelle</h2>
+    <p>L'ensemble du contenu de ce site (textes, images, vidéos, logos) est protégé par le droit d'auteur. Toute reproduction, même partielle, est interdite sans autorisation préalable écrite de l'éditeur.</p>
+  </div>
+
+  <div class="ml-section">
+    <h2>Données personnelles</h2>
+    <p>Ce site ne collecte aucune donnée personnelle. Aucun cookie de tracking n'est utilisé.</p>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 Restaurant Philip Jardin de Pétrarque &nbsp;·&nbsp; <a href="index.html">Retour au site</a></p>
+</footer>
+
+</body>
+</html>

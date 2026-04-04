@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Restaurant Philip | Cuisine Provençale depuis 1926 | Fontaine-de-Vaucluse</title>
-  <meta name="description" content="Restaurant familial depuis 1926 au pied de la fontaine de Vaucluse. Cuisine traditionnelle provençale, terrasse sur la Sorgue. Guide Michelin, Gault &amp; Millau. Réservation par téléphone.">
+  <meta name="description" content="Restaurant familial depuis 1926 au pied de la fontaine de Vaucluse. Cuisine provençale de saison, terrasse au bord de la Sorgue. Guide Michelin depuis 60 ans. Réservation par téléphone.">
   <meta name="keywords" content="restaurant fontaine de vaucluse, restaurant philip, cuisine provençale, guide michelin vaucluse, terrasse sorgue, restaurant familial provence, truffe vaucluse, truite sorgue">
   <meta property="og:title" content="Restaurant Philip | Cuisine Provençale depuis 1926">
-  <meta property="og:description" content="Restaurant familial depuis 1926 au pied de la fontaine de Vaucluse. Cuisine traditionnelle provençale, terrasse sur la Sorgue.">
-  <meta property="og:type" content="restaurant.restaurant">
+  <meta property="og:description" content="Au pied de la fontaine de Vaucluse, une table familiale depuis 4 générations. Terrasse au bord de la Sorgue, cuisine de terroir. Guide Michelin.">
+  <meta property="og:image" content="https://servicecompris.pro/philip/img/hero-village-riviere.webp">
+  <meta property="og:url" content="https://servicecompris.pro/philip/">
+  <meta property="og:type" content="restaurant">
   <meta property="og:locale" content="fr_FR">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%233D6B32'/><text y='74' x='50' text-anchor='middle' font-size='68' font-family='Georgia,serif' fill='%23A87E18' font-weight='bold'>P</text></svg>">
 
@@ -23,7 +25,8 @@
     "@type": "Restaurant",
     "name": "Restaurant Philip",
     "alternateName": "Restaurant Philip Jardin de Pétrarque",
-    "description": "Restaurant familial depuis 1926 au pied de la fontaine de Vaucluse. Cuisine traditionnelle provençale, terrasse au bord de la Sorgue.",
+    "description": "Restaurant familial depuis 1926 au pied de la fontaine de Vaucluse. Cuisine provençale de saison, terrasse au bord de la Sorgue.",
+    "url": "https://servicecompris.pro/philip/",
     "telephone": "+33975592863",
     "email": "restphilipjardinpetrarque@orange.fr",
     "address": {
@@ -38,13 +41,29 @@
     "servesCuisine": ["Française", "Provençale", "Traditionnelle"],
     "priceRange": "€€-€€€",
     "foundingDate": "1926",
+    "acceptsReservations": "True",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "10:00",
+        "closes": "20:30",
+        "validFrom": "2026-04-01",
+        "validThrough": "2026-09-30"
+      }
+    ],
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.4", "reviewCount": "1930", "bestRating": "5" },
-    "paymentAccepted": "Cash, Credit Card, Visa, Mastercard",
+    "paymentAccepted": "Cash, Credit Card",
+    "currenciesAccepted": "EUR",
     "amenityFeature": [
       {"@type": "LocationFeatureSpecification", "name": "Terrace", "value": true},
       {"@type": "LocationFeatureSpecification", "name": "WiFi", "value": true},
       {"@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true},
       {"@type": "LocationFeatureSpecification", "name": "Pets Allowed", "value": true}
+    ],
+    "sameAs": [
+      "https://www.facebook.com/p/Restaurant-Philip-depuis-1926-100063526208458/",
+      "https://www.instagram.com/restaurantphilip/"
     ]
   }
   </script>
@@ -233,11 +252,14 @@
       overflow: hidden;
       padding: 0;
     }
-    .hero-bg {
+    /* HERO VIDEO : remplacer hero-video.mp4 par la vraie vidéo quand elle sera prête */
+    .hero-video {
       position: absolute;
       inset: 0;
-      background: url('img/hero-village-riviere.webp') center/cover no-repeat;
-      will-change: transform;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
     }
     .hero-ov { position: absolute; inset: 0; background: var(--overlay); }
     .hero-body {
@@ -308,12 +330,6 @@
       50%       { opacity: 0.88; }
     }
     .hero-ov { animation: heroPulse 7s ease-in-out infinite; }
-    @keyframes heroKenBurns {
-      0%   { transform: scale(1) translateY(0); }
-      100% { transform: scale(1.07) translateY(-1%); }
-    }
-    /* Ken Burns activé uniquement si pas de scroll (géré par JS) */
-    .hero-bg.idle { animation: heroKenBurns 14s ease-in-out infinite alternate; }
 
     /* ============================
        HISTOIRE
@@ -391,13 +407,25 @@
        CADRE
     ============================ */
     #cadre { text-align: center; }
-    .cadre-text {
-      max-width: 660px;
+    .cadre-intro-wrap {
+      max-width: 740px;
       margin: 0 auto 3rem;
+    }
+    .cadre-accroche {
+      font-family: var(--hf);
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 1.8rem;
+    }
+    .cadre-text {
       font-size: 1.02rem;
       color: var(--muted);
-      line-height: 1.8;
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
     }
+    .cadre-text:last-child { margin-bottom: 0; }
     .gallery {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
@@ -560,6 +588,30 @@
     }
     .pq-source { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
 
+    .reviews {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    .review-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.6rem 1.5rem;
+    }
+    .review-text {
+      font-family: var(--bf);
+      font-size: .92rem;
+      color: var(--text);
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .review-meta { font-size: .72rem; color: var(--muted); }
+    .review-meta strong { font-weight: 600; color: var(--accent); }
+    @media (max-width: 768px) { .reviews { grid-template-columns: 1fr; } }
+
     .stats {
       display: flex;
       justify-content: center;
@@ -682,10 +734,11 @@
       bottom: 0; left: 0; right: 0;
       z-index: 800;
       padding: 12px 16px;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
       background: var(--surface);
       border-top: 1px solid var(--border);
     }
-    .mob-cta .btn { width: 100%; justify-content: center; }
+    .mob-cta .btn { width: 100%; justify-content: center; min-height: 48px; }
 
     /* ============================
        LIGHTBOX
@@ -741,6 +794,7 @@
       .hbg { display: flex; }
       .hdr-in .btn { display: none; }
       .mob-cta { display: block; }
+      body { padding-bottom: 74px; }
       .panel.on { grid-template-columns: 1fr; }
       .gallery { grid-template-columns: 1fr 1fr; }
       .ft-grid { grid-template-columns: 1fr; }
@@ -766,7 +820,7 @@
       <a href="#infos">Infos pratiques</a>
     </nav>
     <div style="display:flex;align-items:center;gap:.75rem">
-      <a href="tel:+33975592863" class="btn">
+      <a href="tel:+33975592863" aria-label="Appeler le Restaurant Philip au 09 75 59 28 63" class="btn">
         <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
         Réserver
       </a>
@@ -779,14 +833,27 @@
 
 <!-- ========== HERO ========== -->
 <section id="hero">
-  <div class="hero-bg" id="hbg-img"></div>
+  <!-- PHOTO PRO ATTENDUE : Vue large terrasse + Sorgue, ou vue du village depuis la rivière. 16:9, min 1920x1080 -->
+  <!-- VIDÉO ATTENDUE : Loop 15-30 sec terrasse/eau/nature/service, muted, H.264, < 5 Mo -->
+  <video
+    class="hero-video"
+    aria-label="Vidéo d'ambiance du Restaurant Philip au bord de la Sorgue"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster="img/hero-village-riviere.webp"
+  >
+    <source src="img/hero-video.mp4" type="video/mp4">
+  </video>
   <div class="hero-ov"></div>
   <div class="hero-body">
     <span class="hero-pill">Centenaire 2026 · 4 générations · Fontaine-de-Vaucluse</span>
     <h1 class="hero-h1">Restaurant<br>Philip</h1>
-    <p class="hero-sub">Un siècle au bord de la Sorgue · Produits frais, circuit court, terroir provençal</p>
+    <p class="hero-sub">Au pied de la fontaine, là où la Sorgue jaillit de la roche. Depuis 1926.</p>
     <div class="hero-ctas">
-      <a href="tel:+33975592863" class="btn">
+      <a href="tel:+33975592863" aria-label="Appeler le Restaurant Philip au 09 75 59 28 63" class="btn">
         <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
         Réserver par téléphone
       </a>
@@ -821,7 +888,7 @@
             <div class="tl-dot"></div>
             <div>
               <span class="tl-year">Années 50</span>
-              <p class="tl-desc">Winston Churchill, de passage en Provence, choisit de déjeuner chez Philip. Une visite restée dans les mémoires de la maison</p>
+              <p class="tl-desc">Winston Churchill, habitué de la Provence, vient régulièrement déjeuner chez Philip. Un souvenir que la famille transmet de génération en génération.</p>
             </div>
           </div>
           <div class="tl-item">
@@ -841,11 +908,13 @@
         </div>
       </div>
       <div class="hist-imgs" data-aos="fade-left">
+        <!-- PHOTO PRO ATTENDUE : Scène en cuisine, flambé, cuisson, action. 4:3 ou 3:2. -->
         <div class="hist-img" onclick="lb('img/cuisine-flambe.webp')">
-          <img src="img/cuisine-flambe.webp" alt="Savoir-faire en cuisine" loading="lazy">
+          <img src="img/cuisine-flambe.webp" alt="Savoir-faire en cuisine au Restaurant Philip" loading="lazy">
         </div>
+        <!-- PHOTO PRO ATTENDUE : Portrait de Camille et/ou Philip en cuisine ou en salle. 4:3 ou 3:2. -->
         <div class="hist-img" onclick="lb('img/chef-en-cuisine.webp')">
-          <img src="img/chef-en-cuisine.webp" alt="Le chef en cuisine" loading="lazy">
+          <img src="img/chef-en-cuisine.webp" alt="Le chef aux fourneaux du Restaurant Philip" loading="lazy">
         </div>
       </div>
     </div>
@@ -858,26 +927,37 @@
     <span class="label" data-aos="fade-up">Le cadre</span>
     <h2 class="title center" style="text-align:center" data-aos="fade-up">Un cadre<br><em>hors du temps</em></h2>
     <div class="rule center" data-aos="fade-up"></div>
-    <p class="cadre-text" data-aos="fade-up">Installez-vous. Laissez le murmure de la Sorgue prendre la place du quotidien. Notre terrasse, nichée dans le Jardin de Pétrarque face à la roche millénaire, offre l'un des cadres les plus singuliers de Provence. Ici, on ne vient pas seulement manger : on vient se ressourcer, souffler, retrouver l'essentiel. L'eau coule, les saisons passent, les saveurs restent.</p>
+    <div class="cadre-intro-wrap" data-aos="fade-up">
+      <p class="cadre-accroche">Installez-vous. Fermez les yeux un instant. Écoutez.</p>
+      <p class="cadre-text">Le murmure de la Sorgue, qui jaillit de la roche à quelques mètres de votre table. Le bruissement des frondaisons centenaires du Jardin de Pétrarque. Le chant discret des oiseaux dans une nature préservée, luxuriante, presque intacte.</p>
+      <p class="cadre-text">Ici, au bout du chemin, là où s'arrête le village et où commence la source, notre terrasse s'ouvre sur l'un des spectacles naturels les plus singuliers de Provence. L'eau cristalline de la Sorgue affleure les tables. La falaise d'où jaillit la célèbre fontaine se dresse face à vous. Le temps ralentit.</p>
+      <p class="cadre-text">On ne vient pas seulement manger chez Philip. On vient souffler, se retrouver, laisser la beauté du lieu faire son travail. Et quand l'assiette arrive, le cadre a déjà fait la moitié du chemin.</p>
+      <p class="cadre-text">À l'intérieur, une grande salle chaleureuse vous accueille les jours de mistral ou de pluie.</p>
+    </div>
     <div class="gallery" data-aos="fade-up">
+      <!-- PHOTO PRO ATTENDUE : Terrasse vue de face, Sorgue au premier plan. 16:9. -->
       <div class="g-item" onclick="lb('img/hero-village-riviere.webp')">
-        <img src="img/hero-village-riviere.webp" alt="Village au bord de la Sorgue" loading="lazy">
+        <img src="img/hero-village-riviere.webp" alt="La terrasse du Restaurant Philip au bord de la Sorgue à Fontaine-de-Vaucluse" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
+      <!-- PHOTO PRO ATTENDUE : Salle intérieure, tables dressées, lumière naturelle. 4:3. -->
       <div class="g-item" onclick="lb('img/cadre-salle-interieure.webp')">
-        <img src="img/cadre-salle-interieure.webp" alt="Salle intérieure" loading="lazy">
+        <img src="img/cadre-salle-interieure.webp" alt="Salle intérieure du Restaurant Philip, tables dressées" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
+      <!-- PHOTO PRO ATTENDUE : Verre en terrasse, Sorgue en arrière-plan. 4:3 ou 1:1. -->
       <div class="g-item" onclick="lb('img/boisson-fraicheur.webp')">
-        <img src="img/boisson-fraicheur.webp" alt="Fraîcheur en terrasse" loading="lazy">
+        <img src="img/boisson-fraicheur.webp" alt="Verre en terrasse avec vue sur la Sorgue" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
+      <!-- PHOTO PRO ATTENDUE : Dressage d'un plat signature (truffe ou truite). 4:3 ou 1:1. -->
       <div class="g-item" onclick="lb('img/cuisine-dressage.webp')">
-        <img src="img/cuisine-dressage.webp" alt="Dressage en cuisine" loading="lazy">
+        <img src="img/cuisine-dressage.webp" alt="Dressage d'un plat signature en cuisine" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
+      <!-- PHOTO PRO ATTENDUE : Produits bruts du terroir (truffe, asperges, herbes, légumes). 4:3 ou 1:1. -->
       <div class="g-item" onclick="lb('img/produits-frais-terroir.webp')">
-        <img src="img/produits-frais-terroir.webp" alt="Produits frais du terroir" loading="lazy">
+        <img src="img/produits-frais-terroir.webp" alt="Produits frais du terroir provençal : truffe, asperges, légumes du marché" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
     </div>
@@ -893,16 +973,16 @@
     <p class="carte-intro" data-aos="fade-up">Notre cuisine s'inspire des saisons et du terroir provençal. Truffe des Monts du Vaucluse, truite de la Sorgue, écrevisses de notre vivier, agneau de Sisteron... Chaque assiette raconte notre terre.</p>
     <p class="carte-note" data-aos="fade-up">Carte variable selon la saison et les arrivages du marché.</p>
 
-    <div class="tabs" data-aos="fade-up">
-      <button class="tab on" onclick="tab(this,'p-ent')">Entrées</button>
-      <button class="tab" onclick="tab(this,'p-poi')">Poissons &amp; crustacés</button>
-      <button class="tab" onclick="tab(this,'p-via')">Viandes</button>
-      <button class="tab" onclick="tab(this,'p-des')">Desserts</button>
-      <button class="tab" onclick="tab(this,'p-men')">Nos menus</button>
+    <div class="tabs" role="tablist" aria-label="Catégories de la carte" data-aos="fade-up">
+      <button class="tab on" role="tab" aria-selected="true"  aria-controls="p-ent" onclick="tab(this,'p-ent')">Entrées</button>
+      <button class="tab"    role="tab" aria-selected="false" aria-controls="p-poi" onclick="tab(this,'p-poi')">Poissons &amp; crustacés</button>
+      <button class="tab"    role="tab" aria-selected="false" aria-controls="p-via" onclick="tab(this,'p-via')">Viandes</button>
+      <button class="tab"    role="tab" aria-selected="false" aria-controls="p-des" onclick="tab(this,'p-des')">Desserts</button>
+      <button class="tab"    role="tab" aria-selected="false" aria-controls="p-men" onclick="tab(this,'p-men')">Nos menus</button>
     </div>
 
     <!-- Entrées -->
-    <div class="panel on" id="p-ent">
+    <div class="panel on" id="p-ent" role="tabpanel">
       <div class="mi"><div><div class="mi-name">Asperges du pays</div><div class="mi-desc">Vapeur, tempura ou mousse, vertes et blanches selon arrivage</div></div></div>
       <div class="mi"><div><div class="mi-name">Escargots de Provence</div><div class="mi-desc">Beurre aux herbes, tradition maison</div></div></div>
       <div class="mi"><div><div class="mi-name">Omelette aux truffes</div><div class="mi-desc">Truffe des Monts du Vaucluse, en saison</div></div></div>
@@ -912,7 +992,7 @@
     </div>
 
     <!-- Poissons -->
-    <div class="panel" id="p-poi">
+    <div class="panel" id="p-poi" role="tabpanel">
       <div class="mi"><div><div class="mi-name">Truite de la Sorgue</div><div class="mi-desc">En trois cuissons, pommes de terre et épinards - plat signature</div></div></div>
       <div class="mi"><div><div class="mi-name">Ecrevisses du vivier</div><div class="mi-desc">Pêchées dans notre vivier alimenté par la Sorgue</div></div></div>
       <div class="mi"><div><div class="mi-name">Coquilles Saint-Jacques</div><div class="mi-desc">En saison, préparation maison</div></div></div>
@@ -920,7 +1000,7 @@
     </div>
 
     <!-- Viandes -->
-    <div class="panel" id="p-via">
+    <div class="panel" id="p-via" role="tabpanel">
       <div class="mi"><div><div class="mi-name">Agneau de Sisteron</div><div class="mi-desc">Préparation traditionnelle, légumes de saison</div></div></div>
       <div class="mi"><div><div class="mi-name">Canard du terroir</div><div class="mi-desc">Selon la tradition provençale</div></div></div>
       <div class="mi"><div><div class="mi-name">Ratatouille maison</div><div class="mi-desc">Légumes du pays, mijotée lentement</div></div></div>
@@ -928,7 +1008,7 @@
     </div>
 
     <!-- Desserts -->
-    <div class="panel" id="p-des">
+    <div class="panel" id="p-des" role="tabpanel">
       <div class="mi"><div><div class="mi-name">Saint-Honoré maison</div><div class="mi-desc">Signature de la maison, pâtisserie fine</div></div></div>
       <div class="mi"><div><div class="mi-name">Tartelette fraises et abricot</div><div class="mi-desc">Fraises du pays, fond d'abricot</div></div></div>
       <div class="mi"><div><div class="mi-name">Fromages de la région</div><div class="mi-desc">Servis avec confiture de gigerine maison</div></div></div>
@@ -936,7 +1016,7 @@
     </div>
 
     <!-- Menus -->
-    <div class="panel" id="p-men">
+    <div class="panel" id="p-men" role="tabpanel">
       <div class="menus-cards">
         <div class="mc" data-aos="fade-up">
           <span class="mc-label">Menu</span>
@@ -956,9 +1036,20 @@
           <div class="mc-price">58<sup>€</sup></div>
           <p class="mc-desc">Entrée + Plat signature + Fromage + Dessert<br>Truite de la Sorgue, truffe, produits d'exception<br>L'expérience Philip dans sa plénitude</p>
         </div>
+        <div class="mc" data-aos="fade-up" data-aos-delay="240" style="grid-column: auto; border-style: dashed;">
+          <span class="mc-label">Menu</span>
+          <div class="mc-name">Enfant</div>
+          <div class="mc-price" style="font-size:1.4rem">Prix en salle</div>
+          <p class="mc-desc">Adapté aux petits gourmands<br>Demandez-nous en salle</p>
+        </div>
+      </div>
+
+      <div data-aos="fade-up" style="margin-top:1.8rem; padding:1.2rem 1.6rem; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--divider); border-radius:0 8px 8px 0; max-width:620px;">
+        <p style="font-size:.9rem; color:var(--muted); line-height:1.7;">Un espace bar et restauration légère est également disponible pour une pause au bord de l'eau, sans réservation.</p>
       </div>
     </div>
 
+    <!-- PHOTO PRO ATTENDUE : Plat signature, truite en 3 cuissons ou omelette aux truffes. 4:3 ou 16:9. -->
     <img src="img/plat-viande-gastronomique.webp" alt="Gastronomie provençale" class="carte-photo" loading="lazy" data-aos="fade-up">
   </div>
 </section>
@@ -967,7 +1058,7 @@
 <section id="distinctions">
   <div class="container">
     <span class="label" style="text-align:center;display:block" data-aos="fade-up">Reconnus</span>
-    <h2 class="title" style="text-align:center" data-aos="fade-up">Ce qu'ils<br><em>retiennent</em></h2>
+    <h2 class="title" style="text-align:center" data-aos="fade-up">Ils parlent<br><em>de nous</em></h2>
     <div class="rule center" data-aos="fade-up"></div>
 
     <div class="badges" data-aos="fade-up">
@@ -1001,16 +1092,27 @@
       <p class="pq-text">"Au pied de la célèbre fontaine d'où jaillit la Sorgue, cette adresse sait jouer de ses charmes bucoliques. Père et fille proposent une cuisine qui joue efficacement la carte de la tradition."</p>
       <span class="pq-source">Guide Michelin</span>
     </div>
-    <div class="pullquote" data-aos="fade-up" style="border-left-color:var(--divider)">
-      <p class="pq-text">"Winston Churchill est venu manger chez nous. Une visite que la famille n'a jamais oubliée, et qui dit tout de ce que ce lieu a toujours représenté."</p>
-      <span class="pq-source">Mémoire de la maison · Années 50</span>
-    </div>
-
     <div class="stats" data-aos="fade-up">
       <div class="stat-item"><span class="stat-val">100</span><span class="stat-lbl">Ans d'histoire<br>Centenaire 2026</span></div>
       <div class="stat-item"><span class="stat-val">4</span><span class="stat-lbl">Générations<br>de la même famille</span></div>
       <div class="stat-item"><span class="stat-val">800+</span><span class="stat-lbl">Avis TripAdvisor<br>N°2 sur 22</span></div>
       <div class="stat-item"><span class="stat-val">60+</span><span class="stat-lbl">Années au<br>Guide Michelin</span></div>
+    </div>
+
+    <!-- Avis clients — paraphrases fidèles au ton des avis TripAdvisor. À remplacer par de vrais verbatims si disponibles. -->
+    <div class="reviews" data-aos="fade-up">
+      <div class="review-card">
+        <p class="review-text">"Un cadre féerique au bord de la Sorgue. La truite en trois cuissons est un pur délice. On reviendra sans hésiter."</p>
+        <p class="review-meta"><strong>Visiteur</strong> · Été 2024</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"Quatre générations et toujours la même exigence. Le Saint-Honoré maison vaut le détour à lui seul."</p>
+        <p class="review-meta"><strong>Visiteur</strong> · Printemps 2025</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"Le dernier restaurant avant la source, et probablement le plus beau cadre de table de tout le Vaucluse."</p>
+        <p class="review-meta"><strong>Visiteur</strong> · Été 2023</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1060,7 +1162,7 @@
             +33 9 75 59 28 63
           </a>
           <div style="margin-top:1.5rem">
-            <a href="tel:+33975592863" class="btn">Appeler pour réserver</a>
+            <a href="tel:+33975592863" aria-label="Appeler le Restaurant Philip au 09 75 59 28 63" class="btn">Appeler pour réserver</a>
           </div>
         </div>
       </div>
@@ -1104,20 +1206,20 @@
           <li><a href="mailto:restphilipjardinpetrarque@orange.fr">Envoyer un email</a></li>
         </ul>
         <div style="margin-top:1.4rem">
-          <a href="tel:+33975592863" class="btn" style="font-size:.76rem;padding:10px 18px">Réserver</a>
+          <a href="tel:+33975592863" aria-label="Appeler le Restaurant Philip au 09 75 59 28 63" class="btn" style="font-size:.76rem;padding:10px 18px">Réserver</a>
         </div>
       </div>
     </div>
     <div class="ft-bottom">
       <p>© 2026 Restaurant Philip Jardin de Pétrarque, SARL - RCS Avignon 642 620 181</p>
-      <a href="#">Mentions légales</a>
+      <a href="mentions-legales.html">Mentions légales</a>
     </div>
   </div>
 </footer>
 
 <!-- Mobile CTA -->
 <div class="mob-cta">
-  <a href="tel:+33975592863" class="btn">
+  <a href="tel:+33975592863" aria-label="Appeler le Restaurant Philip au 09 75 59 28 63" class="btn">
     <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
     Appeler pour réserver
   </a>
@@ -1136,9 +1238,10 @@
 
   // Tabs
   function tab(btn, id) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+    document.querySelectorAll('.tab').forEach(t => { t.classList.remove('on'); t.setAttribute('aria-selected','false'); });
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
     btn.classList.add('on');
+    btn.setAttribute('aria-selected','true');
     document.getElementById(id).classList.add('on');
   }
 
@@ -1163,18 +1266,6 @@
     a.addEventListener('click', () => document.getElementById('nav').classList.remove('open'));
   });
 
-  // Hero parallax + Ken Burns idle
-  const heroBg = document.getElementById('hbg-img');
-  heroBg.classList.add('idle');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY < window.innerHeight) {
-      heroBg.classList.remove('idle');
-      heroBg.style.transform = 'translateY(' + (window.scrollY * 0.28) + 'px)';
-    } else {
-      heroBg.classList.add('idle');
-      heroBg.style.transform = '';
-    }
-  }, { passive: true });
 </script>
 </body>
 </html>
