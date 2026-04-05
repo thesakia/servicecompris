@@ -535,8 +535,25 @@
     }
     .tab.on, .tab:hover { background: var(--btn); color: var(--btn-text); border-color: var(--btn); }
 
-    .panel { display: none; }
-    .panel.on { display: grid; grid-template-columns: 1fr 1fr; gap: 0 52px; }
+    .panels-wrap {
+      display: grid;
+      grid-template-areas: 'p';
+    }
+    .panel {
+      grid-area: p;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 52px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px);
+      transition: opacity .42s cubic-bezier(.4,0,.2,1), transform .42s cubic-bezier(.4,0,.2,1);
+    }
+    .panel.on {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
 
     .mi {
       display: flex;
@@ -837,7 +854,7 @@
       .hdr-in .btn { display: none; }
       .mob-cta { display: block; }
       body { padding-bottom: 74px; }
-      .panel.on { grid-template-columns: 1fr; }
+      .panel { grid-template-columns: 1fr; }
       .gallery { grid-template-columns: 1fr 1fr; }
       .ft-grid { grid-template-columns: 1fr; }
       .ft-bottom { flex-direction: column; text-align: center; }
@@ -969,10 +986,10 @@
     <div class="rule center" data-aos="fade-up"></div>
     <div class="cadre-intro-wrap" data-aos="fade-up">
       <p class="cadre-accroche">Installez-vous. Fermez les yeux un instant. Écoutez.</p>
-      <p class="cadre-text">Le murmure de la Sorgue, qui jaillit de la roche à quelques mètres de votre table. Le bruissement des frondaisons centenaires du Jardin de Pétrarque. Le chant discret des oiseaux dans une nature préservée, luxuriante, presque intacte.</p>
+      <p class="cadre-text">Le murmure de la Sorgue, qui jaillit de la roche à quelques mètres de votre table. Le bruissement des platanes centenaires du Jardin de Pétrarque. Le chant discret des oiseaux dans une nature préservée, luxuriante, presque intacte.</p>
       <p class="cadre-text">Ici, au bout du chemin, là où s'arrête le village et où commence la source, notre terrasse s'ouvre sur l'un des spectacles naturels les plus singuliers de Provence. L'eau cristalline de la Sorgue affleure les tables. La falaise d'où jaillit la célèbre fontaine se dresse face à vous. Le temps ralentit.</p>
       <p class="cadre-text">On ne vient pas seulement manger chez Philip. On vient souffler, se retrouver, laisser la beauté du lieu faire son travail. Et quand l'assiette arrive, le cadre a déjà fait la moitié du chemin.</p>
-      <p class="cadre-text">À l'intérieur, une grande salle chaleureuse vous accueille les jours de mistral ou de pluie.</p>
+      <p class="cadre-text">À l'intérieur, une salle chaleureuse, au milieu de laquelle s'écoule la rivière, vous accueille les jours de mistral ou de pluie.</p>
     </div>
     <div class="gallery" data-aos="fade-up">
       <div class="g-item" onclick="lb('img/terrasse-panoramique-platanes-sorgue-philip.webp')">
@@ -1016,6 +1033,7 @@
       <button class="tab"    role="tab" aria-selected="false" aria-controls="p-men" onclick="tab(this,'p-men')">Nos menus</button>
     </div>
 
+    <div class="panels-wrap">
     <!-- Entrées -->
     <div class="panel on" id="p-ent" role="tabpanel">
       <div class="mi"><div><div class="mi-name">Asperges du pays</div><div class="mi-desc">Vapeur, tempura ou mousse, vertes et blanches selon arrivage</div></div></div>
@@ -1074,6 +1092,7 @@
         <p style="font-size:.9rem; color:var(--muted); line-height:1.7;">Un espace bar et restauration légère est également disponible pour une pause au bord de l'eau, sans réservation.</p>
       </div>
     </div>
+    </div><!-- /panels-wrap -->
 
     <div class="food-gallery" data-aos="fade-up">
       <div class="fg-item" onclick="lb('img/asperges-blanches-vertes-dressage-gastronomique-philip.webp')">
