@@ -429,17 +429,16 @@
 
     .hist-imgs {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1.15fr 1fr;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
       gap: 14px;
-      height: 520px;
+      height: 540px;
     }
     .hist-img {
       border-radius: 8px;
       overflow: hidden;
       cursor: pointer;
     }
-    .hist-img:first-child { grid-column: 1 / -1; }
     .hist-img img {
       width: 100%; height: 100%;
       object-fit: cover;
@@ -831,8 +830,7 @@
     ============================ */
     @media (max-width: 1024px) {
       .histoire-grid, .infos-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .hist-imgs { height: 220px; grid-template-rows: 1fr; grid-template-columns: 1fr 1fr 1fr; }
-      .hist-img:first-child { grid-column: auto; }
+      .hist-imgs { height: 200px; grid-template-rows: 1fr; grid-template-columns: 1fr 1fr 1fr; }
       .gallery { grid-template-columns: 1fr 1fr; }
       .gallery .g-item:first-child { grid-row: span 1; }
       .menus-cards { grid-template-columns: 1fr; }
@@ -950,7 +948,7 @@
             <div class="tl-dot"></div>
             <div>
               <span class="tl-year">Années 50</span>
-              <p class="tl-desc">Winston Churchill, habitué de la Provence, vient régulièrement déjeuner chez Philip. Un souvenir que la famille transmet de génération en génération.</p>
+              <p class="tl-desc">Winston Churchill et Charlie Chaplin, habitués de la Provence, viennent régulièrement déjeuner chez Philip. Des souvenirs que la famille transmet de génération en génération.</p>
             </div>
           </div>
           <div class="tl-item">
@@ -976,8 +974,8 @@
         <div class="hist-img" onclick="lb('img/table-menu-philip-depuis-1926-sorgue.webp')">
           <img src="img/table-menu-philip-depuis-1926-sorgue.webp" alt="Menu Philip depuis 1926 posé sur table en terrasse au bord de la Sorgue" loading="lazy">
         </div>
-        <div class="hist-img" onclick="lb('img/plat-principal-convivialite-terrasse-philip.webp')">
-          <img src="img/plat-principal-convivialite-terrasse-philip.webp" alt="Convivialité en terrasse au Restaurant Philip, plat partagé au bord de la Sorgue" loading="lazy">
+        <div class="hist-img" onclick="lb('img/entree-charcuterie-terrasse-sorgue-philip.webp')">
+          <img src="img/entree-charcuterie-terrasse-sorgue-philip.webp" alt="Table dressée en terrasse au bord de la Sorgue, Restaurant Philip depuis 1926" loading="lazy">
         </div>
       </div>
     </div>
