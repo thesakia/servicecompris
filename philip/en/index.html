@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Philip | Provençal Cuisine since 1926 | Fontaine-de-Vaucluse</title>
+  <meta name="description" content="Family restaurant since 1926 at the foot of Fontaine-de-Vaucluse. Seasonal Provençal cuisine, terrace by the Sorgue river. In the Michelin Guide for over 60 years.">
+  <meta name="keywords" content="restaurant fontaine de vaucluse, restaurant philip, provencal cuisine, michelin guide vaucluse, sorgue terrace, family restaurant provence, truffle vaucluse, sorgue trout">
+  <meta property="og:title" content="Restaurant Philip | Provençal Cuisine since 1926">
+  <meta property="og:description" content="At the foot of Fontaine-de-Vaucluse, a family table for 4 generations. Terrace by the Sorgue, terroir cuisine. Michelin Guide.">
+  <meta property="og:image" content="https://servicecompris.pro/philip/img/terrasse-animee-ete-sorgue-philip.webp">
+  <meta property="og:url" content="https://servicecompris.pro/philip/en/">
+  <meta property="og:type" content="restaurant">
+  <meta property="og:locale" content="en_GB">
+  <link rel="alternate" hreflang="fr" href="https://servicecompris.pro/philip/">
+  <link rel="alternate" hreflang="en" href="https://servicecompris.pro/philip/en/">
+  <link rel="icon" type="image/png" href="../img/logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Libre+Bodoni:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=Work+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Restaurant Philip",
+    "alternateName": "Restaurant Philip Jardin de Pétrarque",
+    "description": "Family restaurant since 1926 at the foot of Fontaine-de-Vaucluse. Seasonal Provençal cuisine, terrace by the Sorgue river.",
+    "url": "https://servicecompris.pro/philip/en/",
+    "telephone": "+33975592863",
+    "email": "restphilipjardinpetrarque@orange.fr",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "510 Chemin de la Fontaine",
+      "addressLocality": "Fontaine-de-Vaucluse",
+      "postalCode": "84800",
+      "addressRegion": "Vaucluse",
+      "addressCountry": "FR"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 43.92137, "longitude": 5.130576 },
+    "servesCuisine": ["French", "Provençal", "Traditional"],
+    "priceRange": "€€-€€€",
+    "foundingDate": "1926",
+    "acceptsReservations": "True",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "10:00",
+        "closes": "20:30",
+        "validFrom": "2026-04-01",
+        "validThrough": "2026-09-30"
+      }
+    ],
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.4", "reviewCount": "1930", "bestRating": "5" },
+    "paymentAccepted": "Cash, Credit Card",
+    "currenciesAccepted": "EUR"
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; background: none; border: none; }
+
+    body.t1 {
+      --bg:          #FAFDF8;
+      --bg2:         #EEF6E6;
+      --surface:     #FFFFFF;
+      --text:        #162412;
+      --muted:       #4D6640;
+      --accent:      #2E7D32;
+      --gold:        #B8930A;
+      --terracotta:  #B8930A;
+      --btn:         #2E7D32;
+      --btn-text:    #FFFFFF;
+      --btn-hover:   #1B5E20;
+      --border:      rgba(46,125,50,0.15);
+      --divider:     #B8930A;
+      --overlay:     rgba(14,28,10,0.48);
+      --header-bg:   rgba(250,253,248,0.96);
+      --hf:          'Playfair Display', Georgia, serif;
+      --bf:          'Lora', Georgia, serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--bf);
+      line-height: 1.7;
+      transition: background .35s, color .35s;
+    }
+    h1, h2, h3, h4 { font-family: var(--hf); line-height: 1.15; }
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+    section { padding: 96px 0; }
+    .alt { background: var(--bg2); }
+
+    .label {
+      font-size: .68rem; font-weight: 700; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--accent);
+      display: block; margin-bottom: .6rem;
+    }
+    .title { font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--text); margin-bottom: 1.25rem; }
+    .title em { font-style: italic; color: var(--accent); }
+    .rule { height: 2px; background: var(--divider); border-radius: 2px; width: 56px; margin-bottom: 2.4rem; }
+    .rule.center { margin-left: auto; margin-right: auto; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--btn); color: var(--btn-text);
+      font-family: var(--bf); font-size: .82rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 13px 26px; border-radius: 4px;
+      transition: background .2s, transform .2s;
+    }
+    .btn:hover { background: var(--btn-hover); transform: translateY(-1px); }
+    .btn svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
+    .btn-ghost {
+      background: transparent; border: 1.5px solid rgba(255,255,255,.55); color: #fff;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.12); transform: translateY(-1px); }
+
+    /* LANG SWITCHER */
+    .lang-sw { display: flex; gap: 2px; align-items: center; }
+    .lang-btn {
+      font-size: 1.25rem; line-height: 1; padding: 3px 6px;
+      border-radius: 5px; opacity: .38; transition: opacity .2s, background .2s;
+    }
+    .lang-btn:hover { opacity: .75; background: var(--bg2); }
+    .lang-btn.active { opacity: 1; }
+
+    /* HEADER */
+    #hdr {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      background: var(--header-bg); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .hdr-in {
+      max-width: 1300px; margin: 0 auto; padding: 0 28px;
+      height: 70px; display: flex; align-items: center;
+      justify-content: space-between; gap: 1rem;
+    }
+    .logo-wrap { display: flex; flex-direction: column; line-height: 1; }
+    .logo-name { font-family: var(--hf); font-size: 1.2rem; font-weight: 700; }
+    .logo-since { font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a {
+      font-size: .74rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted);
+      position: relative; transition: color .2s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--accent);
+      transform: scaleX(0); transition: transform .25s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .hbg { display: none; flex-direction: column; gap: 5px; padding: 4px; }
+    .hbg span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all .3s; }
+
+    /* HERO */
+    #hero {
+      position: relative; height: 100vh; min-height: 580px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; padding: 0;
+    }
+    .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    .hero-ov { position: absolute; inset: 0; background: var(--overlay); }
+    .hero-body { position: relative; z-index: 1; text-align: center; color: #fff; padding: 0 24px; max-width: 820px; }
+    .hero-sub {
+      font-family: var(--bf); font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: rgba(255,255,255,.82); font-style: italic; margin-bottom: 2.5rem;
+    }
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero-arrow {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: rgba(255,255,255,.55); font-size: .62rem; letter-spacing: .16em;
+      text-transform: uppercase; z-index: 1;
+    }
+    .hero-arrow i {
+      display: block; width: 16px; height: 16px;
+      border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg); animation: arrowbounce 2s infinite;
+    }
+    @keyframes arrowbounce {
+      0%,100% { transform: rotate(45deg) translateY(0); }
+      50%      { transform: rotate(45deg) translateY(5px); }
+    }
+    @keyframes heroPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.88; } }
+    .hero-ov { animation: heroPulse 7s ease-in-out infinite; }
+    .hero-logo {
+      height: 210px; width: auto; display: block;
+      margin: 0 auto 2rem;
+      filter: drop-shadow(0 2px 24px rgba(0,0,0,.5));
+    }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    @media (max-width: 768px) { .hero-logo { height: 150px; } }
+
+    /* FOOD GALLERY */
+    .food-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 3rem; }
+    .fg-item { border-radius: 8px; overflow: hidden; cursor: pointer; aspect-ratio: 4/3; position: relative; }
+    .fg-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s, filter .3s; }
+    .fg-item:hover img { transform: scale(1.06); filter: brightness(.88); }
+    .fg-item .g-ov { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0); transition: background .3s; }
+    .fg-item .g-ov svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 1.8; opacity: 0; transition: opacity .3s; }
+    .fg-item:hover .g-ov { background: rgba(0,0,0,.22); }
+    .fg-item:hover .g-ov svg { opacity: 1; }
+    @media (max-width: 768px) { .food-gallery { grid-template-columns: repeat(2, 1fr); } }
+
+    /* HISTOIRE */
+    .histoire-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .histoire-text p { font-size: 1.02rem; color: var(--muted); margin-bottom: 1.4rem; }
+    .timeline { margin-top: 2.5rem; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 13px; top: 0; bottom: 0; width: 1px; background: var(--border); }
+    .tl-item { display: flex; gap: 1.2rem; margin-bottom: 1.75rem; }
+    .tl-dot { width: 26px; height: 26px; min-width: 26px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg); display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+    .tl-dot::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .tl-year { font-family: var(--hf); font-size: 1.05rem; font-weight: 700; color: var(--accent); display: block; }
+    .tl-desc { font-size: .88rem; color: var(--muted); margin-top: 2px; }
+
+    .hist-imgs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1.15fr 1fr;
+      gap: 14px;
+      height: 520px;
+    }
+    .hist-img { border-radius: 8px; overflow: hidden; cursor: pointer; }
+    .hist-img:first-child { grid-column: 1 / -1; }
+    .hist-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .hist-img:hover img { transform: scale(1.05); }
+
+    /* CADRE */
+    #cadre { text-align: center; }
+    .cadre-intro-wrap { max-width: 740px; margin: 0 auto 3rem; }
+    .cadre-accroche { font-family: var(--hf); font-size: clamp(1.15rem, 2.5vw, 1.45rem); font-style: italic; color: var(--text); line-height: 1.5; margin-bottom: 1.8rem; }
+    .cadre-text { font-size: 1.02rem; color: var(--muted); line-height: 1.85; margin-bottom: 1.2rem; }
+    .cadre-text:last-child { margin-bottom: 0; }
+    .gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 265px 265px; gap: 10px; text-align: left; }
+    .g-item { border-radius: 8px; overflow: hidden; position: relative; cursor: pointer; }
+    .g-item:first-child { grid-row: span 2; }
+    .g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s, filter .3s; }
+    .g-item:hover img { transform: scale(1.06); filter: brightness(.88); }
+    .g-ov { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0); transition: background .3s; }
+    .g-ov svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 1.8; opacity: 0; transition: opacity .3s; }
+    .g-item:hover .g-ov { background: rgba(0,0,0,.22); }
+    .g-item:hover .g-ov svg { opacity: 1; }
+
+    /* CARTE */
+    .carte-intro { font-size: 1.02rem; color: var(--muted); max-width: 640px; margin-bottom: .5rem; }
+    .carte-note { font-size: .8rem; font-style: italic; color: var(--muted); margin-bottom: 2.8rem; opacity: .7; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2.5rem; }
+    .tab {
+      font-family: var(--bf); font-size: .74rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 9px 20px; border-radius: 4px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--muted); transition: all .2s;
+    }
+    .tab.on, .tab:hover { background: var(--btn); color: var(--btn-text); border-color: var(--btn); }
+    .panels-wrap { display: grid; grid-template-areas: 'p'; }
+    .panel {
+      grid-area: p; display: grid; grid-template-columns: 1fr 1fr; gap: 0 52px;
+      opacity: 0; pointer-events: none; transform: translateY(16px);
+      transition: opacity .42s cubic-bezier(.4,0,.2,1), transform .42s cubic-bezier(.4,0,.2,1);
+    }
+    .panel.on { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .mi { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: .95rem 0; border-bottom: 1px solid var(--border); }
+    .mi:last-child { border-bottom: none; }
+    .mi-name { font-family: var(--hf); font-size: .98rem; font-weight: 600; color: var(--text); }
+    .mi-desc { font-size: .8rem; color: var(--muted); font-style: italic; margin-top: 2px; }
+    .menus-cards { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .mc { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 2rem 1.75rem; text-align: center; }
+    .mc.star { background: var(--btn); border-color: var(--btn); }
+    .mc-label { font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: .4rem; }
+    .mc.star .mc-label { color: rgba(255,255,255,.7); }
+    .mc-name { font-family: var(--hf); font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: .4rem; }
+    .mc.star .mc-name { color: var(--btn-text); }
+    .mc-desc { font-size: .82rem; color: var(--muted); margin-top: 1rem; line-height: 1.65; }
+    .mc.star .mc-desc { color: rgba(255,255,255,.75); }
+
+    /* DISTINCTIONS */
+    #distinctions { text-align: center; }
+    .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin-bottom: 3.5rem; }
+    .badge { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem 1.8rem; min-width: 150px; transition: border-color .2s, transform .2s; }
+    .badge:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .badge-ico { display: flex; justify-content: center; margin-bottom: .6rem; }
+    .badge-ico svg { width: 26px; height: 26px; stroke: var(--accent); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .badge-name { font-family: var(--hf); font-size: .9rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 2px; }
+    .badge-sub { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); }
+    .pullquote { max-width: 680px; margin: 0 auto 3.5rem; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 1.8rem 2.4rem; text-align: left; }
+    .pq-text { font-family: var(--hf); font-size: 1.15rem; font-style: italic; color: var(--text); line-height: 1.65; margin-bottom: .75rem; }
+    .pq-source { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+    .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
+    .review-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.6rem 1.5rem; }
+    .review-text { font-family: var(--bf); font-size: .92rem; color: var(--text); font-style: italic; line-height: 1.7; margin-bottom: 1rem; }
+    .review-meta { font-size: .72rem; color: var(--muted); }
+    .review-meta strong { font-weight: 600; color: var(--accent); }
+    .stats { display: flex; justify-content: center; flex-wrap: wrap; gap: 3rem; }
+    .stat-val { font-family: var(--hf); font-size: 2.5rem; font-weight: 900; color: var(--accent); display: block; line-height: 1; }
+    .stat-lbl { font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-top: 4px; }
+
+    /* INFOS */
+    .infos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .infos-grid iframe { width: 100%; height: 380px; border: 0; border-radius: 8px; }
+    .info-block { margin-bottom: 1.8rem; }
+    .info-block h4 { font-family: var(--hf); font-size: .98rem; font-weight: 700; color: var(--text); margin-bottom: .5rem; display: flex; align-items: center; gap: 7px; }
+    .info-block p, .info-block li { font-size: .9rem; color: var(--muted); line-height: 1.75; }
+    .info-block ul { padding-left: 1.1rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+    .chip { font-size: .7rem; font-weight: 600; padding: 5px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; color: var(--muted); display: inline-flex; align-items: center; gap: 5px; }
+    .chip svg { width: 12px; height: 12px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .info-cta { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .info-cta p { font-size: .88rem; color: var(--muted); font-style: italic; margin-bottom: .85rem; }
+    .tel-link { display: inline-flex; align-items: center; gap: 9px; font-family: var(--hf); font-size: 1.7rem; font-weight: 700; color: var(--accent); transition: color .2s; }
+    .tel-link:hover { color: var(--btn-hover); }
+    .tel-link svg { width: 22px; height: 22px; fill: currentColor; }
+
+    /* FOOTER */
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 64px 0 40px; }
+    .ft-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .ft-brand p { font-size: .85rem; color: var(--muted); margin-top: .75rem; line-height: 1.7; }
+    .ft-col h4 { font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); margin-bottom: .9rem; }
+    .ft-col ul { list-style: none; }
+    .ft-col li { margin-bottom: .45rem; }
+    .ft-col a { font-size: .86rem; color: var(--muted); transition: color .2s; }
+    .ft-col a:hover { color: var(--accent); }
+    .ft-social { display: flex; gap: .65rem; margin-top: 1rem; }
+    .soc { width: 36px; height: 36px; border-radius: 6px; background: var(--bg2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; transition: background .2s, border-color .2s; }
+    .soc svg { width: 15px; height: 15px; fill: var(--muted); transition: fill .2s; }
+    .soc:hover { background: var(--btn); border-color: var(--btn); }
+    .soc:hover svg { fill: var(--btn-text); }
+    .ft-bottom { border-top: 1px solid var(--border); padding-top: 1.4rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .75rem; }
+    .ft-bottom p, .ft-bottom a { font-size: .72rem; color: var(--muted); }
+    .ft-bottom a:hover { color: var(--accent); }
+
+    /* MOBILE CTA */
+    .mob-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 800; padding: 12px 16px; padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--border); }
+    .mob-cta .btn { width: 100%; justify-content: center; min-height: 48px; }
+
+    /* LIGHTBOX */
+    #lb { position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,.93); display: none; align-items: center; justify-content: center; }
+    #lb.open { display: flex; }
+    #lb img { max-width: 92vw; max-height: 88vh; object-fit: contain; border-radius: 4px; }
+    #lb-x { position: absolute; top: 1rem; right: 1.5rem; color: #fff; font-size: 2.2rem; line-height: 1; opacity: .65; transition: opacity .2s; }
+    #lb-x:hover { opacity: 1; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .histoire-grid, .infos-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .hist-imgs { height: 220px; grid-template-rows: 1fr; grid-template-columns: 1fr 1fr 1fr; }
+      .hist-img:first-child { grid-column: auto; }
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .gallery .g-item:first-child { grid-row: span 1; }
+      .menus-cards { grid-template-columns: 1fr; }
+      .ft-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 68px 0; }
+      .nav-links { display: none; position: fixed; top: 70px; left: 0; right: 0; background: var(--header-bg); flex-direction: column; padding: 1.5rem 2rem; gap: 1.25rem; border-bottom: 1px solid var(--border); z-index: 800; backdrop-filter: blur(14px); }
+      .nav-links.open { display: flex; }
+      .hbg { display: flex; }
+      .hdr-in .btn { display: none; }
+      .mob-cta { display: block; }
+      body { padding-bottom: 74px; }
+      .panel { grid-template-columns: 1fr; }
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .ft-grid { grid-template-columns: 1fr; }
+      .ft-bottom { flex-direction: column; text-align: center; }
+      .stats { gap: 2rem; }
+      .reviews { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="t1">
+
+<!-- ========== HEADER ========== -->
+<header id="hdr">
+  <div class="hdr-in">
+    <a href="./" class="logo-wrap">
+      <span class="logo-name">Restaurant Philip</span>
+      <span class="logo-since">Since 1926</span>
+    </a>
+    <nav class="nav-links" id="nav">
+      <a href="#histoire">Our story</a>
+      <a href="#cadre">The setting</a>
+      <a href="#carte">The menu</a>
+      <a href="#distinctions">Awards</a>
+      <a href="#infos">Visit us</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <div class="lang-sw">
+        <a href="../" class="lang-btn" aria-label="Français" title="Version française">🇫🇷</a>
+        <a href="./" class="lang-btn active" aria-label="English" title="English version">🇬🇧</a>
+      </div>
+      <a href="tel:+33975592863" aria-label="Call Restaurant Philip at +33 9 75 59 28 63" class="btn">
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        Book
+      </a>
+      <button class="hbg" id="hbg" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section id="hero">
+  <video class="hero-video" aria-label="Ambiance video of Restaurant Philip by the Sorgue river" autoplay muted loop playsinline preload="metadata" poster="../img/terrasse-animee-ete-sorgue-philip.webp">
+    <source src="../img/hero-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-ov"></div>
+  <div class="hero-body">
+    <img src="../img/logo.png" alt="Restaurant Philip since 1926 — Fontaine-de-Vaucluse" class="hero-logo">
+    <h1 class="sr-only">Restaurant Philip — Provençal cuisine since 1926, Fontaine-de-Vaucluse</h1>
+    <p class="hero-sub">At the foot of the spring, where the Sorgue bursts from the rock.</p>
+    <div class="hero-ctas">
+      <a href="tel:+33975592863" aria-label="Call Restaurant Philip at +33 9 75 59 28 63" class="btn">
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        Book by phone
+      </a>
+      <a href="#cadre" class="btn btn-ghost">Discover</a>
+    </div>
+  </div>
+  <div class="hero-arrow">
+    <span>Scroll</span>
+    <i></i>
+  </div>
+</section>
+
+<!-- ========== HISTOIRE ========== -->
+<section id="histoire" class="alt">
+  <div class="container">
+    <div class="histoire-grid">
+      <div data-aos="fade-right">
+        <span class="label">Our story</span>
+        <h2 class="title">A story of<br><em>family</em></h2>
+        <div class="rule"></div>
+        <p>In 1926, a family set their tables by the Sorgue river, facing the rock from which the spring bursts forth. A century later, the same flame burns: a love of fine produce, the pleasure of welcoming guests, and a deep connection to the Provençal terroir.</p>
+        <p>In 2026, Restaurant Philip celebrates its centenary. Four generations, one philosophy: seasonal cuisine, fresh locally sourced produce, and the art of creating moments that linger long in the memory.</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <span class="tl-year">1926</span>
+              <p class="tl-desc">Founded as a family establishment in Fontaine-de-Vaucluse</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <span class="tl-year">1950s</span>
+              <p class="tl-desc">Winston Churchill and Charlie Chaplin, regulars in Provence, often came to lunch at Philip's. Memories the family has passed down through the generations.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <span class="tl-year">1960s</span>
+              <p class="tl-desc">First selection in the Michelin Guide — the beginning of a 60-year relationship</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <span class="tl-year">2026</span>
+              <p class="tl-desc">Centenary · 4th generation at the stove, same passion, same terroir, same Sorgue</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hist-imgs" data-aos="fade-left">
+        <div class="hist-img" onclick="lb('../img/entree-restaurant-philip-depuis-1926.webp')">
+          <img src="../img/entree-restaurant-philip-depuis-1926.webp" alt="Entrance to Restaurant Philip since 1926, Fontaine-de-Vaucluse" loading="lazy">
+        </div>
+        <div class="hist-img" onclick="lb('../img/table-menu-philip-depuis-1926-sorgue.webp')">
+          <img src="../img/table-menu-philip-depuis-1926-sorgue.webp" alt="Philip menu on terrace table by the Sorgue river" loading="lazy">
+        </div>
+        <div class="hist-img" onclick="lb('../img/entree-charcuterie-terrasse-sorgue-philip.webp')">
+          <img src="../img/entree-charcuterie-terrasse-sorgue-philip.webp" alt="Table set on the terrace by the turquoise Sorgue river, Restaurant Philip" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CADRE ========== -->
+<section id="cadre">
+  <div class="container">
+    <span class="label" data-aos="fade-up">The setting</span>
+    <h2 class="title center" style="text-align:center" data-aos="fade-up">A setting<br><em>out of time</em></h2>
+    <div class="rule center" data-aos="fade-up"></div>
+    <div class="cadre-intro-wrap" data-aos="fade-up">
+      <p class="cadre-accroche">Take a seat. Close your eyes for a moment. Listen.</p>
+      <p class="cadre-text">The murmur of the Sorgue, bursting from the rock just a few metres from your table. The rustling of the century-old trees in the Jardin de Pétrarque. The quiet song of birds in a preserved, lush, almost untouched nature.</p>
+      <p class="cadre-text">Here, at the end of the path, where the village ends and the spring begins, our terrace opens onto one of the most singular natural spectacles in Provence. The crystal-clear water of the Sorgue laps close to the tables. The cliff from which the famous spring surges rises before you. Time slows down.</p>
+      <p class="cadre-text">You don't come to Philip's just to eat. You come to breathe, to reconnect, to let the beauty of the place do its work. And when the plate arrives, the setting has already done half the job.</p>
+      <p class="cadre-text">Inside, a warm and spacious dining room welcomes you on mistral or rainy days.</p>
+    </div>
+    <div class="gallery" data-aos="fade-up">
+      <div class="g-item" onclick="lb('../img/terrasse-panoramique-platanes-sorgue-philip.webp')">
+        <img src="../img/terrasse-panoramique-platanes-sorgue-philip.webp" alt="Panoramic terrace of Restaurant Philip under century-old plane trees by the Sorgue" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="g-item" onclick="lb('../img/terrasse-exterieure-chaises-jaunes-sorgue-philip.webp')">
+        <img src="../img/terrasse-exterieure-chaises-jaunes-sorgue-philip.webp" alt="Outdoor terrace of Restaurant Philip with yellow chairs facing the Sorgue" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="g-item" onclick="lb('../img/terrasse-bord-sorgue-chaises-restaurant-philip.webp')">
+        <img src="../img/terrasse-bord-sorgue-chaises-restaurant-philip.webp" alt="Tables on the terrace by the turquoise Sorgue, Restaurant Philip Fontaine-de-Vaucluse" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="g-item" onclick="lb('../img/vue-falaise-nature-terrasse-philip-vaucluse.webp')">
+        <img src="../img/vue-falaise-nature-terrasse-philip-vaucluse.webp" alt="View of the Fontaine-de-Vaucluse cliff from the terrace of Restaurant Philip" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="g-item" onclick="lb('../img/terrasse-couverte-pergola-philip-sorgue.webp')">
+        <img src="../img/terrasse-couverte-pergola-philip-sorgue.webp" alt="Covered pergola terrace of Restaurant Philip overlooking the Sorgue" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CARTE ========== -->
+<section id="carte" class="alt">
+  <div class="container">
+    <span class="label" data-aos="fade-up">The menu</span>
+    <h2 class="title" data-aos="fade-up">Local cuisine,<br><em>exceptional produce</em></h2>
+    <div class="rule" data-aos="fade-up"></div>
+    <p class="carte-intro" data-aos="fade-up">Our cuisine draws inspiration from the seasons and the Provençal terroir. Truffles from the Monts du Vaucluse, Sorgue trout, crayfish from our pool, Sisteron lamb... Every dish tells the story of our land.</p>
+    <p class="carte-note" data-aos="fade-up">Menu varies with the season and market availability.</p>
+
+    <div class="tabs" role="tablist" aria-label="Menu categories" data-aos="fade-up">
+      <button class="tab on" role="tab" aria-selected="true"  aria-controls="p-ent" onclick="tab(this,'p-ent')">Starters</button>
+      <button class="tab"    role="tab" aria-selected="false" aria-controls="p-poi" onclick="tab(this,'p-poi')">Fish &amp; seafood</button>
+      <button class="tab"    role="tab" aria-selected="false" aria-controls="p-via" onclick="tab(this,'p-via')">Meat</button>
+      <button class="tab"    role="tab" aria-selected="false" aria-controls="p-des" onclick="tab(this,'p-des')">Desserts</button>
+      <button class="tab"    role="tab" aria-selected="false" aria-controls="p-men" onclick="tab(this,'p-men')">Our menus</button>
+    </div>
+
+    <div class="panels-wrap">
+    <!-- Starters -->
+    <div class="panel on" id="p-ent" role="tabpanel">
+      <div class="mi"><div><div class="mi-name">Local asparagus</div><div class="mi-desc">Steamed, tempura or mousse, green and white depending on availability</div></div></div>
+      <div class="mi"><div><div class="mi-name">Provençal snails</div><div class="mi-desc">Herb butter, house tradition</div></div></div>
+      <div class="mi"><div><div class="mi-name">Truffle omelette</div><div class="mi-desc">Monts du Vaucluse truffle, seasonal</div></div></div>
+      <div class="mi"><div><div class="mi-name">Truffle quenelle</div><div class="mi-desc">Summer truffle from Vaucluse, brown butter</div></div></div>
+      <div class="mi"><div><div class="mi-name">House velouté</div><div class="mi-desc">Made with market vegetables</div></div></div>
+      <div class="mi"><div><div class="mi-name">Seasonal salad</div><div class="mi-desc">Local produce, house dressing</div></div></div>
+    </div>
+
+    <!-- Fish & seafood -->
+    <div class="panel" id="p-poi" role="tabpanel">
+      <div class="mi"><div><div class="mi-name">Sorgue trout</div><div class="mi-desc">Three preparations, potatoes and spinach — signature dish</div></div></div>
+      <div class="mi"><div><div class="mi-name">Freshwater crayfish</div><div class="mi-desc">Caught in our pool fed by the Sorgue</div></div></div>
+      <div class="mi"><div><div class="mi-name">Scallops</div><div class="mi-desc">Seasonal, house preparation</div></div></div>
+      <div class="mi"><div><div class="mi-name">Frog's legs</div><div class="mi-desc">Parsley and brown butter</div></div></div>
+    </div>
+
+    <!-- Meat -->
+    <div class="panel" id="p-via" role="tabpanel">
+      <div class="mi"><div><div class="mi-name">Sisteron lamb</div><div class="mi-desc">Traditional preparation, seasonal vegetables</div></div></div>
+      <div class="mi"><div><div class="mi-name">Local duck</div><div class="mi-desc">In the Provençal tradition</div></div></div>
+      <div class="mi"><div><div class="mi-name">House ratatouille</div><div class="mi-desc">Local vegetables, slow-cooked</div></div></div>
+      <div class="mi"><div><div class="mi-name">Chef's market choice</div><div class="mi-desc">Depending on market arrivals, ask your server</div></div></div>
+    </div>
+
+    <!-- Desserts -->
+    <div class="panel" id="p-des" role="tabpanel">
+      <div class="mi"><div><div class="mi-name">House Saint-Honoré</div><div class="mi-desc">The house signature, fine pastry</div></div></div>
+      <div class="mi"><div><div class="mi-name">Strawberry &amp; apricot tart</div><div class="mi-desc">Local strawberries, apricot base</div></div></div>
+      <div class="mi"><div><div class="mi-name">Local cheeses</div><div class="mi-desc">Served with house-made marrow jam</div></div></div>
+      <div class="mi"><div><div class="mi-name">Daily house pastries</div><div class="mi-desc">Meringues, verrines, seasonal creations</div></div></div>
+    </div>
+
+    <!-- Menus -->
+    <div class="panel" id="p-men" role="tabpanel">
+      <div class="menus-cards">
+        <div class="mc" data-aos="fade-up">
+          <span class="mc-label">Set menu</span>
+          <div class="mc-name">Discovery</div>
+          <p class="mc-desc">Starter + Main + Dessert<br>The best way to discover our cuisine</p>
+        </div>
+        <div class="mc star" data-aos="fade-up" data-aos-delay="80">
+          <span class="mc-label">Set menu</span>
+          <div class="mc-name">Terroir</div>
+          <p class="mc-desc">Starter + Main + Cheese + Dessert<br>The heart of our Provençal cuisine<br>with market produce</p>
+        </div>
+        <div class="mc" data-aos="fade-up" data-aos-delay="160">
+          <span class="mc-label">Set menu</span>
+          <div class="mc-name">Prestige</div>
+          <p class="mc-desc">Starter + Signature main + Cheese + Dessert<br>Sorgue trout, truffle, exceptional produce<br>The full Philip experience</p>
+        </div>
+      </div>
+      <div data-aos="fade-up" style="margin-top:1.8rem; padding:1.2rem 1.6rem; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--divider); border-radius:0 8px 8px 0; max-width:620px;">
+        <p style="font-size:.9rem; color:var(--muted); line-height:1.7;">A bar and light dining area is also available for a relaxed pause by the water, no reservation needed.</p>
+      </div>
+    </div>
+    </div><!-- /panels-wrap -->
+
+    <div class="food-gallery" data-aos="fade-up">
+      <div class="fg-item" onclick="lb('../img/asperges-blanches-vertes-dressage-gastronomique-philip.webp')">
+        <img src="../img/asperges-blanches-vertes-dressage-gastronomique-philip.webp" alt="White and green asparagus, gastronomic presentation, Restaurant Philip" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="fg-item" onclick="lb('../img/entree-salade-saumon-fume-crabe-philip.webp')">
+        <img src="../img/entree-salade-saumon-fume-crabe-philip.webp" alt="Smoked salmon and crab salad on Philip plate, Fontaine-de-Vaucluse" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="fg-item" onclick="lb('../img/entree-veloute-epinards-maison-philip.webp')">
+        <img src="../img/entree-veloute-epinards-maison-philip.webp" alt="House spinach velouté, Restaurant Philip" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="fg-item" onclick="lb('../img/entree-charcuterie-assiette-philip-fontaine-vaucluse.webp')">
+        <img src="../img/entree-charcuterie-assiette-philip-fontaine-vaucluse.webp" alt="House charcuterie and crudités plate, Restaurant Philip" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="fg-item" onclick="lb('../img/plat-effiloche-croute-filo-legumes-philip.webp')">
+        <img src="../img/plat-effiloche-croute-filo-legumes-philip.webp" alt="Slow-cooked meat in filo crust, seasonal vegetables, Restaurant Philip" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="fg-item" onclick="lb('../img/fromages-plateau-terrasse-sorgue-restaurant-philip.webp')">
+        <img src="../img/fromages-plateau-terrasse-sorgue-restaurant-philip.webp" alt="Regional cheese board, walnuts and jam, Restaurant Philip" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="fg-item" onclick="lb('../img/dessert-tarte-fraises-bord-sorgue-philip.webp')">
+        <img src="../img/dessert-tarte-fraises-bord-sorgue-philip.webp" alt="Fresh strawberry tart, by the Sorgue river, Restaurant Philip" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="fg-item" onclick="lb('../img/dessert-coupe-fraises-chantilly-maison-philip.webp')">
+        <img src="../img/dessert-coupe-fraises-chantilly-maison-philip.webp" alt="Strawberry and whipped cream sundae, Restaurant Philip" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DISTINCTIONS ========== -->
+<section id="distinctions">
+  <div class="container">
+    <span class="label" style="text-align:center;display:block" data-aos="fade-up">Recognised</span>
+    <h2 class="title" style="text-align:center" data-aos="fade-up">What they<br><em>say about us</em></h2>
+    <div class="rule center" data-aos="fade-up"></div>
+
+    <div class="badges" data-aos="fade-up">
+      <div class="badge">
+        <span class="badge-ico"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span>
+        <span class="badge-name">Michelin Guide</span><span class="badge-sub">Listed for over 60 years</span>
+      </div>
+      <div class="badge">
+        <span class="badge-ico"><svg viewBox="0 0 24 24"><polygon points="12 2 22 12 12 22 2 12"/></svg></span>
+        <span class="badge-name">Gault &amp; Millau</span><span class="badge-sub">Selected</span>
+      </div>
+      <div class="badge">
+        <span class="badge-ico"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span>
+        <span class="badge-name">Petit Futé</span><span class="badge-sub">Listed</span>
+      </div>
+      <div class="badge">
+        <span class="badge-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
+        <span class="badge-name">Guide du Routard</span><span class="badge-sub">Listed</span>
+      </div>
+      <div class="badge">
+        <span class="badge-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></span>
+        <span class="badge-name">TripAdvisor</span><span class="badge-sub">Travellers' Choice · #2</span>
+      </div>
+      <div class="badge" style="border-color:var(--accent)">
+        <span class="badge-ico"><svg viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg></span>
+        <span class="badge-name">Winston Churchill</span><span class="badge-sub">Illustrious guest · In our memories</span>
+      </div>
+    </div>
+
+    <div class="pullquote" data-aos="fade-up">
+      <p class="pq-text">"At the foot of the famous spring from which the Sorgue bursts, this address knows how to play on its bucolic charms. Father and daughter offer a cuisine that plays the tradition card with great effect."</p>
+      <span class="pq-source">Michelin Guide</span>
+    </div>
+    <div class="stats" data-aos="fade-up">
+      <div class="stat-item"><span class="stat-val">100</span><span class="stat-lbl">Years of history<br>Centenary 2026</span></div>
+      <div class="stat-item"><span class="stat-val">4</span><span class="stat-lbl">Generations<br>of the same family</span></div>
+      <div class="stat-item"><span class="stat-val">800+</span><span class="stat-lbl">TripAdvisor reviews<br>#2 out of 22</span></div>
+      <div class="stat-item"><span class="stat-val">60+</span><span class="stat-lbl">Years in the<br>Michelin Guide</span></div>
+    </div>
+
+    <div class="reviews" data-aos="fade-up">
+      <div class="review-card">
+        <p class="review-text">"A magical setting by the Sorgue. The trout in three preparations is an absolute delight. We will return without hesitation."</p>
+        <p class="review-meta"><strong>Guest</strong> · Summer 2024</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"Four generations and always the same high standards. The house Saint-Honoré is worth the trip on its own."</p>
+        <p class="review-meta"><strong>Guest</strong> · Spring 2025</p>
+      </div>
+      <div class="review-card">
+        <p class="review-text">"The last restaurant before the spring, and probably the most beautiful dining setting in all of the Vaucluse."</p>
+        <p class="review-meta"><strong>Guest</strong> · Summer 2023</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== INFOS ========== -->
+<section id="infos" class="alt">
+  <div class="container">
+    <span class="label" data-aos="fade-up">Getting here</span>
+    <h2 class="title" data-aos="fade-up">Find <em>us</em></h2>
+    <div class="rule" data-aos="fade-up"></div>
+    <div class="infos-grid">
+      <div data-aos="fade-right">
+        <iframe src="https://maps.google.com/maps?q=43.92137,5.130576&z=16&output=embed" loading="lazy" title="Restaurant Philip location" allowfullscreen></iframe>
+      </div>
+      <div data-aos="fade-left">
+        <div class="info-block">
+          <h4><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Address</h4>
+          <p>510 Chemin de la Fontaine<br>84800 Fontaine-de-Vaucluse, France</p>
+          <p style="margin-top:6px;font-size:.82rem;font-style:italic">Last restaurant before the spring. P2 car park 300m away.</p>
+        </div>
+        <div class="info-block">
+          <h4><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Season &amp; opening hours</h4>
+          <ul>
+            <li>Open from 1 April to 30 September</li>
+            <li>Every day from 10am to 8:30pm</li>
+            <li>Evening service mid-June to end of August only</li>
+          </ul>
+        </div>
+        <div class="info-block">
+          <div class="chips">
+            <span class="chip"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Card accepted</span>
+            <span class="chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M10 9h4l2 7H8l2-7z"/><path d="M8 16l-1.5 3M16 16l1.5 3"/></svg> Wheelchair accessible</span>
+            <span class="chip"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="2"/><circle cx="15" cy="7" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><path d="M12 22a5 5 0 01-5-5c0-2 2-4 5-4s5 2 5 4a5 5 0 01-5 5z"/></svg> Pets welcome</span>
+            <span class="chip"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><circle cx="12" cy="20" r="1" fill="var(--accent)"/></svg> WiFi available</span>
+            <span class="chip"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 010 6H9"/></svg> Parking 300m</span>
+          </div>
+        </div>
+        <div class="info-cta">
+          <p>Booking is required in season. Tables go fast — don't wait to call.</p>
+          <a href="tel:+33975592863" class="tel-link">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            +33 9 75 59 28 63
+          </a>
+          <div style="margin-top:1.5rem">
+            <a href="tel:+33975592863" aria-label="Call Restaurant Philip to book" class="btn">Call to book</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="logo-wrap">
+          <img src="../img/logo.png" alt="Restaurant Philip since 1926" style="height:100px;width:100px;object-fit:contain;display:block;margin-bottom:.75rem;flex-shrink:0;">
+        </div>
+        <p>Jardin de Pétrarque<br>510 Chemin de la Fontaine<br>84800 Fontaine-de-Vaucluse</p>
+        <div class="ft-social">
+          <a href="https://www.facebook.com/p/Restaurant-Philip-depuis-1926-100063526208458/" target="_blank" rel="noopener" class="soc" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/restaurantphilip/" target="_blank" rel="noopener" class="soc" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#histoire">Our story</a></li>
+          <li><a href="#cadre">The setting</a></li>
+          <li><a href="#carte">The menu</a></li>
+          <li><a href="#distinctions">Awards</a></li>
+          <li><a href="#infos">Visit us</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+33975592863">+33 9 75 59 28 63</a></li>
+        </ul>
+        <div style="margin-top:1.4rem">
+          <a href="tel:+33975592863" aria-label="Call Restaurant Philip to book" class="btn" style="font-size:.76rem;padding:10px 18px;color:#fff">Book</a>
+        </div>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <p>© 2026 Restaurant Philip Jardin de Pétrarque, SARL — RCS Avignon 642 620 181</p>
+      <a href="../mentions-legales.html">Legal notices</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile CTA -->
+<div class="mob-cta">
+  <a href="tel:+33975592863" aria-label="Call Restaurant Philip to book" class="btn">
+    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+    Call to book
+  </a>
+</div>
+
+<!-- Lightbox -->
+<div id="lb" role="dialog" aria-modal="true">
+  <button id="lb-x" onclick="closeLb()" aria-label="Close">&times;</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 680, once: true, offset: 70 });
+
+  function tab(btn, id) {
+    document.querySelectorAll('.tab').forEach(t => { t.classList.remove('on'); t.setAttribute('aria-selected','false'); });
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+    btn.classList.add('on');
+    btn.setAttribute('aria-selected','true');
+    document.getElementById(id).classList.add('on');
+  }
+
+  function lb(src) {
+    document.getElementById('lb-img').src = src;
+    document.getElementById('lb').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() {
+    document.getElementById('lb').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('lb').addEventListener('click', function(e) { if (e.target === this) closeLb(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+  document.getElementById('hbg').addEventListener('click', function() {
+    document.getElementById('nav').classList.toggle('open');
+  });
+  document.querySelectorAll('#nav a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('nav').classList.remove('open'));
+  });
+</script>
+</body>
+</html>
