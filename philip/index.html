@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://servicecompris.pro/philip/">
   <meta property="og:type" content="restaurant">
   <meta property="og:locale" content="fr_FR">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%233D6B32'/><text y='74' x='50' text-anchor='middle' font-size='68' font-family='Georgia,serif' fill='%23A87E18' font-weight='bold'>P</text></svg>">
+  <link rel="icon" type="image/png" href="img/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,21 +82,21 @@
        THEME VARIABLES
     ============================ */
     body.t1 {
-      --bg:          #FAFDF6;
-      --bg2:         #EFF7E8;
+      --bg:          #FAFDF8;
+      --bg2:         #EEF6E6;
       --surface:     #FFFFFF;
-      --text:        #18280F;
-      --muted:       #556B46;
-      --accent:      #3D6B32;
-      --gold:        #A87E18;
-      --terracotta:  #A87E18;
-      --btn:         #3D6B32;
+      --text:        #162412;
+      --muted:       #4D6640;
+      --accent:      #2E7D32;
+      --gold:        #B8930A;
+      --terracotta:  #B8930A;
+      --btn:         #2E7D32;
       --btn-text:    #FFFFFF;
-      --btn-hover:   #2A4E22;
-      --border:      rgba(61,107,50,0.15);
-      --divider:     #A87E18;
-      --overlay:     rgba(18,32,12,0.50);
-      --header-bg:   rgba(250,253,246,0.96);
+      --btn-hover:   #1B5E20;
+      --border:      rgba(46,125,50,0.15);
+      --divider:     #B8930A;
+      --overlay:     rgba(14,28,10,0.48);
+      --header-bg:   rgba(250,253,248,0.96);
       --hf:          'Playfair Display', Georgia, serif;
       --bf:          'Lora', Georgia, serif;
     }
@@ -808,9 +808,8 @@
 <!-- ========== HEADER ========== -->
 <header id="hdr">
   <div class="hdr-in">
-    <a href="#hero" class="logo-wrap">
-      <span class="logo-name">Restaurant Philip</span>
-      <span class="logo-since">Depuis 1926</span>
+    <a href="#hero" class="logo-wrap" aria-label="Restaurant Philip — depuis 1926">
+      <img src="img/logo.png" alt="Logo Restaurant Philip depuis 1926" style="height:52px;width:auto;display:block;">
     </a>
     <nav class="nav-links" id="nav">
       <a href="#histoire">Notre histoire</a>
@@ -843,7 +842,7 @@
     loop
     playsinline
     preload="metadata"
-    poster="img/hero-village-riviere.webp"
+    poster="img/terrasse-animee-ete-sorgue-philip.webp"
   >
     <source src="img/hero-video.mp4" type="video/mp4">
   </video>
@@ -908,13 +907,11 @@
         </div>
       </div>
       <div class="hist-imgs" data-aos="fade-left">
-        <!-- PHOTO PRO ATTENDUE : Scène en cuisine, flambé, cuisson, action. 4:3 ou 3:2. -->
-        <div class="hist-img" onclick="lb('img/cuisine-flambe.webp')">
-          <img src="img/cuisine-flambe.webp" alt="Savoir-faire en cuisine au Restaurant Philip" loading="lazy">
+        <div class="hist-img" onclick="lb('img/entree-restaurant-philip-depuis-1926.webp')">
+          <img src="img/entree-restaurant-philip-depuis-1926.webp" alt="Entrée du Restaurant Philip depuis 1926 à Fontaine-de-Vaucluse" loading="lazy">
         </div>
-        <!-- PHOTO PRO ATTENDUE : Portrait de Camille et/ou Philip en cuisine ou en salle. 4:3 ou 3:2. -->
-        <div class="hist-img" onclick="lb('img/chef-en-cuisine.webp')">
-          <img src="img/chef-en-cuisine.webp" alt="Le chef aux fourneaux du Restaurant Philip" loading="lazy">
+        <div class="hist-img" onclick="lb('img/table-menu-philip-depuis-1926-sorgue.webp')">
+          <img src="img/table-menu-philip-depuis-1926-sorgue.webp" alt="Menu Philip depuis 1926 posé sur table en terrasse au bord de la Sorgue" loading="lazy">
         </div>
       </div>
     </div>
@@ -935,29 +932,24 @@
       <p class="cadre-text">À l'intérieur, une grande salle chaleureuse vous accueille les jours de mistral ou de pluie.</p>
     </div>
     <div class="gallery" data-aos="fade-up">
-      <!-- PHOTO PRO ATTENDUE : Terrasse vue de face, Sorgue au premier plan. 16:9. -->
-      <div class="g-item" onclick="lb('img/hero-village-riviere.webp')">
-        <img src="img/hero-village-riviere.webp" alt="La terrasse du Restaurant Philip au bord de la Sorgue à Fontaine-de-Vaucluse" loading="lazy">
+      <div class="g-item" onclick="lb('img/terrasse-panoramique-platanes-sorgue-philip.webp')">
+        <img src="img/terrasse-panoramique-platanes-sorgue-philip.webp" alt="Terrasse panoramique du Restaurant Philip sous les platanes centenaires au bord de la Sorgue" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
-      <!-- PHOTO PRO ATTENDUE : Salle intérieure, tables dressées, lumière naturelle. 4:3. -->
-      <div class="g-item" onclick="lb('img/cadre-salle-interieure.webp')">
-        <img src="img/cadre-salle-interieure.webp" alt="Salle intérieure du Restaurant Philip, tables dressées" loading="lazy">
+      <div class="g-item" onclick="lb('img/terrasse-exterieure-chaises-jaunes-sorgue-philip.webp')">
+        <img src="img/terrasse-exterieure-chaises-jaunes-sorgue-philip.webp" alt="Terrasse extérieure du Restaurant Philip avec chaises jaunes face à la Sorgue" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
-      <!-- PHOTO PRO ATTENDUE : Verre en terrasse, Sorgue en arrière-plan. 4:3 ou 1:1. -->
-      <div class="g-item" onclick="lb('img/boisson-fraicheur.webp')">
-        <img src="img/boisson-fraicheur.webp" alt="Verre en terrasse avec vue sur la Sorgue" loading="lazy">
+      <div class="g-item" onclick="lb('img/terrasse-bord-sorgue-chaises-restaurant-philip.webp')">
+        <img src="img/terrasse-bord-sorgue-chaises-restaurant-philip.webp" alt="Tables en terrasse au bord de la Sorgue turquoise, Restaurant Philip Fontaine-de-Vaucluse" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
-      <!-- PHOTO PRO ATTENDUE : Dressage d'un plat signature (truffe ou truite). 4:3 ou 1:1. -->
-      <div class="g-item" onclick="lb('img/cuisine-dressage.webp')">
-        <img src="img/cuisine-dressage.webp" alt="Dressage d'un plat signature en cuisine" loading="lazy">
+      <div class="g-item" onclick="lb('img/vue-falaise-nature-terrasse-philip-vaucluse.webp')">
+        <img src="img/vue-falaise-nature-terrasse-philip-vaucluse.webp" alt="Vue sur la falaise de Fontaine-de-Vaucluse depuis la terrasse du Restaurant Philip" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
-      <!-- PHOTO PRO ATTENDUE : Produits bruts du terroir (truffe, asperges, herbes, légumes). 4:3 ou 1:1. -->
-      <div class="g-item" onclick="lb('img/produits-frais-terroir.webp')">
-        <img src="img/produits-frais-terroir.webp" alt="Produits frais du terroir provençal : truffe, asperges, légumes du marché" loading="lazy">
+      <div class="g-item" onclick="lb('img/terrasse-couverte-pergola-philip-sorgue.webp')">
+        <img src="img/terrasse-couverte-pergola-philip-sorgue.webp" alt="Terrasse couverte pergola du Restaurant Philip avec vue sur la Sorgue" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
     </div>
@@ -1049,8 +1041,7 @@
       </div>
     </div>
 
-    <!-- PHOTO PRO ATTENDUE : Plat signature, truite en 3 cuissons ou omelette aux truffes. 4:3 ou 16:9. -->
-    <img src="img/plat-viande-gastronomique.webp" alt="Gastronomie provençale" class="carte-photo" loading="lazy" data-aos="fade-up">
+    <img src="img/entree-charcuterie-terrasse-sorgue-philip.webp" alt="Entrée charcuterie maison en terrasse au bord de la Sorgue, Restaurant Philip" class="carte-photo" loading="lazy" data-aos="fade-up">
   </div>
 </section>
 
@@ -1176,8 +1167,7 @@
     <div class="ft-grid">
       <div class="ft-brand">
         <div class="logo-wrap">
-          <span class="logo-name">Restaurant Philip</span>
-          <span class="logo-since">Depuis 1926</span>
+          <img src="img/logo.png" alt="Logo Restaurant Philip depuis 1926" style="height:80px;width:auto;display:block;margin-bottom:.75rem;">
         </div>
         <p>Jardin de Pétrarque<br>510 Chemin de la Fontaine<br>84800 Fontaine-de-Vaucluse</p>
         <div class="ft-social">
