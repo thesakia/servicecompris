@@ -429,7 +429,8 @@
 
     .hist-imgs {
       display: grid;
-      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1.15fr 1fr;
       gap: 14px;
       height: 520px;
     }
@@ -438,6 +439,7 @@
       overflow: hidden;
       cursor: pointer;
     }
+    .hist-img:first-child { grid-column: 1 / -1; }
     .hist-img img {
       width: 100%; height: 100%;
       object-fit: cover;
@@ -829,7 +831,8 @@
     ============================ */
     @media (max-width: 1024px) {
       .histoire-grid, .infos-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .hist-imgs { height: 280px; grid-template-rows: 1fr; grid-template-columns: 1fr 1fr; }
+      .hist-imgs { height: 220px; grid-template-rows: 1fr; grid-template-columns: 1fr 1fr 1fr; }
+      .hist-img:first-child { grid-column: auto; }
       .gallery { grid-template-columns: 1fr 1fr; }
       .gallery .g-item:first-child { grid-row: span 1; }
       .menus-cards { grid-template-columns: 1fr; }
@@ -972,6 +975,9 @@
         </div>
         <div class="hist-img" onclick="lb('img/table-menu-philip-depuis-1926-sorgue.webp')">
           <img src="img/table-menu-philip-depuis-1926-sorgue.webp" alt="Menu Philip depuis 1926 posé sur table en terrasse au bord de la Sorgue" loading="lazy">
+        </div>
+        <div class="hist-img" onclick="lb('img/plat-principal-convivialite-terrasse-philip.webp')">
+          <img src="img/plat-principal-convivialite-terrasse-philip.webp" alt="Convivialité en terrasse au Restaurant Philip, plat partagé au bord de la Sorgue" loading="lazy">
         </div>
       </div>
     </div>
