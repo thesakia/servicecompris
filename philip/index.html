@@ -348,32 +348,55 @@
     @media (max-width: 768px) { .hero-logo { height: 150px; } }
 
     /* ============================
-       FOOD GALLERY (carte)
+       FOOD MOSAIC (carte)
     ============================ */
-    .food-gallery {
+    .mosaic {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      grid-auto-rows: 220px;
+      gap: 8px;
       margin-top: 3rem;
     }
-    .fg-item {
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-      aspect-ratio: 4/3;
+    .mo {
       position: relative;
+      overflow: hidden;
+      border-radius: 6px;
+      cursor: pointer;
+      background: var(--surface);
     }
-    .fg-item img {
+    .mo img {
       width: 100%; height: 100%;
       object-fit: cover;
-      transition: transform .5s, filter .3s;
+      display: block;
+      transition: transform .65s cubic-bezier(.25,.46,.45,.94);
     }
-    .fg-item:hover img { transform: scale(1.06); filter: brightness(.88); }
-    .fg-item .g-ov { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0); transition: background .3s; }
-    .fg-item .g-ov svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 1.8; opacity: 0; transition: opacity .3s; }
-    .fg-item:hover .g-ov { background: rgba(0,0,0,.22); }
-    .fg-item:hover .g-ov svg { opacity: 1; }
-    @media (max-width: 768px) { .food-gallery { grid-template-columns: repeat(2, 1fr); } }
+    .mo:hover img { transform: scale(1.07); }
+    .mo-ov {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,20,8,.62) 0%, transparent 52%);
+      opacity: 0;
+      transition: opacity .35s;
+      display: flex; align-items: flex-end;
+      padding: .9rem 1.1rem;
+    }
+    .mo:hover .mo-ov { opacity: 1; }
+    .mo-label {
+      color: rgba(255,255,255,.93);
+      font-family: var(--hf);
+      font-size: .8rem;
+      font-style: italic;
+      letter-spacing: .03em;
+      line-height: 1.3;
+    }
+    .mo:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .mo:nth-child(10), .mo:nth-child(11) { grid-column: span 2; }
+    @media (max-width: 900px) {
+      .mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 170px; }
+    }
+    @media (max-width: 480px) {
+      .mosaic { grid-auto-rows: 140px; gap: 5px; }
+      .mo:nth-child(10), .mo:nth-child(11) { grid-column: span 1; }
+    }
 
     /* ============================
        HISTOIRE
@@ -1119,50 +1142,50 @@
     </div>
     </div><!-- /panels-wrap -->
 
-    <div class="food-gallery" data-aos="fade-up">
-      <div class="fg-item" onclick="lb('img/asperges-blanches-vertes-dressage-gastronomique-philip.webp')">
-        <img src="img/asperges-blanches-vertes-dressage-gastronomique-philip.webp" alt="Asperges blanches et vertes dressage gastronomique, Restaurant Philip" loading="lazy">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+    <div class="mosaic" data-aos="fade-up">
+      <div class="mo" onclick="lb('img/asperges-blanches-vertes-dressage-gastronomique-philip.webp')">
+        <img src="img/asperges-blanches-vertes-dressage-gastronomique-philip.webp" alt="Asperges blanches et vertes, dressage gastronomique, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Asperges du pays — Entrée de saison</span></div>
       </div>
-      <div class="fg-item" onclick="lb('img/entree-salade-saumon-fume-crabe-philip.webp')">
-        <img src="img/entree-salade-saumon-fume-crabe-philip.webp" alt="Salade saumon fumé et crabe sur assiette Philip, Fontaine-de-Vaucluse" loading="lazy">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
-      </div>
-      <div class="fg-item" onclick="lb('img/entree-veloute-epinards-maison-philip.webp')">
+      <div class="mo" onclick="lb('img/entree-veloute-epinards-maison-philip.webp')">
         <img src="img/entree-veloute-epinards-maison-philip.webp" alt="Velouté d'épinards maison, Restaurant Philip" loading="lazy">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+        <div class="mo-ov"><span class="mo-label">Velouté maison</span></div>
       </div>
-      <div class="fg-item" onclick="lb('img/entree-charcuterie-assiette-philip-fontaine-vaucluse.webp')">
-        <img src="img/entree-charcuterie-assiette-philip-fontaine-vaucluse.webp" alt="Assiette de charcuterie et crudités maison, Restaurant Philip" loading="lazy">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      <div class="mo" onclick="lb('img/mise-en-bouche-veloute-restaurant-philip.webp')">
+        <img src="img/mise-en-bouche-veloute-restaurant-philip.webp" alt="Mise en bouche velouté, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Mise en bouche</span></div>
       </div>
-      <div class="fg-item" onclick="lb('img/plat-effiloche-croute-filo-legumes-philip.webp')">
-        <img src="img/plat-effiloche-croute-filo-legumes-philip.webp" alt="Plat de viande effilochée en croûte filo, légumes de saison, Restaurant Philip" loading="lazy">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      <div class="mo" onclick="lb('img/entree-salade-saumon-fume-crabe-philip.webp')">
+        <img src="img/entree-salade-saumon-fume-crabe-philip.webp" alt="Salade saumon fumé et crabe, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Saumon fumé &amp; crabe</span></div>
       </div>
-      <div class="fg-item" onclick="lb('img/fromages-plateau-terrasse-sorgue-restaurant-philip.webp')">
-        <img src="img/fromages-plateau-terrasse-sorgue-restaurant-philip.webp" alt="Plateau de fromages de la région, noix et confiture, Restaurant Philip" loading="lazy">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      <div class="mo" onclick="lb('img/dressage-tartare-poisson-restaurant-philip.webp')">
+        <img src="img/dressage-tartare-poisson-restaurant-philip.webp" alt="Dressage tartare de poisson, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Tartare de poisson</span></div>
       </div>
-      <div class="fg-item" onclick="lb('img/dessert-tarte-fraises-bord-sorgue-philip.webp')">
-        <img src="img/dessert-tarte-fraises-bord-sorgue-philip.webp" alt="Tartelette aux fraises fraîches maison, bord de la Sorgue, Restaurant Philip" loading="lazy">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      <div class="mo" onclick="lb('img/entree-charcuterie-assiette-philip-fontaine-vaucluse.webp')">
+        <img src="img/entree-charcuterie-assiette-philip-fontaine-vaucluse.webp" alt="Assiette de charcuterie maison, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Charcuterie maison</span></div>
       </div>
-      <div class="fg-item" onclick="lb('img/dessert-coupe-fraises-chantilly-maison-philip.webp')">
+      <div class="mo" onclick="lb('img/plat-effiloche-croute-filo-legumes-philip.webp')">
+        <img src="img/plat-effiloche-croute-filo-legumes-philip.webp" alt="Effiloché en croûte filo, légumes de saison, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Effiloché en croûte filo</span></div>
+      </div>
+      <div class="mo" onclick="lb('img/fromages-plateau-terrasse-sorgue-restaurant-philip.webp')">
+        <img src="img/fromages-plateau-terrasse-sorgue-restaurant-philip.webp" alt="Plateau de fromages de la région, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Fromages de la région</span></div>
+      </div>
+      <div class="mo" onclick="lb('img/plat-canard-abricots-restaurant-philip.webp')">
+        <img src="img/plat-canard-abricots-restaurant-philip.webp" alt="Canard aux abricots dressé, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Canard aux abricots</span></div>
+      </div>
+      <div class="mo" onclick="lb('img/dessert-tarte-fraises-bord-sorgue-philip.webp')">
+        <img src="img/dessert-tarte-fraises-bord-sorgue-philip.webp" alt="Tartelette aux fraises fraîches maison, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Tartelette aux fraises</span></div>
+      </div>
+      <div class="mo" onclick="lb('img/dessert-coupe-fraises-chantilly-maison-philip.webp')">
         <img src="img/dessert-coupe-fraises-chantilly-maison-philip.webp" alt="Coupe de fraises à la chantilly maison, Restaurant Philip" loading="lazy">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
-      </div>
-      <div class="fg-item" onclick="lb('img/mise-en-bouche-veloute-restaurant-philip.webp')">
-        <img src="img/mise-en-bouche-veloute-restaurant-philip.webp" alt="Mise en bouche velouté maison servi en verre, Restaurant Philip" loading="lazy">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
-      </div>
-      <div class="fg-item" onclick="lb('img/dressage-tartare-poisson-restaurant-philip.webp')">
-        <img src="img/dressage-tartare-poisson-restaurant-philip.webp" alt="Dressage tartare de poisson en cuisine, Restaurant Philip" loading="lazy">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
-      </div>
-      <div class="fg-item" onclick="lb('img/plat-canard-abricots-restaurant-philip.webp')">
-        <img src="img/plat-canard-abricots-restaurant-philip.webp" alt="Canard aux abricots dressé sur assiette, Restaurant Philip" loading="lazy">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+        <div class="mo-ov"><span class="mo-label">Fraises à la chantilly</span></div>
       </div>
     </div>
   </div>
