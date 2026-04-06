@@ -572,11 +572,15 @@
     .tab.on, .tab:hover { background: var(--btn); color: var(--btn-text); border-color: var(--btn); }
 
     .panels-wrap {
-      display: grid;
-      grid-template-areas: 'p';
+      position: relative;
+      overflow: hidden;
+      transition: height .42s cubic-bezier(.4,0,.2,1);
     }
     .panel {
-      grid-area: p;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0 52px;
@@ -1187,25 +1191,25 @@
     <!-- Entrées -->
     <div class="panel on" id="p-ent" role="tabpanel">
       <div class="wc-grid">
-        <div class="wc"><div class="wc-name">Asperges du Pays en déclinaison</div><p class="wc-desc">Vapeur, tempura ou mousse, vertes et blanches selon arrivage — 24€</p></div>
+        <div class="wc"><div class="wc-name">Asperges du Pays en déclinaison</div><p class="wc-desc">Vapeur, tempura ou mousse, vertes et blanches selon arrivage</p></div>
         <div class="wc"><div class="wc-name">Petit Gris de Malige</div><p class="wc-desc">Préparés à la tradition, au choix en entrée du menu</p></div>
-        <div class="wc"><div class="wc-name">Foie gras poêlé</div><p class="wc-desc">Condiment betterave, marmelade de pomme — 38€</p></div>
-        <div class="wc"><div class="wc-name">Pressé aux truffes Mélanosporum</div><p class="wc-desc">Coulis léger, marmelade de pomme — 24€</p></div>
+        <div class="wc"><div class="wc-name">Foie gras poêlé</div><p class="wc-desc">Condiment betterave, marmelade de pomme</p></div>
+        <div class="wc"><div class="wc-name">Pressé aux truffes Mélanosporum</div><p class="wc-desc">Coulis léger, marmelade de pomme</p></div>
       </div>
     </div>
 
     <!-- Poissons -->
     <div class="panel" id="p-poi" role="tabpanel">
       <div class="wc-grid">
-        <div class="wc"><div class="wc-name">Truite du « Petit Jarp » en trois façons</div><p class="wc-desc">Jeunes carottes et beurre blanc — plat signature — 28€</p></div>
-        <div class="wc"><div class="wc-name">Pavé d'omble chevalier</div><p class="wc-desc">Rosette d'Époisses en safran, jeunes légumes, émulsion capucine — 29€</p></div>
+        <div class="wc"><div class="wc-name">Truite du « Petit Jarp » en trois façons</div><p class="wc-desc">Jeunes carottes et beurre blanc — plat signature</p></div>
+        <div class="wc"><div class="wc-name">Pavé d'omble chevalier</div><p class="wc-desc">Rosette d'Époisses en safran, jeunes légumes, émulsion capucine</p></div>
       </div>
     </div>
 
     <!-- Viandes -->
     <div class="panel" id="p-via" role="tabpanel">
       <div class="wc-grid">
-        <div class="wc"><div class="wc-name">Croustillant d'épaule d'agneau confit</div><p class="wc-desc">Aux parfums méditerranéens, légumes de saison — 29€</p></div>
+        <div class="wc"><div class="wc-name">Croustillant d'épaule d'agneau confit</div><p class="wc-desc">Aux parfums méditerranéens, légumes de saison</p></div>
         <div class="wc"><div class="wc-name">Suggestion du marché</div><p class="wc-desc">Viande selon les arrivages, demandez en salle</p></div>
       </div>
     </div>
@@ -1213,10 +1217,10 @@
     <!-- Desserts -->
     <div class="panel" id="p-des" role="tabpanel">
       <div class="wc-grid">
-        <div class="wc"><div class="wc-name">Fromages de Nathalie Morotti</div><p class="wc-desc">Fromagère à Pernes-les-Fontaines — 15€</p></div>
-        <div class="wc"><div class="wc-name">Fraises du Pays en tartelette</div><p class="wc-desc">Fraises locales, fond de tarte maison — 14€</p></div>
-        <div class="wc"><div class="wc-name">Baba au Rhum</div><p class="wc-desc">Recette maison — 14€</p></div>
-        <div class="wc"><div class="wc-name">Assortiment de glaces et sorbets</div><p class="wc-desc">Sélection maison — 17€</p></div>
+        <div class="wc"><div class="wc-name">Fromages de Nathalie Morotti</div><p class="wc-desc">Fromagère à Pernes-les-Fontaines</p></div>
+        <div class="wc"><div class="wc-name">Fraises du Pays en tartelette</div><p class="wc-desc">Fraises locales, fond de tarte maison</p></div>
+        <div class="wc"><div class="wc-name">Baba au Rhum</div><p class="wc-desc">Recette maison</p></div>
+        <div class="wc"><div class="wc-name">Assortiment de glaces et sorbets</div><p class="wc-desc">Sélection maison</p></div>
       </div>
     </div>
 
@@ -1516,14 +1520,23 @@
 <script>
   AOS.init({ duration: 680, once: true, offset: 70 });
 
-  // Tabs
+  // Tabs — hauteur animée
+  function tabSetHeight(wrap) {
+    const active = wrap.querySelector('.panel.on');
+    if (active) wrap.style.height = active.scrollHeight + 'px';
+  }
   function tab(btn, id) {
     document.querySelectorAll('.tab').forEach(t => { t.classList.remove('on'); t.setAttribute('aria-selected','false'); });
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
     btn.classList.add('on');
     btn.setAttribute('aria-selected','true');
-    document.getElementById(id).classList.add('on');
+    const panel = document.getElementById(id);
+    panel.classList.add('on');
+    const wrap = panel.closest('.panels-wrap');
+    if (wrap) wrap.style.height = panel.scrollHeight + 'px';
   }
+  document.querySelectorAll('.panels-wrap').forEach(tabSetHeight);
+  window.addEventListener('resize', () => document.querySelectorAll('.panels-wrap').forEach(tabSetHeight));
 
   // Lightbox
   var _lbGal = null, _lbIdx = 0, _lbTouch = 0;

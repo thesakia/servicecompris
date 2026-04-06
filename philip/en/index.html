@@ -273,9 +273,10 @@
       background: var(--surface); color: var(--muted); transition: all .2s;
     }
     .tab.on, .tab:hover { background: var(--btn); color: var(--btn-text); border-color: var(--btn); }
-    .panels-wrap { display: grid; grid-template-areas: 'p'; }
+    .panels-wrap { position: relative; overflow: hidden; transition: height .42s cubic-bezier(.4,0,.2,1); }
     .panel {
-      grid-area: p; display: grid; grid-template-columns: 1fr 1fr; gap: 0 52px;
+      position: absolute; top: 0; left: 0; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0 52px;
       opacity: 0; pointer-events: none; transform: translateY(16px);
       transition: opacity .42s cubic-bezier(.4,0,.2,1), transform .42s cubic-bezier(.4,0,.2,1);
     }
@@ -589,25 +590,25 @@
     <!-- Starters -->
     <div class="panel on" id="p-ent" role="tabpanel">
       <div class="wc-grid">
-        <div class="wc"><div class="wc-name">Local asparagus, various ways</div><p class="wc-desc">Steamed, tempura or mousse, green and white depending on arrival — 24€</p></div>
+        <div class="wc"><div class="wc-name">Local asparagus, various ways</div><p class="wc-desc">Steamed, tempura or mousse, green and white depending on arrival</p></div>
         <div class="wc"><div class="wc-name">Petit Gris de Malige snails</div><p class="wc-desc">Prepared in the house tradition, included in the set menu</p></div>
-        <div class="wc"><div class="wc-name">Pan-fried foie gras</div><p class="wc-desc">Beetroot condiment, apple marmalade — 38€</p></div>
-        <div class="wc"><div class="wc-name">Pressed Mélanosporum truffle</div><p class="wc-desc">Light coulis, apple marmalade — 24€</p></div>
+        <div class="wc"><div class="wc-name">Pan-fried foie gras</div><p class="wc-desc">Beetroot condiment, apple marmalade</p></div>
+        <div class="wc"><div class="wc-name">Pressed Mélanosporum truffle</div><p class="wc-desc">Light coulis, apple marmalade</p></div>
       </div>
     </div>
 
     <!-- Fish & seafood -->
     <div class="panel" id="p-poi" role="tabpanel">
       <div class="wc-grid">
-        <div class="wc"><div class="wc-name">Petit Jarp trout, three ways</div><p class="wc-desc">Young carrots and beurre blanc — signature dish — 28€</p></div>
-        <div class="wc"><div class="wc-name">Arctic char fillet</div><p class="wc-desc">Époisses rosette in saffron, young vegetables, nasturtium emulsion — 29€</p></div>
+        <div class="wc"><div class="wc-name">Petit Jarp trout, three ways</div><p class="wc-desc">Young carrots and beurre blanc — signature dish</p></div>
+        <div class="wc"><div class="wc-name">Arctic char fillet</div><p class="wc-desc">Époisses rosette in saffron, young vegetables, nasturtium emulsion</p></div>
       </div>
     </div>
 
     <!-- Meat -->
     <div class="panel" id="p-via" role="tabpanel">
       <div class="wc-grid">
-        <div class="wc"><div class="wc-name">Crispy confit lamb shoulder</div><p class="wc-desc">Mediterranean aromatics, seasonal vegetables — 29€</p></div>
+        <div class="wc"><div class="wc-name">Crispy confit lamb shoulder</div><p class="wc-desc">Mediterranean aromatics, seasonal vegetables</p></div>
         <div class="wc"><div class="wc-name">Chef's market suggestion</div><p class="wc-desc">Meat according to market arrivals, ask your server</p></div>
       </div>
     </div>
@@ -615,10 +616,10 @@
     <!-- Desserts -->
     <div class="panel" id="p-des" role="tabpanel">
       <div class="wc-grid">
-        <div class="wc"><div class="wc-name">Nathalie Morotti's cheeses</div><p class="wc-desc">Affineur in Pernes-les-Fontaines — 15€</p></div>
-        <div class="wc"><div class="wc-name">Local strawberry tart</div><p class="wc-desc">Fresh local strawberries, house pastry — 14€</p></div>
-        <div class="wc"><div class="wc-name">Baba au Rhum</div><p class="wc-desc">House recipe — 14€</p></div>
-        <div class="wc"><div class="wc-name">Assorted ice creams &amp; sorbets</div><p class="wc-desc">House selection — 17€</p></div>
+        <div class="wc"><div class="wc-name">Nathalie Morotti's cheeses</div><p class="wc-desc">Affineur in Pernes-les-Fontaines</p></div>
+        <div class="wc"><div class="wc-name">Local strawberry tart</div><p class="wc-desc">Fresh local strawberries, house pastry</p></div>
+        <div class="wc"><div class="wc-name">Baba au Rhum</div><p class="wc-desc">House recipe</p></div>
+        <div class="wc"><div class="wc-name">Assorted ice creams &amp; sorbets</div><p class="wc-desc">House selection</p></div>
       </div>
     </div>
 
@@ -910,13 +911,22 @@
 <script>
   AOS.init({ duration: 680, once: true, offset: 70 });
 
+  function tabSetHeight(wrap) {
+    const active = wrap.querySelector('.panel.on');
+    if (active) wrap.style.height = active.scrollHeight + 'px';
+  }
   function tab(btn, id) {
     document.querySelectorAll('.tab').forEach(t => { t.classList.remove('on'); t.setAttribute('aria-selected','false'); });
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
     btn.classList.add('on');
     btn.setAttribute('aria-selected','true');
-    document.getElementById(id).classList.add('on');
+    const panel = document.getElementById(id);
+    panel.classList.add('on');
+    const wrap = panel.closest('.panels-wrap');
+    if (wrap) wrap.style.height = panel.scrollHeight + 'px';
   }
+  document.querySelectorAll('.panels-wrap').forEach(tabSetHeight);
+  window.addEventListener('resize', () => document.querySelectorAll('.panels-wrap').forEach(tabSetHeight));
 
   var _lbGal = null, _lbIdx = 0, _lbTouch = 0;
   function lb(src) { _lbGal = null; _setLbNav(false); _showLbImg(src, ''); document.getElementById('lb').classList.add('open'); document.body.style.overflow = 'hidden'; }
