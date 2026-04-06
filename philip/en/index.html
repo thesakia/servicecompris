@@ -291,6 +291,8 @@
     .mc.star .mc-label { color: rgba(255,255,255,.7); }
     .mc-name { font-family: var(--hf); font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: .4rem; }
     .mc.star .mc-name { color: var(--btn-text); }
+    .mc-price { font-family: var(--hf); font-size: 2.2rem; font-weight: 900; color: var(--accent); }
+    .mc.star .mc-price { color: var(--btn-text); }
     .mc-desc { font-size: .82rem; color: var(--muted); margin-top: 1rem; line-height: 1.65; }
     .mc.star .mc-desc { color: rgba(255,255,255,.75); }
 
@@ -356,9 +358,16 @@
     /* LIGHTBOX */
     #lb { position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,.93); display: none; align-items: center; justify-content: center; }
     #lb.open { display: flex; }
-    #lb img { max-width: 92vw; max-height: 88vh; object-fit: contain; border-radius: 4px; }
+    #lb-img { max-width: 92vw; max-height: 88vh; object-fit: contain; border-radius: 4px; transition: opacity .22s ease; }
+    #lb-img.fade { opacity: 0; }
     #lb-x { position: absolute; top: 1rem; right: 1.5rem; color: #fff; font-size: 2.2rem; line-height: 1; opacity: .65; transition: opacity .2s; }
     #lb-x:hover { opacity: 1; }
+    .lb-arr { position: absolute; top: 50%; transform: translateY(-50%); color: #fff; font-size: 3rem; opacity: .55; transition: opacity .2s, background .2s; padding: .4rem .9rem; border-radius: 4px; user-select: none; }
+    .lb-arr:hover { opacity: 1; background: rgba(255,255,255,.08); }
+    #lb-prev { left: .75rem; }
+    #lb-next { right: .75rem; }
+    #lb-count { position: absolute; bottom: 1.1rem; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.5); font-family: var(--bf); font-size: .75rem; letter-spacing: .12em; pointer-events: none; }
+    .lb-arr.lb-hide, #lb-count.lb-hide { display: none; }
 
     /* RESPONSIVE */
     @media (max-width: 1024px) {
@@ -423,7 +432,7 @@
 <section id="hero">
   <div class="hero-poster" aria-hidden="true"></div>
   <video class="hero-video" aria-label="Ambiance video of Restaurant Philip by the Sorgue river" autoplay muted loop playsinline preload="metadata" poster="../img/terrasse-animee-ete-sorgue-philip.webp">
-    <source src="../hero/River_fhd_205716.mp4" type="video/mp4">
+    <source data-src="../hero/River_fhd_205716.mp4" type="video/mp4">
   </video>
   <div class="hero-ov"></div>
   <div class="hero-body">
@@ -558,107 +567,97 @@
     <div class="panels-wrap">
     <!-- Starters -->
     <div class="panel on" id="p-ent" role="tabpanel">
-      <div class="mi"><div><div class="mi-name">Local asparagus</div><div class="mi-desc">Steamed, tempura or mousse, green and white depending on availability</div></div></div>
-      <div class="mi"><div><div class="mi-name">Provençal snails</div><div class="mi-desc">Herb butter, house tradition</div></div></div>
-      <div class="mi"><div><div class="mi-name">Truffle omelette</div><div class="mi-desc">Monts du Vaucluse truffle, seasonal</div></div></div>
-      <div class="mi"><div><div class="mi-name">Truffle quenelle</div><div class="mi-desc">Summer truffle from Vaucluse, brown butter</div></div></div>
-      <div class="mi"><div><div class="mi-name">House velouté</div><div class="mi-desc">Made with market vegetables</div></div></div>
-      <div class="mi"><div><div class="mi-name">Seasonal salad</div><div class="mi-desc">Local produce, house dressing</div></div></div>
+      <div class="mi"><div><div class="mi-name">Local asparagus, various ways</div><div class="mi-desc">Steamed, tempura or mousse, green and white depending on arrival — 24€</div></div></div>
+      <div class="mi"><div><div class="mi-name">Petit Gris de Malige snails</div><div class="mi-desc">Prepared in the house tradition, included in the set menu</div></div></div>
+      <div class="mi"><div><div class="mi-name">Pan-fried foie gras</div><div class="mi-desc">Beetroot condiment, apple marmalade — 38€</div></div></div>
+      <div class="mi"><div><div class="mi-name">Pressed Mélanosporum truffle</div><div class="mi-desc">Light coulis, apple marmalade — 24€</div></div></div>
     </div>
 
     <!-- Fish & seafood -->
     <div class="panel" id="p-poi" role="tabpanel">
-      <div class="mi"><div><div class="mi-name">Sorgue trout</div><div class="mi-desc">Three preparations, potatoes and spinach — signature dish</div></div></div>
-      <div class="mi"><div><div class="mi-name">Freshwater crayfish</div><div class="mi-desc">Caught in our pool fed by the Sorgue</div></div></div>
-      <div class="mi"><div><div class="mi-name">Scallops</div><div class="mi-desc">Seasonal, house preparation</div></div></div>
-      <div class="mi"><div><div class="mi-name">Frog's legs</div><div class="mi-desc">Parsley and brown butter</div></div></div>
+      <div class="mi"><div><div class="mi-name">Petit Jarp trout, three ways</div><div class="mi-desc">Young carrots and beurre blanc — signature dish — 28€</div></div></div>
+      <div class="mi"><div><div class="mi-name">Arctic char fillet</div><div class="mi-desc">Époisses rosette in saffron, young vegetables, nasturtium emulsion — 29€</div></div></div>
     </div>
 
     <!-- Meat -->
     <div class="panel" id="p-via" role="tabpanel">
-      <div class="mi"><div><div class="mi-name">Sisteron lamb</div><div class="mi-desc">Traditional preparation, seasonal vegetables</div></div></div>
-      <div class="mi"><div><div class="mi-name">Local duck</div><div class="mi-desc">In the Provençal tradition</div></div></div>
-      <div class="mi"><div><div class="mi-name">House ratatouille</div><div class="mi-desc">Local vegetables, slow-cooked</div></div></div>
-      <div class="mi"><div><div class="mi-name">Chef's market choice</div><div class="mi-desc">Depending on market arrivals, ask your server</div></div></div>
+      <div class="mi"><div><div class="mi-name">Crispy confit lamb shoulder</div><div class="mi-desc">Mediterranean aromatics, seasonal vegetables — 29€</div></div></div>
+      <div class="mi"><div><div class="mi-name">Chef's market suggestion</div><div class="mi-desc">Meat according to market arrivals, ask your server</div></div></div>
     </div>
 
     <!-- Desserts -->
     <div class="panel" id="p-des" role="tabpanel">
-      <div class="mi"><div><div class="mi-name">House Saint-Honoré</div><div class="mi-desc">The house signature, fine pastry</div></div></div>
-      <div class="mi"><div><div class="mi-name">Strawberry &amp; apricot tart</div><div class="mi-desc">Local strawberries, apricot base</div></div></div>
-      <div class="mi"><div><div class="mi-name">Local cheeses</div><div class="mi-desc">Served with house-made marrow jam</div></div></div>
-      <div class="mi"><div><div class="mi-name">Daily house pastries</div><div class="mi-desc">Meringues, verrines, seasonal creations</div></div></div>
+      <div class="mi"><div><div class="mi-name">Nathalie Morotti's cheeses</div><div class="mi-desc">Affineur in Pernes-les-Fontaines — 15€</div></div></div>
+      <div class="mi"><div><div class="mi-name">Local strawberry tart</div><div class="mi-desc">Fresh local strawberries, house pastry — 14€</div></div></div>
+      <div class="mi"><div><div class="mi-name">Baba au Rhum</div><div class="mi-desc">House recipe — 14€</div></div></div>
+      <div class="mi"><div><div class="mi-name">Assorted ice creams &amp; sorbets</div><div class="mi-desc">House selection — 17€</div></div></div>
     </div>
 
     <!-- Menus -->
     <div class="panel" id="p-men" role="tabpanel">
       <div class="menus-cards">
-        <div class="mc" data-aos="fade-up">
+        <div class="mc star" data-aos="fade-up">
           <span class="mc-label">Set menu</span>
-          <div class="mc-name">Discovery</div>
-          <p class="mc-desc">Starter + Main + Dessert<br>The best way to discover our cuisine</p>
+          <div class="mc-name">Le Philip</div>
+          <div class="mc-price">41€</div>
+          <p class="mc-desc">Amuse-bouche · Starter of your choice · Main of your choice · Cheeses · Dessert of your choice<br>Asparagus or Petit Gris snails, Trout three ways, Confit lamb...</p>
         </div>
-        <div class="mc star" data-aos="fade-up" data-aos-delay="80">
+        <div class="mc" data-aos="fade-up" data-aos-delay="100">
           <span class="mc-label">Set menu</span>
-          <div class="mc-name">Terroir</div>
-          <p class="mc-desc">Starter + Main + Cheese + Dessert<br>The heart of our Provençal cuisine<br>with market produce</p>
-        </div>
-        <div class="mc" data-aos="fade-up" data-aos-delay="160">
-          <span class="mc-label">Set menu</span>
-          <div class="mc-name">Prestige</div>
-          <p class="mc-desc">Starter + Signature main + Cheese + Dessert<br>Sorgue trout, truffle, exceptional produce<br>The full Philip experience</p>
+          <div class="mc-name">Les Libellules</div>
+          <p class="mc-desc">Amuse-bouche · Pan-fried foie gras · Fish · Meat · Cheeses · Dessert<br>The full gastronomic Philip experience</p>
         </div>
       </div>
       <div data-aos="fade-up" style="margin-top:1.8rem; padding:1.2rem 1.6rem; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--divider); border-radius:0 8px 8px 0; max-width:620px;">
-        <p style="font-size:.9rem; color:var(--muted); line-height:1.7;">A bar and light dining area is also available for a relaxed pause by the water, no reservation needed.</p>
+        <p style="font-size:.9rem; color:var(--muted); line-height:1.7;">Children's menu available at 20€. Menu changes with the seasons and market arrivals.</p>
       </div>
     </div>
     </div><!-- /panels-wrap -->
 
     <div class="mosaic" data-aos="fade-up">
-      <div class="mo" onclick="lb('../img/asperges-blanches-vertes-dressage-gastronomique-philip.webp')">
-        <img src="../img/asperges-blanches-vertes-dressage-gastronomique-philip.webp" alt="White and green asparagus, gastronomic presentation, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Asparagus — Seasonal starter</span></div>
+      <div class="mo" onclick="lbGal(this,'../img/entree-asperges-pays-declinaison-philip.webp')">
+        <img src="../img/entree-asperges-pays-declinaison-philip.webp" alt="Local asparagus, various preparations, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Asparagus, various ways</span></div>
       </div>
-      <div class="mo" onclick="lb('../img/entree-veloute-epinards-maison-philip.webp')">
-        <img src="../img/entree-veloute-epinards-maison-philip.webp" alt="House spinach velouté, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">House velouté</span></div>
-      </div>
-      <div class="mo" onclick="lb('../img/mise-en-bouche-veloute-restaurant-philip.webp')">
-        <img src="../img/mise-en-bouche-veloute-restaurant-philip.webp" alt="House velouté amuse-bouche, Restaurant Philip" loading="lazy">
+      <div class="mo" onclick="lbGal(this,'../img/mise-en-bouche-veloute-saison-philip.webp')">
+        <img src="../img/mise-en-bouche-veloute-saison-philip.webp" alt="Seasonal velouté amuse-bouche, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Amuse-bouche</span></div>
       </div>
-      <div class="mo" onclick="lb('../img/entree-salade-saumon-fume-crabe-philip.webp')">
-        <img src="../img/entree-salade-saumon-fume-crabe-philip.webp" alt="Smoked salmon and crab salad, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Smoked salmon &amp; crab</span></div>
+      <div class="mo" onclick="lbGal(this,'../img/mise-en-bouche-veloute-restaurant-philip.webp')">
+        <img src="../img/mise-en-bouche-veloute-restaurant-philip.webp" alt="House amuse-bouche, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Amuse-bouche</span></div>
       </div>
-      <div class="mo" onclick="lb('../img/dressage-tartare-poisson-restaurant-philip.webp')">
-        <img src="../img/dressage-tartare-poisson-restaurant-philip.webp" alt="Fish tartare plating, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Fish tartare</span></div>
+      <div class="mo" onclick="lbGal(this,'../img/entree-saumon-fume-homard-salade-philip.webp')">
+        <img src="../img/entree-saumon-fume-homard-salade-philip.webp" alt="Smoked salmon and lobster salad, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Smoked salmon &amp; lobster</span></div>
       </div>
-      <div class="mo" onclick="lb('../img/entree-charcuterie-assiette-philip-fontaine-vaucluse.webp')">
-        <img src="../img/entree-charcuterie-assiette-philip-fontaine-vaucluse.webp" alt="House charcuterie plate, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">House charcuterie</span></div>
+      <div class="mo" onclick="lbGal(this,'../img/plat-truite-petit-jarp-dressage-cuisine-philip.webp')">
+        <img src="../img/plat-truite-petit-jarp-dressage-cuisine-philip.webp" alt="Petit Jarp trout, three ways, plating in kitchen, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Petit Jarp trout, three ways</span></div>
       </div>
-      <div class="mo" onclick="lb('../img/plat-effiloche-croute-filo-legumes-philip.webp')">
-        <img src="../img/plat-effiloche-croute-filo-legumes-philip.webp" alt="Slow-cooked meat in filo crust, seasonal vegetables, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Braised meat in filo crust</span></div>
+      <div class="mo" onclick="lbGal(this,'../img/entree-assiette-charcuterie-terroir-philip.webp')">
+        <img src="../img/entree-assiette-charcuterie-terroir-philip.webp" alt="Charcuterie plate from the terroir, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Terroir charcuterie</span></div>
       </div>
-      <div class="mo" onclick="lb('../img/fromages-plateau-terrasse-sorgue-restaurant-philip.webp')">
-        <img src="../img/fromages-plateau-terrasse-sorgue-restaurant-philip.webp" alt="Regional cheese board, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Regional cheese board</span></div>
+      <div class="mo" onclick="lbGal(this,'../img/plat-agneau-croustillant-confit-legumes-philip.webp')">
+        <img src="../img/plat-agneau-croustillant-confit-legumes-philip.webp" alt="Crispy confit lamb shoulder, seasonal vegetables, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Crispy confit lamb shoulder</span></div>
       </div>
-      <div class="mo" onclick="lb('../img/plat-canard-abricots-restaurant-philip.webp')">
-        <img src="../img/plat-canard-abricots-restaurant-philip.webp" alt="Duck with apricots, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Duck with apricots</span></div>
+      <div class="mo" onclick="lbGal(this,'../img/dessert-fromages-nathalie-morotti-philip.webp')">
+        <img src="../img/dessert-fromages-nathalie-morotti-philip.webp" alt="Cheese board by Nathalie Morotti, affineur in Pernes-les-Fontaines, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Nathalie Morotti's cheeses</span></div>
       </div>
-      <div class="mo" onclick="lb('../img/dessert-tarte-fraises-bord-sorgue-philip.webp')">
-        <img src="../img/dessert-tarte-fraises-bord-sorgue-philip.webp" alt="Fresh strawberry tart, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Strawberry tart</span></div>
+      <div class="mo" onclick="lbGal(this,'../img/plat-confit-canard-abricots-restaurant-philip.webp')">
+        <img src="../img/plat-confit-canard-abricots-restaurant-philip.webp" alt="Confit duck with apricots, kitchen plating, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Confit duck with apricots</span></div>
       </div>
-      <div class="mo" onclick="lb('../img/dessert-coupe-fraises-chantilly-maison-philip.webp')">
-        <img src="../img/dessert-coupe-fraises-chantilly-maison-philip.webp" alt="Strawberry and whipped cream sundae, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Strawberries &amp; chantilly</span></div>
+      <div class="mo" onclick="lbGal(this,'../img/dessert-fraises-pays-tartelette-philip.webp')">
+        <img src="../img/dessert-fraises-pays-tartelette-philip.webp" alt="Local strawberry tart, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Local strawberry tart</span></div>
+      </div>
+      <div class="mo" onclick="lbGal(this,'../img/dessert-coupe-fraises-glace-maison-philip.webp')">
+        <img src="../img/dessert-coupe-fraises-glace-maison-philip.webp" alt="Strawberry and house ice cream sundae, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Strawberry &amp; house ice cream</span></div>
       </div>
     </div>
   </div>
@@ -834,7 +833,10 @@
 <!-- Lightbox -->
 <div id="lb" role="dialog" aria-modal="true">
   <button id="lb-x" onclick="closeLb()" aria-label="Close">&times;</button>
+  <button class="lb-arr lb-hide" id="lb-prev" onclick="navLb(-1)" aria-label="Previous photo">&#8249;</button>
   <img id="lb-img" src="" alt="">
+  <button class="lb-arr lb-hide" id="lb-next" onclick="navLb(1)" aria-label="Next photo">&#8250;</button>
+  <span id="lb-count" class="lb-hide"></span>
 </div>
 
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
@@ -849,26 +851,52 @@
     document.getElementById(id).classList.add('on');
   }
 
-  function lb(src) {
-    document.getElementById('lb-img').src = src;
-    document.getElementById('lb').classList.add('open');
-    document.body.style.overflow = 'hidden';
+  var _lbGal = null, _lbIdx = 0, _lbTouch = 0;
+  function lb(src) { _lbGal = null; _setLbNav(false); _showLbImg(src, ''); document.getElementById('lb').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function lbGal(el, src) {
+    var items = [...el.closest('.mosaic').querySelectorAll('.mo img')];
+    _lbGal = items.map(function(i){ return { src: i.getAttribute('src'), alt: i.alt }; });
+    _lbIdx = _lbGal.findIndex(function(i){ return i.src === src; });
+    if (_lbIdx < 0) _lbIdx = 0;
+    _setLbNav(true); _showLbImg(_lbGal[_lbIdx].src, _lbGal[_lbIdx].alt);
+    document.getElementById('lb').classList.add('open'); document.body.style.overflow = 'hidden';
   }
-  function closeLb() {
-    document.getElementById('lb').classList.remove('open');
-    document.body.style.overflow = '';
+  function navLb(dir) {
+    if (!_lbGal) return;
+    _lbIdx = (_lbIdx + dir + _lbGal.length) % _lbGal.length;
+    _showLbImg(_lbGal[_lbIdx].src, _lbGal[_lbIdx].alt);
+    document.getElementById('lb-count').textContent = (_lbIdx + 1) + ' / ' + _lbGal.length;
   }
+  function _showLbImg(src, alt) {
+    var img = document.getElementById('lb-img');
+    img.classList.add('fade');
+    setTimeout(function(){ img.alt = alt; img.src = src;
+      var show = function(){ img.classList.remove('fade'); };
+      if (img.complete && img.naturalWidth) show(); else { img.onload = show; img.onerror = show; }
+    }, 200);
+    if (_lbGal) document.getElementById('lb-count').textContent = (_lbIdx + 1) + ' / ' + _lbGal.length;
+  }
+  function _setLbNav(on) { ['lb-prev','lb-next','lb-count'].forEach(function(id){ document.getElementById(id).classList.toggle('lb-hide', !on); }); }
+  function closeLb() { document.getElementById('lb').classList.remove('open'); document.body.style.overflow = ''; }
   document.getElementById('lb').addEventListener('click', function(e) { if (e.target === this) closeLb(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') navLb(-1);
+    if (e.key === 'ArrowRight') navLb(1);
+  });
+  document.getElementById('lb').addEventListener('touchstart', function(e){ _lbTouch = e.changedTouches[0].clientX; }, { passive: true });
+  document.getElementById('lb').addEventListener('touchend', function(e){ var dx = e.changedTouches[0].clientX - _lbTouch; if (Math.abs(dx) > 45) navLb(dx < 0 ? 1 : -1); }, { passive: true });
 
-  // Hero video cross-fade
+  // Hero video cross-fade (desktop only — skip on mobile to save bandwidth)
   (function() {
+    if (window.matchMedia('(max-width: 900px)').matches) return;
     var vid = document.querySelector('.hero-video');
     var poster = document.querySelector('.hero-poster');
     if (!vid || !poster) return;
+    var src = vid.querySelector('source[data-src]');
+    if (src) { src.src = src.dataset.src; vid.load(); }
     function reveal() { vid.classList.add('playing'); poster.classList.add('fade'); }
-    if (!vid.paused && vid.readyState >= 2) { reveal(); }
-    else { vid.addEventListener('playing', reveal, { once: true }); }
+    vid.addEventListener('playing', reveal, { once: true });
   })();
 
   document.getElementById('hbg').addEventListener('click', function() {
