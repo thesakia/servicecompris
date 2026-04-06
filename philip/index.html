@@ -862,17 +862,35 @@
       justify-content: center;
     }
     #lb.open { display: flex; }
-    #lb img { max-width: 92vw; max-height: 88vh; object-fit: contain; border-radius: 4px; }
+    #lb-img {
+      max-width: 92vw; max-height: 88vh;
+      object-fit: contain; border-radius: 4px;
+      transition: opacity .22s ease;
+    }
+    #lb-img.fade { opacity: 0; }
     #lb-x {
       position: absolute;
       top: 1rem; right: 1.5rem;
-      color: #fff;
-      font-size: 2.2rem;
-      line-height: 1;
-      opacity: .65;
-      transition: opacity .2s;
+      color: #fff; font-size: 2.2rem; line-height: 1;
+      opacity: .65; transition: opacity .2s;
     }
     #lb-x:hover { opacity: 1; }
+    .lb-arr {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      color: #fff; font-size: 3rem; line-height: 1;
+      opacity: .55; transition: opacity .2s, background .2s;
+      padding: .4rem .9rem; border-radius: 4px;
+      user-select: none;
+    }
+    .lb-arr:hover { opacity: 1; background: rgba(255,255,255,.08); }
+    #lb-prev { left: .75rem; }
+    #lb-next { right: .75rem; }
+    #lb-count {
+      position: absolute; bottom: 1.1rem; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,.5); font-family: var(--bf);
+      font-size: .75rem; letter-spacing: .12em; pointer-events: none;
+    }
+    .lb-arr.lb-hide, #lb-count.lb-hide { display: none; }
 
     /* ============================
        RESPONSIVE
@@ -1152,47 +1170,47 @@
     </div><!-- /panels-wrap -->
 
     <div class="mosaic" data-aos="fade-up">
-      <div class="mo" onclick="lb('img/asperges-blanches-vertes-dressage-gastronomique-philip.webp')">
+      <div class="mo" onclick="lbGal(this,'img/asperges-blanches-vertes-dressage-gastronomique-philip.webp')">
         <img src="img/asperges-blanches-vertes-dressage-gastronomique-philip.webp" alt="Asperges blanches et vertes, dressage gastronomique, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Asperges du pays</span></div>
       </div>
-      <div class="mo" onclick="lb('img/entree-veloute-epinards-maison-philip.webp')">
+      <div class="mo" onclick="lbGal(this,'img/entree-veloute-epinards-maison-philip.webp')">
         <img src="img/entree-veloute-epinards-maison-philip.webp" alt="Mis en bouche, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Velouté maison</span></div>
       </div>
-      <div class="mo" onclick="lb('img/mise-en-bouche-veloute-restaurant-philip.webp')">
+      <div class="mo" onclick="lbGal(this,'img/mise-en-bouche-veloute-restaurant-philip.webp')">
         <img src="img/mise-en-bouche-veloute-restaurant-philip.webp" alt="Escargots de Provence, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Escargots de Provence</span></div>
       </div>
-      <div class="mo" onclick="lb('img/entree-salade-saumon-fume-crabe-philip.webp')">
+      <div class="mo" onclick="lbGal(this,'img/entree-salade-saumon-fume-crabe-philip.webp')">
         <img src="img/entree-salade-saumon-fume-crabe-philip.webp" alt="Salade de saison, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Salade de saison</span></div>
       </div>
-      <div class="mo" onclick="lb('img/dressage-tartare-poisson-restaurant-philip.webp')">
+      <div class="mo" onclick="lbGal(this,'img/dressage-tartare-poisson-restaurant-philip.webp')">
         <img src="img/dressage-tartare-poisson-restaurant-philip.webp" alt="Truite de la Sorgue, dressage en cuisine, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Truite de la Sorgue</span></div>
       </div>
-      <div class="mo" onclick="lb('img/entree-charcuterie-assiette-philip-fontaine-vaucluse.webp')">
+      <div class="mo" onclick="lbGal(this,'img/entree-charcuterie-assiette-philip-fontaine-vaucluse.webp')">
         <img src="img/entree-charcuterie-assiette-philip-fontaine-vaucluse.webp" alt="Suggestion du marché, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Suggestion du marché</span></div>
       </div>
-      <div class="mo" onclick="lb('img/plat-effiloche-croute-filo-legumes-philip.webp')">
+      <div class="mo" onclick="lbGal(this,'img/plat-effiloche-croute-filo-legumes-philip.webp')">
         <img src="img/plat-effiloche-croute-filo-legumes-philip.webp" alt="Agneau de Sisteron, légumes de saison, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Agneau de Sisteron</span></div>
       </div>
-      <div class="mo" onclick="lb('img/fromages-plateau-terrasse-sorgue-restaurant-philip.webp')">
+      <div class="mo" onclick="lbGal(this,'img/fromages-plateau-terrasse-sorgue-restaurant-philip.webp')">
         <img src="img/fromages-plateau-terrasse-sorgue-restaurant-philip.webp" alt="Plateau de fromages de la région, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Fromages de la région</span></div>
       </div>
-      <div class="mo" onclick="lb('img/plat-canard-abricots-restaurant-philip.webp')">
+      <div class="mo" onclick="lbGal(this,'img/plat-canard-abricots-restaurant-philip.webp')">
         <img src="img/plat-canard-abricots-restaurant-philip.webp" alt="Canard du terroir, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Canard du terroir</span></div>
       </div>
-      <div class="mo" onclick="lb('img/dessert-tarte-fraises-bord-sorgue-philip.webp')">
+      <div class="mo" onclick="lbGal(this,'img/dessert-tarte-fraises-bord-sorgue-philip.webp')">
         <img src="img/dessert-tarte-fraises-bord-sorgue-philip.webp" alt="Tartelette fraises maison, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Tartelette fraises</span></div>
       </div>
-      <div class="mo" onclick="lb('img/dessert-coupe-fraises-chantilly-maison-philip.webp')">
+      <div class="mo" onclick="lbGal(this,'img/dessert-coupe-fraises-chantilly-maison-philip.webp')">
         <img src="img/dessert-coupe-fraises-chantilly-maison-philip.webp" alt="Fraises melba, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Fraises melba</span></div>
       </div>
@@ -1377,7 +1395,10 @@
 <!-- Lightbox -->
 <div id="lb" role="dialog" aria-modal="true">
   <button id="lb-x" onclick="closeLb()" aria-label="Fermer">&times;</button>
+  <button class="lb-arr lb-hide" id="lb-prev" onclick="navLb(-1)" aria-label="Photo précédente">&#8249;</button>
   <img id="lb-img" src="" alt="">
+  <button class="lb-arr lb-hide" id="lb-next" onclick="navLb(1)" aria-label="Photo suivante">&#8250;</button>
+  <span id="lb-count" class="lb-hide"></span>
 </div>
 
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
@@ -1394,17 +1415,67 @@
   }
 
   // Lightbox
+  var _lbGal = null, _lbIdx = 0, _lbTouch = 0;
+
   function lb(src) {
-    document.getElementById('lb-img').src = src;
+    _lbGal = null;
+    _setLbNav(false);
+    _showLbImg(src, '');
     document.getElementById('lb').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
+
+  function lbGal(el, src) {
+    var items = [...el.closest('.mosaic').querySelectorAll('.mo img')];
+    _lbGal = items.map(function(i){ return { src: i.getAttribute('src'), alt: i.alt }; });
+    _lbIdx = _lbGal.findIndex(function(i){ return i.src === src; });
+    if (_lbIdx < 0) _lbIdx = 0;
+    _setLbNav(true);
+    _showLbImg(_lbGal[_lbIdx].src, _lbGal[_lbIdx].alt);
+    document.getElementById('lb').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function navLb(dir) {
+    if (!_lbGal) return;
+    _lbIdx = (_lbIdx + dir + _lbGal.length) % _lbGal.length;
+    _showLbImg(_lbGal[_lbIdx].src, _lbGal[_lbIdx].alt);
+    document.getElementById('lb-count').textContent = (_lbIdx + 1) + ' / ' + _lbGal.length;
+  }
+
+  function _showLbImg(src, alt) {
+    var img = document.getElementById('lb-img');
+    img.classList.add('fade');
+    setTimeout(function(){
+      img.alt = alt; img.src = src;
+      var show = function(){ img.classList.remove('fade'); };
+      if (img.complete && img.naturalWidth) show(); else { img.onload = show; img.onerror = show; }
+    }, 200);
+    if (_lbGal) document.getElementById('lb-count').textContent = (_lbIdx + 1) + ' / ' + _lbGal.length;
+  }
+
+  function _setLbNav(on) {
+    ['lb-prev','lb-next','lb-count'].forEach(function(id){
+      document.getElementById(id).classList.toggle('lb-hide', !on);
+    });
+  }
+
   function closeLb() {
     document.getElementById('lb').classList.remove('open');
     document.body.style.overflow = '';
   }
-  document.getElementById('lb').addEventListener('click', function(e) { if (e.target === this) closeLb(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+  document.getElementById('lb').addEventListener('click', function(e){ if (e.target === this) closeLb(); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft')  navLb(-1);
+    if (e.key === 'ArrowRight') navLb(1);
+  });
+  document.getElementById('lb').addEventListener('touchstart', function(e){ _lbTouch = e.touches[0].clientX; }, { passive: true });
+  document.getElementById('lb').addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - _lbTouch;
+    if (Math.abs(dx) > 45) navLb(dx < 0 ? 1 : -1);
+  });
 
   // Hero video cross-fade
   (function() {
