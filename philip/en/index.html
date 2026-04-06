@@ -296,11 +296,25 @@
     .mc-desc { font-size: .82rem; color: var(--muted); margin-top: 1rem; line-height: 1.65; }
     .mc.star .mc-desc { color: rgba(255,255,255,.75); }
 
+    /* WINE LIST */
+    .wc-section-title { grid-column:1/-1; font-family:var(--hf); font-size:1.45rem; font-weight:700; font-style:italic; color:var(--divider); margin-bottom:1.4rem; padding-bottom:.8rem; border-bottom:1px solid var(--border); }
+    .wc-grid { grid-column:1/-1; display:flex; flex-direction:column; gap:1.4rem; }
+    .wc { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--divider); border-radius:0 8px 8px 0; padding:1.5rem 1.8rem; }
+    .wc-top { display:flex; justify-content:space-between; align-items:baseline; gap:1rem; flex-wrap:wrap; margin-bottom:.7rem; }
+    .wc-appellation { font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--divider); font-weight:700; display:block; margin-bottom:.3rem; }
+    .wc-name { font-family:var(--hf); font-size:1.12rem; font-weight:700; color:var(--text); }
+    .wc-vintage { font-size:.78rem; color:var(--muted); font-style:italic; margin-top:2px; }
+    .wc-price { font-family:var(--hf); font-size:1.55rem; font-weight:900; color:var(--divider); white-space:nowrap; }
+    .wc-desc { font-size:.84rem; color:var(--muted); line-height:1.72; }
+    .wc-quote { font-size:.82rem; font-style:italic; color:var(--accent); margin-top:.7rem; padding-left:1rem; border-left:2px solid var(--divider); line-height:1.6; }
+    .wc-legal { grid-column:1/-1; margin-top:1.6rem; font-size:.75rem; color:var(--muted); opacity:.6; font-style:italic; line-height:1.55; }
+
     /* DISTINCTIONS */
     #distinctions { text-align: center; }
     .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin-bottom: 3.5rem; }
     .badge { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem 1.8rem; min-width: 150px; transition: border-color .2s, transform .2s; }
     .badge:hover { border-color: var(--accent); transform: translateY(-3px); }
+    a.badge { text-decoration: none; color: inherit; cursor: pointer; }
     .badge-ico { display: flex; justify-content: center; margin-bottom: .6rem; }
     .badge-ico svg { width: 26px; height: 26px; stroke: var(--accent); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
     .badge-name { font-family: var(--hf); font-size: .9rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 2px; }
@@ -568,6 +582,7 @@
       <button class="tab"    role="tab" aria-selected="false" aria-controls="p-via" onclick="tab(this,'p-via')">Meat</button>
       <button class="tab"    role="tab" aria-selected="false" aria-controls="p-des" onclick="tab(this,'p-des')">Desserts</button>
       <button class="tab"    role="tab" aria-selected="false" aria-controls="p-men" onclick="tab(this,'p-men')">Our menus</button>
+      <button class="tab"    role="tab" aria-selected="false" aria-controls="p-vins" onclick="tab(this,'p-vins')">Wine list</button>
     </div>
 
     <div class="panels-wrap">
@@ -611,6 +626,7 @@
         <div class="mc" data-aos="fade-up" data-aos-delay="100">
           <span class="mc-label">Set menu</span>
           <div class="mc-name">Les Libellules</div>
+          <div class="mc-price">61€</div>
           <p class="mc-desc">Amuse-bouche · Pan-fried foie gras · Fish · Meat · Cheeses · Dessert<br>The full gastronomic Philip experience</p>
         </div>
       </div>
@@ -618,6 +634,52 @@
         <p style="font-size:.9rem; color:var(--muted); line-height:1.7;">Children's menu available at 20€. Menu changes with the seasons and market arrivals.</p>
       </div>
     </div>
+    <!-- Wine list -->
+    <div class="panel" id="p-vins" role="tabpanel">
+      <div class="wc-section-title" data-aos="fade-up">Exceptional vintages</div>
+      <div class="wc-grid">
+
+        <div class="wc" data-aos="fade-up">
+          <div class="wc-top">
+            <div>
+              <span class="wc-appellation">AOP Hermitage blanc</span>
+              <div class="wc-name">« Les Rocoules » by Marc Sorrel</div>
+              <div class="wc-vintage">Vintage 2013</div>
+            </div>
+            <div class="wc-price">230,00€</div>
+          </div>
+          <p class="wc-desc">95% Marsanne and 5% Roussanne, 50-year-old vines. Barrel-fermented for eight weeks, partial ageing on fine lees, no filtration. A rich, full-bodied nectar that is both dry and unctuous, with great purity of flavour. A dazzling finish of peach, vanilla and honey.</p>
+        </div>
+
+        <div class="wc" data-aos="fade-up">
+          <div class="wc-top">
+            <div>
+              <span class="wc-appellation">AOP Châteauneuf-du-Pape rouge</span>
+              <div class="wc-name">Château Rayas</div>
+              <div class="wc-vintage">Vintage 2019</div>
+            </div>
+            <div class="wc-price">360,00€</div>
+          </div>
+          <p class="wc-desc">A myth that is very much a reality — a small 10-hectare estate hidden among the woods, where sandy soils play a decisive role in the wine's profile. Emmanuel Reynaud continues the estate's exceptional legacy with a wine of remarkable finesse and elegance, 100% Grenache. An expressive, elegant nose with leather notes, followed by a silky palate of tobacco and red fruit.</p>
+        </div>
+
+        <div class="wc" data-aos="fade-up">
+          <div class="wc-top">
+            <div>
+              <span class="wc-appellation">AOP Champagne</span>
+              <div class="wc-name">Pol Roger Cuvée Winston Churchill</div>
+              <div class="wc-vintage">Vintage 2015</div>
+            </div>
+            <div class="wc-price">300,00€</div>
+          </div>
+          <p class="wc-desc">This prestige cuvée was created in honour of Sir Winston Churchill — a nod to our restaurant, where he lunched in 1948. Composed exclusively of Pinot Noir and Chardonnay from grand cru vineyards already in production during the Churchill era, it is only produced in the finest vintages.</p>
+          <p class="wc-quote">« My tastes are simple — I am easily satisfied with the very best »<br>Sir Winston Churchill once said: « In victory I deserve it, in defeat I need it »</p>
+        </div>
+
+      </div>
+      <p class="wc-legal" data-aos="fade-up">Alcohol abuse is dangerous for your health. Please drink responsibly. May contain sulphites, traces of shellfish, milk or eggs.</p>
+    </div>
+
     </div><!-- /panels-wrap -->
 
     <div class="mosaic" data-aos="fade-up">
@@ -677,26 +739,26 @@
     <div class="rule center" data-aos="fade-up"></div>
 
     <div class="badges" data-aos="fade-up">
-      <div class="badge">
+      <a class="badge" href="https://guide.michelin.com/en/en/provence-alpes-cote-dazur/fontaine-de-vaucluse/restaurant/philip" target="_blank" rel="noopener noreferrer">
         <span class="badge-ico"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span>
         <span class="badge-name">Michelin Guide</span><span class="badge-sub">Listed for over 60 years</span>
-      </div>
-      <div class="badge">
+      </a>
+      <a class="badge" href="https://fr.gaultmillau.com/en/restaurants/philip-restaurant" target="_blank" rel="noopener noreferrer">
         <span class="badge-ico"><svg viewBox="0 0 24 24"><polygon points="12 2 22 12 12 22 2 12"/></svg></span>
         <span class="badge-name">Gault &amp; Millau</span><span class="badge-sub">Selected</span>
-      </div>
-      <div class="badge">
+      </a>
+      <a class="badge" href="https://www.petitfute.co.uk/v33585-fontaine-de-vaucluse-84800/c1165-restaurants/c4-cuisine-francaise/458584-restaurant-philip.html" target="_blank" rel="noopener noreferrer">
         <span class="badge-ico"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span>
         <span class="badge-name">Petit Futé</span><span class="badge-sub">Listed</span>
-      </div>
+      </a>
       <div class="badge">
         <span class="badge-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
         <span class="badge-name">Guide du Routard</span><span class="badge-sub">Listed</span>
       </div>
-      <div class="badge">
+      <a class="badge" href="https://www.tripadvisor.com/Restaurant_Review-g608806-d1338856-Reviews-Restaurant_Philip-Fontaine_de_Vaucluse_Vaucluse_Provence_Alpes_Cote_d_Azur.html" target="_blank" rel="noopener noreferrer">
         <span class="badge-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></span>
         <span class="badge-name">TripAdvisor</span><span class="badge-sub">Travellers' Choice · #2</span>
-      </div>
+      </a>
       <div class="badge" style="border-color:var(--accent)">
         <span class="badge-ico"><svg viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg></span>
         <span class="badge-name">Winston Churchill</span><span class="badge-sub">Illustrious guest · In our memories</span>
