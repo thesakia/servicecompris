@@ -18,7 +18,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Libre+Bodoni:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=Work+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
   <script type="application/ld+json">
@@ -99,8 +99,8 @@
       --divider:     #B8930A;
       --overlay:     rgba(14,28,10,0.48);
       --header-bg:   rgba(250,253,248,0.96);
-      --hf:          'Playfair Display', Georgia, serif;
-      --bf:          'Lora', Georgia, serif;
+      --hf:          'EB Garamond', Georgia, serif;
+      --bf:          'EB Garamond', Georgia, serif;
     }
 
     /* ============================
@@ -796,7 +796,7 @@
       border-radius: 4px; overflow: hidden;
       transition: filter .25s, transform .2s;
     }
-    .lang-btn img { width: 30px; height: auto; display: block; }
+    .lang-btn img { width: 30px; height: 20px; display: block; object-fit: cover; }
     .lang-btn:not(.active) { filter: grayscale(1) brightness(0.5); }
     .lang-btn.active { filter: none; }
     .lang-btn:hover { filter: none; transform: scale(1.08); }
@@ -926,7 +926,7 @@
     preload="metadata"
     poster="img/terrasse-animee-ete-sorgue-philip.webp"
   >
-    <source src="img/hero-video.mp4" type="video/mp4">
+    <source src="hero/River_fhd_205716.mp4" type="video/mp4">
   </video>
   <div class="hero-ov"></div>
   <div class="hero-body">
@@ -989,14 +989,14 @@
         </div>
       </div>
       <div class="hist-imgs" data-aos="fade-left">
-        <div class="hist-img" onclick="lb('img/entree-restaurant-philip-depuis-1926.webp')">
-          <img src="img/entree-restaurant-philip-depuis-1926.webp" alt="Entrée du Restaurant Philip depuis 1926 à Fontaine-de-Vaucluse" loading="lazy">
+        <div class="hist-img" onclick="lb('img/histoire-photos-famille-philip.webp')">
+          <img src="img/histoire-photos-famille-philip.webp" alt="Archives photographiques de la famille Philip, depuis 1926" loading="lazy">
         </div>
-        <div class="hist-img" onclick="lb('img/table-menu-philip-depuis-1926-sorgue.webp')">
-          <img src="img/table-menu-philip-depuis-1926-sorgue.webp" alt="Menu Philip depuis 1926 posé sur table en terrasse au bord de la Sorgue" loading="lazy">
+        <div class="hist-img" onclick="lb('img/histoire-fondateurs-restaurant-philip.webp')">
+          <img src="img/histoire-fondateurs-restaurant-philip.webp" alt="Les fondateurs du Restaurant Philip devant l'enseigne historique" loading="lazy">
         </div>
-        <div class="hist-img" onclick="lb('img/entree-charcuterie-terrasse-sorgue-philip.webp')">
-          <img src="img/entree-charcuterie-terrasse-sorgue-philip.webp" alt="Table dressée en terrasse au bord de la Sorgue, Restaurant Philip depuis 1926" loading="lazy">
+        <div class="hist-img" onclick="lb('img/histoire-4e-generation-philip.webp')">
+          <img src="img/histoire-4e-generation-philip.webp" alt="La 4e génération aux commandes, cheffe et directeur du Restaurant Philip au bord de la Sorgue" loading="lazy">
         </div>
       </div>
     </div>
@@ -1021,8 +1021,8 @@
         <img src="img/terrasse-panoramique-platanes-sorgue-philip.webp" alt="Terrasse panoramique du Restaurant Philip sous les platanes centenaires au bord de la Sorgue" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
-      <div class="g-item" onclick="lb('img/terrasse-exterieure-chaises-jaunes-sorgue-philip.webp')">
-        <img src="img/terrasse-exterieure-chaises-jaunes-sorgue-philip.webp" alt="Terrasse extérieure du Restaurant Philip avec chaises jaunes face à la Sorgue" loading="lazy">
+      <div class="g-item" onclick="lb('img/salle-interieure-sorgue-restaurant-philip.webp')">
+        <img src="img/salle-interieure-sorgue-restaurant-philip.webp" alt="Salle intérieure du Restaurant Philip avec vue sur la Sorgue" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
       <div class="g-item" onclick="lb('img/terrasse-bord-sorgue-chaises-restaurant-philip.webp')">
@@ -1033,8 +1033,8 @@
         <img src="img/vue-falaise-nature-terrasse-philip-vaucluse.webp" alt="Vue sur la falaise de Fontaine-de-Vaucluse depuis la terrasse du Restaurant Philip" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
-      <div class="g-item" onclick="lb('img/terrasse-couverte-pergola-philip-sorgue.webp')">
-        <img src="img/terrasse-couverte-pergola-philip-sorgue.webp" alt="Terrasse couverte pergola du Restaurant Philip avec vue sur la Sorgue" loading="lazy">
+      <div class="g-item" onclick="lb('img/table-verres-sorgue-restaurant-philip.webp')">
+        <img src="img/table-verres-sorgue-restaurant-philip.webp" alt="Table dressée, verres à vin avec vue sur la Sorgue turquoise, Restaurant Philip" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
     </div>
@@ -1150,6 +1150,18 @@
       </div>
       <div class="fg-item" onclick="lb('img/dessert-coupe-fraises-chantilly-maison-philip.webp')">
         <img src="img/dessert-coupe-fraises-chantilly-maison-philip.webp" alt="Coupe de fraises à la chantilly maison, Restaurant Philip" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="fg-item" onclick="lb('img/mise-en-bouche-veloute-restaurant-philip.webp')">
+        <img src="img/mise-en-bouche-veloute-restaurant-philip.webp" alt="Mise en bouche velouté maison servi en verre, Restaurant Philip" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="fg-item" onclick="lb('img/dressage-tartare-poisson-restaurant-philip.webp')">
+        <img src="img/dressage-tartare-poisson-restaurant-philip.webp" alt="Dressage tartare de poisson en cuisine, Restaurant Philip" loading="lazy">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="fg-item" onclick="lb('img/plat-canard-abricots-restaurant-philip.webp')">
+        <img src="img/plat-canard-abricots-restaurant-philip.webp" alt="Canard aux abricots dressé sur assiette, Restaurant Philip" loading="lazy">
         <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
       </div>
     </div>
