@@ -107,8 +107,18 @@
       text-align: center;
       font-size: .76rem;
       color: var(--muted);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
     }
     footer a { color: var(--accent); }
+    .sc-credit { display: inline-flex; align-items: center; gap: .55rem; padding: .35rem .8rem .35rem .4rem; background: #1a1a1a; border-radius: 7px; text-decoration: none; transition: opacity .2s; }
+    .sc-credit:hover { opacity: .8; }
+    .sc-credit img { width: 28px; height: 28px; object-fit: contain; border-radius: 4px; }
+    .sc-credit span { font-size: .6rem; color: rgba(255,255,255,.55); line-height: 1.3; text-align: left; }
+    .sc-credit strong { color: #7BC144; font-size: .65rem; display: block; }
   </style>
 </head>
 <body>
@@ -172,6 +182,10 @@
 
 <footer>
   <p>© 2026 Restaurant Philip Jardin de Pétrarque &nbsp;·&nbsp; <a href="index.html">Retour au site</a></p>
+  <a href="https://servicecompris.pro" target="_blank" rel="noopener" class="sc-credit">
+    <img src="img/logo-servicecompris.png" alt="Service Compris">
+    <span>Création<br><strong>servicecompris.pro</strong></span>
+  </a>
 </footer>
 
 </body>
