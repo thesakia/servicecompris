@@ -254,7 +254,14 @@
       overflow: hidden;
       padding: 0;
     }
-    /* HERO VIDEO : remplacer hero-video.mp4 par la vraie vidéo quand elle sera prête */
+    .hero-poster {
+      position: absolute;
+      inset: 0;
+      background: url('img/terrasse-animee-ete-sorgue-philip.webp') center/cover no-repeat;
+      z-index: 0;
+      transition: opacity 1.2s ease;
+    }
+    .hero-poster.fade { opacity: 0; }
     .hero-video {
       position: absolute;
       inset: 0;
@@ -262,7 +269,10 @@
       height: 100%;
       object-fit: cover;
       z-index: 0;
+      opacity: 0;
+      transition: opacity 1.2s ease;
     }
+    .hero-video.playing { opacity: 1; }
     .hero-ov { position: absolute; inset: 0; background: var(--overlay); }
     .hero-body {
       position: relative;
@@ -937,8 +947,7 @@
 
 <!-- ========== HERO ========== -->
 <section id="hero">
-  <!-- PHOTO PRO ATTENDUE : Vue large terrasse + Sorgue, ou vue du village depuis la rivière. 16:9, min 1920x1080 -->
-  <!-- VIDÉO ATTENDUE : Loop 15-30 sec terrasse/eau/nature/service, muted, H.264, < 5 Mo -->
+  <div class="hero-poster" aria-hidden="true"></div>
   <video
     class="hero-video"
     aria-label="Vidéo d'ambiance du Restaurant Philip au bord de la Sorgue"
@@ -1396,6 +1405,16 @@
   }
   document.getElementById('lb').addEventListener('click', function(e) { if (e.target === this) closeLb(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+  // Hero video cross-fade
+  (function() {
+    var vid = document.querySelector('.hero-video');
+    var poster = document.querySelector('.hero-poster');
+    if (!vid || !poster) return;
+    function reveal() { vid.classList.add('playing'); poster.classList.add('fade'); }
+    if (!vid.paused && vid.readyState >= 2) { reveal(); }
+    else { vid.addEventListener('playing', reveal, { once: true }); }
+  })();
 
   // Mobile nav
   document.getElementById('hbg').addEventListener('click', function() {
