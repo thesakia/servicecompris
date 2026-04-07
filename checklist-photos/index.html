@@ -25,6 +25,19 @@
       --r:       12px;
       --r2:      8px;
     }
+    html.light {
+      --bg:      #f8fafc;
+      --bg2:     #f1f5f9;
+      --surface: #ffffff;
+      --s2:      #f1f5f9;
+      --s3:      #e2e8f0;
+      --white:   #0f172a;
+      --slate:   #475569;
+      --slate2:  #94a3b8;
+      --border:  rgba(0,0,0,0.08);
+      --border2: rgba(0,0,0,0.14);
+    }
+    html.light nav { background: rgba(248,250,252,.95); }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -75,7 +88,18 @@
       letter-spacing: -.3px;
     }
     .nav-title { color: var(--slate); font-weight: 500; font-size: 14px; }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
     .nav-status { font-size: 12px; color: var(--slate2); display: flex; align-items: center; gap: 6px; }
+    .theme-toggle {
+      width: 32px; height: 32px; border-radius: 8px;
+      border: 1px solid var(--border2);
+      background: var(--s2);
+      color: var(--slate);
+      font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all .15s;
+    }
+    .theme-toggle:hover { color: var(--white); border-color: var(--lime); }
     .nav-status .dot {
       width: 6px; height: 6px; border-radius: 50%;
       background: var(--slate2);
@@ -239,10 +263,47 @@
     .progress-count { font-size: 13px; font-weight: 700; color: var(--lime); white-space: nowrap; }
     .btn-reset {
       padding: 5px 12px; border-radius: 6px; background: var(--s2); color: var(--slate);
-      font-size: 12px; font-weight: 600; border: 1px solid var(--border); margin-left: auto;
+      font-size: 12px; font-weight: 600; border: 1px solid var(--border);
       transition: all .15s;
     }
     .btn-reset:hover { color: #f87171; border-color: #f87171; }
+    .btn-templates {
+      padding: 5px 12px; border-radius: 6px; background: var(--s2); color: var(--slate);
+      font-size: 12px; font-weight: 600; border: 1px solid var(--border); margin-left: auto;
+      transition: all .15s;
+    }
+    .btn-templates:hover { color: var(--lime); border-color: var(--lime); }
+
+    /* ── TEMPLATES MODAL ── */
+    .tpl-modal {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: var(--r);
+      padding: 28px;
+      width: 100%;
+      max-width: 540px;
+      margin: 16px;
+      max-height: 90vh;
+      display: flex; flex-direction: column;
+    }
+    .tpl-modal h3 { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+    .tpl-modal p { font-size: 13px; color: var(--slate); margin-bottom: 16px; }
+    .tpl-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; min-height: 60px; }
+    .tpl-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: var(--r2);
+      background: var(--s2); border: 1px solid var(--border);
+    }
+    .tpl-item-name { flex: 1; font-size: 14px; font-weight: 600; }
+    .tpl-item-count { font-size: 12px; color: var(--slate2); }
+    .tpl-item-load { padding: 5px 12px; border-radius: 6px; background: var(--lime); color: var(--bg); font-size: 12px; font-weight: 700; border: none; transition: background .15s; }
+    .tpl-item-load:hover { background: var(--lime2); }
+    .tpl-item-del { padding: 5px 8px; border-radius: 6px; background: transparent; color: var(--slate2); font-size: 12px; border: 1px solid var(--border); transition: all .15s; }
+    .tpl-item-del:hover { color: #f87171; border-color: #f87171; }
+    .tpl-save-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .tpl-save-row input { flex: 1; padding: 8px 12px; border-radius: var(--r2); border: 1px solid var(--border2); background: var(--s2); color: var(--white); font-family: inherit; font-size: 14px; outline: none; }
+    .tpl-save-row input:focus { border-color: var(--lime); }
+    .tpl-empty { color: var(--slate2); font-size: 13px; text-align: center; padding: 16px 0; }
 
     /* ── GRID ── */
     .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
@@ -266,9 +327,46 @@
     .cat-body { padding: 8px 0; }
     .cat-card.collapsed .cat-body { display: none; }
 
+    /* ── ADD TASK ── */
+    .add-task-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 12px 10px;
+    }
+    .add-task-input {
+      flex: 1; padding: 6px 10px; border-radius: var(--r2);
+      border: 1px dashed var(--border2); background: var(--s2);
+      color: var(--white); font-family: inherit; font-size: 13px;
+      outline: none; transition: border-color .15s;
+    }
+    .add-task-input::placeholder { color: var(--slate2); }
+    .add-task-input:focus { border-color: var(--lime); border-style: solid; }
+    .add-task-type {
+      padding: 6px 8px; border-radius: var(--r2);
+      border: 1px solid var(--border2); background: var(--s2);
+      color: var(--slate); font-family: inherit; font-size: 12px;
+      outline: none; cursor: pointer;
+    }
+    .add-task-btn {
+      width: 28px; height: 28px; border-radius: 6px;
+      border: 1px solid var(--border2); background: var(--s2);
+      color: var(--lime); font-size: 18px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .15s;
+    }
+    .add-task-btn:hover { background: var(--lime); color: var(--bg); border-color: var(--lime); }
+
     /* ── ITEM ── */
     .item { display: flex; align-items: flex-start; gap: 10px; padding: 7px 18px; transition: background .1s; cursor: pointer; }
     .item:hover { background: var(--s2); }
+    .item-delete {
+      width: 20px; height: 20px; border-radius: 4px; border: none;
+      background: transparent; color: var(--slate2); font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity .15s, color .1s; cursor: pointer; padding: 0;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .item:hover .item-delete { opacity: 1; }
+    .item-delete:hover { color: #f87171; }
     .item input[type="checkbox"] {
       appearance: none; -webkit-appearance: none;
       width: 17px; height: 17px; min-width: 17px;
@@ -312,9 +410,28 @@
   <div class="nav-in">
     <div class="nav-brand"><span class="sc">SC</span> Service Compris</div>
     <div class="nav-title">Checklist photos & vidéos</div>
-    <div class="nav-status" id="navStatus"><span class="dot"></span> <span id="navStatusText">Connexion…</span></div>
+    <div class="nav-right">
+      <div class="nav-status" id="navStatus"><span class="dot"></span> <span id="navStatusText">Connexion…</span></div>
+      <button type="button" class="theme-toggle" id="themeToggle" title="Basculer thème clair/sombre">🌙</button>
+    </div>
   </div>
 </nav>
+
+<!-- TEMPLATES MODAL -->
+<div class="modal-overlay" id="tplOverlay">
+  <div class="tpl-modal">
+    <h3>Templates de tâches</h3>
+    <p>Sauvegardez les tâches personnalisées du projet actif comme modèle réutilisable pour d'autres projets.</p>
+    <div class="tpl-save-row">
+      <input type="text" id="tplNameInput" placeholder="Nom du template (ex : Restaurant gastronomique)…" maxlength="60" autocomplete="off">
+      <button type="button" class="btn btn-primary" id="tplSaveBtn">Sauvegarder</button>
+    </div>
+    <div class="tpl-list" id="tplList"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" id="tplClose">Fermer</button>
+    </div>
+  </div>
+</div>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
@@ -347,6 +464,7 @@
     <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
     <div class="progress-count" id="progressCount">0 / 0</div>
     <button type="button" class="btn-reset" id="resetBtn">Tout réinitialiser</button>
+    <button type="button" class="btn-templates" id="tplBtn">📋 Templates</button>
   </div>
 
   <div class="categories-grid" id="categoriesGrid"></div>
@@ -382,6 +500,7 @@ async function subscribeToProject(id) {
   if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
   pollProjectId = id;
   if (!id) return;
+  customTasks = loadCustomTasks(id);
   setStatus('saving', 'Connexion…');
   try {
     await loadChecks(id);
@@ -517,6 +636,17 @@ const CATEGORIES = [
     ]
   },
 ];
+
+// ── CUSTOM TASKS (localStorage per project) ──
+function customTasksKey(projectId) { return 'sc_custom_' + projectId; }
+function loadCustomTasks(projectId) {
+  try { return JSON.parse(localStorage.getItem(customTasksKey(projectId)) || '{}'); } catch(e) { return {}; }
+}
+function saveCustomTasks(projectId, data) {
+  try { localStorage.setItem(customTasksKey(projectId), JSON.stringify(data)); } catch(e) {}
+}
+// customTasks = { catId: [{id, label, type}, ...] }
+let customTasks = {};
 
 // ── STATE ──
 let activeId = null;
@@ -709,6 +839,64 @@ function render() {
   document.getElementById('progressBar').style.display = (projects.length && activeId) ? 'flex' : 'none';
 }
 
+function allItemsForCat(cat) {
+  return [...cat.items, ...(customTasks[cat.id] || [])];
+}
+
+function renderItemRow(item, cat, card, countEl, isCustom) {
+  const label = document.createElement('label');
+  label.className = 'item';
+  label.innerHTML =
+    '<input type="checkbox" data-item="' + item.id + '"' + (checks[item.id] ? ' checked' : '') + '>' +
+    '<span class="item-label' + (checks[item.id] ? ' checked' : '') + '">' + escHtml(item.label) + '</span>' +
+    '<span class="item-tag tag-' + item.type + '">' + (item.type === 'photo' ? '📷 Photo' : '🎬 Vidéo') + '</span>' +
+    '<button type="button" class="item-delete" title="Supprimer cette tâche">✕</button>';
+
+  const cb = label.querySelector('input');
+  cb.addEventListener('change', e => {
+    e.stopPropagation();
+    const val = cb.checked;
+    checks[item.id] = val;
+    label.querySelector('.item-label').classList.toggle('checked', val);
+    const all = allItemsForCat(cat);
+    const newDone = all.filter(i => checks[i.id]).length;
+    countEl.textContent = newDone + '/' + all.length;
+    countEl.className = 'cat-count' + (newDone === all.length ? ' done' : '');
+    renderProgress();
+    saveCheck(activeId, item.id, val);
+  });
+
+  label.querySelector('.item-delete').addEventListener('click', e => {
+    e.preventDefault(); e.stopPropagation();
+    const msg = isCustom ? 'Supprimer "' + item.label + '" ?' : 'Masquer "' + item.label + '" pour ce projet ?';
+    if (!confirm(msg)) return;
+    if (isCustom) {
+      customTasks[cat.id] = (customTasks[cat.id] || []).filter(t => t.id !== item.id);
+      saveCustomTasks(activeId, customTasks);
+    } else {
+      // Stocker les items supprimés dans localStorage
+      const delKey = 'sc_deleted_' + activeId;
+      let deleted = {};
+      try { deleted = JSON.parse(localStorage.getItem(delKey) || '{}'); } catch(e) {}
+      deleted[item.id] = true;
+      localStorage.setItem(delKey, JSON.stringify(deleted));
+    }
+    // Si coché, décocher
+    if (checks[item.id]) {
+      checks[item.id] = false;
+      saveCheck(activeId, item.id, false);
+    }
+    label.remove();
+    const all = allItemsForCat(cat);
+    const newDone = all.filter(i => checks[i.id]).length;
+    countEl.textContent = newDone + '/' + all.length;
+    countEl.className = 'cat-count' + (newDone === all.length ? ' done' : '');
+    renderProgress();
+  });
+
+  return label;
+}
+
 function renderGrid() {
   const grid = document.getElementById('categoriesGrid');
   grid.innerHTML = '';
@@ -718,61 +906,102 @@ function renderGrid() {
   let collapsed = {};
   try { collapsed = JSON.parse(sessionStorage.getItem(collKey) || '{}'); } catch(e) {}
 
+  // Charger les items supprimés
+  const delKey = 'sc_deleted_' + activeId;
+  let deleted = {};
+  try { deleted = JSON.parse(localStorage.getItem(delKey) || '{}'); } catch(e) {}
+
   CATEGORIES.forEach(cat => {
-    const done  = cat.items.filter(i => checks[i.id]).length;
-    const total = cat.items.length;
+    const visibleBase = cat.items.filter(i => !deleted[i.id]);
+    const customs = customTasks[cat.id] || [];
+    const allItems = [...visibleBase, ...customs];
+    const done  = allItems.filter(i => checks[i.id]).length;
+    const total = allItems.length;
     const isCollapsed = collapsed[cat.id] ?? false;
 
     const card = document.createElement('div');
     card.className = 'cat-card' + (isCollapsed ? ' collapsed' : '');
 
-    card.innerHTML =
-      '<div class="cat-header">' +
-        '<span class="cat-icon">' + cat.icon + '</span>' +
-        '<span class="cat-title">' + cat.title + '</span>' +
-        '<span class="cat-count' + (done === total ? ' done' : '') + '">' + done + '/' + total + '</span>' +
-        '<span class="cat-chevron">▾</span>' +
-      '</div>' +
-      '<div class="cat-body">' +
-        cat.items.map(item =>
-          '<label class="item">' +
-            '<input type="checkbox" data-item="' + item.id + '"' + (checks[item.id] ? ' checked' : '') + '>' +
-            '<span class="item-label' + (checks[item.id] ? ' checked' : '') + '">' + escHtml(item.label) + '</span>' +
-            '<span class="item-tag tag-' + item.type + '">' + (item.type === 'photo' ? '📷 Photo' : '🎬 Vidéo') + '</span>' +
-          '</label>'
-        ).join('') +
-      '</div>';
+    const header = document.createElement('div');
+    header.className = 'cat-header';
+    header.innerHTML =
+      '<span class="cat-icon">' + cat.icon + '</span>' +
+      '<span class="cat-title">' + cat.title + '</span>' +
+      '<span class="cat-count' + (done === total ? ' done' : '') + '">' + done + '/' + total + '</span>' +
+      '<span class="cat-chevron">▾</span>';
 
-    card.querySelector('.cat-header').addEventListener('click', () => {
+    const body = document.createElement('div');
+    body.className = 'cat-body';
+
+    const countEl = header.querySelector('.cat-count');
+
+    visibleBase.forEach(item => body.appendChild(renderItemRow(item, cat, countEl, false)));
+    customs.forEach(item => body.appendChild(renderItemRow(item, cat, countEl, true)));
+
+    // Ligne d'ajout
+    const addRow = document.createElement('div');
+    addRow.className = 'add-task-row';
+    addRow.innerHTML =
+      '<input type="text" class="add-task-input" placeholder="Ajouter une tâche…" maxlength="120">' +
+      '<select class="add-task-type"><option value="photo">📷</option><option value="video">🎬</option></select>' +
+      '<button type="button" class="add-task-btn" title="Ajouter">+</button>';
+
+    const input = addRow.querySelector('.add-task-input');
+    const select = addRow.querySelector('.add-task-type');
+    const addBtn = addRow.querySelector('.add-task-btn');
+
+    const doAdd = () => {
+      const label = input.value.trim();
+      if (!label) return;
+      const newTask = { id: 'custom_' + cat.id + '_' + Date.now(), label, type: select.value };
+      if (!customTasks[cat.id]) customTasks[cat.id] = [];
+      customTasks[cat.id].push(newTask);
+      saveCustomTasks(activeId, customTasks);
+      body.insertBefore(renderItemRow(newTask, cat, countEl, true), addRow);
+      const all = allItemsForCat(cat);
+      const newDone = all.filter(i => checks[i.id]).length;
+      countEl.textContent = newDone + '/' + all.length;
+      countEl.className = 'cat-count' + (newDone === all.length ? ' done' : '');
+      renderProgress();
+      input.value = '';
+      input.focus();
+    };
+
+    addBtn.addEventListener('click', e => { e.stopPropagation(); doAdd(); });
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); doAdd(); } });
+    input.addEventListener('click', e => e.stopPropagation());
+    select.addEventListener('click', e => e.stopPropagation());
+
+    body.appendChild(addRow);
+
+    header.addEventListener('click', () => {
       card.classList.toggle('collapsed');
       collapsed[cat.id] = card.classList.contains('collapsed');
       try { sessionStorage.setItem(collKey, JSON.stringify(collapsed)); } catch(e) {}
     });
 
-    card.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-      cb.addEventListener('change', e => {
-        e.stopPropagation();
-        const itemId = cb.dataset.item;
-        const val = cb.checked;
-        checks[itemId] = val;
-        cb.nextElementSibling.classList.toggle('checked', val);
-        const newDone = cat.items.filter(i => checks[i.id]).length;
-        card.querySelector('.cat-count').textContent = newDone + '/' + total;
-        card.querySelector('.cat-count').className = 'cat-count' + (newDone === total ? ' done' : '');
-        renderProgress();
-        saveCheck(activeId, itemId, val);
-      });
-    });
-
+    card.appendChild(header);
+    card.appendChild(body);
     grid.appendChild(card);
   });
 }
 
 function renderProgress() {
   if (!activeId) return;
-  const total = CATEGORIES.reduce((s, c) => s + c.items.length, 0);
-  const done  = CATEGORIES.reduce((s, c) => s + c.items.filter(i => checks[i.id]).length, 0);
-  const pct   = total ? Math.round(done / total * 100) : 0;
+  const delKey = 'sc_deleted_' + activeId;
+  let deleted = {};
+  try { deleted = JSON.parse(localStorage.getItem(delKey) || '{}'); } catch(e) {}
+  const total = CATEGORIES.reduce((s, c) => {
+    const vis = c.items.filter(i => !deleted[i.id]).length;
+    const cust = (customTasks[c.id] || []).length;
+    return s + vis + cust;
+  }, 0);
+  const done = CATEGORIES.reduce((s, c) => {
+    const vis = c.items.filter(i => !deleted[i.id] && checks[i.id]).length;
+    const cust = (customTasks[c.id] || []).filter(i => checks[i.id]).length;
+    return s + vis + cust;
+  }, 0);
+  const pct = total ? Math.round(done / total * 100) : 0;
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressCount').textContent = done + ' / ' + total + ' (' + pct + '%)';
 }
@@ -826,6 +1055,107 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   renderProgress();
   deleteAllChecks(activeId).catch(() => {});
 });
+
+// ── TEMPLATES ──
+const TPL_KEY = 'sc_templates';
+
+function loadTemplates() {
+  try { return JSON.parse(localStorage.getItem(TPL_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveTemplates(tpls) {
+  try { localStorage.setItem(TPL_KEY, JSON.stringify(tpls)); } catch(e) {}
+}
+
+function openTplModal() {
+  document.getElementById('tplNameInput').value = '';
+  renderTplList();
+  document.getElementById('tplOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('tplNameInput').focus(), 50);
+}
+function closeTplModal() {
+  document.getElementById('tplOverlay').classList.remove('open');
+}
+
+function renderTplList() {
+  const list = document.getElementById('tplList');
+  const tpls = loadTemplates();
+  list.innerHTML = '';
+  if (!tpls.length) {
+    list.innerHTML = '<div class="tpl-empty">Aucun template sauvegardé.</div>';
+    return;
+  }
+  tpls.forEach((tpl, idx) => {
+    const count = Object.values(tpl.tasks || {}).reduce((s, arr) => s + arr.length, 0);
+    const row = document.createElement('div');
+    row.className = 'tpl-item';
+    row.innerHTML =
+      '<span class="tpl-item-name">' + escHtml(tpl.name) + '</span>' +
+      '<span class="tpl-item-count">' + count + ' tâche' + (count > 1 ? 's' : '') + '</span>' +
+      '<button type="button" class="tpl-item-load">Charger</button>' +
+      '<button type="button" class="tpl-item-del">Supprimer</button>';
+
+    row.querySelector('.tpl-item-load').addEventListener('click', () => {
+      if (!activeId) { showToast('Sélectionnez un projet d\'abord'); return; }
+      if (!confirm('Charger le template "' + tpl.name + '" ? Les tâches perso existantes seront remplacées.')) return;
+      // Cloner pour éviter les conflits d'id si le template est chargé plusieurs fois
+      const cloned = {};
+      Object.entries(tpl.tasks || {}).forEach(([catId, items]) => {
+        cloned[catId] = items.map(t => ({
+          ...t,
+          id: 'custom_' + catId + '_' + Date.now() + '_' + Math.random().toString(36).slice(2)
+        }));
+      });
+      customTasks = cloned;
+      saveCustomTasks(activeId, customTasks);
+      renderGrid();
+      renderProgress();
+      closeTplModal();
+      showToast('Template "' + tpl.name + '" chargé !');
+    });
+
+    row.querySelector('.tpl-item-del').addEventListener('click', () => {
+      if (!confirm('Supprimer le template "' + tpl.name + '" ?')) return;
+      const updated = loadTemplates().filter((_, i) => i !== idx);
+      saveTemplates(updated);
+      renderTplList();
+    });
+
+    list.appendChild(row);
+  });
+}
+
+document.getElementById('tplSaveBtn').addEventListener('click', () => {
+  const name = document.getElementById('tplNameInput').value.trim();
+  if (!name) { document.getElementById('tplNameInput').focus(); return; }
+  const count = Object.values(customTasks).reduce((s, arr) => s + arr.length, 0);
+  if (!count) { showToast('Aucune tâche personnalisée à sauvegarder'); return; }
+  const tpls = loadTemplates();
+  tpls.unshift({ name, tasks: JSON.parse(JSON.stringify(customTasks)) });
+  saveTemplates(tpls);
+  document.getElementById('tplNameInput').value = '';
+  renderTplList();
+  showToast('Template "' + name + '" sauvegardé !');
+});
+
+document.getElementById('tplClose').addEventListener('click', closeTplModal);
+document.getElementById('tplOverlay').addEventListener('click', function(e) { if (e.target === this) closeTplModal(); });
+document.getElementById('tplBtn').addEventListener('click', openTplModal);
+
+// ── THEME ──
+(function() {
+  const saved = localStorage.getItem('sc_theme');
+  if (saved === 'light') document.documentElement.classList.add('light');
+})();
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const isLight = document.documentElement.classList.toggle('light');
+  localStorage.setItem('sc_theme', isLight ? 'light' : 'dark');
+  document.getElementById('themeToggle').textContent = isLight ? '☀️' : '🌙';
+});
+// Init icon
+(function() {
+  if (document.documentElement.classList.contains('light'))
+    document.getElementById('themeToggle').textContent = '☀️';
+})();
 
 // ── UTILS ──
 function escHtml(str) {
