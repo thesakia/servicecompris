@@ -568,8 +568,8 @@ async function createProject(name) {
 
 // ── PB : charger tous les projets ──
 async function loadAllProjects() {
-  const data = await pbFetch('/api/collections/projects/records?sort=-createdAt&perPage=200');
-  return (data.items || []).map(r => ({ id: r.id, name: r.name, createdAt: r.createdAt || 0 }));
+  const data = await pbFetch('/api/collections/projects/records?sort=-created&perPage=200');
+  return (data.items || []).map(r => ({ id: r.id, name: r.name, createdAt: r.created || 0 }));
 }
 
 // ── PB : enregistrer une case ──
