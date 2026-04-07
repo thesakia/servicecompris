@@ -376,15 +376,17 @@ async function pbFetch(path, options = {}) {
 // ── Charger les checks d'un projet ──
 let pollTimer = null;
 
-function subscribeToProject(id) {
+async function subscribeToProject(id) {
   if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
   if (!id) return;
   setStatus('saving', 'Connexion…');
-  loadChecks(id).then(() => {
+  try {
+    await loadChecks(id);
     setStatus('online', 'En ligne');
-    // Polling toutes les 5s pour le temps réel
     pollTimer = setInterval(() => loadChecks(id), 5000);
-  }).catch(() => setStatus('', 'Hors ligne'));
+  } catch(e) {
+    setStatus('', 'Hors ligne');
+  }
 }
 
 async function loadChecks(id) {
@@ -615,9 +617,13 @@ async function init() {
   activeId = (urlId && projects.find(p => p.id === urlId)) ? urlId : projects[0].id;
   setUrlProjectId(activeId);
 
-  renderTabs();
   document.getElementById('progressBar').style.display = 'flex';
-  subscribeToProject(activeId);
+  await loadChecks(activeId);
+  setStatus('online', 'En ligne');
+  renderTabs();
+  // Polling toutes les 5s pour le temps réel
+  if (pollTimer) clearInterval(pollTimer);
+  pollTimer = setInterval(() => loadChecks(activeId), 5000);
 }
 
 function renderTabs() {
