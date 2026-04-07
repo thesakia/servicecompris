@@ -480,20 +480,9 @@ const CATEGORIES = [
 ];
 
 // ── STATE ──
-// Les IDs des projets suivis sont en localStorage
-// Les données sont dans Firebase
-const LOCAL_KEY = 'sc_project_ids_v2';
-let localIds = [];      // liste des IDs suivis sur cet appareil
 let activeId = null;
-let activeListener = null; // référence Firebase onValue en cours
-let checks = {};        // état des cases du projet actif
-
-function getLocalIds() {
-  try { return JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]'); } catch(e) { return []; }
-}
-function saveLocalIds() {
-  localStorage.setItem(LOCAL_KEY, JSON.stringify(localIds));
-}
+let activeListener = null;
+let checks = {};
 
 // ── STATUS NAV ──
 function setStatus(state, text) {
@@ -535,19 +524,16 @@ async function createProject(name) {
   return id;
 }
 
-// ── FIREBASE : charger la liste des projets suivis ──
-async function loadProjectsMeta() {
-  const results = [];
-  await Promise.all(localIds.map(async id => {
-    try {
-      const snap = await db.ref('checklist/' + id + '/name').get();
-      if (snap.exists()) results.push({ id, name: snap.val() });
-    } catch(e) {}
-  }));
-  // Conserver l'ordre de localIds
-  return localIds
-    .map(id => results.find(r => r.id === id))
-    .filter(Boolean);
+// ── FIREBASE : charger tous les projets ──
+async function loadAllProjects() {
+  const snap = await db.ref('checklist').orderByChild('createdAt').get();
+  if (!snap.exists()) return [];
+  const list = [];
+  snap.forEach(child => {
+    list.push({ id: child.key, name: child.val().name, createdAt: child.val().createdAt });
+  });
+  // Plus récent en premier
+  return list.reverse();
 }
 
 // ── FIREBASE : écouter les checks en temps réel ──
@@ -583,22 +569,9 @@ function saveCheck(projectId, itemId, value) {
 let projects = []; // cache meta {id, name}
 
 async function init() {
-  localIds = getLocalIds();
-
-  // Si URL contient ?p=, ajouter ce projet à la liste locale si absent
   const urlId = getUrlProjectId();
-  if (urlId && !localIds.includes(urlId)) {
-    // Vérifier qu'il existe dans Firebase
-    try {
-      const snap = await db.ref('checklist/' + urlId + '/name').get();
-      if (snap.exists()) {
-        localIds.unshift(urlId);
-        saveLocalIds();
-      }
-    } catch(e) {}
-  }
 
-  projects = await loadProjectsMeta();
+  projects = await loadAllProjects();
 
   document.getElementById('loadingState').style.display = 'none';
 
@@ -650,9 +623,8 @@ function renderTabs() {
         return;
       }
       if (del) {
-        if (confirm('Retirer "' + p.name + '" de votre liste ? (le projet reste accessible via son lien)')) {
-          localIds = localIds.filter(id => id !== p.id);
-          saveLocalIds();
+        if (confirm('Supprimer le projet "' + p.name + '" définitivement ?')) {
+          await db.ref('checklist/' + p.id).remove();
           projects = projects.filter(x => x.id !== p.id);
           if (activeId === p.id) {
             activeId = projects[0]?.id ?? null;
@@ -769,8 +741,6 @@ async function confirmModal() {
   document.getElementById('modalConfirm').disabled = true;
   try {
     const id = await createProject(name);
-    localIds.unshift(id);
-    saveLocalIds();
     projects.unshift({ id, name });
     activeId = id;
     checks = {};
