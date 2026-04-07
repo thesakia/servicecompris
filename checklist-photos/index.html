@@ -373,19 +373,22 @@ async function pbFetch(path, options = {}) {
   return res.json();
 }
 
-// ── Charger les checks d'un projet ──
+// ── Charger + écouter les checks d'un projet ──
 let pollTimer = null;
+let pollProjectId = null;
 
 async function subscribeToProject(id) {
+  // Stopper le polling précédent
   if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+  pollProjectId = id;
   if (!id) return;
   setStatus('saving', 'Connexion…');
   try {
     await loadChecks(id);
     setStatus('online', 'En ligne');
-    pollTimer = setInterval(() => {
-      if (activeId === id) loadChecks(id);
-      else { clearInterval(pollTimer); pollTimer = null; }
+    pollTimer = setInterval(async () => {
+      if (pollProjectId !== id) { clearInterval(pollTimer); return; }
+      try { await loadChecks(id); } catch(e) { setStatus('', 'Hors ligne'); }
     }, 5000);
   } catch(e) {
     setStatus('', 'Hors ligne');
@@ -395,12 +398,21 @@ async function subscribeToProject(id) {
 async function loadChecks(id) {
   const filter = encodeURIComponent('project="' + id + '"');
   const data = await pbFetch('/api/collections/checks/records?filter=' + filter + '&perPage=200');
-  if (activeId !== id) return; // projet changé entre-temps, on ignore
+  // Si l'utilisateur a changé de projet pendant la requête, on ignore
+  if (pollProjectId !== id) return;
   checks = {};
   (data.items || []).forEach(r => { if (r.checked) checks[r.item_id] = true; });
   renderGrid();
   renderProgress();
   renderTabs();
+}
+
+async function deleteAllChecks(projectId) {
+  const filter = encodeURIComponent('project="' + projectId + '"');
+  const data = await pbFetch('/api/collections/checks/records?filter=' + filter + '&perPage=200').catch(() => ({ items: [] }));
+  await Promise.all((data.items || []).map(r =>
+    pbFetch('/api/collections/checks/records/' + r.id, { method: 'DELETE' })
+  ));
 }
 
 // ── CATÉGORIES ──
@@ -659,9 +671,7 @@ function renderTabs() {
       }
       if (del) {
         if (confirm('Supprimer le projet "' + p.name + '" définitivement ?')) {
-          // Supprimer les checks puis le projet
-          const chks = await pbFetch('/api/collections/checks/records?filter=(project="' + p.id + '")&perPage=200').catch(() => ({ items: [] }));
-          await Promise.all((chks.items || []).map(r => pbFetch('/api/collections/checks/records/' + r.id, { method: 'DELETE' })));
+          await deleteAllChecks(p.id);
           await pbFetch('/api/collections/projects/records/' + p.id, { method: 'DELETE' });
           projects = projects.filter(x => x.id !== p.id);
           if (activeId === p.id) {
@@ -746,7 +756,7 @@ function renderGrid() {
         card.querySelector('.cat-count').textContent = newDone + '/' + total;
         card.querySelector('.cat-count').className = 'cat-count' + (newDone === total ? ' done' : '');
         renderProgress();
-        saveCheck(activeId, itemId, val || null); // null supprime la clé Firebase
+        saveCheck(activeId, itemId, val);
       });
     });
 
@@ -810,11 +820,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   checks = {};
   renderGrid();
   renderProgress();
-  // Supprimer tous les checks du projet
-  pbFetch('/api/collections/checks/records?filter=(project="' + activeId + '")&perPage=200')
-    .then(data => Promise.all((data.items || []).map(r =>
-      pbFetch('/api/collections/checks/records/' + r.id, { method: 'DELETE' })
-    ))).catch(() => {});
+  deleteAllChecks(activeId).catch(() => {});
 });
 
 // ── UTILS ──
