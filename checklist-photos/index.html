@@ -477,7 +477,7 @@
   <!-- ONGLETS PROJETS -->
   <div class="projects-bar" id="projectsBar">
     <!-- tabs injectés par JS -->
-    <button type="button" class="add-project-btn" id="addProjectBtn">+ Nouveau projet</button>
+    <button type="button" class="add-project-btn" id="addProjectBtn" onclick="openModal()">+ Nouveau projet</button>
   </div>
 
   <!-- BARRE PROGRESSION -->
@@ -832,35 +832,36 @@ function renderProgress() {
 // ═══════════════════════════════════════════════════
 // MODAL — AJOUT PROJET
 // ═══════════════════════════════════════════════════
-document.getElementById('addProjectBtn').addEventListener('click', () => {
+function openModal() {
   document.getElementById('modalOverlay').classList.add('open');
   document.getElementById('projectNameInput').value = '';
   setTimeout(() => document.getElementById('projectNameInput').focus(), 50);
-});
+}
 
-document.getElementById('modalCancel').addEventListener('click', closeModal);
-document.getElementById('modalOverlay').addEventListener('click', e => {
-  if (e.target === document.getElementById('modalOverlay')) closeModal();
-});
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
 
-document.getElementById('projectNameInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') document.getElementById('modalConfirm').click();
-  if (e.key === 'Escape') closeModal();
-});
-
-document.getElementById('modalConfirm').addEventListener('click', () => {
+function confirmModal() {
   const name = document.getElementById('projectNameInput').value.trim();
   if (!name) return;
   const id = 'proj_' + Date.now();
   projects.push({ id, name, checks: {} });
   activeId = id;
   closeModal();
-  save(); render();
-});
-
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
+  save();
+  render();
 }
+
+document.getElementById('modalCancel').addEventListener('click', closeModal);
+document.getElementById('modalConfirm').addEventListener('click', confirmModal);
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.getElementById('projectNameInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') confirmModal();
+  if (e.key === 'Escape') closeModal();
+});
 
 // ═══════════════════════════════════════════════════
 // RESET PROJET
@@ -899,20 +900,8 @@ function escHtml(str) {
 // INIT
 // ═══════════════════════════════════════════════════
 load();
-
-// Si aucun projet, on affiche direct le modal après un léger délai
-if (projects.length === 0) {
-  document.getElementById('saveStatus').textContent = 'Auto-sauvegarde active';
-  render();
-  // Petit délai pour laisser la page s'afficher avant le modal
-  setTimeout(() => {
-    document.getElementById('modalOverlay').classList.add('open');
-    document.getElementById('projectNameInput').focus();
-  }, 300);
-} else {
-  document.getElementById('saveStatus').textContent = 'Auto-sauvegarde active';
-  render();
-}
+document.getElementById('saveStatus').textContent = 'Auto-sauvegarde active';
+render();
 </script>
 </body>
 </html>
