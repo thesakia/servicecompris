@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CGV · Service Compris</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23020617'/><text y='70' x='50' text-anchor='middle' font-size='58' font-family='Inter,sans-serif' fill='%23bef264' font-weight='900'>SC</text></svg>">
+  <style>
+    :root {
+      --bg:      #020617;
+      --bg2:     #0a0f1e;
+      --surface: #0f172a;
+      --s2:      #1e293b;
+      --lime:    #bef264;
+      --white:   #ffffff;
+      --slate:   #94a3b8;
+      --border:  rgba(255,255,255,0.07);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+    a { color: var(--lime); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(2,6,23,.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-in {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--lime); }
+    .nav-back {
+      font-size: .82rem;
+      color: var(--slate);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-back:hover { color: var(--lime); text-decoration: none; }
+
+    .page-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 60px 20px 100px;
+    }
+    .page-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .page-meta {
+      font-size: .85rem;
+      color: var(--slate);
+      margin-bottom: 48px;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+    h2 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--lime);
+      margin-bottom: 14px;
+      margin-top: 40px;
+    }
+    h2:first-of-type { margin-top: 0; }
+    p { color: rgba(255,255,255,.82); margin-bottom: 10px; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--white); font-weight: 600; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 20px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-inner p { font-size: .8rem; color: var(--slate); margin: 0; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: .8rem; color: var(--slate); }
+    .footer-links a:hover { color: var(--lime); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a href="../" class="nav-logo">Service <span>Compris</span></a>
+    <a href="../" class="nav-back">← Retour au site</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-label">Documents contractuels</div>
+  <h1>Conditions Générales de Vente et de Services</h1>
+  <p class="page-meta">Version en vigueur au 1er janvier 2026 · Applicables à toute commande effectuée sur servicecompris.pro.</p>
+
+  <h2>Article 1 – Champ d'application</h2>
+  <p>Les présentes CGV s'appliquent de plein droit à toute commande de services effectuée sur le site <strong>servicecompris.pro</strong> par un client agissant à des fins professionnelles (ci-après « le Client »). Le fait de passer commande implique l'adhésion entière et sans réserve du Client aux présentes conditions.</p>
+
+  <hr class="divider">
+
+  <h2>Article 2 – Prix et modalités de paiement</h2>
+  <p>Les prix sont indiqués en Euros (€).</p>
+  <p><strong>Facturation Hors Taxes (B2B) :</strong> La société Streammate AI, Inc. étant située hors Union européenne, les prestations de services vendues à des assujettis à la TVA en France ne sont pas soumises à la TVA américaine.</p>
+  <p><strong>Autoliquidation :</strong> Le Client professionnel est responsable de l'autoliquidation de la TVA en France conformément à l'article 283 du Code Général des Impôts (CGI). Le Client s'engage à fournir son numéro de TVA intracommunautaire lors de la commande.</p>
+  <p><strong>Paiement :</strong> Le règlement s'effectue exclusivement par carte bancaire via la plateforme sécurisée Stripe. Une facture acquittée est générée automatiquement via l'outil de gestion QuickBooks.</p>
+
+  <hr class="divider">
+
+  <h2>Article 3 – Exécution et absence de rétractation</h2>
+  <p>Les services sont fournis selon les modalités décrites sur le site. S'agissant de contrats conclus exclusivement entre professionnels, le droit de rétractation prévu par le Code de la consommation n'est pas applicable. Toute commande est ferme et définitive dès la validation du paiement.</p>
+
+  <hr class="divider">
+
+  <h2>Article 4 – Responsabilité</h2>
+  <p>Streammate AI, Inc. est tenue à une obligation de moyens. Sa responsabilité ne pourra être engagée pour des dommages indirects (perte de profit, de données, ou d'exploitation). Dans tous les cas, le montant de la responsabilité de la Société est strictement limité au montant HT payé par le Client pour la prestation à l'origine du litige.</p>
+
+  <hr class="divider">
+
+  <h2>Article 5 – Loi applicable et tribunal compétent</h2>
+  <p>Les présentes CGV sont régies par le droit français. Tout litige relatif à leur interprétation ou leur exécution sera soumis à la compétence exclusive des <strong>tribunaux de Paris (France)</strong>, nonobstant la pluralité de défendeurs ou l'appel en garantie.</p>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p>© 2026 Streammate AI, Inc. · Delaware, USA · Tous droits réservés.</p>
+    <div class="footer-links">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="cgv.html">CGV</a>
+      <a href="confidentialite.html">Confidentialité</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
