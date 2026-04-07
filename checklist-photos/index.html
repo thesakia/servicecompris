@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist Photos & Vidéos · Service Compris</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23020617'/><text y='70' x='50' text-anchor='middle' font-size='58' font-family='Inter,sans-serif' fill='%23bef264' font-weight='900'>SC</text></svg>">
+  <style>
+    :root {
+      --bg:      #020617;
+      --bg2:     #0a0f1e;
+      --surface: #0f172a;
+      --s2:      #1e293b;
+      --s3:      #263348;
+      --lime:    #bef264;
+      --lime2:   #a3e635;
+      --white:   #ffffff;
+      --slate:   #94a3b8;
+      --slate2:  #64748b;
+      --border:  rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.12);
+      --r:       12px;
+      --r2:      8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(2,6,23,.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-in {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      white-space: nowrap;
+    }
+    .nav-brand .sc {
+      background: var(--lime);
+      color: var(--bg);
+      font-size: 13px;
+      font-weight: 900;
+      padding: 3px 7px;
+      border-radius: 6px;
+      letter-spacing: -.3px;
+    }
+    .nav-title {
+      color: var(--slate);
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .nav-save-status {
+      font-size: 12px;
+      color: var(--slate2);
+    }
+    .nav-save-status.saved { color: var(--lime2); }
+
+    /* ── LAYOUT ── */
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+
+    /* ── HEADER ── */
+    .page-header {
+      margin-bottom: 32px;
+    }
+    .page-header h1 {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .page-header h1 span { color: var(--lime); }
+    .page-header p {
+      color: var(--slate);
+      font-size: 14px;
+      max-width: 560px;
+    }
+
+    /* ── PROJECTS BAR ── */
+    .projects-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-tab {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 99px;
+      border: 1px solid var(--border2);
+      background: var(--surface);
+      color: var(--slate);
+      font-size: 13px;
+      font-weight: 500;
+      transition: all .15s;
+      cursor: pointer;
+    }
+    .project-tab:hover { border-color: var(--lime); color: var(--white); }
+    .project-tab.active {
+      background: var(--lime);
+      color: var(--bg);
+      border-color: var(--lime);
+      font-weight: 700;
+    }
+    .project-tab .progress-badge {
+      background: rgba(0,0,0,.18);
+      border-radius: 99px;
+      padding: 1px 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .project-tab.active .progress-badge {
+      background: rgba(2,6,23,.25);
+      color: var(--bg);
+    }
+    .project-tab .del-btn {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(0,0,0,.2);
+      border: none;
+      color: inherit;
+      font-size: 12px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: .6;
+      transition: opacity .15s;
+    }
+    .project-tab .del-btn:hover { opacity: 1; }
+    .add-project-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 99px;
+      border: 1px dashed var(--slate2);
+      background: transparent;
+      color: var(--slate);
+      font-size: 13px;
+      font-weight: 500;
+      transition: all .15s;
+    }
+    .add-project-btn:hover { border-color: var(--lime); color: var(--lime); }
+
+    /* ── ADD PROJECT MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2,6,23,.85);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: var(--r);
+      padding: 28px;
+      width: 100%;
+      max-width: 420px;
+      margin: 16px;
+    }
+    .modal h3 {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .modal input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: var(--r2);
+      border: 1px solid var(--border2);
+      background: var(--s2);
+      color: var(--white);
+      font-family: inherit;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 16px;
+      transition: border-color .15s;
+    }
+    .modal input:focus { border-color: var(--lime); }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+    .btn {
+      padding: 9px 18px;
+      border-radius: var(--r2);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      transition: all .15s;
+    }
+    .btn-ghost {
+      background: var(--s2);
+      color: var(--slate);
+    }
+    .btn-ghost:hover { color: var(--white); }
+    .btn-primary {
+      background: var(--lime);
+      color: var(--bg);
+    }
+    .btn-primary:hover { background: var(--lime2); }
+
+    /* ── PROGRESS GLOBAL ── */
+    .progress-global {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .progress-global .label {
+      font-size: 13px;
+      color: var(--slate);
+      white-space: nowrap;
+    }
+    .progress-bar-wrap {
+      flex: 1;
+      min-width: 120px;
+      height: 6px;
+      background: var(--s2);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--lime);
+      border-radius: 99px;
+      transition: width .4s ease;
+    }
+    .progress-count {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lime);
+      white-space: nowrap;
+    }
+    .btn-reset {
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: var(--s2);
+      color: var(--slate);
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      margin-left: auto;
+      transition: all .15s;
+    }
+    .btn-reset:hover { color: #f87171; border-color: #f87171; }
+
+    /* ── GRID CATEGORIES ── */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── CATEGORY CARD ── */
+    .cat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .cat-card:hover { border-color: var(--border2); }
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+      cursor: pointer;
+      user-select: none;
+    }
+    .cat-icon {
+      font-size: 20px;
+      line-height: 1;
+    }
+    .cat-title {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .cat-count {
+      font-size: 12px;
+      color: var(--slate2);
+      background: var(--s2);
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+    .cat-count.done { color: var(--lime); background: rgba(190,242,100,.12); }
+    .cat-chevron {
+      color: var(--slate2);
+      font-size: 12px;
+      transition: transform .2s;
+    }
+    .cat-card.collapsed .cat-chevron { transform: rotate(-90deg); }
+    .cat-body { padding: 8px 0; }
+    .cat-card.collapsed .cat-body { display: none; }
+
+    /* ── ITEM ── */
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 7px 18px;
+      transition: background .1s;
+      cursor: pointer;
+    }
+    .item:hover { background: var(--s2); }
+    .item input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      border: 1.5px solid var(--s3);
+      border-radius: 4px;
+      background: var(--s2);
+      margin-top: 2px;
+      cursor: pointer;
+      position: relative;
+      transition: all .15s;
+    }
+    .item input[type="checkbox"]:checked {
+      background: var(--lime);
+      border-color: var(--lime);
+    }
+    .item input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 5px;
+      width: 5px; height: 9px;
+      border: 2px solid var(--bg);
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+    .item-label {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--white);
+      flex: 1;
+    }
+    .item-label.checked {
+      color: var(--slate2);
+      text-decoration: line-through;
+    }
+    .item-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      white-space: nowrap;
+      margin-top: 3px;
+    }
+    .tag-photo { background: rgba(99,179,237,.15); color: #63b3ed; }
+    .tag-video { background: rgba(252,129,74,.15); color: #fc814a; }
+    .tag-both  { background: rgba(190,242,100,.1);  color: var(--lime2); }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--slate);
+    }
+    .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+    .empty-state p { font-size: 14px; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: var(--slate2);
+      border-top: 1px solid var(--border);
+    }
+    footer span { color: var(--lime); font-weight: 700; }
+
+    @media (max-width: 600px) {
+      .categories-grid { grid-template-columns: 1fr; }
+      .nav-title { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-in">
+    <div class="nav-brand">
+      <span class="sc">SC</span>
+      Service Compris
+    </div>
+    <div class="nav-title">Checklist photos & vidéos</div>
+    <div class="nav-save-status" id="saveStatus">Chargement…</div>
+  </div>
+</nav>
+
+<!-- MODAL AJOUT PROJET -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3>Nouveau projet</h3>
+    <input type="text" id="projectNameInput" placeholder="Nom du restaurant…" maxlength="40" autocomplete="off">
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="modalCancel">Annuler</button>
+      <button class="btn btn-primary" id="modalConfirm">Créer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="wrap">
+
+  <div class="page-header">
+    <h1>Photos & vidéos<br><span>pour un restaurant</span></h1>
+    <p>Checklist complète du contenu visuel à produire. Gérez plusieurs projets en simultané — la progression est sauvegardée automatiquement.</p>
+  </div>
+
+  <!-- ONGLETS PROJETS -->
+  <div class="projects-bar" id="projectsBar">
+    <!-- tabs injectés par JS -->
+    <button class="add-project-btn" id="addProjectBtn">+ Nouveau projet</button>
+  </div>
+
+  <!-- BARRE PROGRESSION -->
+  <div class="progress-global" id="progressBar">
+    <div class="label">Progression</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="progress-count" id="progressCount">0 / 0</div>
+    <button class="btn-reset" id="resetBtn">Tout réinitialiser</button>
+  </div>
+
+  <!-- GRILLE CATÉGORIES -->
+  <div class="categories-grid" id="categoriesGrid"></div>
+
+  <div class="empty-state" id="emptyState" style="display:none">
+    <div class="icon">📷</div>
+    <p>Créez un premier projet pour commencer.</p>
+  </div>
+
+</div>
+
+<footer>Fait avec soin par <span>Service Compris</span> · servicecompris.pro</footer>
+
+<script>
+// ═══════════════════════════════════════════════════
+// DATA — CATÉGORIES ET ITEMS
+// ═══════════════════════════════════════════════════
+const CATEGORIES = [
+  {
+    id: 'exterieur',
+    icon: '🏠',
+    title: 'Extérieur & façade',
+    items: [
+      { id: 'ext_01', label: 'Façade de jour (grand angle, ciel dégagé)', type: 'photo' },
+      { id: 'ext_02', label: 'Façade en soirée (lumières allumées, ambiance)', type: 'photo' },
+      { id: 'ext_03', label: 'Enseigne / logo en gros plan', type: 'both' },
+      { id: 'ext_04', label: 'Terrasse dressée, service vide (matin)', type: 'photo' },
+      { id: 'ext_05', label: 'Terrasse animée, clients présents', type: 'photo' },
+      { id: 'ext_06', label: 'Entrée / porte d'accueil', type: 'photo' },
+      { id: 'ext_07', label: 'Vue de rue ou de quartier (contexte)', type: 'photo' },
+      { id: 'ext_08', label: 'Plan large extérieur en vidéo (drone ou stabilisé)', type: 'video' },
+    ]
+  },
+  {
+    id: 'interieur',
+    icon: '🪑',
+    title: 'Intérieur & ambiance salle',
+    items: [
+      { id: 'int_01', label: 'Salle complète dressée, vide (lumière naturelle)', type: 'photo' },
+      { id: 'int_02', label: 'Salle complète en service (lumière soir)', type: 'photo' },
+      { id: 'int_03', label: 'Table dressée en gros plan (couverts, verres, nappe)', type: 'photo' },
+      { id: 'int_04', label: 'Détail déco murale ou élément distinctif', type: 'photo' },
+      { id: 'int_05', label: 'Bar / comptoir (si applicable)', type: 'both' },
+      { id: 'int_06', label: 'Espace privé / salle séminaire (si applicable)', type: 'photo' },
+      { id: 'int_07', label: 'Toilettes soignées (si argument), gros plan déco', type: 'photo' },
+      { id: 'int_08', label: 'Vidéo travelling salle vide (mise en place)', type: 'video' },
+      { id: 'int_09', label: 'Vidéo ambiance salle en plein service', type: 'video' },
+    ]
+  },
+  {
+    id: 'cuisine',
+    icon: '👨‍🍳',
+    title: 'Cuisine & équipe en action',
+    items: [
+      { id: 'cui_01', label: 'Chef en cuisine, posture travail', type: 'both' },
+      { id: 'cui_02', label: 'Chef portrait face caméra (identité)', type: 'photo' },
+      { id: 'cui_03', label: 'Mains du chef en préparation (gros plan)', type: 'both' },
+      { id: 'cui_04', label: 'Dressage d'une assiette étape par étape', type: 'both' },
+      { id: 'cui_05', label: 'Flambage, découpe, technique marquante', type: 'video' },
+      { id: 'cui_06', label: 'Fourneaux allumés, vapeur, feu (ambiance)', type: 'both' },
+      { id: 'cui_07', label: 'Vue d'ensemble cuisine ouverte (si applicable)', type: 'photo' },
+      { id: 'cui_08', label: 'Équipe en brigade (photo de groupe)', type: 'photo' },
+      { id: 'cui_09', label: 'Commis / second en action', type: 'photo' },
+    ]
+  },
+  {
+    id: 'plats',
+    icon: '🍽️',
+    title: 'Plats & assiettes',
+    items: [
+      { id: 'pla_01', label: 'Entrée signature — photo produit (fond neutre)', type: 'photo' },
+      { id: 'pla_02', label: 'Plat principal signature — photo produit', type: 'photo' },
+      { id: 'pla_03', label: 'Dessert signature — photo produit', type: 'photo' },
+      { id: 'pla_04', label: 'Formule complète mise en scène sur table', type: 'photo' },
+      { id: 'pla_05', label: '3 à 5 plats de la carte courante', type: 'photo' },
+      { id: 'pla_06', label: 'Plat du jour / ardoise (mise en scène)', type: 'photo' },
+      { id: 'pla_07', label: 'Plat végétarien / régime spécial', type: 'photo' },
+      { id: 'pla_08', label: 'Vidéo slow-motion d'une assiette posée sur table', type: 'video' },
+      { id: 'pla_09', label: 'Vidéo dressage final + pose assiette (reel)', type: 'video' },
+    ]
+  },
+  {
+    id: 'boissons',
+    icon: '🍷',
+    title: 'Boissons & carte des vins',
+    items: [
+      { id: 'boi_01', label: 'Verre de vin rouge ou blanc servi', type: 'photo' },
+      { id: 'boi_02', label: 'Cocktail signature (si applicable)', type: 'both' },
+      { id: 'boi_03', label: 'Bouteille + verre en mise en scène', type: 'photo' },
+      { id: 'boi_04', label: 'Cave à vin (si applicable)', type: 'photo' },
+      { id: 'boi_05', label: 'Sommelier en service (si applicable)', type: 'photo' },
+      { id: 'boi_06', label: 'Café / expresso servi (gros plan)', type: 'photo' },
+      { id: 'boi_07', label: 'Vidéo versement vin / cocktail shaker', type: 'video' },
+    ]
+  },
+  {
+    id: 'service',
+    icon: '🤝',
+    title: 'Service & relation client',
+    items: [
+      { id: 'ser_01', label: 'Serveur portant des assiettes en salle', type: 'photo' },
+      { id: 'ser_02', label: 'Serveur accueillant un client à l'entrée', type: 'photo' },
+      { id: 'ser_03', label: 'Pose d'une assiette devant un client (gros plan)', type: 'both' },
+      { id: 'ser_04', label: 'Client souriant, moment convivial', type: 'photo' },
+      { id: 'ser_05', label: 'Groupe de clients autour d'une table', type: 'photo' },
+      { id: 'ser_06', label: 'Interaction serveur / table (naturel, non posé)', type: 'photo' },
+      { id: 'ser_07', label: 'Vidéo service fluide (travelling salle animée)', type: 'video' },
+    ]
+  },
+  {
+    id: 'produits',
+    icon: '🧺',
+    title: 'Produits & sourcing',
+    items: [
+      { id: 'pro_01', label: 'Produits frais à la réception (légumes, viandes…)', type: 'photo' },
+      { id: 'pro_02', label: 'Marché / producteur local (si argumentaire)', type: 'both' },
+      { id: 'pro_03', label: 'Gros plan produit brut (truffe, homard, herbes…)', type: 'photo' },
+      { id: 'pro_04', label: 'Label / certification mis en valeur (AOP, BIO…)', type: 'photo' },
+      { id: 'pro_05', label: 'Planche de fromages ou charcuteries', type: 'photo' },
+      { id: 'pro_06', label: 'Jardin aromatique ou potager (si applicable)', type: 'both' },
+    ]
+  },
+  {
+    id: 'menu',
+    icon: '📋',
+    title: 'Carte & menu',
+    items: [
+      { id: 'men_01', label: 'Carte physique posée sur table (mise en scène)', type: 'photo' },
+      { id: 'men_02', label: 'QR code menu sur table (contexte)', type: 'photo' },
+      { id: 'men_03', label: 'Ardoise du jour lisible et bien éclairée', type: 'photo' },
+      { id: 'men_04', label: 'Menu enfant (si applicable)', type: 'photo' },
+      { id: 'men_05', label: 'Menu dégustation / gastronomique (si applicable)', type: 'photo' },
+    ]
+  },
+  {
+    id: 'evenements',
+    icon: '🎉',
+    title: 'Événements & occasions spéciales',
+    items: [
+      { id: 'eve_01', label: 'Table anniversaire dressée (bougie, déco)', type: 'photo' },
+      { id: 'eve_02', label: 'Brunch dominical mis en scène', type: 'both' },
+      { id: 'eve_03', label: 'Réception / cocktail (buffet dressé)', type: 'photo' },
+      { id: 'eve_04', label: 'Soirée à thème (halloween, saint-valentin…)', type: 'both' },
+      { id: 'eve_05', label: 'Séminaire ou privatisation salle', type: 'photo' },
+      { id: 'eve_06', label: 'Vidéo teaser événement à venir', type: 'video' },
+      { id: 'eve_07', label: 'Vidéo reportage événement (restitution)', type: 'video' },
+    ]
+  },
+  {
+    id: 'reseaux',
+    icon: '📱',
+    title: 'Contenus réseaux sociaux',
+    items: [
+      { id: 'rsn_01', label: 'Format carré 1:1 — plat signature (Instagram)', type: 'photo' },
+      { id: 'rsn_02', label: 'Format portrait 4:5 — ambiance salle', type: 'photo' },
+      { id: 'rsn_03', label: 'Reel vertical 9:16 — dressage assiette (30 sec)', type: 'video' },
+      { id: 'rsn_04', label: 'Reel vertical 9:16 — ambiance service (30 sec)', type: 'video' },
+      { id: 'rsn_05', label: 'Story — plat du jour (fond sombre + texte)', type: 'photo' },
+      { id: 'rsn_06', label: 'Photo couverture Facebook (format 820×312)', type: 'photo' },
+      { id: 'rsn_07', label: 'Photo profil Google / réseaux (logo ou façade)', type: 'photo' },
+      { id: 'rsn_08', label: 'Reel before/after mise en place → service', type: 'video' },
+      { id: 'rsn_09', label: 'Teaser vidéo 15 sec (best-of ambiance)', type: 'video' },
+    ]
+  },
+  {
+    id: 'site',
+    icon: '🌐',
+    title: 'Site web & Google',
+    items: [
+      { id: 'sit_01', label: 'Hero banner (façade ou plat, format 1440×700)', type: 'photo' },
+      { id: 'sit_02', label: 'Photo section "Notre histoire" (équipe ou lieu)', type: 'photo' },
+      { id: 'sit_03', label: 'Portrait chef pour page "L'équipe"', type: 'photo' },
+      { id: 'sit_04', label: '5 photos pour fiche Google Business Profile', type: 'photo' },
+      { id: 'sit_05', label: 'Photo couverture Google Business Profile', type: 'photo' },
+      { id: 'sit_06', label: 'Photo "À propos" / histoire du restaurant', type: 'photo' },
+      { id: 'sit_07', label: 'Vidéo de présentation 60–90 sec (YouTube/site)', type: 'video' },
+    ]
+  },
+  {
+    id: 'saisons',
+    icon: '🌿',
+    title: 'Saisonnalité & récurrence',
+    items: [
+      { id: 'sai_01', label: 'Mise en scène printemps (fleurs, pastels)', type: 'photo' },
+      { id: 'sai_02', label: 'Mise en scène été (terrasse, soleil, frais)', type: 'photo' },
+      { id: 'sai_03', label: 'Mise en scène automne (tons chauds, champignons)', type: 'photo' },
+      { id: 'sai_04', label: 'Mise en scène hiver / fêtes (bougies, décor)', type: 'photo' },
+      { id: 'sai_05', label: 'Nouveau menu saisonnier (3 plats minimum)', type: 'photo' },
+      { id: 'sai_06', label: 'Événement Noël / réveillon (table de fête)', type: 'both' },
+    ]
+  },
+];
+
+// ═══════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════
+let projects = [];       // [{ id, name, checks: { itemId: bool } }]
+let activeId = null;
+const STORAGE_KEY = 'sc_checklist_v1';
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ projects, activeId }));
+  flashSave();
+}
+
+function load() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    if (raw && Array.isArray(raw.projects)) {
+      projects = raw.projects;
+      activeId = raw.activeId || (projects[0]?.id ?? null);
+    }
+  } catch(e) {}
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════
+function render() {
+  renderTabs();
+  renderGrid();
+  renderProgress();
+}
+
+function renderTabs() {
+  const bar = document.getElementById('projectsBar');
+  // Remove old tabs
+  bar.querySelectorAll('.project-tab').forEach(el => el.remove());
+  const addBtn = document.getElementById('addProjectBtn');
+
+  projects.forEach(p => {
+    const total = CATEGORIES.reduce((s, c) => s + c.items.length, 0);
+    const done  = CATEGORIES.reduce((s, c) => s + c.items.filter(i => p.checks[i.id]).length, 0);
+    const tab = document.createElement('button');
+    tab.className = 'project-tab' + (p.id === activeId ? ' active' : '');
+    tab.dataset.id = p.id;
+    tab.innerHTML = `
+      ${escHtml(p.name)}
+      <span class="progress-badge">${done}/${total}</span>
+      <button class="del-btn" data-del="${p.id}" title="Supprimer">✕</button>
+    `;
+    tab.addEventListener('click', (e) => {
+      if (e.target.dataset.del) {
+        if (confirm(`Supprimer le projet "${p.name}" ?`)) {
+          projects = projects.filter(x => x.id !== p.id);
+          if (activeId === p.id) activeId = projects[0]?.id ?? null;
+          save(); render();
+        }
+        return;
+      }
+      activeId = p.id;
+      save(); render();
+    });
+    bar.insertBefore(tab, addBtn);
+  });
+
+  // empty state
+  document.getElementById('emptyState').style.display = projects.length ? 'none' : 'block';
+  document.getElementById('categoriesGrid').style.display = projects.length ? '' : 'none';
+  document.getElementById('progressBar').style.display = projects.length ? '' : 'none';
+}
+
+function renderGrid() {
+  const grid = document.getElementById('categoriesGrid');
+  grid.innerHTML = '';
+  if (!activeId) return;
+  const project = projects.find(p => p.id === activeId);
+  if (!project) return;
+
+  // Restore collapsed state per category from sessionStorage
+  const collKey = 'sc_collapsed_' + activeId;
+  let collapsed = {};
+  try { collapsed = JSON.parse(sessionStorage.getItem(collKey) || '{}'); } catch(e) {}
+
+  CATEGORIES.forEach(cat => {
+    const done  = cat.items.filter(i => project.checks[i.id]).length;
+    const total = cat.items.length;
+    const isCollapsed = collapsed[cat.id] ?? false;
+
+    const card = document.createElement('div');
+    card.className = 'cat-card' + (isCollapsed ? ' collapsed' : '');
+    card.dataset.catId = cat.id;
+
+    card.innerHTML = `
+      <div class="cat-header">
+        <span class="cat-icon">${cat.icon}</span>
+        <span class="cat-title">${cat.title}</span>
+        <span class="cat-count${done === total ? ' done' : ''}">${done}/${total}</span>
+        <span class="cat-chevron">▾</span>
+      </div>
+      <div class="cat-body">
+        ${cat.items.map(item => `
+          <label class="item">
+            <input type="checkbox" data-item="${item.id}" ${project.checks[item.id] ? 'checked' : ''}>
+            <span class="item-label${project.checks[item.id] ? ' checked' : ''}">${escHtml(item.label)}</span>
+            <span class="item-tag tag-${item.type}">${item.type === 'photo' ? '📷 Photo' : item.type === 'video' ? '🎬 Vidéo' : '📷🎬 Les deux'}</span>
+          </label>
+        `).join('')}
+      </div>
+    `;
+
+    // Toggle collapse
+    card.querySelector('.cat-header').addEventListener('click', () => {
+      card.classList.toggle('collapsed');
+      collapsed[cat.id] = card.classList.contains('collapsed');
+      try { sessionStorage.setItem(collKey, JSON.stringify(collapsed)); } catch(e) {}
+    });
+
+    // Checkboxes
+    card.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        e.stopPropagation();
+        const itemId = cb.dataset.item;
+        project.checks[itemId] = cb.checked;
+        cb.nextElementSibling.classList.toggle('checked', cb.checked);
+        // Update count badge
+        const newDone = cat.items.filter(i => project.checks[i.id]).length;
+        card.querySelector('.cat-count').textContent = `${newDone}/${total}`;
+        card.querySelector('.cat-count').className = 'cat-count' + (newDone === total ? ' done' : '');
+        save();
+        renderProgress();
+        renderTabs();
+      });
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+function renderProgress() {
+  if (!activeId) return;
+  const project = projects.find(p => p.id === activeId);
+  if (!project) return;
+  const total = CATEGORIES.reduce((s, c) => s + c.items.length, 0);
+  const done  = CATEGORIES.reduce((s, c) => s + c.items.filter(i => project.checks[i.id]).length, 0);
+  const pct   = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressCount').textContent = `${done} / ${total} (${pct}%)`;
+}
+
+// ═══════════════════════════════════════════════════
+// MODAL — AJOUT PROJET
+// ═══════════════════════════════════════════════════
+document.getElementById('addProjectBtn').addEventListener('click', () => {
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('projectNameInput').value = '';
+  setTimeout(() => document.getElementById('projectNameInput').focus(), 50);
+});
+
+document.getElementById('modalCancel').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+});
+
+document.getElementById('projectNameInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('modalConfirm').click();
+  if (e.key === 'Escape') closeModal();
+});
+
+document.getElementById('modalConfirm').addEventListener('click', () => {
+  const name = document.getElementById('projectNameInput').value.trim();
+  if (!name) return;
+  const id = 'proj_' + Date.now();
+  projects.push({ id, name, checks: {} });
+  activeId = id;
+  closeModal();
+  save(); render();
+});
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+// ═══════════════════════════════════════════════════
+// RESET PROJET
+// ═══════════════════════════════════════════════════
+document.getElementById('resetBtn').addEventListener('click', () => {
+  const project = projects.find(p => p.id === activeId);
+  if (!project) return;
+  if (!confirm(`Réinitialiser toutes les cases pour "${project.name}" ?`)) return;
+  project.checks = {};
+  save(); render();
+});
+
+// ═══════════════════════════════════════════════════
+// SAVE FLASH
+// ═══════════════════════════════════════════════════
+let saveTimer;
+function flashSave() {
+  const el = document.getElementById('saveStatus');
+  el.textContent = '✓ Sauvegardé';
+  el.className = 'nav-save-status saved';
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    el.textContent = 'Auto-sauvegarde active';
+    el.className = 'nav-save-status';
+  }, 2000);
+}
+
+// ═══════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+load();
+
+// Si aucun projet, on affiche direct le modal après un léger délai
+if (projects.length === 0) {
+  document.getElementById('saveStatus').textContent = 'Auto-sauvegarde active';
+  render();
+  // Petit délai pour laisser la page s'afficher avant le modal
+  setTimeout(() => {
+    document.getElementById('modalOverlay').classList.add('open');
+    document.getElementById('projectNameInput').focus();
+  }, 300);
+} else {
+  document.getElementById('saveStatus').textContent = 'Auto-sauvegarde active';
+  render();
+}
+</script>
+</body>
+</html>
