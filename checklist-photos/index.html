@@ -927,6 +927,14 @@ function renderItemRow(item, cat, card, countEl, isCustom) {
     '<span class="item-tag tag-' + item.type + '">' + (item.type === 'photo' ? '📷 Photo' : '🎬 Vidéo') + '</span>' +
     '<button type="button" class="item-delete" title="Supprimer cette tâche">✕</button>';
 
+  function updateCatCount() {
+    const all = allItemsForCat(cat);
+    const t = all.filter(i => itemCounts(i.id)).length;
+    const d = all.filter(i => checks[i.id] && itemCounts(i.id)).length;
+    countEl.textContent = d + '/' + t;
+    countEl.className = 'cat-count' + (t > 0 && d === t ? ' done' : '');
+  }
+
   label.querySelector('.prio-dot').addEventListener('click', e => {
     e.preventDefault(); e.stopPropagation();
     const dot = e.currentTarget;
@@ -937,6 +945,8 @@ function renderItemRow(item, cat, card, countEl, isCustom) {
     else { delete dot.dataset.prio; delete label.dataset.prio; }
     prios[item.id] = next;
     savePrio(activeId, item.id, next);
+    updateCatCount();
+    renderProgress();
   });
 
   const cb = label.querySelector('input');
@@ -945,10 +955,7 @@ function renderItemRow(item, cat, card, countEl, isCustom) {
     const val = cb.checked;
     checks[item.id] = val;
     label.querySelector('.item-label').classList.toggle('checked', val);
-    const all = allItemsForCat(cat);
-    const newDone = all.filter(i => checks[i.id]).length;
-    countEl.textContent = newDone + '/' + all.length;
-    countEl.className = 'cat-count' + (newDone === all.length ? ' done' : '');
+    updateCatCount();
     renderProgress();
     saveCheck(activeId, item.id, val);
   });
@@ -974,10 +981,7 @@ function renderItemRow(item, cat, card, countEl, isCustom) {
       saveCheck(activeId, item.id, false);
     }
     label.remove();
-    const all = allItemsForCat(cat);
-    const newDone = all.filter(i => checks[i.id]).length;
-    countEl.textContent = newDone + '/' + all.length;
-    countEl.className = 'cat-count' + (newDone === all.length ? ' done' : '');
+    updateCatCount();
     renderProgress();
   });
 
@@ -1002,8 +1006,8 @@ function renderGrid() {
     const visibleBase = cat.items.filter(i => !deleted[i.id]);
     const customs = customTasks[cat.id] || [];
     const allItems = [...visibleBase, ...customs];
-    const done  = allItems.filter(i => checks[i.id]).length;
-    const total = allItems.length;
+    const done  = allItems.filter(i => checks[i.id] && itemCounts(i.id)).length;
+    const total = allItems.filter(i => itemCounts(i.id)).length;
     const isCollapsed = collapsed[cat.id] ?? false;
 
     const card = document.createElement('div');
@@ -1044,11 +1048,14 @@ function renderGrid() {
       if (!customTasks[cat.id]) customTasks[cat.id] = [];
       customTasks[cat.id].push(newTask);
       saveCustomTasks(activeId, customTasks);
-      body.insertBefore(renderItemRow(newTask, cat, countEl, true), addRow);
+      const newRow = renderItemRow(newTask, cat, countEl, true);
+      body.insertBefore(newRow, addRow);
+      // updateCatCount est défini dans renderItemRow, on recalcule via renderProgress
       const all = allItemsForCat(cat);
-      const newDone = all.filter(i => checks[i.id]).length;
-      countEl.textContent = newDone + '/' + all.length;
-      countEl.className = 'cat-count' + (newDone === all.length ? ' done' : '');
+      const t = all.filter(i => itemCounts(i.id)).length;
+      const d = all.filter(i => checks[i.id] && itemCounts(i.id)).length;
+      countEl.textContent = d + '/' + t;
+      countEl.className = 'cat-count' + (t > 0 && d === t ? ' done' : '');
       renderProgress();
       input.value = '';
       input.focus();
@@ -1073,19 +1080,22 @@ function renderGrid() {
   });
 }
 
+// Une tâche bleue (optionnelle) ne compte pas dans la progression
+function itemCounts(itemId) { return prios[itemId] !== 'blue'; }
+
 function renderProgress() {
   if (!activeId) return;
   const delKey = 'sc_deleted_' + activeId;
   let deleted = {};
   try { deleted = JSON.parse(localStorage.getItem(delKey) || '{}'); } catch(e) {}
   const total = CATEGORIES.reduce((s, c) => {
-    const vis = c.items.filter(i => !deleted[i.id]).length;
-    const cust = (customTasks[c.id] || []).length;
+    const vis  = c.items.filter(i => !deleted[i.id] && itemCounts(i.id)).length;
+    const cust = (customTasks[c.id] || []).filter(i => itemCounts(i.id)).length;
     return s + vis + cust;
   }, 0);
   const done = CATEGORIES.reduce((s, c) => {
-    const vis = c.items.filter(i => !deleted[i.id] && checks[i.id]).length;
-    const cust = (customTasks[c.id] || []).filter(i => checks[i.id]).length;
+    const vis  = c.items.filter(i => !deleted[i.id] && checks[i.id] && itemCounts(i.id)).length;
+    const cust = (customTasks[c.id] || []).filter(i => checks[i.id] && itemCounts(i.id)).length;
     return s + vis + cust;
   }, 0);
   const pct = total ? Math.round(done / total * 100) : 0;
