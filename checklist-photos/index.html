@@ -383,7 +383,10 @@ async function subscribeToProject(id) {
   try {
     await loadChecks(id);
     setStatus('online', 'En ligne');
-    pollTimer = setInterval(() => loadChecks(id), 5000);
+    pollTimer = setInterval(() => {
+      if (activeId === id) loadChecks(id);
+      else { clearInterval(pollTimer); pollTimer = null; }
+    }, 5000);
   } catch(e) {
     setStatus('', 'Hors ligne');
   }
@@ -392,6 +395,7 @@ async function subscribeToProject(id) {
 async function loadChecks(id) {
   const filter = encodeURIComponent('project="' + id + '"');
   const data = await pbFetch('/api/collections/checks/records?filter=' + filter + '&perPage=200');
+  if (activeId !== id) return; // projet changé entre-temps, on ignore
   checks = {};
   (data.items || []).forEach(r => { if (r.checked) checks[r.item_id] = true; });
   renderGrid();
@@ -618,12 +622,8 @@ async function init() {
   setUrlProjectId(activeId);
 
   document.getElementById('progressBar').style.display = 'flex';
-  await loadChecks(activeId);
-  setStatus('online', 'En ligne');
+  await subscribeToProject(activeId);
   renderTabs();
-  // Polling toutes les 5s pour le temps réel
-  if (pollTimer) clearInterval(pollTimer);
-  pollTimer = setInterval(() => loadChecks(activeId), 5000);
 }
 
 function renderTabs() {
