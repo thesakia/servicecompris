@@ -564,9 +564,10 @@ async function createProject(name) {
   return rec.id;
 }
 
-// ── PB : charger tous les projets ──
+// ── PB : charger tous les projets (non archivés) ──
 async function loadAllProjects() {
-  const data = await pbFetch('/api/collections/projects/records?sort=-created&perPage=200');
+  const filter = encodeURIComponent('archived=false || archived=null');
+  const data = await pbFetch('/api/collections/projects/records?filter=' + filter + '&sort=-created&perPage=200');
   return (data.items || []).map(r => ({ id: r.id, name: r.name, createdAt: r.created || 0 }));
 }
 
@@ -658,7 +659,7 @@ function renderTabs() {
       '<span class="progress-badge">' + (p.id === activeId ? done + '/' + total : '…') + '</span>' +
       '<span class="tab-actions">' +
         '<span class="icon-btn" data-copy="' + p.id + '" title="Copier le lien">🔗</span>' +
-        '<span class="icon-btn" data-del="' + p.id + '" title="Retirer">✕</span>' +
+        '<span class="icon-btn" data-del="' + p.id + '" title="Archiver">📦</span>' +
       '</span>';
 
     tab.addEventListener('click', async (e) => {
@@ -670,13 +671,16 @@ function renderTabs() {
         return;
       }
       if (del) {
-        if (confirm('Supprimer le projet "' + p.name + '" définitivement ?')) {
-          await deleteAllChecks(p.id);
-          await pbFetch('/api/collections/projects/records/' + p.id, { method: 'DELETE' });
+        if (confirm('Archiver le projet "' + p.name + '" ? Il ne sera plus visible mais restera en base.')) {
+          await pbFetch('/api/collections/projects/records/' + p.id, {
+            method: 'PATCH',
+            body: JSON.stringify({ archived: true })
+          });
           projects = projects.filter(x => x.id !== p.id);
           if (activeId === p.id) {
             activeId = projects[0]?.id ?? null;
             setUrlProjectId(activeId);
+            checks = {};
             if (activeId) subscribeToProject(activeId);
           }
           render();
