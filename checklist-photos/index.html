@@ -551,21 +551,27 @@ async function loadChecks(id, silent = false) {
 
   const newChecks = {};
   const newPrios = {};
+  let prioFieldExists = false;
   (data.items || []).forEach(r => {
     if (r.checked) newChecks[r.item_id] = true;
-    if (r.prio) newPrios[r.item_id] = r.prio;
+    if (r.prio) { newPrios[r.item_id] = r.prio; prioFieldExists = true; }
+    // Détecter si le champ prio existe même si vide
+    if ('prio' in r) prioFieldExists = true;
     _checkCache[id + '|' + r.item_id] = r.id;
   });
+
+  // Si le champ prio existe en base, on l'utilise ; sinon on conserve l'état local
+  const mergedPrios = prioFieldExists ? newPrios : prios;
 
   // En mode silent (polling), ne re-render que si quelque chose a changé
   if (silent) {
     const checksChanged = JSON.stringify(newChecks) !== JSON.stringify(checks);
-    const priosChanged  = JSON.stringify(newPrios)  !== JSON.stringify(prios);
+    const priosChanged  = prioFieldExists && JSON.stringify(newPrios) !== JSON.stringify(prios);
     if (!checksChanged && !priosChanged) return;
   }
 
   checks = newChecks;
-  prios  = newPrios;
+  prios  = mergedPrios;
   renderGrid();
   renderProgress();
   renderTabs();
