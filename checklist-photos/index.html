@@ -373,48 +373,28 @@ async function pbFetch(path, options = {}) {
   return res.json();
 }
 
-// ── SSE : écouter les checks en temps réel ──
-let sseSource = null;
+// ── Charger les checks d'un projet ──
+let pollTimer = null;
 
 function subscribeToProject(id) {
-  if (sseSource) { sseSource.close(); sseSource = null; }
+  if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
   if (!id) return;
   setStatus('saving', 'Connexion…');
+  loadChecks(id).then(() => {
+    setStatus('online', 'En ligne');
+    // Polling toutes les 5s pour le temps réel
+    pollTimer = setInterval(() => loadChecks(id), 5000);
+  }).catch(() => setStatus('', 'Hors ligne'));
+}
 
-  // Charger les checks initiaux
-  pbFetch('/api/collections/checks/records?filter=(project="' + id + '")&perPage=200')
-    .then(data => {
-      checks = {};
-      (data.items || []).forEach(r => { if (r.checked) checks[r.item_id] = true; });
-      setStatus('online', 'En ligne');
-      renderGrid();
-      renderProgress();
-      renderTabs();
-    })
-    .catch(() => setStatus('', 'Hors ligne'));
-
-  // Écoute SSE temps réel
-  sseSource = new EventSource(PB_URL + '/api/realtime');
-  sseSource.addEventListener('open', () => {
-    // S'abonner à la collection checks
-    fetch(PB_URL + '/api/realtime', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ clientId: '', subscriptions: ['checks'] })
-    }).catch(() => {});
-  });
-  sseSource.addEventListener('checks', () => {
-    // Recharger les checks à chaque changement
-    pbFetch('/api/collections/checks/records?filter=(project="' + id + '")&perPage=200')
-      .then(data => {
-        checks = {};
-        (data.items || []).forEach(r => { if (r.checked) checks[r.item_id] = true; });
-        renderGrid();
-        renderProgress();
-        renderTabs();
-      }).catch(() => {});
-  });
-  sseSource.onerror = () => setStatus('', 'Hors ligne');
+async function loadChecks(id) {
+  const filter = encodeURIComponent('project="' + id + '"');
+  const data = await pbFetch('/api/collections/checks/records?filter=' + filter + '&perPage=200');
+  checks = {};
+  (data.items || []).forEach(r => { if (r.checked) checks[r.item_id] = true; });
+  renderGrid();
+  renderProgress();
+  renderTabs();
 }
 
 // ── CATÉGORIES ──
@@ -584,9 +564,8 @@ async function saveCheck(projectId, itemId, value) {
     let recId = _checkCache[cacheKey];
     if (!recId) {
       // Chercher si un enregistrement existe déjà
-      const data = await pbFetch(
-        '/api/collections/checks/records?filter=(project="' + projectId + '"&&item_id="' + itemId + '")&perPage=1'
-      );
+      const filter = encodeURIComponent('project="' + projectId + '" && item_id="' + itemId + '"');
+      const data = await pbFetch('/api/collections/checks/records?filter=' + filter + '&perPage=1');
       recId = data.items?.[0]?.id || null;
       if (recId) _checkCache[cacheKey] = recId;
     }
