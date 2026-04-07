@@ -184,16 +184,24 @@
 
     /* ── ADD PROJECT MODAL ── */
     .modal-overlay {
-      display: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: fixed;
       inset: 0;
       background: rgba(2,6,23,.85);
       backdrop-filter: blur(8px);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
+      z-index: 9999;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .15s, visibility .15s;
     }
-    .modal-overlay.open { display: flex; }
+    .modal-overlay.open {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
     .modal {
       background: var(--surface);
       border: 1px solid var(--border2);
@@ -452,8 +460,8 @@
     <h3>Nouveau projet</h3>
     <input type="text" id="projectNameInput" placeholder="Nom du restaurant…" maxlength="40" autocomplete="off">
     <div class="modal-actions">
-      <button class="btn btn-ghost" id="modalCancel">Annuler</button>
-      <button class="btn btn-primary" id="modalConfirm">Créer</button>
+      <button type="button" class="btn btn-ghost" id="modalCancel">Annuler</button>
+      <button type="button" class="btn btn-primary" id="modalConfirm">Créer</button>
     </div>
   </div>
 </div>
@@ -469,7 +477,7 @@
   <!-- ONGLETS PROJETS -->
   <div class="projects-bar" id="projectsBar">
     <!-- tabs injectés par JS -->
-    <button class="add-project-btn" id="addProjectBtn">+ Nouveau projet</button>
+    <button type="button" class="add-project-btn" id="addProjectBtn">+ Nouveau projet</button>
   </div>
 
   <!-- BARRE PROGRESSION -->
@@ -479,7 +487,7 @@
       <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
     </div>
     <div class="progress-count" id="progressCount">0 / 0</div>
-    <button class="btn-reset" id="resetBtn">Tout réinitialiser</button>
+    <button type="button" class="btn-reset" id="resetBtn">Tout réinitialiser</button>
   </div>
 
   <!-- GRILLE CATÉGORIES -->
