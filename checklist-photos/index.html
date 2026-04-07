@@ -518,7 +518,7 @@ async function subscribeToProject(id) {
   pollProjectId = id;
   if (!id) return;
   customTasks = loadCustomTasks(id);
-  prios = loadPrios(id);
+  prios = {}; // sera rempli par loadChecks
   setStatus('saving', 'Connexion…');
   try {
     await loadChecks(id);
@@ -538,7 +538,13 @@ async function loadChecks(id) {
   // Si l'utilisateur a changé de projet pendant la requête, on ignore
   if (pollProjectId !== id) return;
   checks = {};
-  (data.items || []).forEach(r => { if (r.checked) checks[r.item_id] = true; });
+  prios = {};
+  (data.items || []).forEach(r => {
+    if (r.checked) checks[r.item_id] = true;
+    if (r.prio) prios[r.item_id] = r.prio;
+    // Mettre à jour le cache d'id PocketBase
+    _checkCache[id + '|' + r.item_id] = r.id;
+  });
   renderGrid();
   renderProgress();
   renderTabs();
@@ -655,15 +661,7 @@ const CATEGORIES = [
   },
 ];
 
-// ── PRIO (localStorage per project) ──
-function prioKey(projectId) { return 'sc_prio_' + projectId; }
-function loadPrios(projectId) {
-  try { return JSON.parse(localStorage.getItem(prioKey(projectId)) || '{}'); } catch(e) { return {}; }
-}
-function savePrios(projectId, data) {
-  try { localStorage.setItem(prioKey(projectId), JSON.stringify(data)); } catch(e) {}
-}
-let prios = {}; // { itemId: 'red'|'yellow'|'blue'|null }
+let prios = {}; // { itemId: 'red'|'yellow'|'blue'|null } — chargé depuis PocketBase
 const PRIO_CYCLE = [null, 'red', 'yellow', 'blue'];
 
 // ── CUSTOM TASKS (localStorage per project) ──
@@ -735,13 +733,13 @@ async function loadAllProjects() {
 // ou on en crée un nouveau.
 const _checkCache = {}; // projectId+itemId → pbRecordId
 
-async function saveCheck(projectId, itemId, value) {
+// Upsert générique pour un record checks (project+item_id)
+async function upsertCheckRecord(projectId, itemId, fields) {
   setStatus('saving', 'Sauvegarde…');
   const cacheKey = projectId + '|' + itemId;
   try {
     let recId = _checkCache[cacheKey];
     if (!recId) {
-      // Chercher si un enregistrement existe déjà
       const filter = encodeURIComponent('projects="' + projectId + '" && item_id="' + itemId + '"');
       const data = await pbFetch('/api/collections/checks/records?filter=' + filter + '&perPage=1');
       recId = data.items?.[0]?.id || null;
@@ -750,12 +748,12 @@ async function saveCheck(projectId, itemId, value) {
     if (recId) {
       await pbFetch('/api/collections/checks/records/' + recId, {
         method: 'PATCH',
-        body: JSON.stringify({ checked: !!value })
+        body: JSON.stringify(fields)
       });
     } else {
       const rec = await pbFetch('/api/collections/checks/records', {
         method: 'POST',
-        body: JSON.stringify({ projects: projectId, item_id: itemId, checked: !!value })
+        body: JSON.stringify({ projects: projectId, item_id: itemId, checked: false, prio: null, ...fields })
       });
       _checkCache[cacheKey] = rec.id;
     }
@@ -763,6 +761,14 @@ async function saveCheck(projectId, itemId, value) {
   } catch(e) {
     setStatus('', 'Erreur');
   }
+}
+
+function saveCheck(projectId, itemId, value) {
+  return upsertCheckRecord(projectId, itemId, { checked: !!value });
+}
+
+function savePrio(projectId, itemId, value) {
+  return upsertCheckRecord(projectId, itemId, { prio: value || null });
 }
 
 // ── RENDER ──
@@ -893,7 +899,7 @@ function renderItemRow(item, cat, card, countEl, isCustom) {
     if (next) { dot.dataset.prio = next; label.dataset.prio = next; }
     else { delete dot.dataset.prio; delete label.dataset.prio; }
     prios[item.id] = next;
-    savePrios(activeId, prios);
+    savePrio(activeId, item.id, next);
   });
 
   const cb = label.querySelector('input');
