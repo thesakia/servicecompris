@@ -471,7 +471,7 @@
 
   <div class="page-header">
     <h1>Photos & vidéos<br><span>pour un restaurant</span></h1>
-    <p>Checklist complète du contenu visuel à produire. Gérez plusieurs projets en simultané — la progression est sauvegardée automatiquement.</p>
+    <p>Feuille de route pour le photographe. Gérez plusieurs projets en simultané — la progression est sauvegardée automatiquement.</p>
   </div>
 
   <!-- ONGLETS PROJETS -->
@@ -512,46 +512,44 @@ const CATEGORIES = [
     icon: '🏠',
     title: 'Extérieur & façade',
     items: [
-      { id: 'ext_01', label: "Façade de jour (grand angle, ciel dégagé)", type: 'photo' },
-      { id: 'ext_02', label: "Façade en soirée (lumières allumées, ambiance)", type: 'photo' },
-      { id: 'ext_03', label: "Enseigne / logo en gros plan", type: 'both' },
-      { id: 'ext_04', label: "Terrasse dressée, service vide (matin)", type: 'photo' },
-      { id: 'ext_05', label: "Terrasse animée, clients présents", type: 'photo' },
+      { id: 'ext_01', label: "Façade de jour, grand angle", type: 'photo' },
+      { id: 'ext_02', label: "Façade en soirée, lumières allumées", type: 'photo' },
+      { id: 'ext_03', label: "Enseigne en gros plan", type: 'photo' },
+      { id: 'ext_04', label: "Terrasse dressée, sans client (matin)", type: 'photo' },
+      { id: 'ext_05', label: "Terrasse animée avec clients", type: 'photo' },
       { id: 'ext_06', label: "Entrée / porte d'accueil", type: 'photo' },
-      { id: 'ext_07', label: "Vue de rue ou de quartier (contexte)", type: 'photo' },
+      { id: 'ext_07', label: "Vue de rue, contexte du quartier", type: 'photo' },
       { id: 'ext_08', label: "Plan large extérieur en vidéo (drone ou stabilisé)", type: 'video' },
     ]
   },
   {
     id: 'interieur',
     icon: '🪑',
-    title: 'Intérieur & ambiance salle',
+    title: 'Intérieur & salle',
     items: [
-      { id: 'int_01', label: "Salle complète dressée, vide (lumière naturelle)", type: 'photo' },
-      { id: 'int_02', label: "Salle complète en service (lumière soir)", type: 'photo' },
-      { id: 'int_03', label: "Table dressée en gros plan (couverts, verres, nappe)", type: 'photo' },
-      { id: 'int_04', label: "Détail déco murale ou élément distinctif", type: 'photo' },
-      { id: 'int_05', label: "Bar / comptoir (si applicable)", type: 'both' },
-      { id: 'int_06', label: "Espace privé / salle séminaire (si applicable)", type: 'photo' },
-      { id: 'int_07', label: "Toilettes soignées (si argument), gros plan déco", type: 'photo' },
-      { id: 'int_08', label: "Vidéo travelling salle vide (mise en place)", type: 'video' },
-      { id: 'int_09', label: "Vidéo ambiance salle en plein service", type: 'video' },
+      { id: 'int_01', label: "Salle complète dressée, vide, lumière naturelle", type: 'photo' },
+      { id: 'int_02', label: "Salle complète en service, lumière du soir", type: 'photo' },
+      { id: 'int_03', label: "Table dressée en gros plan (couverts, verres)", type: 'photo' },
+      { id: 'int_04', label: "Détail déco ou élément distinctif de la salle", type: 'photo' },
+      { id: 'int_05', label: "Bar / comptoir (si applicable)", type: 'photo' },
+      { id: 'int_06', label: "Salle privatisable / espace séminaire (si applicable)", type: 'photo' },
+      { id: 'int_07', label: "Vidéo travelling salle vide (mise en place)", type: 'video' },
+      { id: 'int_08', label: "Vidéo ambiance salle en plein service", type: 'video' },
     ]
   },
   {
     id: 'cuisine',
     icon: '👨‍🍳',
-    title: 'Cuisine & équipe en action',
+    title: 'Cuisine & équipe',
     items: [
-      { id: 'cui_01', label: "Chef en cuisine, posture travail", type: 'both' },
-      { id: 'cui_02', label: "Chef portrait face caméra (identité)", type: 'photo' },
-      { id: 'cui_03', label: "Mains du chef en préparation (gros plan)", type: 'both' },
-      { id: 'cui_04', label: "Dressage d'une assiette étape par étape", type: 'both' },
-      { id: 'cui_05', label: "Flambage, découpe, technique marquante", type: 'video' },
-      { id: 'cui_06', label: "Fourneaux allumés, vapeur, feu (ambiance)", type: 'both' },
+      { id: 'cui_01', label: "Chef en cuisine, en action", type: 'photo' },
+      { id: 'cui_02', label: "Portrait chef face caméra", type: 'photo' },
+      { id: 'cui_03', label: "Mains du chef en préparation, gros plan", type: 'photo' },
+      { id: 'cui_04', label: "Dressage d'une assiette", type: 'photo' },
+      { id: 'cui_05', label: "Technique marquante : flambage, découpe, finition", type: 'video' },
+      { id: 'cui_06', label: "Fourneaux allumés, vapeur, feu", type: 'photo' },
       { id: 'cui_07', label: "Vue d'ensemble cuisine ouverte (si applicable)", type: 'photo' },
-      { id: 'cui_08', label: "Équipe en brigade (photo de groupe)", type: 'photo' },
-      { id: 'cui_09', label: "Commis / second en action", type: 'photo' },
+      { id: 'cui_08', label: "Photo de groupe de l'équipe", type: 'photo' },
     ]
   },
   {
@@ -559,29 +557,26 @@ const CATEGORIES = [
     icon: '🍽️',
     title: 'Plats & assiettes',
     items: [
-      { id: 'pla_01', label: "Entrée signature — photo produit (fond neutre)", type: 'photo' },
-      { id: 'pla_02', label: "Plat principal signature — photo produit", type: 'photo' },
-      { id: 'pla_03', label: "Dessert signature — photo produit", type: 'photo' },
-      { id: 'pla_04', label: "Formule complète mise en scène sur table", type: 'photo' },
-      { id: 'pla_05', label: "3 à 5 plats de la carte courante", type: 'photo' },
-      { id: 'pla_06', label: "Plat du jour / ardoise (mise en scène)", type: 'photo' },
-      { id: 'pla_07', label: "Plat végétarien / régime spécial", type: 'photo' },
-      { id: 'pla_08', label: "Vidéo slow-motion d'une assiette posée sur table", type: 'video' },
-      { id: 'pla_09', label: "Vidéo dressage final + pose assiette (reel)", type: 'video' },
+      { id: 'pla_01', label: "Entrée signature", type: 'photo' },
+      { id: 'pla_02', label: "Plat principal signature", type: 'photo' },
+      { id: 'pla_03', label: "Dessert signature", type: 'photo' },
+      { id: 'pla_04', label: "Plat végétarien (si applicable)", type: 'photo' },
+      { id: 'pla_05', label: "Autres plats de la carte (3 à 5 au minimum)", type: 'photo' },
+      { id: 'pla_06', label: "Formule / menu complet mis en scène sur table", type: 'photo' },
+      { id: 'pla_07', label: "Vidéo dressage d'une assiette", type: 'video' },
     ]
   },
   {
     id: 'boissons',
     icon: '🍷',
-    title: 'Boissons & carte des vins',
+    title: 'Boissons',
     items: [
-      { id: 'boi_01', label: "Verre de vin rouge ou blanc servi", type: 'photo' },
-      { id: 'boi_02', label: "Cocktail signature (si applicable)", type: 'both' },
-      { id: 'boi_03', label: "Bouteille + verre en mise en scène", type: 'photo' },
+      { id: 'boi_01', label: "Verre de vin servi", type: 'photo' },
+      { id: 'boi_02', label: "Bouteille + verre mis en scène", type: 'photo' },
+      { id: 'boi_03', label: "Cocktail signature (si applicable)", type: 'photo' },
       { id: 'boi_04', label: "Cave à vin (si applicable)", type: 'photo' },
-      { id: 'boi_05', label: "Sommelier en service (si applicable)", type: 'photo' },
-      { id: 'boi_06', label: "Café / expresso servi (gros plan)", type: 'photo' },
-      { id: 'boi_07', label: "Vidéo versement vin / cocktail shaker", type: 'video' },
+      { id: 'boi_05', label: "Café / expresso en gros plan", type: 'photo' },
+      { id: 'boi_06', label: "Vidéo versement ou préparation (vin, cocktail…)", type: 'video' },
     ]
   },
   {
@@ -589,13 +584,12 @@ const CATEGORIES = [
     icon: '🤝',
     title: 'Service & relation client',
     items: [
-      { id: 'ser_01', label: "Serveur portant des assiettes en salle", type: 'photo' },
-      { id: 'ser_02', label: "Serveur accueillant un client à l'entrée", type: 'photo' },
-      { id: 'ser_03', label: "Pose d'une assiette devant un client (gros plan)", type: 'both' },
-      { id: 'ser_04', label: "Client souriant, moment convivial", type: 'photo' },
-      { id: 'ser_05', label: "Groupe de clients autour d'une table", type: 'photo' },
-      { id: 'ser_06', label: "Interaction serveur / table (naturel, non posé)", type: 'photo' },
-      { id: 'ser_07', label: "Vidéo service fluide (travelling salle animée)", type: 'video' },
+      { id: 'ser_01', label: "Serveur en salle, assiettes en main", type: 'photo' },
+      { id: 'ser_02', label: "Accueil d'un client à l'entrée", type: 'photo' },
+      { id: 'ser_03', label: "Pose d'une assiette devant un client", type: 'photo' },
+      { id: 'ser_04', label: "Moment convivial entre clients", type: 'photo' },
+      { id: 'ser_05', label: "Échange naturel serveur / table", type: 'photo' },
+      { id: 'ser_06', label: "Vidéo service en salle, ambiance animée", type: 'video' },
     ]
   },
   {
@@ -603,81 +597,31 @@ const CATEGORIES = [
     icon: '🧺',
     title: 'Produits & sourcing',
     items: [
-      { id: 'pro_01', label: "Produits frais à la réception (légumes, viandes…)", type: 'photo' },
-      { id: 'pro_02', label: "Marché / producteur local (si argumentaire)", type: 'both' },
-      { id: 'pro_03', label: "Gros plan produit brut (truffe, homard, herbes…)", type: 'photo' },
-      { id: 'pro_04', label: "Label / certification mis en valeur (AOP, BIO…)", type: 'photo' },
-      { id: 'pro_05', label: "Planche de fromages ou charcuteries", type: 'photo' },
-      { id: 'pro_06', label: "Jardin aromatique ou potager (si applicable)", type: 'both' },
+      { id: 'pro_01', label: "Produits frais bruts (légumes, viandes, poissons…)", type: 'photo' },
+      { id: 'pro_02', label: "Gros plan produit d'exception (truffe, homard, herbes…)", type: 'photo' },
+      { id: 'pro_03', label: "Planche de fromages ou charcuteries", type: 'photo' },
+      { id: 'pro_04', label: "Marché ou producteur local (si argumentaire)", type: 'photo' },
+      { id: 'pro_05', label: "Potager ou jardin aromatique (si applicable)", type: 'photo' },
     ]
   },
   {
     id: 'menu',
     icon: '📋',
-    title: 'Carte & menu',
+    title: 'Carte & ardoise',
     items: [
-      { id: 'men_01', label: "Carte physique posée sur table (mise en scène)", type: 'photo' },
-      { id: 'men_02', label: "QR code menu sur table (contexte)", type: 'photo' },
-      { id: 'men_03', label: "Ardoise du jour lisible et bien éclairée", type: 'photo' },
-      { id: 'men_04', label: "Menu enfant (si applicable)", type: 'photo' },
-      { id: 'men_05', label: "Menu dégustation / gastronomique (si applicable)", type: 'photo' },
+      { id: 'men_01', label: "Carte physique posée sur table", type: 'photo' },
+      { id: 'men_02', label: "Ardoise du jour, bien lisible", type: 'photo' },
     ]
   },
   {
     id: 'evenements',
     icon: '🎉',
-    title: 'Événements & occasions spéciales',
+    title: 'Événements & occasions',
     items: [
-      { id: 'eve_01', label: "Table anniversaire dressée (bougie, déco)", type: 'photo' },
-      { id: 'eve_02', label: "Brunch dominical mis en scène", type: 'both' },
-      { id: 'eve_03', label: "Réception / cocktail (buffet dressé)", type: 'photo' },
-      { id: 'eve_04', label: "Soirée à thème (halloween, saint-valentin…)", type: 'both' },
-      { id: 'eve_05', label: "Séminaire ou privatisation salle", type: 'photo' },
-      { id: 'eve_06', label: "Vidéo teaser événement à venir", type: 'video' },
-      { id: 'eve_07', label: "Vidéo reportage événement (restitution)", type: 'video' },
-    ]
-  },
-  {
-    id: 'reseaux',
-    icon: '📱',
-    title: 'Contenus réseaux sociaux',
-    items: [
-      { id: 'rsn_01', label: "Format carré 1:1 — plat signature (Instagram)", type: 'photo' },
-      { id: 'rsn_02', label: "Format portrait 4:5 — ambiance salle", type: 'photo' },
-      { id: 'rsn_03', label: "Reel vertical 9:16 — dressage assiette (30 sec)", type: 'video' },
-      { id: 'rsn_04', label: "Reel vertical 9:16 — ambiance service (30 sec)", type: 'video' },
-      { id: 'rsn_05', label: "Story — plat du jour (fond sombre + texte)", type: 'photo' },
-      { id: 'rsn_06', label: "Photo couverture Facebook (format 820×312)", type: 'photo' },
-      { id: 'rsn_07', label: "Photo profil Google / réseaux (logo ou façade)", type: 'photo' },
-      { id: 'rsn_08', label: "Reel before/after mise en place → service", type: 'video' },
-      { id: 'rsn_09', label: "Teaser vidéo 15 sec (best-of ambiance)", type: 'video' },
-    ]
-  },
-  {
-    id: 'site',
-    icon: '🌐',
-    title: 'Site web & Google',
-    items: [
-      { id: 'sit_01', label: "Hero banner (façade ou plat, format 1440×700)", type: 'photo' },
-      { id: 'sit_02', label: "Photo section \"Notre histoire\" (équipe ou lieu)", type: 'photo' },
-      { id: 'sit_03', label: "Portrait chef pour page \"L'équipe\"", type: 'photo' },
-      { id: 'sit_04', label: "5 photos pour fiche Google Business Profile", type: 'photo' },
-      { id: 'sit_05', label: "Photo couverture Google Business Profile", type: 'photo' },
-      { id: 'sit_06', label: "Photo \"À propos\" / histoire du restaurant", type: 'photo' },
-      { id: 'sit_07', label: "Vidéo de présentation 60–90 sec (YouTube/site)", type: 'video' },
-    ]
-  },
-  {
-    id: 'saisons',
-    icon: '🌿',
-    title: 'Saisonnalité & récurrence',
-    items: [
-      { id: 'sai_01', label: "Mise en scène printemps (fleurs, pastels)", type: 'photo' },
-      { id: 'sai_02', label: "Mise en scène été (terrasse, soleil, frais)", type: 'photo' },
-      { id: 'sai_03', label: "Mise en scène automne (tons chauds, champignons)", type: 'photo' },
-      { id: 'sai_04', label: "Mise en scène hiver / fêtes (bougies, décor)", type: 'photo' },
-      { id: 'sai_05', label: "Nouveau menu saisonnier (3 plats minimum)", type: 'photo' },
-      { id: 'sai_06', label: "Événement Noël / réveillon (table de fête)", type: 'both' },
+      { id: 'eve_01', label: "Table d'anniversaire dressée (bougies, déco)", type: 'photo' },
+      { id: 'eve_02', label: "Buffet / cocktail dressé", type: 'photo' },
+      { id: 'eve_03', label: "Espace privatisé en configuration événement", type: 'photo' },
+      { id: 'eve_04', label: "Vidéo ambiance événement", type: 'video' },
     ]
   },
 ];
