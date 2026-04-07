@@ -74,40 +74,24 @@
       border-radius: 6px;
       letter-spacing: -.3px;
     }
-    .nav-title {
-      color: var(--slate);
-      font-weight: 500;
-      font-size: 14px;
+    .nav-title { color: var(--slate); font-weight: 500; font-size: 14px; }
+    .nav-status { font-size: 12px; color: var(--slate2); display: flex; align-items: center; gap: 6px; }
+    .nav-status .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--slate2);
+      transition: background .3s;
     }
-    .nav-save-status {
-      font-size: 12px;
-      color: var(--slate2);
-    }
-    .nav-save-status.saved { color: var(--lime2); }
+    .nav-status.online .dot { background: var(--lime); }
+    .nav-status.saving .dot { background: #fbbf24; }
 
     /* ── LAYOUT ── */
-    .wrap {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 32px 24px 80px;
-    }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
 
     /* ── HEADER ── */
-    .page-header {
-      margin-bottom: 32px;
-    }
-    .page-header h1 {
-      font-size: clamp(22px, 3vw, 30px);
-      font-weight: 900;
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
+    .page-header { margin-bottom: 32px; }
+    .page-header h1 { font-size: clamp(22px, 3vw, 30px); font-weight: 900; line-height: 1.2; margin-bottom: 8px; }
     .page-header h1 span { color: var(--lime); }
-    .page-header p {
-      color: var(--slate);
-      font-size: 14px;
-      max-width: 560px;
-    }
+    .page-header p { color: var(--slate); font-size: 14px; max-width: 560px; }
 
     /* ── PROJECTS BAR ── */
     .projects-bar {
@@ -134,12 +118,7 @@
       cursor: pointer;
     }
     .project-tab:hover { border-color: var(--lime); color: var(--white); }
-    .project-tab.active {
-      background: var(--lime);
-      color: var(--bg);
-      border-color: var(--lime);
-      font-weight: 700;
-    }
+    .project-tab.active { background: var(--lime); color: var(--bg); border-color: var(--lime); font-weight: 700; }
     .project-tab .progress-badge {
       background: rgba(0,0,0,.18);
       border-radius: 99px;
@@ -147,26 +126,21 @@
       font-size: 11px;
       font-weight: 700;
     }
-    .project-tab.active .progress-badge {
-      background: rgba(2,6,23,.25);
-      color: var(--bg);
-    }
-    .project-tab .del-btn {
-      width: 16px;
-      height: 16px;
+    .project-tab.active .progress-badge { background: rgba(2,6,23,.25); }
+    .project-tab .tab-actions { display: flex; align-items: center; gap: 4px; }
+    .project-tab .icon-btn {
+      width: 18px; height: 18px;
       border-radius: 50%;
-      background: rgba(0,0,0,.2);
+      background: rgba(0,0,0,.15);
       border: none;
       color: inherit;
-      font-size: 12px;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size: 11px;
+      display: flex; align-items: center; justify-content: center;
       opacity: .6;
       transition: opacity .15s;
+      padding: 0;
     }
-    .project-tab .del-btn:hover { opacity: 1; }
+    .project-tab .icon-btn:hover { opacity: 1; }
     .add-project-btn {
       display: flex;
       align-items: center;
@@ -182,7 +156,7 @@
     }
     .add-project-btn:hover { border-color: var(--lime); color: var(--lime); }
 
-    /* ── ADD PROJECT MODAL ── */
+    /* ── MODAL ── */
     .modal-overlay {
       display: flex;
       align-items: center;
@@ -197,11 +171,7 @@
       pointer-events: none;
       transition: opacity .15s, visibility .15s;
     }
-    .modal-overlay.open {
-      visibility: visible;
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .modal-overlay.open { visibility: visible; opacity: 1; pointer-events: auto; }
     .modal {
       background: var(--surface);
       border: 1px solid var(--border2);
@@ -211,11 +181,8 @@
       max-width: 420px;
       margin: 16px;
     }
-    .modal h3 {
-      font-size: 17px;
-      font-weight: 800;
-      margin-bottom: 16px;
-    }
+    .modal h3 { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+    .modal p { font-size: 13px; color: var(--slate); margin-bottom: 16px; }
     .modal input {
       width: 100%;
       padding: 10px 14px;
@@ -231,27 +198,30 @@
     }
     .modal input:focus { border-color: var(--lime); }
     .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
-    .btn {
-      padding: 9px 18px;
-      border-radius: var(--r2);
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 600;
-      border: none;
-      transition: all .15s;
-    }
-    .btn-ghost {
-      background: var(--s2);
-      color: var(--slate);
-    }
+    .btn { padding: 9px 18px; border-radius: var(--r2); font-family: inherit; font-size: 14px; font-weight: 600; border: none; transition: all .15s; }
+    .btn-ghost { background: var(--s2); color: var(--slate); }
     .btn-ghost:hover { color: var(--white); }
-    .btn-primary {
-      background: var(--lime);
-      color: var(--bg);
-    }
+    .btn-primary { background: var(--lime); color: var(--bg); }
     .btn-primary:hover { background: var(--lime2); }
 
-    /* ── PROGRESS GLOBAL ── */
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--s2);
+      border: 1px solid var(--border2);
+      border-radius: 99px;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity .2s, transform .2s;
+      z-index: 9998;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── PROGRESS ── */
     .progress-global {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -263,175 +233,71 @@
       gap: 16px;
       flex-wrap: wrap;
     }
-    .progress-global .label {
-      font-size: 13px;
-      color: var(--slate);
-      white-space: nowrap;
-    }
-    .progress-bar-wrap {
-      flex: 1;
-      min-width: 120px;
-      height: 6px;
-      background: var(--s2);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      background: var(--lime);
-      border-radius: 99px;
-      transition: width .4s ease;
-    }
-    .progress-count {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--lime);
-      white-space: nowrap;
-    }
+    .progress-global .label { font-size: 13px; color: var(--slate); white-space: nowrap; }
+    .progress-bar-wrap { flex: 1; min-width: 120px; height: 6px; background: var(--s2); border-radius: 99px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: var(--lime); border-radius: 99px; transition: width .4s ease; }
+    .progress-count { font-size: 13px; font-weight: 700; color: var(--lime); white-space: nowrap; }
     .btn-reset {
-      padding: 5px 12px;
-      border-radius: 6px;
-      background: var(--s2);
-      color: var(--slate);
-      font-size: 12px;
-      font-weight: 600;
-      border: 1px solid var(--border);
-      margin-left: auto;
+      padding: 5px 12px; border-radius: 6px; background: var(--s2); color: var(--slate);
+      font-size: 12px; font-weight: 600; border: 1px solid var(--border); margin-left: auto;
       transition: all .15s;
     }
     .btn-reset:hover { color: #f87171; border-color: #f87171; }
 
-    /* ── GRID CATEGORIES ── */
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 16px;
-    }
+    /* ── GRID ── */
+    .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
 
-    /* ── CATEGORY CARD ── */
-    .cat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      overflow: hidden;
-      transition: border-color .2s;
-    }
+    /* ── CARD ── */
+    .cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; transition: border-color .2s; }
     .cat-card:hover { border-color: var(--border2); }
     .cat-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex; align-items: center; gap: 10px;
       padding: 14px 18px;
       border-bottom: 1px solid var(--border);
       background: var(--bg2);
-      cursor: pointer;
-      user-select: none;
+      cursor: pointer; user-select: none;
     }
-    .cat-icon {
-      font-size: 20px;
-      line-height: 1;
-    }
-    .cat-title {
-      flex: 1;
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .cat-count {
-      font-size: 12px;
-      color: var(--slate2);
-      background: var(--s2);
-      padding: 2px 8px;
-      border-radius: 99px;
-    }
+    .cat-icon { font-size: 20px; line-height: 1; }
+    .cat-title { flex: 1; font-size: 14px; font-weight: 700; }
+    .cat-count { font-size: 12px; color: var(--slate2); background: var(--s2); padding: 2px 8px; border-radius: 99px; }
     .cat-count.done { color: var(--lime); background: rgba(190,242,100,.12); }
-    .cat-chevron {
-      color: var(--slate2);
-      font-size: 12px;
-      transition: transform .2s;
-    }
+    .cat-chevron { color: var(--slate2); font-size: 12px; transition: transform .2s; }
     .cat-card.collapsed .cat-chevron { transform: rotate(-90deg); }
     .cat-body { padding: 8px 0; }
     .cat-card.collapsed .cat-body { display: none; }
 
     /* ── ITEM ── */
-    .item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 7px 18px;
-      transition: background .1s;
-      cursor: pointer;
-    }
+    .item { display: flex; align-items: flex-start; gap: 10px; padding: 7px 18px; transition: background .1s; cursor: pointer; }
     .item:hover { background: var(--s2); }
     .item input[type="checkbox"] {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 17px;
-      height: 17px;
-      min-width: 17px;
-      border: 1.5px solid var(--s3);
-      border-radius: 4px;
-      background: var(--s2);
-      margin-top: 2px;
-      cursor: pointer;
-      position: relative;
-      transition: all .15s;
+      appearance: none; -webkit-appearance: none;
+      width: 17px; height: 17px; min-width: 17px;
+      border: 1.5px solid var(--s3); border-radius: 4px; background: var(--s2);
+      margin-top: 2px; cursor: pointer; position: relative; transition: all .15s;
     }
-    .item input[type="checkbox"]:checked {
-      background: var(--lime);
-      border-color: var(--lime);
-    }
+    .item input[type="checkbox"]:checked { background: var(--lime); border-color: var(--lime); }
     .item input[type="checkbox"]:checked::after {
-      content: '';
-      position: absolute;
-      top: 2px; left: 5px;
-      width: 5px; height: 9px;
-      border: 2px solid var(--bg);
-      border-top: none;
-      border-left: none;
+      content: ''; position: absolute;
+      top: 2px; left: 5px; width: 5px; height: 9px;
+      border: 2px solid var(--bg); border-top: none; border-left: none;
       transform: rotate(45deg);
     }
-    .item-label {
-      font-size: 13.5px;
-      line-height: 1.5;
-      color: var(--white);
-      flex: 1;
-    }
-    .item-label.checked {
-      color: var(--slate2);
-      text-decoration: line-through;
-    }
+    .item-label { font-size: 13.5px; line-height: 1.5; color: var(--white); flex: 1; }
+    .item-label.checked { color: var(--slate2); text-decoration: line-through; }
     .item-tag {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: .4px;
-      white-space: nowrap;
-      margin-top: 3px;
+      font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+      text-transform: uppercase; letter-spacing: .4px; white-space: nowrap; margin-top: 3px;
     }
     .tag-photo { background: rgba(99,179,237,.15); color: #63b3ed; }
     .tag-video { background: rgba(252,129,74,.15); color: #fc814a; }
-    .tag-both  { background: rgba(190,242,100,.1);  color: var(--lime2); }
 
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      text-align: center;
-      padding: 60px 24px;
-      color: var(--slate);
-    }
+    /* ── EMPTY / LOADING ── */
+    .empty-state { text-align: center; padding: 60px 24px; color: var(--slate); }
     .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
     .empty-state p { font-size: 14px; }
+    .loading-state { text-align: center; padding: 60px 24px; color: var(--slate); font-size: 14px; }
 
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 24px;
-      font-size: 12px;
-      color: var(--slate2);
-      border-top: 1px solid var(--border);
-    }
+    footer { text-align: center; padding: 24px; font-size: 12px; color: var(--slate2); border-top: 1px solid var(--border); }
     footer span { color: var(--lime); font-weight: 700; }
 
     @media (max-width: 600px) {
@@ -442,23 +308,20 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-in">
-    <div class="nav-brand">
-      <span class="sc">SC</span>
-      Service Compris
-    </div>
+    <div class="nav-brand"><span class="sc">SC</span> Service Compris</div>
     <div class="nav-title">Checklist photos & vidéos</div>
-    <div class="nav-save-status" id="saveStatus">Chargement…</div>
+    <div class="nav-status" id="navStatus"><span class="dot"></span> <span id="navStatusText">Connexion…</span></div>
   </div>
 </nav>
 
-<!-- MODAL AJOUT PROJET -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h3>Nouveau projet</h3>
-    <input type="text" id="projectNameInput" placeholder="Nom du restaurant…" maxlength="40" autocomplete="off">
+    <p>Le projet sera accessible à toute l'équipe via un lien partageable.</p>
+    <input type="text" id="projectNameInput" placeholder="Nom du restaurant…" maxlength="60" autocomplete="off">
     <div class="modal-actions">
       <button type="button" class="btn btn-ghost" id="modalCancel">Annuler</button>
       <button type="button" class="btn btn-primary" id="modalConfirm">Créer</button>
@@ -466,51 +329,57 @@
   </div>
 </div>
 
-<!-- MAIN -->
-<div class="wrap">
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
+<div class="wrap">
   <div class="page-header">
     <h1>Photos & vidéos<br><span>pour un restaurant</span></h1>
-    <p>Feuille de route pour le photographe. Gérez plusieurs projets en simultané — la progression est sauvegardée automatiquement.</p>
+    <p>Feuille de route pour le photographe. Partagez le lien d'un projet pour travailler en équipe.</p>
   </div>
 
-  <!-- ONGLETS PROJETS -->
   <div class="projects-bar" id="projectsBar">
-    <!-- tabs injectés par JS -->
     <button type="button" class="add-project-btn" id="addProjectBtn" onclick="openModal()">+ Nouveau projet</button>
   </div>
 
-  <!-- BARRE PROGRESSION -->
-  <div class="progress-global" id="progressBar">
+  <div class="progress-global" id="progressBar" style="display:none">
     <div class="label">Progression</div>
-    <div class="progress-bar-wrap">
-      <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
-    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
     <div class="progress-count" id="progressCount">0 / 0</div>
     <button type="button" class="btn-reset" id="resetBtn">Tout réinitialiser</button>
   </div>
 
-  <!-- GRILLE CATÉGORIES -->
   <div class="categories-grid" id="categoriesGrid"></div>
-
   <div class="empty-state" id="emptyState" style="display:none">
     <div class="icon">📷</div>
-    <p>Créez un premier projet pour commencer.</p>
+    <p>Créez un premier projet ou ouvrez un lien partagé.</p>
   </div>
-
+  <div class="loading-state" id="loadingState">Chargement…</div>
 </div>
 
 <footer>Fait avec soin par <span>Service Compris</span> · servicecompris.pro</footer>
 
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
 <script>
-// ═══════════════════════════════════════════════════
-// DATA — CATÉGORIES ET ITEMS
-// ═══════════════════════════════════════════════════
+// ── FIREBASE ──
+firebase.initializeApp({
+  apiKey: "AIzaSyCh2UaqC5FoaIY9vQqVKKNlRhB24oPxz40",
+  authDomain: "servicecompris-945b6.firebaseapp.com",
+  databaseURL: "https://servicecompris-945b6-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "servicecompris-945b6",
+  storageBucket: "servicecompris-945b6.firebasestorage.app",
+  messagingSenderId: "755907008490",
+  appId: "1:755907008490:web:c1ed3a84e1db8ca9b00493"
+});
+const db = firebase.database();
+
+// ── CATÉGORIES ──
 const CATEGORIES = [
   {
-    id: 'exterieur',
-    icon: '🏠',
-    title: 'Extérieur & façade',
+    id: 'exterieur', icon: '🏠', title: 'Extérieur & façade',
     items: [
       { id: 'ext_01', label: "Façade de jour, grand angle", type: 'photo' },
       { id: 'ext_02', label: "Façade en soirée, lumières allumées", type: 'photo' },
@@ -523,9 +392,7 @@ const CATEGORIES = [
     ]
   },
   {
-    id: 'interieur',
-    icon: '🪑',
-    title: 'Intérieur & salle',
+    id: 'interieur', icon: '🪑', title: 'Intérieur & salle',
     items: [
       { id: 'int_01', label: "Salle complète dressée, vide, lumière naturelle", type: 'photo' },
       { id: 'int_02', label: "Salle complète en service, lumière du soir", type: 'photo' },
@@ -538,9 +405,7 @@ const CATEGORIES = [
     ]
   },
   {
-    id: 'cuisine',
-    icon: '👨‍🍳',
-    title: 'Cuisine & équipe',
+    id: 'cuisine', icon: '👨‍🍳', title: 'Cuisine & équipe',
     items: [
       { id: 'cui_01', label: "Chef en cuisine, en action", type: 'photo' },
       { id: 'cui_02', label: "Portrait chef face caméra", type: 'photo' },
@@ -553,9 +418,7 @@ const CATEGORIES = [
     ]
   },
   {
-    id: 'plats',
-    icon: '🍽️',
-    title: 'Plats & assiettes',
+    id: 'plats', icon: '🍽️', title: 'Plats & assiettes',
     items: [
       { id: 'pla_01', label: "Entrée signature", type: 'photo' },
       { id: 'pla_02', label: "Plat principal signature", type: 'photo' },
@@ -567,9 +430,7 @@ const CATEGORIES = [
     ]
   },
   {
-    id: 'boissons',
-    icon: '🍷',
-    title: 'Boissons',
+    id: 'boissons', icon: '🍷', title: 'Boissons',
     items: [
       { id: 'boi_01', label: "Verre de vin servi", type: 'photo' },
       { id: 'boi_02', label: "Bouteille + verre mis en scène", type: 'photo' },
@@ -580,9 +441,7 @@ const CATEGORIES = [
     ]
   },
   {
-    id: 'service',
-    icon: '🤝',
-    title: 'Service & relation client',
+    id: 'service', icon: '🤝', title: 'Service & relation client',
     items: [
       { id: 'ser_01', label: "Serveur en salle, assiettes en main", type: 'photo' },
       { id: 'ser_02', label: "Accueil d'un client à l'entrée", type: 'photo' },
@@ -593,9 +452,7 @@ const CATEGORIES = [
     ]
   },
   {
-    id: 'produits',
-    icon: '🧺',
-    title: 'Produits & sourcing',
+    id: 'produits', icon: '🧺', title: 'Produits & sourcing',
     items: [
       { id: 'pro_01', label: "Produits frais bruts (légumes, viandes, poissons…)", type: 'photo' },
       { id: 'pro_02', label: "Gros plan produit d'exception (truffe, homard, herbes…)", type: 'photo' },
@@ -605,18 +462,14 @@ const CATEGORIES = [
     ]
   },
   {
-    id: 'menu',
-    icon: '📋',
-    title: 'Carte & ardoise',
+    id: 'menu', icon: '📋', title: 'Carte & ardoise',
     items: [
       { id: 'men_01', label: "Carte physique posée sur table", type: 'photo' },
       { id: 'men_02', label: "Ardoise du jour, bien lisible", type: 'photo' },
     ]
   },
   {
-    id: 'evenements',
-    icon: '🎉',
-    title: 'Événements & occasions',
+    id: 'evenements', icon: '🎉', title: 'Événements & occasions',
     items: [
       { id: 'eve_01', label: "Table d'anniversaire dressée (bougies, déco)", type: 'photo' },
       { id: 'eve_02', label: "Buffet / cocktail dressé", type: 'photo' },
@@ -626,135 +479,264 @@ const CATEGORIES = [
   },
 ];
 
-// ═══════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════
-let projects = [];       // [{ id, name, checks: { itemId: bool } }]
+// ── STATE ──
+// Les IDs des projets suivis sont en localStorage
+// Les données sont dans Firebase
+const LOCAL_KEY = 'sc_project_ids_v2';
+let localIds = [];      // liste des IDs suivis sur cet appareil
 let activeId = null;
-const STORAGE_KEY = 'sc_checklist_v1';
+let activeListener = null; // référence Firebase onValue en cours
+let checks = {};        // état des cases du projet actif
 
-function save() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ projects, activeId }));
-  flashSave();
+function getLocalIds() {
+  try { return JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveLocalIds() {
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(localIds));
 }
 
-function load() {
-  try {
-    const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-    if (raw && Array.isArray(raw.projects)) {
-      projects = raw.projects;
-      activeId = raw.activeId || (projects[0]?.id ?? null);
-    }
-  } catch(e) {}
+// ── STATUS NAV ──
+function setStatus(state, text) {
+  const el = document.getElementById('navStatus');
+  el.className = 'nav-status ' + state;
+  document.getElementById('navStatusText').textContent = text;
 }
 
-// ═══════════════════════════════════════════════════
-// RENDER
-// ═══════════════════════════════════════════════════
-function render() {
+// ── TOAST ──
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── URL : ?p=ID ──
+function getUrlProjectId() {
+  return new URLSearchParams(window.location.search).get('p');
+}
+function setUrlProjectId(id) {
+  const url = new URL(window.location.href);
+  if (id) url.searchParams.set('p', id);
+  else url.searchParams.delete('p');
+  history.replaceState(null, '', url.toString());
+}
+function getShareUrl(id) {
+  const url = new URL(window.location.href);
+  url.searchParams.set('p', id);
+  return url.toString();
+}
+
+// ── FIREBASE : créer un projet ──
+async function createProject(name) {
+  const id = 'proj_' + Date.now();
+  await db.ref('checklist/' + id).set({ name, createdAt: Date.now(), checks: {} });
+  return id;
+}
+
+// ── FIREBASE : charger la liste des projets suivis ──
+async function loadProjectsMeta() {
+  const results = [];
+  await Promise.all(localIds.map(async id => {
+    try {
+      const snap = await db.ref('checklist/' + id + '/name').get();
+      if (snap.exists()) results.push({ id, name: snap.val() });
+    } catch(e) {}
+  }));
+  // Conserver l'ordre de localIds
+  return localIds
+    .map(id => results.find(r => r.id === id))
+    .filter(Boolean);
+}
+
+// ── FIREBASE : écouter les checks en temps réel ──
+function subscribeToProject(id) {
+  // Détacher l'ancien listener
+  if (activeListener) {
+    db.ref('checklist/' + activeListener + '/checks').off();
+    activeListener = null;
+  }
+  if (!id) return;
+  activeListener = id;
+  setStatus('saving', 'Connexion…');
+  db.ref('checklist/' + id + '/checks').on('value', snap => {
+    checks = snap.val() || {};
+    setStatus('online', 'En ligne');
+    renderGrid();
+    renderProgress();
+    renderTabs(); // màj badges
+  }, err => {
+    setStatus('', 'Hors ligne');
+  });
+}
+
+// ── FIREBASE : enregistrer une case ──
+function saveCheck(projectId, itemId, value) {
+  setStatus('saving', 'Sauvegarde…');
+  db.ref('checklist/' + projectId + '/checks/' + itemId).set(value)
+    .then(() => setStatus('online', 'En ligne'))
+    .catch(() => setStatus('', 'Erreur'));
+}
+
+// ── RENDER ──
+let projects = []; // cache meta {id, name}
+
+async function init() {
+  localIds = getLocalIds();
+
+  // Si URL contient ?p=, ajouter ce projet à la liste locale si absent
+  const urlId = getUrlProjectId();
+  if (urlId && !localIds.includes(urlId)) {
+    // Vérifier qu'il existe dans Firebase
+    try {
+      const snap = await db.ref('checklist/' + urlId + '/name').get();
+      if (snap.exists()) {
+        localIds.unshift(urlId);
+        saveLocalIds();
+      }
+    } catch(e) {}
+  }
+
+  projects = await loadProjectsMeta();
+
+  document.getElementById('loadingState').style.display = 'none';
+
+  if (projects.length === 0) {
+    document.getElementById('emptyState').style.display = 'block';
+    setStatus('online', 'En ligne');
+    renderTabs();
+    return;
+  }
+
+  // Activer le projet de l'URL, sinon le premier
+  activeId = (urlId && projects.find(p => p.id === urlId)) ? urlId : projects[0].id;
+  setUrlProjectId(activeId);
+
   renderTabs();
-  renderGrid();
-  renderProgress();
+  document.getElementById('progressBar').style.display = 'flex';
+  subscribeToProject(activeId);
 }
 
 function renderTabs() {
   const bar = document.getElementById('projectsBar');
-  // Remove old tabs
   bar.querySelectorAll('.project-tab').forEach(el => el.remove());
   const addBtn = document.getElementById('addProjectBtn');
 
   projects.forEach(p => {
     const total = CATEGORIES.reduce((s, c) => s + c.items.length, 0);
-    const done  = CATEGORIES.reduce((s, c) => s + c.items.filter(i => p.checks[i.id]).length, 0);
+    const done  = (p.id === activeId)
+      ? CATEGORIES.reduce((s, c) => s + c.items.filter(i => checks[i.id]).length, 0)
+      : 0; // on n'a pas les checks des autres projets en cache
+
     const tab = document.createElement('button');
+    tab.type = 'button';
     tab.className = 'project-tab' + (p.id === activeId ? ' active' : '');
     tab.dataset.id = p.id;
-    tab.innerHTML = `
-      ${escHtml(p.name)}
-      <span class="progress-badge">${done}/${total}</span>
-      <button class="del-btn" data-del="${p.id}" title="Supprimer">✕</button>
-    `;
-    tab.addEventListener('click', (e) => {
-      if (e.target.dataset.del) {
-        if (confirm(`Supprimer le projet "${p.name}" ?`)) {
+    tab.innerHTML =
+      escHtml(p.name) +
+      '<span class="progress-badge">' + (p.id === activeId ? done + '/' + total : '…') + '</span>' +
+      '<span class="tab-actions">' +
+        '<span class="icon-btn" data-copy="' + p.id + '" title="Copier le lien">🔗</span>' +
+        '<span class="icon-btn" data-del="' + p.id + '" title="Retirer">✕</span>' +
+      '</span>';
+
+    tab.addEventListener('click', async (e) => {
+      const copy = e.target.closest('[data-copy]');
+      const del  = e.target.closest('[data-del]');
+      if (copy) {
+        navigator.clipboard.writeText(getShareUrl(copy.dataset.copy));
+        showToast('Lien copié !');
+        return;
+      }
+      if (del) {
+        if (confirm('Retirer "' + p.name + '" de votre liste ? (le projet reste accessible via son lien)')) {
+          localIds = localIds.filter(id => id !== p.id);
+          saveLocalIds();
           projects = projects.filter(x => x.id !== p.id);
-          if (activeId === p.id) activeId = projects[0]?.id ?? null;
-          save(); render();
+          if (activeId === p.id) {
+            activeId = projects[0]?.id ?? null;
+            setUrlProjectId(activeId);
+            if (activeId) subscribeToProject(activeId);
+          }
+          render();
         }
         return;
       }
-      activeId = p.id;
-      save(); render();
+      if (p.id !== activeId) {
+        activeId = p.id;
+        setUrlProjectId(activeId);
+        subscribeToProject(activeId);
+        document.getElementById('progressBar').style.display = 'flex';
+        renderTabs();
+      }
     });
     bar.insertBefore(tab, addBtn);
   });
 
-  // empty state
   document.getElementById('emptyState').style.display = projects.length ? 'none' : 'block';
   document.getElementById('categoriesGrid').style.display = projects.length ? '' : 'none';
-  document.getElementById('progressBar').style.display = projects.length ? '' : 'none';
+}
+
+function render() {
+  renderTabs();
+  renderGrid();
+  renderProgress();
+  document.getElementById('progressBar').style.display = (projects.length && activeId) ? 'flex' : 'none';
 }
 
 function renderGrid() {
   const grid = document.getElementById('categoriesGrid');
   grid.innerHTML = '';
   if (!activeId) return;
-  const project = projects.find(p => p.id === activeId);
-  if (!project) return;
 
-  // Restore collapsed state per category from sessionStorage
   const collKey = 'sc_collapsed_' + activeId;
   let collapsed = {};
   try { collapsed = JSON.parse(sessionStorage.getItem(collKey) || '{}'); } catch(e) {}
 
   CATEGORIES.forEach(cat => {
-    const done  = cat.items.filter(i => project.checks[i.id]).length;
+    const done  = cat.items.filter(i => checks[i.id]).length;
     const total = cat.items.length;
     const isCollapsed = collapsed[cat.id] ?? false;
 
     const card = document.createElement('div');
     card.className = 'cat-card' + (isCollapsed ? ' collapsed' : '');
-    card.dataset.catId = cat.id;
 
-    card.innerHTML = `
-      <div class="cat-header">
-        <span class="cat-icon">${cat.icon}</span>
-        <span class="cat-title">${cat.title}</span>
-        <span class="cat-count${done === total ? ' done' : ''}">${done}/${total}</span>
-        <span class="cat-chevron">▾</span>
-      </div>
-      <div class="cat-body">
-        ${cat.items.map(item => `
-          <label class="item">
-            <input type="checkbox" data-item="${item.id}" ${project.checks[item.id] ? 'checked' : ''}>
-            <span class="item-label${project.checks[item.id] ? ' checked' : ''}">${escHtml(item.label)}</span>
-            <span class="item-tag tag-${item.type}">${item.type === 'photo' ? '📷 Photo' : item.type === 'video' ? '🎬 Vidéo' : '📷🎬 Les deux'}</span>
-          </label>
-        `).join('')}
-      </div>
-    `;
+    card.innerHTML =
+      '<div class="cat-header">' +
+        '<span class="cat-icon">' + cat.icon + '</span>' +
+        '<span class="cat-title">' + cat.title + '</span>' +
+        '<span class="cat-count' + (done === total ? ' done' : '') + '">' + done + '/' + total + '</span>' +
+        '<span class="cat-chevron">▾</span>' +
+      '</div>' +
+      '<div class="cat-body">' +
+        cat.items.map(item =>
+          '<label class="item">' +
+            '<input type="checkbox" data-item="' + item.id + '"' + (checks[item.id] ? ' checked' : '') + '>' +
+            '<span class="item-label' + (checks[item.id] ? ' checked' : '') + '">' + escHtml(item.label) + '</span>' +
+            '<span class="item-tag tag-' + item.type + '">' + (item.type === 'photo' ? '📷 Photo' : '🎬 Vidéo') + '</span>' +
+          '</label>'
+        ).join('') +
+      '</div>';
 
-    // Toggle collapse
     card.querySelector('.cat-header').addEventListener('click', () => {
       card.classList.toggle('collapsed');
       collapsed[cat.id] = card.classList.contains('collapsed');
       try { sessionStorage.setItem(collKey, JSON.stringify(collapsed)); } catch(e) {}
     });
 
-    // Checkboxes
     card.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-      cb.addEventListener('change', (e) => {
+      cb.addEventListener('change', e => {
         e.stopPropagation();
         const itemId = cb.dataset.item;
-        project.checks[itemId] = cb.checked;
-        cb.nextElementSibling.classList.toggle('checked', cb.checked);
-        // Update count badge
-        const newDone = cat.items.filter(i => project.checks[i.id]).length;
-        card.querySelector('.cat-count').textContent = `${newDone}/${total}`;
+        const val = cb.checked;
+        checks[itemId] = val;
+        cb.nextElementSibling.classList.toggle('checked', val);
+        const newDone = cat.items.filter(i => checks[i.id]).length;
+        card.querySelector('.cat-count').textContent = newDone + '/' + total;
         card.querySelector('.cat-count').className = 'cat-count' + (newDone === total ? ' done' : '');
-        save();
         renderProgress();
-        renderTabs();
+        saveCheck(activeId, itemId, val || null); // null supprime la clé Firebase
       });
     });
 
@@ -764,88 +746,72 @@ function renderGrid() {
 
 function renderProgress() {
   if (!activeId) return;
-  const project = projects.find(p => p.id === activeId);
-  if (!project) return;
   const total = CATEGORIES.reduce((s, c) => s + c.items.length, 0);
-  const done  = CATEGORIES.reduce((s, c) => s + c.items.filter(i => project.checks[i.id]).length, 0);
+  const done  = CATEGORIES.reduce((s, c) => s + c.items.filter(i => checks[i.id]).length, 0);
   const pct   = total ? Math.round(done / total * 100) : 0;
   document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressCount').textContent = `${done} / ${total} (${pct}%)`;
+  document.getElementById('progressCount').textContent = done + ' / ' + total + ' (' + pct + '%)';
 }
 
-// ═══════════════════════════════════════════════════
-// MODAL — AJOUT PROJET
-// ═══════════════════════════════════════════════════
+// ── MODAL ──
 function openModal() {
   document.getElementById('modalOverlay').classList.add('open');
   document.getElementById('projectNameInput').value = '';
   setTimeout(() => document.getElementById('projectNameInput').focus(), 50);
 }
-
 function closeModal() {
   document.getElementById('modalOverlay').classList.remove('open');
 }
-
-function confirmModal() {
+async function confirmModal() {
   const name = document.getElementById('projectNameInput').value.trim();
   if (!name) return;
-  const id = 'proj_' + Date.now();
-  projects.push({ id, name, checks: {} });
-  activeId = id;
-  closeModal();
-  save();
-  render();
+  document.getElementById('modalConfirm').textContent = 'Création…';
+  document.getElementById('modalConfirm').disabled = true;
+  try {
+    const id = await createProject(name);
+    localIds.unshift(id);
+    saveLocalIds();
+    projects.unshift({ id, name });
+    activeId = id;
+    checks = {};
+    setUrlProjectId(id);
+    closeModal();
+    subscribeToProject(id);
+    render();
+    document.getElementById('progressBar').style.display = 'flex';
+  } catch(e) {
+    showToast('Erreur Firebase — vérifiez votre connexion');
+  }
+  document.getElementById('modalConfirm').textContent = 'Créer';
+  document.getElementById('modalConfirm').disabled = false;
 }
 
 document.getElementById('modalCancel').addEventListener('click', closeModal);
 document.getElementById('modalConfirm').addEventListener('click', confirmModal);
-document.getElementById('modalOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
+document.getElementById('modalOverlay').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 document.getElementById('projectNameInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') confirmModal();
   if (e.key === 'Escape') closeModal();
 });
 
-// ═══════════════════════════════════════════════════
-// RESET PROJET
-// ═══════════════════════════════════════════════════
+// ── RESET ──
 document.getElementById('resetBtn').addEventListener('click', () => {
-  const project = projects.find(p => p.id === activeId);
-  if (!project) return;
-  if (!confirm(`Réinitialiser toutes les cases pour "${project.name}" ?`)) return;
-  project.checks = {};
-  save(); render();
+  if (!activeId) return;
+  const p = projects.find(x => x.id === activeId);
+  if (!confirm('Réinitialiser toutes les cases pour "' + (p?.name || '') + '" ?')) return;
+  checks = {};
+  db.ref('checklist/' + activeId + '/checks').remove();
+  renderGrid();
+  renderProgress();
 });
 
-// ═══════════════════════════════════════════════════
-// SAVE FLASH
-// ═══════════════════════════════════════════════════
-let saveTimer;
-function flashSave() {
-  const el = document.getElementById('saveStatus');
-  el.textContent = '✓ Sauvegardé';
-  el.className = 'nav-save-status saved';
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    el.textContent = 'Auto-sauvegarde active';
-    el.className = 'nav-save-status';
-  }, 2000);
-}
-
-// ═══════════════════════════════════════════════════
-// UTILS
-// ═══════════════════════════════════════════════════
+// ── UTILS ──
 function escHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ═══════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════
-load();
-document.getElementById('saveStatus').textContent = 'Auto-sauvegarde active';
-render();
+// ── GO ──
+init();
 </script>
 </body>
 </html>
