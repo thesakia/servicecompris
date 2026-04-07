@@ -396,7 +396,7 @@ async function subscribeToProject(id) {
 }
 
 async function loadChecks(id) {
-  const filter = encodeURIComponent('project="' + id + '"');
+  const filter = encodeURIComponent('projects="' + id + '"');
   const data = await pbFetch('/api/collections/checks/records?filter=' + filter + '&perPage=200');
   // Si l'utilisateur a changé de projet pendant la requête, on ignore
   if (pollProjectId !== id) return;
@@ -408,7 +408,7 @@ async function loadChecks(id) {
 }
 
 async function deleteAllChecks(projectId) {
-  const filter = encodeURIComponent('project="' + projectId + '"');
+  const filter = encodeURIComponent('projects="' + projectId + '"');
   const data = await pbFetch('/api/collections/checks/records?filter=' + filter + '&perPage=200').catch(() => ({ items: [] }));
   await Promise.all((data.items || []).map(r =>
     pbFetch('/api/collections/checks/records/' + r.id, { method: 'DELETE' })
@@ -582,7 +582,7 @@ async function saveCheck(projectId, itemId, value) {
     let recId = _checkCache[cacheKey];
     if (!recId) {
       // Chercher si un enregistrement existe déjà
-      const filter = encodeURIComponent('project="' + projectId + '" && item_id="' + itemId + '"');
+      const filter = encodeURIComponent('projects="' + projectId + '" && item_id="' + itemId + '"');
       const data = await pbFetch('/api/collections/checks/records?filter=' + filter + '&perPage=1');
       recId = data.items?.[0]?.id || null;
       if (recId) _checkCache[cacheKey] = recId;
@@ -595,7 +595,7 @@ async function saveCheck(projectId, itemId, value) {
     } else {
       const rec = await pbFetch('/api/collections/checks/records', {
         method: 'POST',
-        body: JSON.stringify({ project: projectId, item_id: itemId, checked: !!value })
+        body: JSON.stringify({ projects: projectId, item_id: itemId, checked: !!value })
       });
       _checkCache[cacheKey] = rec.id;
     }
