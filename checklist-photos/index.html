@@ -526,14 +526,13 @@ async function createProject(name) {
 
 // ── FIREBASE : charger tous les projets ──
 async function loadAllProjects() {
-  const snap = await db.ref('checklist').orderByChild('createdAt').get();
+  const snap = await db.ref('checklist').get();
   if (!snap.exists()) return [];
   const list = [];
   snap.forEach(child => {
-    list.push({ id: child.key, name: child.val().name, createdAt: child.val().createdAt });
+    list.push({ id: child.key, name: child.val().name, createdAt: child.val().createdAt || 0 });
   });
-  // Plus récent en premier
-  return list.reverse();
+  return list.sort((a, b) => b.createdAt - a.createdAt);
 }
 
 // ── FIREBASE : écouter les checks en temps réel ──
