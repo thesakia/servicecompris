@@ -525,26 +525,35 @@ async function subscribeToProject(id) {
     setStatus('online', 'En ligne');
     pollTimer = setInterval(async () => {
       if (pollProjectId !== id) { clearInterval(pollTimer); return; }
-      try { await loadChecks(id); } catch(e) { setStatus('', 'Hors ligne'); }
+      try { await loadChecks(id, true); } catch(e) { setStatus('', 'Hors ligne'); }
     }, 5000);
   } catch(e) {
     setStatus('', 'Hors ligne');
   }
 }
 
-async function loadChecks(id) {
+async function loadChecks(id, silent = false) {
   const filter = encodeURIComponent('projects="' + id + '"');
   const data = await pbFetch('/api/collections/checks/records?filter=' + filter + '&perPage=200');
-  // Si l'utilisateur a changé de projet pendant la requête, on ignore
   if (pollProjectId !== id) return;
-  checks = {};
-  prios = {};
+
+  const newChecks = {};
+  const newPrios = {};
   (data.items || []).forEach(r => {
-    if (r.checked) checks[r.item_id] = true;
-    if (r.prio) prios[r.item_id] = r.prio;
-    // Mettre à jour le cache d'id PocketBase
+    if (r.checked) newChecks[r.item_id] = true;
+    if (r.prio) newPrios[r.item_id] = r.prio;
     _checkCache[id + '|' + r.item_id] = r.id;
   });
+
+  // En mode silent (polling), ne re-render que si quelque chose a changé
+  if (silent) {
+    const checksChanged = JSON.stringify(newChecks) !== JSON.stringify(checks);
+    const priosChanged  = JSON.stringify(newPrios)  !== JSON.stringify(prios);
+    if (!checksChanged && !priosChanged) return;
+  }
+
+  checks = newChecks;
+  prios  = newPrios;
   renderGrid();
   renderProgress();
   renderTabs();
@@ -737,6 +746,21 @@ const _checkCache = {}; // projectId+itemId → pbRecordId
 async function upsertCheckRecord(projectId, itemId, fields) {
   setStatus('saving', 'Sauvegarde…');
   const cacheKey = projectId + '|' + itemId;
+
+  // Si le champ prio n'existe pas encore en base, on le retire silencieusement
+  async function tryRequest(method, url, body) {
+    try {
+      return await pbFetch(url, { method, body: JSON.stringify(body) });
+    } catch(e) {
+      if ('prio' in body) {
+        // Retry sans prio (champ pas encore créé dans PocketBase)
+        const { prio, ...rest } = body;
+        return await pbFetch(url, { method, body: JSON.stringify(rest) });
+      }
+      throw e;
+    }
+  }
+
   try {
     let recId = _checkCache[cacheKey];
     if (!recId) {
@@ -746,15 +770,10 @@ async function upsertCheckRecord(projectId, itemId, fields) {
       if (recId) _checkCache[cacheKey] = recId;
     }
     if (recId) {
-      await pbFetch('/api/collections/checks/records/' + recId, {
-        method: 'PATCH',
-        body: JSON.stringify(fields)
-      });
+      await tryRequest('PATCH', '/api/collections/checks/records/' + recId, fields);
     } else {
-      const rec = await pbFetch('/api/collections/checks/records', {
-        method: 'POST',
-        body: JSON.stringify({ projects: projectId, item_id: itemId, checked: false, prio: null, ...fields })
-      });
+      const rec = await tryRequest('POST', '/api/collections/checks/records',
+        { projects: projectId, item_id: itemId, checked: false, prio: null, ...fields });
       _checkCache[cacheKey] = rec.id;
     }
     setStatus('online', 'En ligne');
