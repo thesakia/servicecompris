@@ -571,7 +571,14 @@ let projects = []; // cache meta {id, name}
 async function init() {
   const urlId = getUrlProjectId();
 
-  projects = await loadAllProjects();
+  try {
+    projects = await loadAllProjects();
+  } catch(e) {
+    document.getElementById('loadingState').innerHTML =
+      '⚠️ Impossible de charger les projets.<br><small style="color:var(--slate2)">' + e.message + '</small>';
+    setStatus('', 'Erreur Firebase');
+    return;
+  }
 
   document.getElementById('loadingState').style.display = 'none';
 
