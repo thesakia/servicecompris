@@ -359,22 +359,63 @@
 
 <footer>Fait avec soin par <span>Service Compris</span> · servicecompris.pro</footer>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-
 <script>
-// ── FIREBASE ──
-firebase.initializeApp({
-  apiKey: "AIzaSyCh2UaqC5FoaIY9vQqVKKNlRhB24oPxz40",
-  authDomain: "servicecompris-945b6.firebaseapp.com",
-  databaseURL: "https://servicecompris-945b6-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "servicecompris-945b6",
-  storageBucket: "servicecompris-945b6.firebasestorage.app",
-  messagingSenderId: "755907008490",
-  appId: "1:755907008490:web:c1ed3a84e1db8ca9b00493"
-});
-const db = firebase.database();
+// ── POCKETBASE ──
+const PB_URL = 'http://31.220.60.140:32768';
+
+async function pbFetch(path, options = {}) {
+  const res = await fetch(PB_URL + path, {
+    headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
+    ...options
+  });
+  if (!res.ok) throw new Error('PocketBase error ' + res.status);
+  if (res.status === 204) return null;
+  return res.json();
+}
+
+// ── SSE : écouter les checks en temps réel ──
+let sseSource = null;
+
+function subscribeToProject(id) {
+  if (sseSource) { sseSource.close(); sseSource = null; }
+  if (!id) return;
+  setStatus('saving', 'Connexion…');
+
+  // Charger les checks initiaux
+  pbFetch('/api/collections/checks/records?filter=(project="' + id + '")&perPage=200')
+    .then(data => {
+      checks = {};
+      (data.items || []).forEach(r => { if (r.checked) checks[r.item_id] = true; });
+      setStatus('online', 'En ligne');
+      renderGrid();
+      renderProgress();
+      renderTabs();
+    })
+    .catch(() => setStatus('', 'Hors ligne'));
+
+  // Écoute SSE temps réel
+  sseSource = new EventSource(PB_URL + '/api/realtime');
+  sseSource.addEventListener('open', () => {
+    // S'abonner à la collection checks
+    fetch(PB_URL + '/api/realtime', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ clientId: '', subscriptions: ['checks'] })
+    }).catch(() => {});
+  });
+  sseSource.addEventListener('checks', () => {
+    // Recharger les checks à chaque changement
+    pbFetch('/api/collections/checks/records?filter=(project="' + id + '")&perPage=200')
+      .then(data => {
+        checks = {};
+        (data.items || []).forEach(r => { if (r.checked) checks[r.item_id] = true; });
+        renderGrid();
+        renderProgress();
+        renderTabs();
+      }).catch(() => {});
+  });
+  sseSource.onerror = () => setStatus('', 'Hors ligne');
+}
 
 // ── CATÉGORIES ──
 const CATEGORIES = [
@@ -481,7 +522,6 @@ const CATEGORIES = [
 
 // ── STATE ──
 let activeId = null;
-let activeListener = null;
 let checks = {};
 
 // ── STATUS NAV ──
@@ -517,51 +557,55 @@ function getShareUrl(id) {
   return url.toString();
 }
 
-// ── FIREBASE : créer un projet ──
+// ── PB : créer un projet ──
 async function createProject(name) {
-  const id = 'proj_' + Date.now();
-  await db.ref('checklist/' + id).set({ name, createdAt: Date.now(), checks: {} });
-  return id;
+  const rec = await pbFetch('/api/collections/projects/records', {
+    method: 'POST',
+    body: JSON.stringify({ name, createdAt: Date.now() })
+  });
+  return rec.id;
 }
 
-// ── FIREBASE : charger tous les projets ──
+// ── PB : charger tous les projets ──
 async function loadAllProjects() {
-  const snap = await db.ref('checklist').get();
-  if (!snap.exists()) return [];
-  const list = [];
-  snap.forEach(child => {
-    list.push({ id: child.key, name: child.val().name, createdAt: child.val().createdAt || 0 });
-  });
-  return list.sort((a, b) => b.createdAt - a.createdAt);
+  const data = await pbFetch('/api/collections/projects/records?sort=-createdAt&perPage=200');
+  return (data.items || []).map(r => ({ id: r.id, name: r.name, createdAt: r.createdAt || 0 }));
 }
 
-// ── FIREBASE : écouter les checks en temps réel ──
-function subscribeToProject(id) {
-  // Détacher l'ancien listener
-  if (activeListener) {
-    db.ref('checklist/' + activeListener + '/checks').off();
-    activeListener = null;
-  }
-  if (!id) return;
-  activeListener = id;
-  setStatus('saving', 'Connexion…');
-  db.ref('checklist/' + id + '/checks').on('value', snap => {
-    checks = snap.val() || {};
-    setStatus('online', 'En ligne');
-    renderGrid();
-    renderProgress();
-    renderTabs(); // màj badges
-  }, err => {
-    setStatus('', 'Hors ligne');
-  });
-}
+// ── PB : enregistrer une case ──
+// On cherche un enregistrement existant pour (project, item_id) et on le met à jour,
+// ou on en crée un nouveau.
+const _checkCache = {}; // projectId+itemId → pbRecordId
 
-// ── FIREBASE : enregistrer une case ──
-function saveCheck(projectId, itemId, value) {
+async function saveCheck(projectId, itemId, value) {
   setStatus('saving', 'Sauvegarde…');
-  db.ref('checklist/' + projectId + '/checks/' + itemId).set(value)
-    .then(() => setStatus('online', 'En ligne'))
-    .catch(() => setStatus('', 'Erreur'));
+  const cacheKey = projectId + '|' + itemId;
+  try {
+    let recId = _checkCache[cacheKey];
+    if (!recId) {
+      // Chercher si un enregistrement existe déjà
+      const data = await pbFetch(
+        '/api/collections/checks/records?filter=(project="' + projectId + '"&&item_id="' + itemId + '")&perPage=1'
+      );
+      recId = data.items?.[0]?.id || null;
+      if (recId) _checkCache[cacheKey] = recId;
+    }
+    if (recId) {
+      await pbFetch('/api/collections/checks/records/' + recId, {
+        method: 'PATCH',
+        body: JSON.stringify({ checked: !!value })
+      });
+    } else {
+      const rec = await pbFetch('/api/collections/checks/records', {
+        method: 'POST',
+        body: JSON.stringify({ project: projectId, item_id: itemId, checked: !!value })
+      });
+      _checkCache[cacheKey] = rec.id;
+    }
+    setStatus('online', 'En ligne');
+  } catch(e) {
+    setStatus('', 'Erreur');
+  }
 }
 
 // ── RENDER ──
@@ -575,7 +619,7 @@ async function init() {
   } catch(e) {
     document.getElementById('loadingState').innerHTML =
       '⚠️ Impossible de charger les projets.<br><small style="color:var(--slate2)">' + e.message + '</small>';
-    setStatus('', 'Erreur Firebase');
+    setStatus('', 'Erreur PocketBase');
     return;
   }
 
@@ -630,7 +674,10 @@ function renderTabs() {
       }
       if (del) {
         if (confirm('Supprimer le projet "' + p.name + '" définitivement ?')) {
-          await db.ref('checklist/' + p.id).remove();
+          // Supprimer les checks puis le projet
+          const chks = await pbFetch('/api/collections/checks/records?filter=(project="' + p.id + '")&perPage=200').catch(() => ({ items: [] }));
+          await Promise.all((chks.items || []).map(r => pbFetch('/api/collections/checks/records/' + r.id, { method: 'DELETE' })));
+          await pbFetch('/api/collections/projects/records/' + p.id, { method: 'DELETE' });
           projects = projects.filter(x => x.id !== p.id);
           if (activeId === p.id) {
             activeId = projects[0]?.id ?? null;
@@ -756,7 +803,7 @@ async function confirmModal() {
     render();
     document.getElementById('progressBar').style.display = 'flex';
   } catch(e) {
-    showToast('Erreur Firebase — vérifiez votre connexion');
+    showToast('Erreur PocketBase — vérifiez votre connexion');
   }
   document.getElementById('modalConfirm').textContent = 'Créer';
   document.getElementById('modalConfirm').disabled = false;
@@ -776,9 +823,13 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   const p = projects.find(x => x.id === activeId);
   if (!confirm('Réinitialiser toutes les cases pour "' + (p?.name || '') + '" ?')) return;
   checks = {};
-  db.ref('checklist/' + activeId + '/checks').remove();
   renderGrid();
   renderProgress();
+  // Supprimer tous les checks du projet
+  pbFetch('/api/collections/checks/records?filter=(project="' + activeId + '")&perPage=200')
+    .then(data => Promise.all((data.items || []).map(r =>
+      pbFetch('/api/collections/checks/records/' + r.id, { method: 'DELETE' })
+    ))).catch(() => {});
 });
 
 // ── UTILS ──
