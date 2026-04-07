@@ -295,7 +295,7 @@
       background: var(--s2); border: 1px solid var(--border);
     }
     .tpl-item-name { flex: 1; font-size: 14px; font-weight: 600; }
-    .tpl-item-count { font-size: 12px; color: var(--slate2); }
+    .tpl-item-meta { font-size: 11px; color: var(--slate2); white-space: nowrap; }
     .tpl-item-load { padding: 5px 12px; border-radius: 6px; background: var(--lime); color: var(--bg); font-size: 12px; font-weight: 700; border: none; transition: background .15s; }
     .tpl-item-load:hover { background: var(--lime2); }
     .tpl-item-del { padding: 5px 8px; border-radius: 6px; background: transparent; color: var(--slate2); font-size: 12px; border: 1px solid var(--border); transition: all .15s; }
@@ -389,6 +389,23 @@
     .tag-photo { background: rgba(99,179,237,.15); color: #63b3ed; }
     .tag-video { background: rgba(252,129,74,.15); color: #fc814a; }
 
+    /* ── PRIO DOT ── */
+    .prio-dot {
+      width: 11px; height: 11px; border-radius: 50%;
+      border: 1.5px solid var(--s3);
+      background: transparent;
+      flex-shrink: 0; margin-top: 4px; cursor: pointer;
+      transition: border-color .15s, background .15s;
+      padding: 0;
+    }
+    .prio-dot:hover { border-color: var(--slate); }
+    .prio-dot[data-prio="red"]    { background: #f87171; border-color: #f87171; }
+    .prio-dot[data-prio="yellow"] { background: #fbbf24; border-color: #fbbf24; }
+    .prio-dot[data-prio="blue"]   { background: #60a5fa; border-color: #60a5fa; }
+    .item[data-prio="red"]    { border-left: 3px solid #f87171; padding-left: 15px; }
+    .item[data-prio="yellow"] { border-left: 3px solid #fbbf24; padding-left: 15px; }
+    .item[data-prio="blue"]   { border-left: 3px solid #60a5fa; padding-left: 15px; }
+
     /* ── EMPTY / LOADING ── */
     .empty-state { text-align: center; padding: 60px 24px; color: var(--slate); }
     .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
@@ -421,7 +438,7 @@
 <div class="modal-overlay" id="tplOverlay">
   <div class="tpl-modal">
     <h3>Templates de tâches</h3>
-    <p>Sauvegardez les tâches personnalisées du projet actif comme modèle réutilisable pour d'autres projets.</p>
+    <p>Sauvegarde l'état actuel du projet (tâches visibles + perso) comme modèle réutilisable. En chargeant un template, les suppressions et ajouts seront reproduits.</p>
     <div class="tpl-save-row">
       <input type="text" id="tplNameInput" placeholder="Nom du template (ex : Restaurant gastronomique)…" maxlength="60" autocomplete="off">
       <button type="button" class="btn btn-primary" id="tplSaveBtn">Sauvegarder</button>
@@ -501,6 +518,7 @@ async function subscribeToProject(id) {
   pollProjectId = id;
   if (!id) return;
   customTasks = loadCustomTasks(id);
+  prios = loadPrios(id);
   setStatus('saving', 'Connexion…');
   try {
     await loadChecks(id);
@@ -636,6 +654,17 @@ const CATEGORIES = [
     ]
   },
 ];
+
+// ── PRIO (localStorage per project) ──
+function prioKey(projectId) { return 'sc_prio_' + projectId; }
+function loadPrios(projectId) {
+  try { return JSON.parse(localStorage.getItem(prioKey(projectId)) || '{}'); } catch(e) { return {}; }
+}
+function savePrios(projectId, data) {
+  try { localStorage.setItem(prioKey(projectId), JSON.stringify(data)); } catch(e) {}
+}
+let prios = {}; // { itemId: 'red'|'yellow'|'blue'|null }
+const PRIO_CYCLE = [null, 'red', 'yellow', 'blue'];
 
 // ── CUSTOM TASKS (localStorage per project) ──
 function customTasksKey(projectId) { return 'sc_custom_' + projectId; }
@@ -845,12 +874,27 @@ function allItemsForCat(cat) {
 
 function renderItemRow(item, cat, card, countEl, isCustom) {
   const label = document.createElement('label');
+  const curPrio = prios[item.id] || null;
   label.className = 'item';
+  if (curPrio) label.dataset.prio = curPrio;
   label.innerHTML =
+    '<button type="button" class="prio-dot"' + (curPrio ? ' data-prio="' + curPrio + '"' : '') + ' title="Priorité (clic pour changer)"></button>' +
     '<input type="checkbox" data-item="' + item.id + '"' + (checks[item.id] ? ' checked' : '') + '>' +
     '<span class="item-label' + (checks[item.id] ? ' checked' : '') + '">' + escHtml(item.label) + '</span>' +
     '<span class="item-tag tag-' + item.type + '">' + (item.type === 'photo' ? '📷 Photo' : '🎬 Vidéo') + '</span>' +
     '<button type="button" class="item-delete" title="Supprimer cette tâche">✕</button>';
+
+  label.querySelector('.prio-dot').addEventListener('click', e => {
+    e.preventDefault(); e.stopPropagation();
+    const dot = e.currentTarget;
+    const cur = dot.dataset.prio || null;
+    const idx = PRIO_CYCLE.indexOf(cur);
+    const next = PRIO_CYCLE[(idx + 1) % PRIO_CYCLE.length];
+    if (next) { dot.dataset.prio = next; label.dataset.prio = next; }
+    else { delete dot.dataset.prio; delete label.dataset.prio; }
+    prios[item.id] = next;
+    savePrios(activeId, prios);
+  });
 
   const cb = label.querySelector('input');
   cb.addEventListener('change', e => {
@@ -1085,32 +1129,55 @@ function renderTplList() {
     return;
   }
   tpls.forEach((tpl, idx) => {
-    const count = Object.values(tpl.tasks || {}).reduce((s, arr) => s + arr.length, 0);
+    // Compatibilité ancien format (tasks) et nouveau (snapshot)
+    const snap = tpl.snapshot || tpl.tasks || {};
+    const count = tpl.total || Object.values(snap).reduce((s, arr) => s + arr.length, 0);
     const row = document.createElement('div');
     row.className = 'tpl-item';
     row.innerHTML =
       '<span class="tpl-item-name">' + escHtml(tpl.name) + '</span>' +
-      '<span class="tpl-item-count">' + count + ' tâche' + (count > 1 ? 's' : '') + '</span>' +
+      '<span class="tpl-item-meta">' + count + ' tâche' + (count > 1 ? 's' : '') + '</span>' +
       '<button type="button" class="tpl-item-load">Charger</button>' +
-      '<button type="button" class="tpl-item-del">Supprimer</button>';
+      '<button type="button" class="tpl-item-del">✕</button>';
 
     row.querySelector('.tpl-item-load').addEventListener('click', () => {
       if (!activeId) { showToast('Sélectionnez un projet d\'abord'); return; }
-      if (!confirm('Charger le template "' + tpl.name + '" ? Les tâches perso existantes seront remplacées.')) return;
-      // Cloner pour éviter les conflits d'id si le template est chargé plusieurs fois
-      const cloned = {};
-      Object.entries(tpl.tasks || {}).forEach(([catId, items]) => {
-        cloned[catId] = items.map(t => ({
-          ...t,
-          id: 'custom_' + catId + '_' + Date.now() + '_' + Math.random().toString(36).slice(2)
-        }));
+      if (!confirm('Appliquer le template "' + tpl.name + '" sur ce projet ?\nLes tâches supprimées et les tâches perso actuelles seront remplacées.')) return;
+
+      const delKey = 'sc_deleted_' + activeId;
+      const newDeleted = {};
+      const newCustom = {};
+
+      CATEGORIES.forEach(cat => {
+        const snapped = snap[cat.id]; // liste des items à garder pour cette catégorie
+        if (!snapped) {
+          // Catégorie entièrement absente du template : masquer tous les items de base
+          cat.items.forEach(i => { newDeleted[i.id] = true; });
+          return;
+        }
+        const snappedIds = new Set(snapped.map(i => i.id));
+        // Masquer les items de base non présents dans le snapshot
+        cat.items.forEach(i => {
+          if (!snappedIds.has(i.id)) newDeleted[i.id] = true;
+        });
+        // Les items custom du snapshot (origin=custom ou id inconnu dans CATEGORIES)
+        const baseIds = new Set(cat.items.map(i => i.id));
+        const customItems = snapped
+          .filter(i => !baseIds.has(i.id) || i.origin === 'custom')
+          .map(i => ({
+            ...i,
+            id: 'custom_' + cat.id + '_' + Date.now() + '_' + Math.random().toString(36).slice(2)
+          }));
+        if (customItems.length) newCustom[cat.id] = customItems;
       });
-      customTasks = cloned;
+
+      localStorage.setItem(delKey, JSON.stringify(newDeleted));
+      customTasks = newCustom;
       saveCustomTasks(activeId, customTasks);
       renderGrid();
       renderProgress();
       closeTplModal();
-      showToast('Template "' + tpl.name + '" chargé !');
+      showToast('Template "' + tpl.name + '" appliqué !');
     });
 
     row.querySelector('.tpl-item-del').addEventListener('click', () => {
@@ -1127,14 +1194,30 @@ function renderTplList() {
 document.getElementById('tplSaveBtn').addEventListener('click', () => {
   const name = document.getElementById('tplNameInput').value.trim();
   if (!name) { document.getElementById('tplNameInput').focus(); return; }
-  const count = Object.values(customTasks).reduce((s, arr) => s + arr.length, 0);
-  if (!count) { showToast('Aucune tâche personnalisée à sauvegarder'); return; }
+
+  // Capturer l'état complet : items de base visibles + customs, par catégorie
+  const delKey = 'sc_deleted_' + activeId;
+  let deleted = {};
+  try { deleted = JSON.parse(localStorage.getItem(delKey) || '{}'); } catch(e) {}
+
+  const snapshot = {}; // catId → [{id, label, type, origin:'base'|'custom'}]
+  CATEGORIES.forEach(cat => {
+    const baseVisible = cat.items
+      .filter(i => !deleted[i.id])
+      .map(i => ({ id: i.id, label: i.label, type: i.type, origin: 'base' }));
+    const customs = (customTasks[cat.id] || [])
+      .map(i => ({ id: i.id, label: i.label, type: i.type, origin: 'custom' }));
+    const all = [...baseVisible, ...customs];
+    if (all.length) snapshot[cat.id] = all;
+  });
+
+  const total = Object.values(snapshot).reduce((s, arr) => s + arr.length, 0);
   const tpls = loadTemplates();
-  tpls.unshift({ name, tasks: JSON.parse(JSON.stringify(customTasks)) });
+  tpls.unshift({ name, snapshot, total });
   saveTemplates(tpls);
   document.getElementById('tplNameInput').value = '';
   renderTplList();
-  showToast('Template "' + name + '" sauvegardé !');
+  showToast('Template "' + name + '" sauvegardé (' + total + ' tâches) !');
 });
 
 document.getElementById('tplClose').addEventListener('click', closeTplModal);
