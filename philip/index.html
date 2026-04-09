@@ -20,7 +20,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet"></noscript>
-  <link href="css/aos.min.css" rel="stylesheet">
+  <link href="css/aos.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="css/aos.min.css" rel="stylesheet"></noscript>
 
   <script type="application/ld+json">
   {
@@ -1645,14 +1646,14 @@
   <span id="lb-count" class="lb-hide"></span>
 </div>
 
-<script src="js/aos.min.js"></script>
+<script src="js/aos.min.js" defer></script>
 <script>
   AOS.init({ duration: 680, once: true, offset: 70 });
 
   // Tabs — hauteur animée
   function tabSetHeight(wrap) {
     const active = wrap.querySelector('.panel.on');
-    if (active) wrap.style.height = active.scrollHeight + 'px';
+    if (active) requestAnimationFrame(() => { wrap.style.height = active.scrollHeight + 'px'; });
   }
   function tab(btn, id) {
     document.querySelectorAll('.tab').forEach(t => { t.classList.remove('on'); t.setAttribute('aria-selected','false'); });
@@ -1662,7 +1663,7 @@
     const panel = document.getElementById(id);
     panel.classList.add('on');
     const wrap = panel.closest('.panels-wrap');
-    if (wrap) wrap.style.height = panel.scrollHeight + 'px';
+    if (wrap) requestAnimationFrame(() => { wrap.style.height = panel.scrollHeight + 'px'; });
   }
   document.querySelectorAll('.panels-wrap').forEach(tabSetHeight);
   window.addEventListener('resize', () => document.querySelectorAll('.panels-wrap').forEach(tabSetHeight));
