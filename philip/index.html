@@ -483,6 +483,36 @@
     .hist-img:hover img { transform: scale(1.05); }
 
     /* ============================
+       SOCIAL
+    ============================ */
+    #social { text-align: center; padding: 70px 0; }
+    .social-wrap { max-width: 600px; margin: 0 auto; }
+    .social-desc { font-size: .95rem; color: var(--muted); line-height: 1.75; margin-top: 1.2rem; margin-bottom: 2.4rem; }
+    .social-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .social-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 28px 40px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      text-decoration: none;
+      color: var(--text);
+      min-width: 160px;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+    }
+    .social-btn:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.10); }
+    .social-btn svg { width: 36px; height: 36px; }
+    .social-btn-label { font-family: var(--hf); font-size: 1rem; font-weight: 700; }
+    .social-btn-handle { font-size: .78rem; color: var(--muted); letter-spacing: .03em; }
+    .social-btn--ig:hover { border-color: #E1306C; color: #E1306C; }
+    .social-btn--ig:hover .social-btn-handle { color: #E1306C; }
+    .social-btn--fb:hover { border-color: #1877F2; color: #1877F2; }
+    .social-btn--fb:hover .social-btn-handle { color: #1877F2; }
+
+    /* ============================
        CHURCHILL
     ============================ */
     #churchill { padding: 70px 0; }
@@ -1470,6 +1500,30 @@
       <div class="review-card">
         <p class="review-text">"Le dernier restaurant avant la source, et probablement le plus beau cadre de table de tout le Vaucluse."</p>
         <p class="review-meta"><strong>Visiteur</strong> · Été 2023</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SOCIAL ========== -->
+<section id="social">
+  <div class="container">
+    <div class="social-wrap" data-aos="fade-up">
+      <span class="label">Suivez-nous</span>
+      <h2 class="title">Retrouvez-nous<br><em>sur les réseaux</em></h2>
+      <div class="rule"></div>
+      <p class="social-desc">Photos de saison, coulisses de la cuisine, moments de terrasse au bord de la Sorgue. Suivez-nous pour ne rien manquer.</p>
+      <div class="social-btns">
+        <a href="https://www.instagram.com/restaurantphilip/" target="_blank" rel="noopener" class="social-btn social-btn--ig" aria-label="Instagram du Restaurant Philip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          <span class="social-btn-label">Instagram</span>
+          <span class="social-btn-handle">@restaurantphilip</span>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=100063526208458" target="_blank" rel="noopener" class="social-btn social-btn--fb" aria-label="Facebook du Restaurant Philip">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          <span class="social-btn-label">Facebook</span>
+          <span class="social-btn-handle">Restaurant Philip</span>
+        </a>
       </div>
     </div>
   </div>
