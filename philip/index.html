@@ -18,7 +18,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet"></noscript>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
   <script type="application/ld+json">
@@ -1122,6 +1123,7 @@
 </header>
 
 <!-- ========== HERO ========== -->
+<main>
 <section id="hero">
   <div class="hero-poster" aria-hidden="true"></div>
   <video
@@ -1541,16 +1543,22 @@
         </div>
       </div>
       <div class="churchill-photos">
-        <div class="ch-photo" onclick="lb('img/churchill/winston-churchill-restaurant-philip-fontaine-de-vaucluse-1952.jpg')">
-          <img src="img/churchill/winston-churchill-restaurant-philip-fontaine-de-vaucluse-1952.jpg"
-               alt="Winston Churchill devant le Restaurant Philip à Fontaine-de-Vaucluse, 1952, photo dédicacée"
-               loading="lazy">
+        <div class="ch-photo" onclick="lb('img/churchill/winston-churchill-restaurant-philip-fontaine-de-vaucluse-1952.webp')">
+          <picture>
+            <source srcset="img/churchill/winston-churchill-restaurant-philip-fontaine-de-vaucluse-1952.webp" type="image/webp">
+            <img src="img/churchill/winston-churchill-restaurant-philip-fontaine-de-vaucluse-1952.jpg"
+                 alt="Winston Churchill devant le Restaurant Philip à Fontaine-de-Vaucluse, 1952, photo dédicacée"
+                 loading="lazy">
+          </picture>
           <div class="ch-caption">Fontaine-de-Vaucluse, 1952 · Photo dédicacée</div>
         </div>
-        <div class="ch-photo" onclick="lb('img/churchill/winston-churchill-dejeuner-provence-life-magazine-1949.jpg')">
-          <img src="img/churchill/winston-churchill-dejeuner-provence-life-magazine-1949.jpg"
-               alt="Winston Churchill déjeunant en terrasse en Provence, Life Magazine, 1949"
-               loading="lazy">
+        <div class="ch-photo" onclick="lb('img/churchill/winston-churchill-dejeuner-provence-life-magazine-1949.webp')">
+          <picture>
+            <source srcset="img/churchill/winston-churchill-dejeuner-provence-life-magazine-1949.webp" type="image/webp">
+            <img src="img/churchill/winston-churchill-dejeuner-provence-life-magazine-1949.jpg"
+                 alt="Winston Churchill déjeunant en terrasse en Provence, Life Magazine, 1949"
+                 loading="lazy">
+          </picture>
           <div class="ch-caption">Life Magazine · Février 1949</div>
         </div>
       </div>
@@ -1559,6 +1567,7 @@
 </section>
 
 <!-- ========== FOOTER ========== -->
+</main>
 <footer>
   <div class="container">
     <div class="ft-grid">
@@ -1577,7 +1586,7 @@
         </div>
       </div>
       <div class="ft-col">
-        <h4>Navigation</h4>
+        <h3>Navigation</h3>
         <ul>
           <li><a href="#histoire">Notre histoire</a></li>
           <li><a href="#cadre">Le cadre</a></li>
@@ -1587,7 +1596,7 @@
         </ul>
       </div>
       <div class="ft-col">
-        <h4>Contact</h4>
+        <h3>Contact</h3>
         <ul>
           <li><a href="tel:+33975592863">+33 9 75 59 28 63</a></li>
         </ul>
