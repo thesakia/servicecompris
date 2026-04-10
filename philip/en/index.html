@@ -63,7 +63,8 @@
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { overflow-x: hidden; }
     img { max-width: 100%; display: block; }
     a { text-decoration: none; color: inherit; }
     button { cursor: pointer; background: none; border: none; }
@@ -452,6 +453,7 @@
       .ft-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
+      .container { padding: 0 20px; }
       section { padding: 68px 0; }
       .nav-links { display: none; position: fixed; top: 70px; left: 0; right: 0; background: var(--header-bg); flex-direction: column; padding: 1.5rem 2rem; gap: 1.25rem; border-bottom: 1px solid var(--border); z-index: 800; backdrop-filter: blur(14px); }
       .nav-links.open { display: flex; }
