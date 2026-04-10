@@ -467,10 +467,12 @@
 
     .hist-imgs {
       display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 420px 260px;
       gap: 14px;
-      height: 720px;
+    }
+    .hist-img:nth-child(3) {
+      grid-column: 1 / -1;
     }
     .hist-img {
       border-radius: 8px;
@@ -1248,8 +1250,8 @@
     ============================ */
     @media (max-width: 1024px) {
       .histoire-grid, .infos-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .hist-imgs { height: 220px; grid-template-rows: 1fr; grid-template-columns: 1fr 1fr 1fr; }
-      .hist-img:first-child { grid-column: auto; }
+      .hist-imgs { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 140px; }
+      .hist-img:nth-child(3) { grid-column: 1 / -1; }
       .gallery { grid-template-columns: 1fr 1fr; }
       .gallery .g-item:first-child { grid-row: span 1; }
       .menus-cards { grid-template-columns: 1fr 1fr; }
