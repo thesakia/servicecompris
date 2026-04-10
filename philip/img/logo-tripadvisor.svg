@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 66" role="img" aria-label="TripAdvisor">
+  <!-- Hibou gauche (cercle vert) -->
+  <circle cx="33" cy="33" r="33" fill="#34E0A1"/>
+  <circle cx="33" cy="33" r="24" fill="white"/>
+  <circle cx="26" cy="33" r="9" fill="#34E0A1"/>
+  <circle cx="40" cy="33" r="9" fill="#34E0A1"/>
+  <circle cx="26" cy="33" r="5" fill="black"/>
+  <circle cx="40" cy="33" r="5" fill="black"/>
+  <circle cx="24.5" cy="31.5" r="2" fill="white"/>
+  <circle cx="38.5" cy="31.5" r="2" fill="white"/>
+  <!-- Hibou droit (cercle rouge/bordeaux) -->
+  <circle cx="167" cy="33" r="33" fill="#FF8C00" opacity="0.85"/>
+  <circle cx="167" cy="33" r="24" fill="white"/>
+  <circle cx="160" cy="33" r="9" fill="#FF4D00"/>
+  <circle cx="174" cy="33" r="9" fill="#FF4D00"/>
+  <circle cx="160" cy="33" r="5" fill="black"/>
+  <circle cx="174" cy="33" r="5" fill="black"/>
+  <circle cx="158.5" cy="31.5" r="2" fill="white"/>
+  <circle cx="172.5" cy="31.5" r="2" fill="white"/>
+  <!-- Texte TripAdvisor -->
+  <text x="100" y="39" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00AF87" text-anchor="middle">TripAdvisor</text>
+</svg>

@@ -407,6 +407,7 @@
     @media (max-width: 480px) {
       .mosaic { grid-auto-rows: 140px; gap: 5px; }
       .mo:nth-child(10), .mo:nth-child(11) { grid-column: span 1; }
+      .menus-cards { grid-template-columns: 1fr; }
     }
 
     /* ============================
@@ -722,23 +723,23 @@
     .menus-cards {
       grid-column: 1 / -1;
       display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 1.5rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
     }
     .mc {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 2rem 1.75rem;
+      padding: 2rem 2rem;
       text-align: center;
     }
-    .mc.star { background: var(--btn); border-color: var(--btn); }
+    .mc.star { background: var(--surface); border-color: var(--divider); border-width: 2px; }
     .mc-label { font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: .4rem; }
-    .mc.star .mc-label { color: rgba(255,255,255,.7); }
+    .mc.star .mc-label { color: var(--accent); }
     .mc-name { font-family: var(--hf); font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: .4rem; }
-    .mc.star .mc-name { color: var(--btn-text); }
+    .mc.star .mc-name { color: var(--text); }
     .mc-price { font-family: var(--hf); font-size: 2.2rem; font-weight: 900; color: var(--accent); }
-    .mc.star .mc-price { color: var(--btn-text); }
+    .mc.star .mc-price { color: var(--accent); }
     .mc-price sup { font-size: 1rem; vertical-align: super; }
     .mc-desc { font-size: .82rem; color: var(--muted); margin-top: 1rem; line-height: 1.65; }
     .mc.star .mc-desc { color: rgba(255,255,255,.75); }
@@ -839,8 +840,9 @@
     }
     .badge:hover { border-color: var(--accent); transform: translateY(-3px); }
     a.badge { text-decoration: none; color: inherit; cursor: pointer; }
-    .badge-ico { display: flex; justify-content: center; margin-bottom: .6rem; }
+    .badge-ico { display: flex; justify-content: center; align-items: center; margin-bottom: .8rem; height: 64px; }
     .badge-ico svg { width: 26px; height: 26px; stroke: var(--accent); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .badge-ico img { max-height: 64px; max-width: 140px; width: auto; object-fit: contain; }
     .chip { display: inline-flex; align-items: center; gap: 5px; }
     .chip svg { width: 12px; height: 12px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
     .badge-name { font-family: var(--hf); font-size: .9rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 2px; }
@@ -1089,6 +1091,117 @@
     .lb-arr.lb-hide, #lb-count.lb-hide { display: none; }
 
     /* ============================
+       MENUS DÉTAILLÉS
+    ============================ */
+    .mc-courses {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: left;
+    }
+    .mc-course {
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+      padding-top: .85rem;
+      border-top: 1px solid var(--border);
+    }
+    .mc-course:first-child { border-top: none; padding-top: 0; }
+    .mc-course-title {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .mc-course-title em {
+      font-style: normal;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--muted);
+      font-size: .75rem;
+    }
+    .mc-course-detail {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .mc-course-detail:nth-child(odd):not(:first-of-type) {
+      color: var(--text);
+    }
+    .mc-suppl {
+      font-style: normal;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: .72rem;
+      color: var(--muted);
+      opacity: .8;
+    }
+    .mc-suppl-inline {
+      font-size: .8rem;
+      color: var(--muted);
+      opacity: .85;
+    }
+    .mc-boissons {
+      font-style: italic;
+      font-size: .8rem;
+      opacity: .65;
+    }
+    .mc-ou {
+      font-size: .75rem;
+      font-style: italic;
+      color: var(--muted);
+      opacity: .55;
+      text-align: center;
+    }
+
+    /* ============================
+       BAR
+    ============================ */
+    .bar-intro-wrap { max-width: 640px; margin-bottom: 2.4rem; }
+    .bar-accroche {
+      font-size: 1.18rem; font-style: italic; color: var(--accent);
+      margin-bottom: .75rem; line-height: 1.5;
+    }
+    .bar-text { font-size: 1.02rem; color: var(--muted); line-height: 1.8; }
+    .bar-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2.8rem;
+    }
+    .bar-gallery .g-item { border-radius: 10px; aspect-ratio: 4/3; overflow: hidden; }
+    .bar-gallery .g-item img { width: 100%; height: 100%; object-fit: cover; }
+    .bar-infos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 3rem;
+    }
+    .bar-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .85rem;
+    }
+    .bar-info-item svg {
+      width: 22px; height: 22px;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .bar-info-item div {
+      display: flex; flex-direction: column; gap: .15rem;
+    }
+    .bar-info-item strong {
+      font-size: .95rem; color: var(--text); font-weight: 600;
+    }
+    .bar-info-item span {
+      font-size: .88rem; color: var(--muted);
+    }
+
+    /* ============================
        RESPONSIVE
     ============================ */
     @media (max-width: 1024px) {
@@ -1097,10 +1210,13 @@
       .hist-img:first-child { grid-column: auto; }
       .gallery { grid-template-columns: 1fr 1fr; }
       .gallery .g-item:first-child { grid-row: span 1; }
-      .menus-cards { grid-template-columns: 1fr; }
+      .menus-cards { grid-template-columns: 1fr 1fr; }
       .ft-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
+      .bar-gallery { grid-template-columns: 1fr 1fr; }
+      .bar-gallery .g-item:last-child { grid-column: span 2; }
+      .bar-infos { flex-direction: column; gap: 1.2rem; }
       section { padding: 68px 0; }
       .nav-links {
         display: none;
@@ -1140,6 +1256,7 @@
       <a href="#histoire">Notre histoire</a>
       <a href="#cadre">Le cadre</a>
       <a href="#carte">La carte</a>
+      <a href="#bar">Le bar</a>
       <a href="#distinctions">Distinctions</a>
       <a href="#infos">Infos pratiques</a>
     </nav>
@@ -1266,28 +1383,6 @@
       <p class="cadre-text">On ne vient pas seulement manger chez Philip. On vient souffler, se retrouver, laisser la beauté du lieu faire son travail. Et quand l'assiette arrive, le cadre a déjà fait la moitié du chemin.</p>
       <p class="cadre-text">À l'intérieur, une salle chaleureuse, au milieu de laquelle s'écoule la rivière, vous accueille les jours de mistral ou de pluie.</p>
     </div>
-    <div class="gallery" data-aos="fade-up">
-      <div class="g-item" onclick="lb('img/terrasse-panoramique-platanes-sorgue-philip.webp')">
-        <img src="img/terrasse-panoramique-platanes-sorgue-philip-opt.webp" alt="Terrasse panoramique du Restaurant Philip sous les platanes centenaires au bord de la Sorgue" loading="lazy" width="900" height="506">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
-      </div>
-      <div class="g-item" onclick="lb('img/salle-interieure-sorgue-restaurant-philip.webp')">
-        <img src="img/salle-interieure-sorgue-restaurant-philip-opt.webp" alt="Salle intérieure du Restaurant Philip avec vue sur la Sorgue" loading="lazy" width="900" height="506">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
-      </div>
-      <div class="g-item" onclick="lb('img/terrasse-bord-sorgue-chaises-restaurant-philip.webp')">
-        <img src="img/terrasse-bord-sorgue-chaises-restaurant-philip-opt.webp" alt="Tables en terrasse au bord de la Sorgue turquoise, Restaurant Philip Fontaine-de-Vaucluse" loading="lazy" width="900" height="506">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
-      </div>
-      <div class="g-item" onclick="lb('img/vue-falaise-nature-terrasse-philip-vaucluse.webp')">
-        <img src="img/vue-falaise-nature-terrasse-philip-vaucluse-opt.webp" alt="Vue sur la falaise de Fontaine-de-Vaucluse depuis la terrasse du Restaurant Philip" loading="lazy" width="900" height="599">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
-      </div>
-      <div class="g-item" onclick="lb('img/table-verres-sorgue-restaurant-philip.webp')">
-        <img src="img/table-verres-sorgue-restaurant-philip-opt.webp" alt="Table dressée, verres à vin avec vue sur la Sorgue turquoise, Restaurant Philip" loading="lazy" width="900" height="506">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1313,58 +1408,125 @@
     <!-- Entrées -->
     <div class="panel on" id="p-ent" role="tabpanel">
       <div class="wc-grid">
-        <div class="wc"><div class="wc-name">Asperges du Pays en déclinaison</div><p class="wc-desc">Vapeur, tempura ou mousse, vertes et blanches selon arrivage</p></div>
-        <div class="wc"><div class="wc-name">Petit Gris de Malige</div><p class="wc-desc">Préparés à la tradition, au choix en entrée du menu</p></div>
-        <div class="wc"><div class="wc-name">Foie gras poêlé</div><p class="wc-desc">Condiment betterave, marmelade de pomme</p></div>
-        <div class="wc"><div class="wc-name">Pressé aux truffes Mélanosporum</div><p class="wc-desc">Coulis léger, marmelade de pomme</p></div>
+        <div class="wc"><div class="wc-name">Les Asperges de Pays en déclinaison</div></div>
+        <div class="wc"><div class="wc-name">La verrine d'escargots « Petit Gris » de Mollégès</div><p class="wc-desc">Ail et persil</p></div>
+        <div class="wc"><div class="wc-name">La truite marinée en Gravlax</div><p class="wc-desc">Fromage de chèvre frais aux herbes</p></div>
+        <div class="wc"><div class="wc-name">Le foie gras poêlé</div><p class="wc-desc">Condiment betterave, citron confit et marmelade de pomme</p></div>
+        <div class="wc"><div class="wc-name">L'omelette aux truffes Melanosporum</div><p class="wc-desc">Les truffes sont mises en conserve par nos soins</p></div>
       </div>
     </div>
 
     <!-- Poissons -->
     <div class="panel" id="p-poi" role="tabpanel">
       <div class="wc-grid">
-        <div class="wc"><div class="wc-name">Truite du « Petit Jarp » en trois façons</div><p class="wc-desc">Jeunes carottes et beurre blanc, plat signature</p></div>
-        <div class="wc"><div class="wc-name">Pavé d'omble chevalier</div><p class="wc-desc">Rosette d'Époisses en safran, jeunes légumes, émulsion capucine</p></div>
+        <div class="wc"><div class="wc-name">La truite du « Petit Large » en trois façons</div><p class="wc-desc">Jeunes carottes et beurre blanc</p></div>
+        <div class="wc"><div class="wc-name">Le pavé d'omble chevalier</div><p class="wc-desc">Risotto d'épeautre au safran, jeunes légumes, émulsion safranée</p></div>
       </div>
     </div>
 
     <!-- Viandes -->
     <div class="panel" id="p-via" role="tabpanel">
       <div class="wc-grid">
-        <div class="wc"><div class="wc-name">Croustillant d'épaule d'agneau confit</div><p class="wc-desc">Aux parfums méditerranéens, légumes de saison</p></div>
-        <div class="wc"><div class="wc-name">Suggestion du marché</div><p class="wc-desc">Viande selon les arrivages, demandez en salle</p></div>
+        <div class="wc"><div class="wc-name">Le croustillant d'épaule d'agneau confite</div><p class="wc-desc">Aux parfums méditerranéens</p></div>
+        <div class="wc"><div class="wc-name">Le pigeonneau rôti, la cuisse confite</div><p class="wc-desc">Écrasée de pomme de terre à l'huile d'olive, tarte tatin à l'oignon et jus réduit</p></div>
       </div>
+      <p style="font-size:.82rem; color:var(--muted); margin-top:1.4rem; font-style:italic; opacity:.8;">Notre viande d'agneau, nos pigeonneaux et nos suprêmes de volailles des menus enfants sont d'origine France.</p>
     </div>
 
     <!-- Desserts -->
     <div class="panel" id="p-des" role="tabpanel">
       <div class="wc-grid">
-        <div class="wc"><div class="wc-name">Fromages de Nathalie Morotti</div><p class="wc-desc">Fromagère à Pernes-les-Fontaines</p></div>
-        <div class="wc"><div class="wc-name">Fraises du Pays en tartelette</div><p class="wc-desc">Fraises locales, fond de tarte maison</p></div>
-        <div class="wc"><div class="wc-name">Baba au Rhum</div><p class="wc-desc">Recette maison</p></div>
-        <div class="wc"><div class="wc-name">Assortiment de glaces et sorbets</div><p class="wc-desc">Sélection maison</p></div>
+        <div class="wc"><div class="wc-name">La sélection de fromages de Nathalie Montiel</div><p class="wc-desc">Fromagère à Pernes-les-Fontaines</p></div>
+        <div class="wc"><div class="wc-name">Les fraises de Pays en tartelette</div></div>
+        <div class="wc"><div class="wc-name">Le Baba au Rhum</div></div>
+        <div class="wc"><div class="wc-name">L'assortiment de glaces et sorbets</div></div>
       </div>
     </div>
 
     <!-- Menus -->
     <div class="panel" id="p-men" role="tabpanel">
       <div class="menus-cards">
+
+        <!-- Menu Le Petit Philip -->
         <div class="mc star" data-aos="fade-up">
           <span class="mc-label">Menu</span>
-          <div class="mc-name">Le Philip</div>
+          <div class="mc-name">Le Petit Philip</div>
           <div class="mc-price">41€</div>
-          <p class="mc-desc">Mise en bouche · Entrée au choix · Plat au choix · Fromages · Dessert au choix<br>Asperges du Pays ou Petit Gris, Truite du Petit Jarp, Agneau confit...</p>
+          <div class="mc-courses">
+            <div class="mc-course">
+              <span class="mc-course-title">Mise en bouche</span>
+            </div>
+            <div class="mc-course">
+              <span class="mc-course-title">Entrée <em>au choix</em></span>
+              <span class="mc-course-detail">Les Asperges de Pays en déclinaison</span>
+              <span class="mc-course-detail mc-ou">ou</span>
+              <span class="mc-course-detail">La verrine d'escargots « Petit Gris » de Mollégès, ail et persil</span>
+            </div>
+            <div class="mc-course">
+              <span class="mc-course-title">Plat <em>au choix</em></span>
+              <span class="mc-course-detail">La truite du « Petit Large » en trois façons, jeunes carottes et beurre blanc</span>
+              <span class="mc-course-detail mc-ou">ou</span>
+              <span class="mc-course-detail">Le croustillant d'épaule d'agneau confite aux parfums méditerranéens</span>
+            </div>
+            <div class="mc-course">
+              <span class="mc-course-title">Fromages <em class="mc-suppl">+ 7 € en option</em></span>
+              <span class="mc-course-detail">Sélection de Nathalie Montiel à Pernes-les-Fontaines</span>
+            </div>
+            <div class="mc-course">
+              <span class="mc-course-title">Dessert <em>au choix</em></span>
+              <span class="mc-course-detail">Les fraises de Pays en tartelette</span>
+              <span class="mc-course-detail mc-ou">ou</span>
+              <span class="mc-course-detail">Le Baba au Rhum</span>
+            </div>
+            <div class="mc-course">
+              <span class="mc-course-detail mc-boissons">Boissons non comprises</span>
+            </div>
+          </div>
         </div>
+
+        <!-- Menu Les Libellules -->
         <div class="mc" data-aos="fade-up" data-aos-delay="100">
-          <span class="mc-label">Menu</span>
+          <span class="mc-label">Menu prestige</span>
           <div class="mc-name">Les Libellules</div>
           <div class="mc-price">61€</div>
-          <p class="mc-desc">Mise en bouche · Foie gras poêlé · Poisson · Viande · Fromages · Dessert<br>L'expérience gastronomique de Philip dans sa plénitude</p>
+          <div class="mc-courses">
+            <div class="mc-course">
+              <span class="mc-course-title">Mise en bouche</span>
+            </div>
+            <div class="mc-course">
+              <span class="mc-course-title">Entrée <em>au choix</em></span>
+              <span class="mc-course-detail">La truite marinée en Gravlax, fromage de chèvre frais aux herbes</span>
+              <span class="mc-course-detail mc-ou">ou</span>
+              <span class="mc-course-detail">Le foie gras poêlé, condiment betterave, citron confit et marmelade de pomme</span>
+              <span class="mc-course-detail mc-ou">ou</span>
+              <span class="mc-course-detail">L'omelette aux truffes Melanosporum <span class="mc-suppl-inline">(supplément 9 €)</span></span>
+            </div>
+            <div class="mc-course">
+              <span class="mc-course-title">Plat <em>au choix</em></span>
+              <span class="mc-course-detail">Le pavé d'omble chevalier, risotto d'épeautre au safran, jeunes légumes, émulsion safranée</span>
+              <span class="mc-course-detail mc-ou">ou</span>
+              <span class="mc-course-detail">Le pigeonneau rôti, la cuisse confite, écrasée de pomme de terre à l'huile d'olive, tarte tatin à l'oignon et jus réduit</span>
+            </div>
+            <div class="mc-course">
+              <span class="mc-course-title">Fromages</span>
+              <span class="mc-course-detail">Sélection de Nathalie Montiel à Pernes-les-Fontaines</span>
+            </div>
+            <div class="mc-course">
+              <span class="mc-course-title">Dessert <em>au choix</em></span>
+              <span class="mc-course-detail">Les fraises de Pays en tartelette</span>
+              <span class="mc-course-detail mc-ou">ou</span>
+              <span class="mc-course-detail">Le Baba au Rhum</span>
+            </div>
+            <div class="mc-course">
+              <span class="mc-course-detail mc-boissons">Boissons non comprises</span>
+            </div>
+          </div>
         </div>
+
       </div>
 
-      <div data-aos="fade-up" style="margin-top:1.8rem; padding:1.2rem 1.6rem; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--divider); border-radius:0 8px 8px 0; max-width:620px;">
-        <p style="font-size:.9rem; color:var(--muted); line-height:1.7;">Menu enfant disponible à 20€. Carte variable selon la saison et les arrivages.</p>
+      <div data-aos="fade-up" style="margin-top:1.8rem; padding:1.2rem 1.6rem; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--divider); border-radius:0 8px 8px 0; max-width:680px;">
+        <p style="font-size:.9rem; color:var(--muted); line-height:1.8;">Menu enfant à 20 € — mise en bouche, plat et dessert.<br>Notre viande d'agneau, nos pigeonneaux et nos suprêmes de volailles sont d'origine France.<br>Carte variable selon la saison et les arrivages du marché.</p>
       </div>
     </div>
     <!-- Carte des vins -->
@@ -1449,6 +1611,56 @@
   </div>
 </section>
 
+<!-- ========== BAR ========== -->
+<section id="bar">
+  <div class="container">
+    <span class="label" data-aos="fade-up">Le bar</span>
+    <h2 class="title center" style="text-align:center" data-aos="fade-up">Un verre<br><em>au bord de l'eau</em></h2>
+    <div class="rule center" data-aos="fade-up"></div>
+    <div class="bar-intro-wrap" data-aos="fade-up">
+      <p class="bar-accroche">Avant ou après le repas, simplement pour le plaisir.</p>
+      <p class="bar-text">Notre bar vous accueille en terrasse pour un apéritif, une boisson fraîche ou un café. Profitez du cadre exceptionnel au bord de la Sorgue, sans nécessairement déjeuner — juste le temps d'une pause provençale.</p>
+    </div>
+    <div class="bar-gallery" data-aos="fade-up">
+      <div class="g-item" onclick="lb('img/terrasse-panoramique-platanes-sorgue-philip.webp')">
+        <img src="img/terrasse-panoramique-platanes-sorgue-philip-opt.webp" alt="Terrasse du bar au bord de la Sorgue, Restaurant Philip" loading="lazy" width="900" height="506">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="g-item" onclick="lb('img/terrasse-bord-sorgue-chaises-restaurant-philip.webp')">
+        <img src="img/terrasse-bord-sorgue-chaises-restaurant-philip-opt.webp" alt="Tables en terrasse bar au bord de la Sorgue turquoise" loading="lazy" width="900" height="506">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+      <div class="g-item" onclick="lb('img/vue-falaise-nature-terrasse-philip-vaucluse.webp')">
+        <img src="img/vue-falaise-nature-terrasse-philip-vaucluse-opt.webp" alt="Vue sur la falaise depuis la terrasse bar, Fontaine-de-Vaucluse" loading="lazy" width="900" height="599">
+        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      </div>
+    </div>
+    <div class="bar-infos" data-aos="fade-up">
+      <div class="bar-info-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div>
+          <strong>Horaires bar</strong>
+          <span>10h – 18h · Ouvert 7j/7 (saison)</span>
+        </div>
+      </div>
+      <div class="bar-info-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 010 8h-1"/><path d="M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+        <div>
+          <strong>Au menu du bar</strong>
+          <span>Boissons fraîches, vins, apéritifs, café, glaces</span>
+        </div>
+      </div>
+      <div class="bar-info-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div>
+          <strong>En terrasse</strong>
+          <span>Accès libre, sans réservation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ========== DISTINCTIONS ========== -->
 <section id="distinctions">
   <div class="container">
@@ -1458,23 +1670,23 @@
 
     <div class="badges" data-aos="fade-up">
       <a class="badge" href="https://guide.michelin.com/fr/fr/provence-alpes-cote-dazur/fontaine-de-vaucluse/restaurant/philip" target="_blank" rel="noopener noreferrer">
-        <span class="badge-ico"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span>
+        <span class="badge-ico"><img src="img/logo-michelin.svg" alt="Guide Michelin" loading="lazy"></span>
         <span class="badge-name">Guide Michelin</span><span class="badge-sub">Sélectionné depuis 60 ans</span>
       </a>
       <a class="badge" href="https://fr.gaultmillau.com/fr/restaurants/philip-restaurant" target="_blank" rel="noopener noreferrer">
-        <span class="badge-ico"><svg viewBox="0 0 24 24"><polygon points="12 2 22 12 12 22 2 12"/></svg></span>
+        <span class="badge-ico"><img src="img/logo-gaultmillau.png" alt="Gault &amp; Millau" loading="lazy"></span>
         <span class="badge-name">Gault &amp; Millau</span><span class="badge-sub">Sélectionné</span>
       </a>
       <a class="badge" href="https://www.petitfute.com/v33585-fontaine-de-vaucluse-84800/c1165-restaurants/c4-cuisine-francaise/458584-restaurant-philip.html" target="_blank" rel="noopener noreferrer">
-        <span class="badge-ico"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span>
+        <span class="badge-ico"><img src="img/logo-petitfute.png" alt="Petit Futé" loading="lazy"></span>
         <span class="badge-name">Petit Futé</span><span class="badge-sub">Référencé</span>
       </a>
       <div class="badge">
-        <span class="badge-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
+        <span class="badge-ico"><img src="img/logo-routard.png" alt="Guide du Routard" loading="lazy"></span>
         <span class="badge-name">Guide du Routard</span><span class="badge-sub">Référencé</span>
       </div>
       <a class="badge" href="https://www.tripadvisor.fr/Restaurant_Review-g608806-d1338856-Reviews-Restaurant_Philip-Fontaine_de_Vaucluse_Vaucluse_Provence_Alpes_Cote_d_Azur.html" target="_blank" rel="noopener noreferrer">
-        <span class="badge-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></span>
+        <span class="badge-ico"><img src="img/logo-tripadvisor.png" alt="TripAdvisor" loading="lazy"></span>
         <span class="badge-name">TripAdvisor</span><span class="badge-sub">Travellers' Choice · N°2</span>
       </a>
       <div class="badge" style="border-color:var(--accent)">
@@ -1689,6 +1901,7 @@
           <li><a href="#histoire">Notre histoire</a></li>
           <li><a href="#cadre">Le cadre</a></li>
           <li><a href="#carte">La carte</a></li>
+          <li><a href="#bar">Le bar</a></li>
           <li><a href="#distinctions">Distinctions</a></li>
           <li><a href="#infos">Infos pratiques</a></li>
         </ul>
