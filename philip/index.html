@@ -487,34 +487,38 @@
       letter-spacing: .03em;
       line-height: 1.3;
     }
+    /* Mosaïque restaurant : grille 3 colonnes
+       Rangée 1+2 : grande image (span 2×2) + 4 petites à droite
+       Rangée 3   : 3 photos égales pleine largeur */
     .mo:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-    .mo:nth-child(8), .mo:nth-child(9) { grid-column: span 2; }
+    .mosaic { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 200px; }
+    .mo:nth-child(7),
+    .mo:nth-child(8),
+    .mo:nth-child(9) { grid-column: span 1; }
     @media (max-width: 900px) {
-      .mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 170px; }
-      .mo:nth-child(8), .mo:nth-child(9) { grid-column: span 1; }
+      .mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+      .mo:nth-child(1) { grid-column: span 2; grid-row: span 1; }
     }
     @media (max-width: 480px) {
-      .mosaic { grid-auto-rows: 140px; gap: 5px; }
+      .mosaic { grid-auto-rows: 130px; gap: 5px; }
       .menus-cards { grid-template-columns: 1fr; }
     }
 
-    /* Bar mosaïque */
+    /* Bar mosaïque — compact, 5 photos en 2 rangées */
     .bar-mosaic {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 240px;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-auto-rows: 160px;
       gap: 8px;
       margin-top: 2rem;
     }
-    .bar-mosaic .mo:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-    .bar-mosaic .mo:nth-child(4) { grid-column: span 2; }
+    .bar-mosaic .mo:nth-child(1) { grid-row: span 2; }
     @media (max-width: 900px) {
-      .bar-mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
-      .bar-mosaic .mo:nth-child(1) { grid-column: span 2; }
-      .bar-mosaic .mo:nth-child(4) { grid-column: span 1; }
+      .bar-mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; }
+      .bar-mosaic .mo:nth-child(1) { grid-column: span 2; grid-row: span 1; }
     }
     @media (max-width: 480px) {
-      .bar-mosaic { grid-auto-rows: 150px; gap: 5px; }
+      .bar-mosaic { grid-auto-rows: 120px; gap: 5px; }
     }
 
     /* ============================
