@@ -306,9 +306,14 @@
     .mo:hover .mo-ov { opacity: 1; }
     .mo-label { color: rgba(255,255,255,.93); font-family: var(--hf); font-size: .8rem; font-style: italic; letter-spacing: .03em; line-height: 1.3; }
     .mo:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-    .mo:nth-child(10), .mo:nth-child(11) { grid-column: span 2; }
-    @media (max-width: 900px) { .mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 170px; } }
-    @media (max-width: 480px) { .mosaic { grid-auto-rows: 140px; gap: 5px; } .mo:nth-child(10), .mo:nth-child(11) { grid-column: span 1; } }
+    .mo:nth-child(8), .mo:nth-child(9) { grid-column: span 2; }
+    @media (max-width: 900px) { .mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 170px; } .mo:nth-child(8), .mo:nth-child(9) { grid-column: span 1; } }
+    @media (max-width: 480px) { .mosaic { grid-auto-rows: 140px; gap: 5px; } }
+    .bar-mosaic { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 240px; gap: 8px; margin-top: 2rem; }
+    .bar-mosaic .mo:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .bar-mosaic .mo:nth-child(4) { grid-column: span 2; }
+    @media (max-width: 900px) { .bar-mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; } .bar-mosaic .mo:nth-child(1) { grid-column: span 2; } .bar-mosaic .mo:nth-child(4) { grid-column: span 1; } }
+    @media (max-width: 480px) { .bar-mosaic { grid-auto-rows: 150px; gap: 5px; } }
 
     /* HISTOIRE */
     .histoire-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
@@ -904,6 +909,10 @@
     </div><!-- /panels-wrap -->
 
     <div class="mosaic" data-aos="fade-up">
+      <div class="mo" onclick="lbGal(this,'../img/plat-truite-petit-jarp-dressage-cuisine-philip.webp')">
+        <img src="../img/plat-truite-petit-jarp-dressage-cuisine-philip.webp" alt="Petit Jarp trout, three ways, plating in kitchen, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Petit Jarp trout, three ways</span></div>
+      </div>
       <div class="mo" onclick="lbGal(this,'../img/entree-asperges-pays-declinaison-philip.webp')">
         <img src="../img/entree-asperges-pays-declinaison-philip.webp" alt="Local asparagus, various preparations, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Asparagus, various ways</span></div>
@@ -916,29 +925,17 @@
         <img src="../img/mise-en-bouche-veloute-restaurant-philip.webp" alt="House amuse-bouche, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Amuse-bouche</span></div>
       </div>
-      <div class="mo" onclick="lbGal(this,'../img/entree-saumon-fume-homard-salade-philip.webp')">
-        <img src="../img/entree-saumon-fume-homard-salade-philip.webp" alt="Smoked salmon and lobster salad, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Smoked salmon &amp; lobster</span></div>
-      </div>
-      <div class="mo" onclick="lbGal(this,'../img/plat-truite-petit-jarp-dressage-cuisine-philip.webp')">
-        <img src="../img/plat-truite-petit-jarp-dressage-cuisine-philip.webp" alt="Petit Jarp trout, three ways, plating in kitchen, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Petit Jarp trout, three ways</span></div>
-      </div>
-      <div class="mo" onclick="lbGal(this,'../img/entree-assiette-charcuterie-terroir-philip.webp')">
-        <img src="../img/entree-assiette-charcuterie-terroir-philip.webp" alt="Charcuterie plate from the terroir, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Terroir charcuterie</span></div>
-      </div>
       <div class="mo" onclick="lbGal(this,'../img/plat-agneau-croustillant-confit-legumes-philip.webp')">
         <img src="../img/plat-agneau-croustillant-confit-legumes-philip.webp" alt="Crispy confit lamb shoulder, seasonal vegetables, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Crispy confit lamb shoulder</span></div>
       </div>
-      <div class="mo" onclick="lbGal(this,'../img/dessert-fromages-nathalie-morotti-philip.webp')">
-        <img src="../img/dessert-fromages-nathalie-morotti-philip.webp" alt="Cheese board by Nathalie Morotti, affineur in Pernes-les-Fontaines, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Nathalie Morotti's cheeses</span></div>
-      </div>
       <div class="mo" onclick="lbGal(this,'../img/plat-confit-canard-abricots-restaurant-philip.webp')">
         <img src="../img/plat-confit-canard-abricots-restaurant-philip.webp" alt="Confit duck with apricots, kitchen plating, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Confit duck with apricots</span></div>
+      </div>
+      <div class="mo" onclick="lbGal(this,'../img/dessert-fromages-nathalie-morotti-philip.webp')">
+        <img src="../img/dessert-fromages-nathalie-morotti-philip.webp" alt="Cheese board by Nathalie Morotti, affineur in Pernes-les-Fontaines, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Nathalie Morotti's cheeses</span></div>
       </div>
       <div class="mo" onclick="lbGal(this,'../img/dessert-fraises-pays-tartelette-philip.webp')">
         <img src="../img/dessert-fraises-pays-tartelette-philip.webp" alt="Local strawberry tart, Restaurant Philip" loading="lazy">
@@ -962,18 +959,26 @@
       <p class="bar-accroche">Before or after your meal, simply for the pleasure of it.</p>
       <p class="bar-text">Our bar welcomes you on the terrace for an aperitif, a cold drink or a coffee. Enjoy the exceptional setting by the Sorgue — no need to dine, just a moment of Provençal bliss.</p>
     </div>
-    <div class="bar-gallery" data-aos="fade-up">
-      <div class="g-item" onclick="lb('../img/terrasse-panoramique-platanes-sorgue-philip.webp')">
-        <img src="../img/terrasse-panoramique-platanes-sorgue-philip-opt.webp" alt="Bar terrace by the Sorgue, Restaurant Philip" loading="lazy" width="900" height="506">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+    <div class="bar-mosaic" data-aos="fade-up">
+      <div class="mo" onclick="lbGal(this,'../img/terrasse-panoramique-platanes-sorgue-philip.webp')">
+        <img src="../img/terrasse-panoramique-platanes-sorgue-philip-opt.webp" alt="Panoramic terrace under the plane trees by the Sorgue, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Terrace under the plane trees</span></div>
       </div>
-      <div class="g-item" onclick="lb('../img/terrasse-bord-sorgue-chaises-restaurant-philip.webp')">
-        <img src="../img/terrasse-bord-sorgue-chaises-restaurant-philip-opt.webp" alt="Tables on the bar terrace by the turquoise Sorgue" loading="lazy" width="900" height="506">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      <div class="mo" onclick="lbGal(this,'../img/entree-saumon-fume-homard-salade-philip.webp')">
+        <img src="../img/entree-saumon-fume-homard-salade-philip.webp" alt="Smoked salmon and lobster salad, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Smoked salmon &amp; lobster</span></div>
       </div>
-      <div class="g-item" onclick="lb('../img/vue-falaise-nature-terrasse-philip-vaucluse.webp')">
-        <img src="../img/vue-falaise-nature-terrasse-philip-vaucluse-opt.webp" alt="View of the cliff from the bar terrace, Fontaine-de-Vaucluse" loading="lazy" width="900" height="599">
-        <div class="g-ov"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+      <div class="mo" onclick="lbGal(this,'../img/entree-assiette-charcuterie-terroir-philip.webp')">
+        <img src="../img/entree-assiette-charcuterie-terroir-philip.webp" alt="Charcuterie plate from the terroir, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Terroir charcuterie</span></div>
+      </div>
+      <div class="mo" onclick="lbGal(this,'../img/terrasse-bord-sorgue-chaises-restaurant-philip.webp')">
+        <img src="../img/terrasse-bord-sorgue-chaises-restaurant-philip-opt.webp" alt="Tables on the terrace by the turquoise Sorgue, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">By the Sorgue</span></div>
+      </div>
+      <div class="mo" onclick="lbGal(this,'../img/vue-falaise-nature-terrasse-philip-vaucluse.webp')">
+        <img src="../img/vue-falaise-nature-terrasse-philip-vaucluse-opt.webp" alt="View of the cliff from the terrace, Fontaine-de-Vaucluse" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">View of the cliff</span></div>
       </div>
     </div>
     <div class="bar-infos" data-aos="fade-up">
@@ -1272,7 +1277,7 @@
   var _lbGal = null, _lbIdx = 0, _lbTouch = 0;
   function lb(src) { _lbGal = null; _setLbNav(false); _showLbImg(src, ''); document.getElementById('lb').classList.add('open'); document.body.style.overflow = 'hidden'; }
   function lbGal(el, src) {
-    var items = [...el.closest('.mosaic').querySelectorAll('.mo img')];
+    var items = [...el.closest('.mosaic, .bar-mosaic').querySelectorAll('.mo img')];
     _lbGal = items.map(function(i){ return { src: i.getAttribute('src'), alt: i.alt }; });
     _lbIdx = _lbGal.findIndex(function(i){ return i.src === src; });
     if (_lbIdx < 0) _lbIdx = 0;
