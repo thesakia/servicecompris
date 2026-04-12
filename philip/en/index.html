@@ -498,6 +498,86 @@
     .social-btn--fb:hover { border-color: #1877F2; color: #1877F2; }
     .social-btn--fb:hover .social-btn-handle { color: #1877F2; }
 
+    /* ============================
+       CHURCHILL
+    ============================ */
+    #churchill { padding: 70px 0; }
+    .churchill-wrap { max-width: 780px; margin: 0 auto; }
+    .churchill-header { text-align: center; margin-bottom: 32px; }
+    .churchill-text { margin-top: 24px; text-align: left; }
+    .ch-intro {
+      font-size: .98rem;
+      line-height: 1.75;
+      color: var(--text);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    .churchill-text p {
+      font-size: .9rem;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: .8rem;
+    }
+    .ch-quote {
+      margin-top: 1.4rem;
+      border-left: 3px solid var(--gold);
+      padding: .8rem 1.1rem;
+      background: rgba(184,147,10,.06);
+      border-radius: 0 6px 6px 0;
+      font-style: italic;
+      font-size: .93rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .ch-quote cite {
+      display: block;
+      margin-top: .5rem;
+      font-size: .73rem;
+      font-style: normal;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--gold);
+    }
+    .churchill-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .ch-photo {
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0,0,0,.12);
+      height: 260px;
+    }
+    .ch-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform .5s;
+      filter: grayscale(15%);
+    }
+    .ch-photo:hover img { transform: scale(1.04); filter: grayscale(0%); }
+    .ch-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,.65));
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 28px 12px 9px;
+    }
+    @media (max-width: 560px) {
+      .churchill-photos { grid-template-columns: 1fr; height: auto; }
+      .ch-photo { height: 220px; }
+    }
+
     /* INFOS */
     .infos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
     .infos-grid iframe { width: 100%; height: 380px; border: 0; border-radius: 8px; }
@@ -1166,6 +1246,47 @@
           <div style="margin-top:1.5rem">
             <a href="tel:+33975592863" aria-label="Call Restaurant Philip to book" class="btn">Call to book</a>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CHURCHILL ========== -->
+<section id="churchill" class="alt">
+  <div class="container">
+    <div class="churchill-wrap" data-aos="fade-up">
+      <div class="churchill-header">
+        <span class="label">Illustrious guest</span>
+        <h2 class="title">Winston Churchill<br><em>at our table</em></h2>
+        <div class="rule"></div>
+        <div class="churchill-text">
+          <p class="ch-intro">In the 1950s, Winston Churchill, a great lover of Provence, made Fontaine-de-Vaucluse a regular stop on his trips to the South of France. He chose Philip's table for lunch, a loyalty of which the family still carefully preserves the traces.</p>
+          <p>The first photograph, signed by his own hand, shows him walking with his cane in front of the restaurant sign. An exceptional document, passed down from generation to generation. The second is taken from <em>Life Magazine</em> of February 1949: Churchill lunching on the terrace, by the water, under the plane trees, exactly as our guests do today.</p>
+          <blockquote class="ch-quote">
+            "My tastes are simple; I am easily satisfied with the best."
+            <cite>Sir Winston Churchill</cite>
+          </blockquote>
+        </div>
+      </div>
+      <div class="churchill-photos">
+        <div class="ch-photo" onclick="lb('../img/churchill/winston-churchill-restaurant-philip-fontaine-de-vaucluse-1952.webp')">
+          <picture>
+            <source srcset="../img/churchill/winston-churchill-restaurant-philip-fontaine-de-vaucluse-1952.webp" type="image/webp">
+            <img src="../img/churchill/winston-churchill-restaurant-philip-fontaine-de-vaucluse-1952.jpg"
+                 alt="Winston Churchill in front of Restaurant Philip in Fontaine-de-Vaucluse, 1952, signed photograph"
+                 loading="lazy">
+          </picture>
+          <div class="ch-caption">Fontaine-de-Vaucluse, 1952 · Signed photograph</div>
+        </div>
+        <div class="ch-photo" onclick="lb('../img/churchill/winston-churchill-dejeuner-provence-life-magazine-1949.webp')">
+          <picture>
+            <source srcset="../img/churchill/winston-churchill-dejeuner-provence-life-magazine-1949.webp" type="image/webp">
+            <img src="../img/churchill/winston-churchill-dejeuner-provence-life-magazine-1949.jpg"
+                 alt="Winston Churchill lunching on a terrace in Provence, Life Magazine, 1949"
+                 loading="lazy">
+          </picture>
+          <div class="ch-caption">Life Magazine · February 1949</div>
         </div>
       </div>
     </div>
