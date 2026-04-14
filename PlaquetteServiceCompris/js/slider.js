@@ -2,7 +2,7 @@
    SERVICE COMPRIS — Slider + interactions
    ============================================= */
 
-const TOTAL = 12;
+const TOTAL = 13;
 let current = 0;
 
 const slidesEl  = document.getElementById('slides');
@@ -12,11 +12,11 @@ const nextBtn   = document.getElementById('nextBtn');
 const counterEl = document.getElementById('counter');
 const progFill  = document.getElementById('progFill');
 
-/* Stripe URLs par pack (à remplacer par les vrais liens) */
+/* Liens de paiement par pack */
 const STRIPE = {
-  web:    'https://buy.stripe.com/EXEMPLE_WEB',
-  social: 'https://buy.stripe.com/EXEMPLE_SOCIAL',
-  combo:  'https://buy.stripe.com/EXEMPLE_COMBO'
+  web:    'https://pay.streammate.ai/b/4gM14newLex57ED1Nqc7u01?locale=fr',
+  social: 'https://pay.streammate.ai/b/3cI00jbkz60z6Azcs4c7u02?locale=fr',
+  combo:  'https://pay.streammate.ai/b/14A9ATgET4Wv8IH8bOc7u00?locale=fr'
 };
 
 /* ── Init dots ── */
@@ -86,7 +86,7 @@ document.getElementById('photoUrl').addEventListener('keydown', e => {
   e.stopPropagation(); /* empêche la navigation pendant la saisie */
 });
 
-/* ── Slide 12 : sélectionner un pack ── */
+/* ── Slide 13 : sélectionner un pack ── */
 function selectPack(btn, pack) {
   document.querySelectorAll('.pack-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
