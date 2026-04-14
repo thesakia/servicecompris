@@ -51,6 +51,15 @@ html, body {
   background: linear-gradient(to bottom, rgba(10,10,10,0.92) 0%, transparent 100%);
   pointer-events: none;
 }
+.gear-btn {
+  font-size: 13px;
+  color: rgba(255,255,255,.15);
+  text-decoration: none;
+  pointer-events: all;
+  transition: color .2s;
+  line-height: 1;
+}
+.gear-btn:hover { color: rgba(255,255,255,.5); }
 .counter {
   font-size: 12px; font-weight: 600;
   letter-spacing: 0.15em; color: var(--gold);

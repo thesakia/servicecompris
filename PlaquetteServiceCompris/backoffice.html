@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Backoffice — Service Compris</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #0a0a0f;
+      --surface: #13131a;
+      --s2:      #1c1c26;
+      --border:  rgba(255,255,255,.08);
+      --lime:    #bef264;
+      --gold:    #f5c842;
+      --slate:   #94a3b8;
+      --white:   #ffffff;
+      --red:     #f87171;
+    }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand { font-weight: 800; font-size: .9rem; letter-spacing: .06em; }
+    .nav-brand span { color: var(--lime); }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; font-size: .85rem; font-weight: 600; cursor: pointer; border: none; transition: opacity .15s; }
+    .btn:hover { opacity: .85; }
+    .btn-lime { background: var(--lime); color: #000; }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--slate); }
+    .btn-red { background: rgba(248,113,113,.15); border: 1px solid rgba(248,113,113,.3); color: var(--red); }
+
+    /* ── LAYOUT ── */
+    .page { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+
+    /* ── VIEWS ── */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* ── LIST VIEW ── */
+    .list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .list-title { font-size: 1.3rem; font-weight: 800; }
+    .prospect-list { display: flex; flex-direction: column; gap: 12px; }
+    .prospect-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .prospect-card:hover { border-color: rgba(190,242,100,.3); background: var(--s2); }
+    .pc-thumb {
+      width: 64px;
+      height: 48px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: var(--s2);
+      flex-shrink: 0;
+    }
+    .pc-thumb-empty {
+      width: 64px;
+      height: 48px;
+      border-radius: 6px;
+      background: var(--s2);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .pc-info { flex: 1; min-width: 0; }
+    .pc-name { font-weight: 700; font-size: .95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pc-ville { font-size: .8rem; color: var(--slate); margin-top: 2px; }
+    .pc-actions { display: flex; gap: 8px; flex-shrink: 0; }
+    .ic-btn {
+      width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
+      background: transparent; color: var(--slate); cursor: pointer; display: flex;
+      align-items: center; justify-content: center; font-size: .9rem; transition: all .15s;
+    }
+    .ic-btn:hover { border-color: var(--lime); color: var(--lime); }
+    .ic-btn.del:hover { border-color: var(--red); color: var(--red); }
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--slate); }
+    .empty-state p { margin-top: 12px; font-size: .9rem; }
+
+    /* ── FORM VIEW ── */
+    .form-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .form-title { font-size: 1.3rem; font-weight: 800; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-size: .8rem; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+    input[type=text], input[type=url] {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--white);
+      font-size: .95rem;
+      font-family: inherit;
+      transition: border-color .15s;
+    }
+    input[type=text]:focus, input[type=url]:focus { outline: none; border-color: var(--lime); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+    /* ── GALERIE ── */
+    .galerie-label { font-size: .8rem; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+    .galerie-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    @media (max-width: 600px) { .galerie-grid { grid-template-columns: repeat(3, 1fr); } }
+    .gal-item {
+      aspect-ratio: 4/3;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color .15s, transform .15s;
+      position: relative;
+    }
+    .gal-item:hover { transform: scale(1.02); }
+    .gal-item.selected { border-color: var(--lime); }
+    .gal-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gal-check {
+      position: absolute; top: 5px; right: 5px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--lime); color: #000;
+      font-size: .7rem; font-weight: 800;
+      display: none; align-items: center; justify-content: center;
+    }
+    .gal-item.selected .gal-check { display: flex; }
+
+    /* ── PREVIEW ── */
+    .photo-preview {
+      width: 100%;
+      max-height: 200px;
+      border-radius: 10px;
+      object-fit: cover;
+      display: none;
+      margin-top: 12px;
+      border: 1px solid var(--border);
+    }
+    .photo-preview.visible { display: block; }
+
+    /* ── LIEN PLAQUETTE ── */
+    .lien-box {
+      background: var(--s2);
+      border: 1px solid rgba(190,242,100,.25);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 24px;
+      display: none;
+    }
+    .lien-box.visible { display: block; }
+    .lien-box label { color: var(--lime); }
+    .lien-row { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
+    .lien-url {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--lime);
+      font-size: .85rem;
+      font-family: monospace;
+      word-break: break-all;
+      cursor: pointer;
+    }
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: var(--lime); color: #000; font-weight: 700; font-size: .85rem;
+      padding: 10px 20px; border-radius: 99px;
+      opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999;
+    }
+    .toast.show { opacity: 1; }
+    .save-row { display: flex; gap: 12px; margin-top: 28px; }
+    .loader { display: none; width: 18px; height: 18px; border: 2px solid #000; border-top-color: transparent; border-radius: 50%; animation: spin .6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">SERVICE <span>COMPRIS</span></div>
+  <div id="navStatus" style="font-size:.8rem;color:var(--slate)">Chargement...</div>
+</nav>
+
+<div class="page">
+
+  <!-- LOGIN -->
+  <div class="view active" id="viewLogin">
+    <div style="max-width:360px;margin:80px auto;text-align:center;">
+      <p style="font-size:1.2rem;font-weight:800;margin-bottom:24px;">Connexion</p>
+      <div class="form-group">
+        <label>Email admin</label>
+        <input type="text" id="loginEmail" placeholder="admin@servicecompris.pro">
+      </div>
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <input type="text" id="loginPassword" placeholder="••••••••">
+      </div>
+      <button class="btn btn-lime" style="width:100%;justify-content:center;margin-top:8px;" onclick="doLogin()">Se connecter</button>
+      <p id="loginErr" style="color:var(--red);font-size:.85rem;margin-top:12px;display:none;">Identifiants incorrects.</p>
+    </div>
+  </div>
+
+  <!-- LIST -->
+  <div class="view" id="viewList">
+    <div class="list-header">
+      <div class="list-title">Prospects</div>
+      <button class="btn btn-lime" onclick="showForm(null)">+ Nouveau</button>
+    </div>
+    <div class="prospect-list" id="prospectList">
+      <div class="empty-state">
+        <div style="font-size:2rem;">📋</div>
+        <p>Aucun prospect pour l'instant.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="view" id="viewForm">
+    <div class="form-header">
+      <button class="btn btn-ghost" onclick="showList()">← Retour</button>
+      <div class="form-title" id="formTitle">Nouveau prospect</div>
+    </div>
+
+    <div class="form-group">
+      <label>Nom du restaurant *</label>
+      <input type="text" id="fNom" placeholder="Ex: Le Bistrot des Arènes">
+    </div>
+    <div class="form-group">
+      <label>Ville</label>
+      <input type="text" id="fVille" placeholder="Ex: Lyon 6e">
+    </div>
+
+    <hr class="divider">
+
+    <div class="galerie-label">Photo à afficher dans la plaquette</div>
+    <p style="font-size:.82rem;color:var(--slate);margin-bottom:16px;">Choisissez une photo dans notre galerie, ou collez une URL externe (TripAdvisor, Google Maps…)</p>
+
+    <div class="galerie-grid" id="galerieGrid"><!-- remplie par JS --></div>
+
+    <div class="form-group" style="margin-top:20px;">
+      <label>Ou URL externe</label>
+      <input type="url" id="fPhotoUrl" placeholder="https://..." oninput="onUrlInput()">
+    </div>
+
+    <img id="photoPreview" class="photo-preview" src="" alt="Aperçu">
+
+    <hr class="divider">
+
+    <div class="save-row">
+      <button class="btn btn-lime" onclick="saveProspect()">
+        <span class="loader" id="saveLoader"></span>
+        Enregistrer
+      </button>
+      <button class="btn btn-ghost" id="btnDelete" onclick="deleteProspect()" style="display:none">Supprimer</button>
+    </div>
+
+    <div class="lien-box" id="lienBox">
+      <label>Lien plaquette à ouvrir chez le client</label>
+      <div class="lien-row">
+        <div class="lien-url" id="lienUrl" onclick="copyLien()"></div>
+        <button class="btn btn-lime" onclick="openPlaquette()">Ouvrir</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PB = 'https://pb.servicecompris.pro';
+const PLAQUETTE_BASE = 'https://servicecompris.pro/PlaquetteServiceCompris/';
+const GALERIE_BASE = 'https://servicecompris.pro/PlaquetteServiceCompris/galerie/';
+
+const GALERIE_PHOTOS = [
+  { file: 'plat-truite-petit-jarp-dressage-cuisine-philip.webp',      label: 'Truite dressage' },
+  { file: 'plat-agneau-croustillant-confit-legumes-philip.webp',      label: 'Agneau confit' },
+  { file: 'plat-confit-canard-abricots-restaurant-philip.webp',       label: 'Confit de canard' },
+  { file: 'plat-principal-convivialite-terrasse-philip.webp',         label: 'Plat terrasse' },
+  { file: 'terrasse-animee-ete-sorgue-philip.webp',                   label: 'Terrasse animée' },
+  { file: 'terrasse-panoramique-platanes-sorgue-philip.webp',         label: 'Terrasse panoramique' },
+  { file: 'terrasse-bord-sorgue-chaises-restaurant-philip.webp',      label: 'Terrasse rivière' },
+  { file: 'terrasse-exterieure-chaises-jaunes-sorgue-philip.webp',    label: 'Terrasse chaises' },
+  { file: 'salle-interieure-sorgue-restaurant-philip.webp',           label: 'Salle intérieure' },
+  { file: 'table-verres-sorgue-restaurant-philip.webp',               label: 'Table dressée' },
+  { file: 'entree-asperges-blanches-vertes-terrasse-philip.webp',     label: 'Asperges' },
+  { file: 'entree-saumon-fume-homard-salade-philip.webp',             label: 'Saumon fumé' },
+  { file: 'cuisine-dressage.webp',                                    label: 'Dressage cuisine' },
+  { file: 'cuisine-flambe.webp',                                      label: 'Flambage' },
+  { file: 'chef-en-cuisine.webp',                                     label: 'Chef en cuisine' },
+  { file: 'dessert-tarte-fraises-dressage-maison-philip.webp',        label: 'Tarte fraises' },
+  { file: 'dessert-coupe-fraises-glace-maison-philip.webp',           label: 'Coupe fraises' },
+  { file: 'vue-falaise-nature-terrasse-philip-vaucluse.webp',         label: 'Vue falaise' },
+  { file: 'service-entree-terrasse-sorgue-restaurant-philip.webp',    label: 'Service terrasse' },
+  { file: 'serveur-apporte-plat-saumon-fume-terrasse-philip.webp',    label: 'Serveur' },
+];
+
+let token = localStorage.getItem('sc_pb_token') || '';
+let currentId = null;
+let selectedGalerie = '';
+
+/* ── AUTH ── */
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass  = document.getElementById('loginPassword').value.trim();
+  const r = await fetch(`${PB}/api/collections/_superusers/auth-with-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ identity: email, password: pass })
+  });
+  if (!r.ok) { document.getElementById('loginErr').style.display = 'block'; return; }
+  const d = await r.json();
+  token = d.token;
+  localStorage.setItem('sc_pb_token', token);
+  initApp();
+}
+
+async function checkAuth() {
+  if (!token) return false;
+  const r = await fetch(`${PB}/api/collections/_superusers/auth-refresh`, {
+    method: 'POST', headers: { 'Authorization': token }
+  });
+  if (r.ok) { const d = await r.json(); token = d.token; localStorage.setItem('sc_pb_token', token); return true; }
+  localStorage.removeItem('sc_pb_token'); token = ''; return false;
+}
+
+/* ── INIT ── */
+async function initApp() {
+  const ok = await checkAuth();
+  if (!ok) { showView('viewLogin'); document.getElementById('navStatus').textContent = ''; return; }
+  document.getElementById('navStatus').textContent = 'Connecté';
+  buildGalerie();
+  await loadList();
+  showView('viewList');
+}
+
+/* ── VIEWS ── */
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function showList() { loadList(); showView('viewList'); }
+
+/* ── GALERIE ── */
+function buildGalerie() {
+  const grid = document.getElementById('galerieGrid');
+  grid.innerHTML = GALERIE_PHOTOS.map(p => `
+    <div class="gal-item" data-file="${p.file}" onclick="selectGalerie('${p.file}')">
+      <img src="${GALERIE_BASE}${p.file}" alt="${p.label}" loading="lazy">
+      <div class="gal-check">✓</div>
+    </div>
+  `).join('');
+}
+
+function selectGalerie(file) {
+  selectedGalerie = file;
+  document.querySelectorAll('.gal-item').forEach(el => {
+    el.classList.toggle('selected', el.dataset.file === file);
+  });
+  document.getElementById('fPhotoUrl').value = '';
+  updatePreview(GALERIE_BASE + file);
+}
+
+function onUrlInput() {
+  const url = document.getElementById('fPhotoUrl').value.trim();
+  if (url) {
+    selectedGalerie = '';
+    document.querySelectorAll('.gal-item').forEach(el => el.classList.remove('selected'));
+    updatePreview(url);
+  }
+}
+
+function updatePreview(src) {
+  const img = document.getElementById('photoPreview');
+  img.src = src;
+  img.classList.add('visible');
+  img.onerror = () => img.classList.remove('visible');
+}
+
+/* ── LIST ── */
+async function loadList() {
+  const r = await fetch(`${PB}/api/collections/prospects/records?sort=-created&perPage=100`, {
+    headers: { 'Authorization': token }
+  });
+  const d = await r.json();
+  const el = document.getElementById('prospectList');
+  if (!d.items || d.items.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div style="font-size:2rem">📋</div><p>Aucun prospect pour l\'instant.</p></div>';
+    return;
+  }
+  el.innerHTML = d.items.map(p => {
+    const photoUrl = p.photo_url || '';
+    const thumb = photoUrl
+      ? `<img class="pc-thumb" src="${photoUrl}" onerror="this.style.display='none'">`
+      : `<div class="pc-thumb-empty">🏠</div>`;
+    return `
+      <div class="prospect-card" onclick="showForm('${p.id}')">
+        ${thumb}
+        <div class="pc-info">
+          <div class="pc-name">${p.nom}</div>
+          <div class="pc-ville">${p.ville || ''}</div>
+        </div>
+        <div class="pc-actions" onclick="event.stopPropagation()">
+          <button class="ic-btn" title="Ouvrir plaquette" onclick="openPlaquetteId('${p.id}')">▶</button>
+          <button class="ic-btn" title="Copier lien" onclick="copyLienId('${p.id}')">⎘</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+/* ── FORM ── */
+async function showForm(id) {
+  currentId = id;
+  selectedGalerie = '';
+  document.querySelectorAll('.gal-item').forEach(el => el.classList.remove('selected'));
+  document.getElementById('photoPreview').classList.remove('visible');
+  document.getElementById('lienBox').classList.remove('visible');
+  document.getElementById('btnDelete').style.display = id ? 'inline-flex' : 'none';
+  document.getElementById('formTitle').textContent = id ? 'Modifier le prospect' : 'Nouveau prospect';
+
+  if (id) {
+    const r = await fetch(`${PB}/api/collections/prospects/records/${id}`, { headers: { 'Authorization': token } });
+    const p = await r.json();
+    document.getElementById('fNom').value = p.nom || '';
+    document.getElementById('fVille').value = p.ville || '';
+    document.getElementById('fPhotoUrl').value = '';
+
+    if (p.photo_url) {
+      if (p.photo_url.startsWith(GALERIE_BASE)) {
+        const file = p.photo_url.replace(GALERIE_BASE, '');
+        selectGalerie(file);
+      } else {
+        document.getElementById('fPhotoUrl').value = p.photo_url;
+        updatePreview(p.photo_url);
+      }
+    }
+    showLien(id);
+  } else {
+    document.getElementById('fNom').value = '';
+    document.getElementById('fVille').value = '';
+    document.getElementById('fPhotoUrl').value = '';
+  }
+  showView('viewForm');
+}
+
+function showLien(id) {
+  const url = `${PLAQUETTE_BASE}?id=${id}`;
+  document.getElementById('lienUrl').textContent = url;
+  document.getElementById('lienBox').classList.add('visible');
+}
+
+/* ── SAVE ── */
+async function saveProspect() {
+  const nom = document.getElementById('fNom').value.trim();
+  if (!nom) { toast('Le nom est obligatoire'); return; }
+
+  const photoUrl = selectedGalerie
+    ? GALERIE_BASE + selectedGalerie
+    : document.getElementById('fPhotoUrl').value.trim();
+
+  const body = { nom, ville: document.getElementById('fVille').value.trim(), photo_url: photoUrl };
+
+  document.getElementById('saveLoader').style.display = 'inline-block';
+
+  const url = currentId
+    ? `${PB}/api/collections/prospects/records/${currentId}`
+    : `${PB}/api/collections/prospects/records`;
+  const method = currentId ? 'PATCH' : 'POST';
+
+  const r = await fetch(url, {
+    method, headers: { 'Content-Type': 'application/json', 'Authorization': token },
+    body: JSON.stringify(body)
+  });
+
+  document.getElementById('saveLoader').style.display = 'none';
+
+  if (!r.ok) { toast('Erreur lors de la sauvegarde'); return; }
+  const d = await r.json();
+  currentId = d.id;
+  document.getElementById('btnDelete').style.display = 'inline-flex';
+  showLien(d.id);
+  toast('Enregistré ✓');
+}
+
+/* ── DELETE ── */
+async function deleteProspect() {
+  if (!currentId) return;
+  if (!confirm('Supprimer ce prospect ?')) return;
+  await fetch(`${PB}/api/collections/prospects/records/${currentId}`, {
+    method: 'DELETE', headers: { 'Authorization': token }
+  });
+  toast('Supprimé');
+  showList();
+}
+
+/* ── LIENS ── */
+function openPlaquette() {
+  const url = document.getElementById('lienUrl').textContent;
+  if (url) window.open(url, '_blank');
+}
+function openPlaquetteId(id) { window.open(`${PLAQUETTE_BASE}?id=${id}`, '_blank'); }
+function copyLienId(id) { navigator.clipboard.writeText(`${PLAQUETTE_BASE}?id=${id}`); toast('Lien copié ✓'); }
+function copyLien() {
+  const url = document.getElementById('lienUrl').textContent;
+  navigator.clipboard.writeText(url); toast('Lien copié ✓');
+}
+
+/* ── TOAST ── */
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+/* ── START ── */
+initApp();
+</script>
+</body>
+</html>

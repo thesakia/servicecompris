@@ -64,12 +64,12 @@ slidesEl.addEventListener('touchend', e => {
 }, { passive: true });
 
 /* ── Slide 02 : charger photo prospect ── */
-function loadProspectPhoto() {
-  const url = document.getElementById('photoUrl').value.trim();
-  if (!url) return;
+function loadProspectPhoto(url) {
+  const src = url || document.getElementById('photoUrl').value.trim();
+  if (!src) return;
   const img         = document.getElementById('prospectImg');
   const placeholder = document.getElementById('phEmpty');
-  img.src = url;
+  img.src = src;
   img.style.display = 'block';
   placeholder.style.display = 'none';
   img.onerror = () => {
@@ -86,6 +86,25 @@ document.getElementById('photoUrl').addEventListener('keydown', e => {
   e.stopPropagation(); /* empêche la navigation pendant la saisie */
 });
 
+/* ── Chargement prospect depuis PocketBase ── */
+async function loadProspect() {
+  const id = new URLSearchParams(location.search).get('id');
+  if (!id) return;
+  try {
+    const r = await fetch(`https://pb.servicecompris.pro/api/collections/prospects/records/${id}`);
+    if (!r.ok) return;
+    const p = await r.json();
+    if (p.photo_url) {
+      document.getElementById('photoUrl').value = p.photo_url;
+      loadProspectPhoto(p.photo_url);
+    }
+    if (p.nom) {
+      const h2 = document.querySelector('.s2-inner h2');
+      if (h2) h2.innerHTML = `Voici comment <strong>${p.nom}</strong><br>est perçu en ligne aujourd'hui.`;
+    }
+  } catch(e) { /* silencieux */ }
+}
+
 /* ── Slide 13 : sélectionner un pack ── */
 function selectPack(btn, pack) {
   document.querySelectorAll('.pack-btn').forEach(b => b.classList.remove('active'));
@@ -96,3 +115,4 @@ function selectPack(btn, pack) {
 
 /* ── Init ── */
 goTo(0);
+loadProspect();
