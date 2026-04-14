@@ -353,36 +353,35 @@ h3 {
 /* =============================================
    SLIDE 05 NEW — Équipe
    ============================================= */
-.team-grid {
-  display: flex; gap: 20px; width: 100%; max-width: 900px;
+.s5team .team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px; width: 100%; max-width: 1060px;
 }
 .team-card {
-  flex: 1; background: var(--surface);
+  background: var(--surface);
   border: 1px solid var(--gold-brd); border-radius: var(--r);
-  padding: 30px 24px;
+  padding: 22px 16px;
   display: flex; flex-direction: column;
-  align-items: center; text-align: center; gap: 10px;
+  align-items: center; text-align: center; gap: 8px;
 }
 .team-card-gold {
   background: var(--gold-dim); border-color: var(--gold);
-  transform: scale(1.04);
-  box-shadow: 0 0 40px rgba(200,169,110,0.12);
+  box-shadow: 0 0 30px rgba(190,242,100,0.10);
 }
-.team-card-av {
-  width: 64px; height: 64px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 22px; flex-shrink: 0;
+.team-portrait {
+  width: 80px; height: 80px; border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gold-brd);
   margin-bottom: 4px;
 }
-.team-av-ft { background: var(--gold); color: #000; }
-.team-av-da { background: var(--gold); color: #000; }
-.team-av-cm { background: var(--surface2); color: var(--gold); border: 2px solid var(--gold-brd); }
-.team-card h3 { color: var(--gold-light); font-size: clamp(15px, 1.5vw, 20px); }
+.team-card-gold .team-portrait { border-color: var(--gold); }
+.team-card h3 { color: var(--gold-light); font-size: clamp(13px, 1.2vw, 17px); }
 .team-card-role {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 4px;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 2px;
 }
-.team-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.team-card p { font-size: 11px; color: var(--muted); line-height: 1.6; }
 
 /* =============================================
    SLIDE 06 — Web & QR (ex-05)
@@ -443,7 +442,7 @@ h3 {
 /* =============================================
    SLIDE 08 — Social (ex-07)
    ============================================= */
-.steps { display: flex; align-items: flex-start; gap: 10px; }
+.steps { display: flex; align-items: stretch; gap: 10px; }
 .steps-4 { gap: 6px; }
 .step-card {
   flex: 1; background: var(--surface);
@@ -463,7 +462,8 @@ h3 {
 .step-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
 .step-arr {
   font-size: 22px; color: var(--gold);
-  padding-top: 32px; flex-shrink: 0;
+  padding-top: 0; flex-shrink: 0;
+  display: flex; align-items: center;
 }
 
 /* =============================================
