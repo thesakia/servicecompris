@@ -80,11 +80,14 @@ function loadProspectPhoto(url) {
   };
 }
 
-/* Validation au clavier dans le champ URL */
-document.getElementById('photoUrl').addEventListener('keydown', e => {
-  if (e.key === 'Enter') loadProspectPhoto();
-  e.stopPropagation(); /* empêche la navigation pendant la saisie */
-});
+/* Validation au clavier dans le champ URL (si présent) */
+const photoUrlEl = document.getElementById('photoUrl');
+if (photoUrlEl) {
+  photoUrlEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter') loadProspectPhoto();
+    e.stopPropagation();
+  });
+}
 
 /* ── Chargement prospect depuis PocketBase ── */
 async function loadProspect() {
