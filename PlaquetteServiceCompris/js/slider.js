@@ -102,6 +102,15 @@ async function loadProspect() {
       const h2 = document.querySelector('.s2-inner h2');
       if (h2) h2.innerHTML = `Voici comment <strong>${p.nom}</strong><br>est perçu en ligne aujourd'hui.`;
     }
+    if (p.photo_galerie) {
+      const screenshot = document.querySelector('.site-screenshot');
+      const placeholder = document.querySelector('.screenshot-placeholder');
+      if (screenshot) {
+        screenshot.src = p.photo_galerie;
+        screenshot.style.display = 'block';
+        if (placeholder) placeholder.style.display = 'none';
+      }
+    }
   } catch(e) { /* silencieux */ }
 }
 

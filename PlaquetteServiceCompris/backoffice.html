@@ -56,8 +56,11 @@
     .view.active { display: block; }
 
     /* ── LIST VIEW ── */
-    .list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
     .list-title { font-size: 1.3rem; font-weight: 800; }
+    .sort-bar { display: flex; gap: 8px; margin-bottom: 20px; }
+    .sort-btn { background: transparent; border: 1px solid var(--border); border-radius: 6px; color: var(--slate); font-size: .78rem; font-weight: 600; padding: 5px 12px; cursor: pointer; transition: all .15s; }
+    .sort-btn.active { border-color: var(--lime); color: var(--lime); background: rgba(190,242,100,.08); }
     .prospect-list { display: flex; flex-direction: column; gap: 12px; }
     .prospect-card {
       background: var(--surface);
@@ -212,6 +215,10 @@
       <div class="list-title">Prospects</div>
       <button class="btn btn-lime" onclick="showForm(null)">+ Nouveau</button>
     </div>
+    <div class="sort-bar">
+      <button class="sort-btn active" id="sortNom" onclick="setSort('nom')">A → Z</button>
+      <button class="sort-btn" id="sortDate" onclick="setSort('date')">Plus récent</button>
+    </div>
     <div class="prospect-list" id="prospectList">
       <div class="empty-state">
         <div style="font-size:2rem;">📋</div>
@@ -238,17 +245,18 @@
 
     <hr class="divider">
 
-    <div class="galerie-label">Photo à afficher dans la plaquette</div>
-    <p style="font-size:.82rem;color:var(--slate);margin-bottom:16px;">Choisissez une photo dans notre galerie, ou collez une URL externe (TripAdvisor, Google Maps…)</p>
-
-    <div class="galerie-grid" id="galerieGrid"><!-- remplie par JS --></div>
-
-    <div class="form-group" style="margin-top:20px;">
-      <label>Ou URL externe</label>
+    <div class="galerie-label">Slide 2 — Le Miroir <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--slate);font-size:.78rem;">(photo actuelle du prospect — URL TripAdvisor, Google…)</span></div>
+    <div class="form-group" style="margin-top:12px;">
       <input type="url" id="fPhotoUrl" placeholder="https://..." oninput="onUrlInput()">
     </div>
-
     <img id="photoPreview" class="photo-preview" src="" alt="Aperçu">
+
+    <hr class="divider">
+
+    <div class="galerie-label">Slide 3 — L'Électrochoc <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--slate);font-size:.78rem;">(photo de notre galerie à mettre en avant)</span></div>
+    <p style="font-size:.82rem;color:var(--slate);margin-bottom:16px;">Choisissez une photo parmi nos réalisations.</p>
+    <div class="galerie-grid" id="galerieGrid"><!-- remplie par JS --></div>
+    <img id="galeriePreview" class="photo-preview" src="" alt="Aperçu galerie" style="margin-top:12px;">
 
     <hr class="divider">
 
@@ -303,11 +311,19 @@ const GALERIE_PHOTOS = [
 
 let currentId = null;
 let selectedGalerie = '';
+let currentSort = 'nom'; /* 'nom' | 'date' */
 
 /* ── INIT ── */
 async function initApp() {
   buildGalerie();
   await loadList();
+}
+
+function setSort(mode) {
+  currentSort = mode;
+  document.getElementById('sortNom').classList.toggle('active', mode === 'nom');
+  document.getElementById('sortDate').classList.toggle('active', mode === 'date');
+  loadList();
 }
 
 /* ── VIEWS ── */
@@ -333,39 +349,43 @@ function selectGalerie(file) {
   document.querySelectorAll('.gal-item').forEach(el => {
     el.classList.toggle('selected', el.dataset.file === file);
   });
-  document.getElementById('fPhotoUrl').value = '';
-  updatePreview(GALERIE_BASE + file);
+  const img = document.getElementById('galeriePreview');
+  img.src = GALERIE_BASE + file;
+  img.classList.add('visible');
 }
 
 function onUrlInput() {
   const url = document.getElementById('fPhotoUrl').value.trim();
-  if (url) {
-    selectedGalerie = '';
-    document.querySelectorAll('.gal-item').forEach(el => el.classList.remove('selected'));
-    updatePreview(url);
-  }
-}
-
-function updatePreview(src) {
   const img = document.getElementById('photoPreview');
-  img.src = src;
-  img.classList.add('visible');
-  img.onerror = () => img.classList.remove('visible');
+  if (url) {
+    img.src = url;
+    img.classList.add('visible');
+    img.onerror = () => img.classList.remove('visible');
+  } else {
+    img.classList.remove('visible');
+  }
 }
 
 /* ── LIST ── */
 async function loadList() {
-  const r = await fetch(`${PB}/api/collections/prospects/records?sort=-created&perPage=100`);
+  const r = await fetch(`${PB}/api/collections/prospects/records?perPage=200`);
   const d = await r.json();
   const el = document.getElementById('prospectList');
-  if (!d.items || d.items.length === 0) {
+  if (!r.ok || !d.items || d.items.length === 0) {
     el.innerHTML = '<div class="empty-state"><div style="font-size:2rem">📋</div><p>Aucun prospect pour l\'instant.</p></div>';
     return;
   }
-  el.innerHTML = d.items.map(p => {
-    const photoUrl = p.photo_url || '';
-    const thumb = photoUrl
-      ? `<img class="pc-thumb" src="${photoUrl}" onerror="this.style.display='none'">`
+  /* Tri côté client */
+  const items = [...d.items];
+  if (currentSort === 'nom') {
+    items.sort((a, b) => (a.nom || '').localeCompare(b.nom || '', 'fr'));
+  } else {
+    items.sort((a, b) => (b.created || '').localeCompare(a.created || ''));
+  }
+  el.innerHTML = items.map(p => {
+    const thumbSrc = p.photo_galerie || p.photo_url || '';
+    const thumb = thumbSrc
+      ? `<img class="pc-thumb" src="${thumbSrc}" onerror="this.style.display='none'">`
       : `<div class="pc-thumb-empty">🏠</div>`;
     return `
       <div class="prospect-card" onclick="showForm('${p.id}')">
@@ -392,21 +412,20 @@ async function showForm(id) {
   document.getElementById('btnDelete').style.display = id ? 'inline-flex' : 'none';
   document.getElementById('formTitle').textContent = id ? 'Modifier le prospect' : 'Nouveau prospect';
 
+  document.getElementById('galeriePreview').classList.remove('visible');
   if (id) {
     const r = await fetch(`${PB}/api/collections/prospects/records/${id}`);
     const p = await r.json();
     document.getElementById('fNom').value = p.nom || '';
     document.getElementById('fVille').value = p.ville || '';
-    document.getElementById('fPhotoUrl').value = '';
-
+    document.getElementById('fPhotoUrl').value = p.photo_url || '';
     if (p.photo_url) {
-      if (p.photo_url.startsWith(GALERIE_BASE)) {
-        const file = p.photo_url.replace(GALERIE_BASE, '');
-        selectGalerie(file);
-      } else {
-        document.getElementById('fPhotoUrl').value = p.photo_url;
-        updatePreview(p.photo_url);
-      }
+      const prev = document.getElementById('photoPreview');
+      prev.src = p.photo_url; prev.classList.add('visible');
+    }
+    if (p.photo_galerie) {
+      const file = p.photo_galerie.replace(GALERIE_BASE, '');
+      selectGalerie(file);
     }
     showLien(id);
   } else {
@@ -428,11 +447,15 @@ async function saveProspect() {
   const nom = document.getElementById('fNom').value.trim();
   if (!nom) { toast('Le nom est obligatoire'); return; }
 
-  const photoUrl = selectedGalerie
-    ? GALERIE_BASE + selectedGalerie
-    : document.getElementById('fPhotoUrl').value.trim();
+  const photoUrl = document.getElementById('fPhotoUrl').value.trim();
+  const photoGalerie = selectedGalerie ? GALERIE_BASE + selectedGalerie : '';
 
-  const body = { nom, ville: document.getElementById('fVille').value.trim(), photo_url: photoUrl };
+  const body = {
+    nom,
+    ville: document.getElementById('fVille').value.trim(),
+    photo_url: photoUrl,
+    photo_galerie: photoGalerie
+  };
 
   document.getElementById('saveLoader').style.display = 'inline-block';
 
