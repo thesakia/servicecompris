@@ -2,7 +2,7 @@
    SERVICE COMPRIS — Slider + interactions
    ============================================= */
 
-const TOTAL = 14;
+const TOTAL = 13;
 let current = 0;
 
 const slidesEl  = document.getElementById('slides');

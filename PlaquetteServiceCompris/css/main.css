@@ -519,76 +519,60 @@ h3 {
 .ref-line { font-size: 13px; font-style: italic; color: var(--muted); }
 
 /* =============================================
-   SLIDE 10 — Tarifs (ex-09)
+   SLIDE 10 — Tarifs 3 packs
    ============================================= */
-.price-row { display: flex; gap: 28px; max-width: 720px; width: 100%; }
+.pricing-sub {
+  font-size: 13px; color: var(--muted); margin-top: -20px; margin-bottom: 24px;
+}
+.price-row { display: flex; gap: 16px; width: 100%; max-width: 1060px; }
+.price-row-3 { align-items: stretch; }
 .price-box {
   flex: 1; background: var(--surface);
-  border: 1px solid var(--gold-brd); border-radius: var(--r);
-  padding: 28px 22px;
+  border: 1px solid rgba(255,255,255,0.07); border-radius: var(--r);
+  padding: 24px 20px;
   display: flex; flex-direction: column;
-  align-items: center; gap: 10px;
+  align-items: flex-start; gap: 8px;
+  position: relative;
 }
-.pb-icon { font-size: 34px; }
-.price-box h3 { color: var(--text); }
-.pb-setup {
+.price-box-featured {
+  border-color: var(--gold);
+  background: var(--surface2);
+}
+.pb-featured-label {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--gold); color: #000;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.18em;
+  padding: 3px 12px; border-radius: 4px; white-space: nowrap;
+}
+.pb-pack-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--muted);
+}
+.price-box h3 { color: var(--text); font-size: clamp(20px, 2vw, 28px); font-weight: 800; }
+.pb-config { font-size: 12px; color: var(--muted); }
+.pb-config strong { color: var(--text); }
+.pb-monthly-wrap {
+  display: flex; align-items: baseline; gap: 4px; margin: 4px 0 8px;
+}
+.pb-monthly-price {
   font-family: 'Outfit', system-ui, sans-serif;
-  font-size: 36px; font-weight: 700; color: var(--gold); line-height: 1;
+  font-size: clamp(44px, 4.5vw, 60px); font-weight: 800;
+  color: var(--gold); line-height: 1;
 }
-.pb-setup span {
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-size: 11px; text-transform: uppercase;
-  letter-spacing: 0.1em; color: var(--muted); display: block;
-  text-align: center; margin-top: 4px;
-}
+.pb-monthly-unit { font-size: 13px; color: var(--muted); }
 .price-box ul {
-  list-style: none; width: 100%; margin-top: 6px;
-  display: flex; flex-direction: column; gap: 7px;
+  list-style: none; width: 100%;
+  display: flex; flex-direction: column; gap: 6px;
+  margin-top: auto;
 }
 .price-box li {
   font-size: 12px; color: var(--muted);
-  padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex; align-items: flex-start; gap: 6px;
 }
-.price-box li::before { content: '✓  '; color: var(--gold); }
+.price-box li::before { content: '✓'; color: var(--gold); flex-shrink: 0; }
 
-/* =============================================
-   SLIDE 11 — Combo (ex-10)
-   ============================================= */
-.combo {
-  background: var(--surface); border: 2px solid var(--gold);
-  border-radius: 16px; padding: 36px 44px;
-  max-width: 540px; width: 100%;
-  position: relative;
-  display: flex; flex-direction: column; align-items: center; gap: 18px;
-  box-shadow: 0 0 70px rgba(200,169,110,0.14);
-}
-.combo-badge {
-  position: absolute; top: -13px;
-  background: var(--gold); color: #000;
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 0.22em; padding: 4px 14px; border-radius: 4px;
-}
-.combo-name {
-  font-family: 'Outfit', system-ui, sans-serif;
-  font-size: 26px; font-weight: 700; color: var(--gold-light);
-}
-.combo-price-row { display: flex; gap: 20px; align-items: baseline; }
-.combo-monthly {
-  font-family: 'Outfit', system-ui, sans-serif;
-  font-size: 58px; font-weight: 700; color: var(--gold); line-height: 1;
-}
-.combo-math {
-  width: 100%; background: rgba(0,0,0,0.28);
-  border-radius: 8px; padding: 14px 16px;
-  display: flex; flex-direction: column; gap: 6px; text-align: center;
-}
-.math-crossed { font-size: 12px; color: var(--muted); text-decoration: line-through; }
-.math-save { font-size: 14px; font-weight: 600; color: var(--gold); }
-.combo-feats {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 7px 24px; width: 100%;
-}
-.combo-feats span { font-size: 13px; color: var(--muted); text-align: left; }
+/* (Combo fusionné dans slide tarifs) */
 
 /* =============================================
    SLIDE 12 — Plan d'action (ex-11)
@@ -735,15 +719,10 @@ h3 {
   .ba-box  { aspect-ratio: 3/2; }
   .ba-mid  { font-size: 22px; }
 
-  /* Slide 10 — Prix côte à côte */
-  .price-row  { max-width: 580px; gap: 14px; }
-  .price-box  { padding: 20px 14px; }
-  .pb-setup   { font-size: 28px; }
-
-  /* Slide 11 — Combo plus serré */
-  .combo         { padding: 26px 28px; gap: 14px; max-width: 480px; }
-  .combo-monthly { font-size: 44px; }
-  .combo-name    { font-size: 22px; }
+  /* Slide 10 — Tarifs portrait : colonne */
+  .price-row-3  { flex-direction: column; gap: 10px; max-width: 480px; }
+  .price-box    { padding: 16px 14px; }
+  .pb-monthly-price { font-size: 36px; }
 
   /* Slide 12 — Timeline horizontale compacte */
   .tl-outer { max-width: 100%; }
@@ -802,12 +781,8 @@ h3 {
   .ba-box { aspect-ratio: 5/3; }
 
   /* Slide 10 */
-  .price-box  { padding: 18px 14px; }
-  .pb-setup   { font-size: 28px; }
-
-  /* Slide 11 */
-  .combo         { padding: 20px 30px; gap: 12px; }
-  .combo-monthly { font-size: 44px; }
+  .price-box      { padding: 16px 14px; }
+  .pb-monthly-price { font-size: 40px; }
 
   /* Slide 12 */
   .tl-what  { font-size: 14px; }
