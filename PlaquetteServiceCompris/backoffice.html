@@ -129,11 +129,44 @@
     /* ── GALERIE ── */
     .galerie-label { font-size: .8rem; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
     .galerie-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .galerie-grid-sm { grid-template-columns: repeat(3, 1fr); gap: 7px; }
     @media (max-width: 600px) { .galerie-grid { grid-template-columns: repeat(3, 1fr); } }
-    /* ── RS SLOTS ── */
-    .rs-slots { display: flex; flex-direction: column; gap: 24px; }
-    .rs-slot-label { font-size: .75rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
+    /* ── RS COLS ── */
+    .rs-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+    .rs-col {
+      background: var(--surface); border: 2px solid var(--border);
+      border-radius: 12px; overflow: hidden; cursor: pointer;
+      transition: border-color .15s, transform .1s;
+    }
+    .rs-col:hover { border-color: rgba(190,242,100,.3); transform: translateY(-2px); }
+    .rs-col.active { border-color: var(--lime); }
+    .rs-col-header { display: flex; align-items: center; gap: 7px; padding: 8px 10px; }
+    .rs-avatar-sm {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: linear-gradient(135deg, #bef264, #86efac);
+      color: #000; font-size: .55rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .rs-col-meta { flex: 1; min-width: 0; }
+    .rs-col-meta strong { display: block; font-size: .6rem; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .rs-col-meta span { font-size: .55rem; color: var(--slate); }
+    .rs-col-num {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--s2); color: var(--slate);
+      font-size: .65rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .rs-col.active .rs-col-num { background: var(--lime); color: #000; }
+    .rs-col-img {
+      aspect-ratio: 1; background: var(--s2);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .rs-col-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .rs-col-emoji { font-size: 1.4rem; opacity: .4; }
+    .rs-col-caption { padding: 7px 10px; font-size: .6rem; color: var(--slate); line-height: 1.4; border-top: 1px solid var(--border); }
+    /* Picker */
+    .rs-picker { background: var(--s2); border: 1px solid rgba(190,242,100,.2); border-radius: 12px; padding: 16px; margin-bottom: 8px; }
+    .rs-picker-label { font-size: .78rem; font-weight: 700; color: var(--lime); margin-bottom: 14px; }
     .gal-item {
       aspect-ratio: 4/3;
       border-radius: 8px;
@@ -264,25 +297,43 @@
 
     <hr class="divider">
 
-    <div class="galerie-label">Slide 4 — La Promesse <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--slate);font-size:.78rem;">(3 photos pour les posts Instagram simulés)</span></div>
-    <p style="font-size:.82rem;color:var(--slate);margin-bottom:20px;">Sélectionnez une photo par post.</p>
+    <div class="galerie-label">Slide 4 — La Promesse <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--slate);font-size:.78rem;">(3 posts Instagram simulés)</span></div>
+    <p style="font-size:.82rem;color:var(--slate);margin-bottom:16px;">Cliquez sur un post pour choisir sa photo.</p>
 
-    <div class="rs-slots">
-      <div class="rs-slot">
-        <div class="rs-slot-label">Post 1</div>
-        <div class="galerie-grid galerie-grid-sm" id="galerieRs1"><!-- remplie par JS --></div>
-        <img id="previewRs1" class="photo-preview" src="" alt="">
+    <div class="rs-cols">
+      <div class="rs-col" id="rsCol1" onclick="activateRsSlot(1)">
+        <div class="rs-col-header">
+          <div class="rs-avatar-sm">SC</div>
+          <div class="rs-col-meta"><strong>servicecompris.pro</strong><span>Instagram</span></div>
+          <div class="rs-col-num">1</div>
+        </div>
+        <div class="rs-col-img" id="rsColImg1"><span class="rs-col-emoji">🍽️</span></div>
+        <div class="rs-col-caption">Plat du chef, capturé avec soin.</div>
       </div>
-      <div class="rs-slot">
-        <div class="rs-slot-label">Post 2</div>
-        <div class="galerie-grid galerie-grid-sm" id="galerieRs2"><!-- remplie par JS --></div>
-        <img id="previewRs2" class="photo-preview" src="" alt="">
+      <div class="rs-col" id="rsCol2" onclick="activateRsSlot(2)">
+        <div class="rs-col-header">
+          <div class="rs-avatar-sm">SC</div>
+          <div class="rs-col-meta"><strong>servicecompris.pro</strong><span>Instagram</span></div>
+          <div class="rs-col-num">2</div>
+        </div>
+        <div class="rs-col-img" id="rsColImg2"><span class="rs-col-emoji">🕯️</span></div>
+        <div class="rs-col-caption">L'ambiance qui fait revenir.</div>
       </div>
-      <div class="rs-slot">
-        <div class="rs-slot-label">Post 3</div>
-        <div class="galerie-grid galerie-grid-sm" id="galerieRs3"><!-- remplie par JS --></div>
-        <img id="previewRs3" class="photo-preview" src="" alt="">
+      <div class="rs-col" id="rsCol3" onclick="activateRsSlot(3)">
+        <div class="rs-col-header">
+          <div class="rs-avatar-sm">SC</div>
+          <div class="rs-col-meta"><strong>servicecompris.pro</strong><span>Instagram</span></div>
+          <div class="rs-col-num">3</div>
+        </div>
+        <div class="rs-col-img" id="rsColImg3"><span class="rs-col-emoji">👨‍🍳</span></div>
+        <div class="rs-col-caption">En coulisses avec le chef.</div>
       </div>
+    </div>
+
+    <!-- Galerie contextuelle slide 4 -->
+    <div class="rs-picker" id="rsPicker" style="display:none">
+      <div class="rs-picker-label">Post <span id="rsPickerNum">1</span> — choisissez une photo</div>
+      <div class="galerie-grid" id="galerieRs"><!-- remplie par JS --></div>
     </div>
 
     <hr class="divider">
@@ -362,6 +413,8 @@ function showView(id) {
 function showList() { loadList(); showView('viewList'); }
 
 /* ── GALERIE ── */
+let activeRsSlot = 0;
+
 function buildGalerie() {
   const makeItems = (fn) =>
     GALERIE_PHOTOS.map(p => `
@@ -372,14 +425,8 @@ function buildGalerie() {
     `).join('');
 
   document.getElementById('galerieGrid').innerHTML = makeItems('selectGalerie');
-  document.getElementById('galerieRs1').innerHTML  = makeItems('selectRs1');
-  document.getElementById('galerieRs2').innerHTML  = makeItems('selectRs2');
-  document.getElementById('galerieRs3').innerHTML  = makeItems('selectRs3');
+  document.getElementById('galerieRs').innerHTML   = makeItems('selectRsPhoto');
 }
-
-function selectRs1(file) { selectRs(1, file); }
-function selectRs2(file) { selectRs(2, file); }
-function selectRs3(file) { selectRs(3, file); }
 
 function selectGalerie(file) {
   selectedGalerie = file;
@@ -391,14 +438,44 @@ function selectGalerie(file) {
   img.classList.add('visible');
 }
 
-function selectRs(slot, file) {
-  selectedRs[slot] = file;
-  document.querySelectorAll(`#galerieRs${slot} .gal-item`).forEach(el => {
+function activateRsSlot(slot) {
+  activeRsSlot = slot;
+  document.querySelectorAll('.rs-col').forEach((c, i) => c.classList.toggle('active', i + 1 === slot));
+  document.getElementById('rsPickerNum').textContent = slot;
+  const picker = document.getElementById('rsPicker');
+  picker.style.display = 'block';
+  /* Marquer la photo déjà choisie pour ce slot */
+  const current = selectedRs[slot];
+  document.querySelectorAll('#galerieRs .gal-item').forEach(el => {
+    el.classList.toggle('selected', el.dataset.file === current);
+  });
+  picker.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function selectRsPhoto(file) {
+  if (!activeRsSlot) return;
+  selectedRs[activeRsSlot] = file;
+  /* Miniature dans la colonne */
+  const colImg = document.getElementById(`rsColImg${activeRsSlot}`);
+  let img = colImg.querySelector('img');
+  if (!img) { img = document.createElement('img'); colImg.appendChild(img); }
+  img.src = GALERIE_BASE + file;
+  /* Coche dans la grille */
+  document.querySelectorAll('#galerieRs .gal-item').forEach(el => {
     el.classList.toggle('selected', el.dataset.file === file);
   });
-  const img = document.getElementById(`previewRs${slot}`);
+  /* Passer au slot suivant automatiquement */
+  const next = activeRsSlot < 3 ? activeRsSlot + 1 : 0;
+  if (next) { setTimeout(() => activateRsSlot(next), 250); }
+  else { document.getElementById('rsPicker').style.display = 'none'; }
+}
+
+function setRsColPhoto(slot, file) {
+  selectedRs[slot] = file;
+  const colImg = document.getElementById(`rsColImg${slot}`);
+  let img = colImg.querySelector('img');
+  if (!img) { img = document.createElement('img'); colImg.appendChild(img); }
   img.src = GALERIE_BASE + file;
-  img.classList.add('visible');
 }
 
 function onUrlInput() {
@@ -454,10 +531,18 @@ async function showForm(id) {
   currentId = id;
   selectedGalerie = '';
   selectedRs = { 1: '', 2: '', 3: '' };
+  activeRsSlot = 0;
   document.querySelectorAll('.gal-item').forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll('.rs-col').forEach(el => el.classList.remove('active'));
+  document.getElementById('rsPicker').style.display = 'none';
+  /* Reset les miniatures RS */
+  [1,2,3].forEach(i => {
+    const colImg = document.getElementById(`rsColImg${i}`);
+    const img = colImg.querySelector('img');
+    if (img) img.remove();
+  });
   document.getElementById('photoPreview').classList.remove('visible');
   document.getElementById('galeriePreview').classList.remove('visible');
-  [1,2,3].forEach(i => document.getElementById(`previewRs${i}`).classList.remove('visible'));
   document.getElementById('lienBox').classList.remove('visible');
   document.getElementById('btnDelete').style.display = id ? 'inline-flex' : 'none';
   document.getElementById('formTitle').textContent = id ? 'Modifier le prospect' : 'Nouveau prospect';
@@ -477,7 +562,7 @@ async function showForm(id) {
     }
     [1,2,3].forEach(i => {
       const val = p[`photo_rs_${i}`];
-      if (val) selectRs(i, val.replace(GALERIE_BASE, ''));
+      if (val) setRsColPhoto(i, val.replace(GALERIE_BASE, ''));
     });
     showLien(id);
   } else {
