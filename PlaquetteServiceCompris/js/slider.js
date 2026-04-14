@@ -113,10 +113,14 @@ async function loadProspect() {
     }
     [1,2,3].forEach(i => {
       const url = p[`photo_rs_${i}`];
-      const img = document.getElementById(`rsImg${i}`);
-      if (url && img) {
+      const wrap = document.getElementById(`rsImg${i}`);
+      if (url && wrap) {
+        const img = document.createElement('img');
         img.src = url;
-        img.parentElement.classList.add('rs-img-has-photo');
+        img.className = 'rs-photo';
+        img.alt = '';
+        wrap.appendChild(img);
+        wrap.classList.add('rs-img-has-photo');
       }
     });
   } catch(e) { /* silencieux */ }
