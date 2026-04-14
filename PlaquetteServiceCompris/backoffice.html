@@ -129,7 +129,11 @@
     /* ── GALERIE ── */
     .galerie-label { font-size: .8rem; font-weight: 600; color: var(--slate); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
     .galerie-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .galerie-grid-sm { grid-template-columns: repeat(3, 1fr); gap: 7px; }
     @media (max-width: 600px) { .galerie-grid { grid-template-columns: repeat(3, 1fr); } }
+    /* ── RS SLOTS ── */
+    .rs-slots { display: flex; flex-direction: column; gap: 24px; }
+    .rs-slot-label { font-size: .75rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
     .gal-item {
       aspect-ratio: 4/3;
       border-radius: 8px;
@@ -260,6 +264,29 @@
 
     <hr class="divider">
 
+    <div class="galerie-label">Slide 4 — La Promesse <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--slate);font-size:.78rem;">(3 photos pour les posts Instagram simulés)</span></div>
+    <p style="font-size:.82rem;color:var(--slate);margin-bottom:20px;">Sélectionnez une photo par post.</p>
+
+    <div class="rs-slots">
+      <div class="rs-slot">
+        <div class="rs-slot-label">Post 1</div>
+        <div class="galerie-grid galerie-grid-sm" id="galerieRs1"><!-- remplie par JS --></div>
+        <img id="previewRs1" class="photo-preview" src="" alt="">
+      </div>
+      <div class="rs-slot">
+        <div class="rs-slot-label">Post 2</div>
+        <div class="galerie-grid galerie-grid-sm" id="galerieRs2"><!-- remplie par JS --></div>
+        <img id="previewRs2" class="photo-preview" src="" alt="">
+      </div>
+      <div class="rs-slot">
+        <div class="rs-slot-label">Post 3</div>
+        <div class="galerie-grid galerie-grid-sm" id="galerieRs3"><!-- remplie par JS --></div>
+        <img id="previewRs3" class="photo-preview" src="" alt="">
+      </div>
+    </div>
+
+    <hr class="divider">
+
     <div class="save-row">
       <button class="btn btn-lime" onclick="saveProspect()">
         <span class="loader" id="saveLoader"></span>
@@ -311,6 +338,7 @@ const GALERIE_PHOTOS = [
 
 let currentId = null;
 let selectedGalerie = '';
+let selectedRs = { 1: '', 2: '', 3: '' };
 let currentSort = 'nom'; /* 'nom' | 'date' */
 
 /* ── INIT ── */
@@ -335,21 +363,40 @@ function showList() { loadList(); showView('viewList'); }
 
 /* ── GALERIE ── */
 function buildGalerie() {
-  const grid = document.getElementById('galerieGrid');
-  grid.innerHTML = GALERIE_PHOTOS.map(p => `
-    <div class="gal-item" data-file="${p.file}" onclick="selectGalerie('${p.file}')">
-      <img src="${GALERIE_BASE}${p.file}" alt="${p.label}" loading="lazy">
-      <div class="gal-check">✓</div>
-    </div>
-  `).join('');
+  const makeItems = (fn) =>
+    GALERIE_PHOTOS.map(p => `
+      <div class="gal-item" data-file="${p.file}" onclick="${fn}('${p.file}')">
+        <img src="${GALERIE_BASE}${p.file}" alt="${p.label}" loading="lazy">
+        <div class="gal-check">✓</div>
+      </div>
+    `).join('');
+
+  document.getElementById('galerieGrid').innerHTML = makeItems('selectGalerie');
+  document.getElementById('galerieRs1').innerHTML  = makeItems('selectRs1');
+  document.getElementById('galerieRs2').innerHTML  = makeItems('selectRs2');
+  document.getElementById('galerieRs3').innerHTML  = makeItems('selectRs3');
 }
+
+function selectRs1(file) { selectRs(1, file); }
+function selectRs2(file) { selectRs(2, file); }
+function selectRs3(file) { selectRs(3, file); }
 
 function selectGalerie(file) {
   selectedGalerie = file;
-  document.querySelectorAll('.gal-item').forEach(el => {
+  document.querySelectorAll('#galerieGrid .gal-item').forEach(el => {
     el.classList.toggle('selected', el.dataset.file === file);
   });
   const img = document.getElementById('galeriePreview');
+  img.src = GALERIE_BASE + file;
+  img.classList.add('visible');
+}
+
+function selectRs(slot, file) {
+  selectedRs[slot] = file;
+  document.querySelectorAll(`#galerieRs${slot} .gal-item`).forEach(el => {
+    el.classList.toggle('selected', el.dataset.file === file);
+  });
+  const img = document.getElementById(`previewRs${slot}`);
   img.src = GALERIE_BASE + file;
   img.classList.add('visible');
 }
@@ -406,13 +453,15 @@ async function loadList() {
 async function showForm(id) {
   currentId = id;
   selectedGalerie = '';
+  selectedRs = { 1: '', 2: '', 3: '' };
   document.querySelectorAll('.gal-item').forEach(el => el.classList.remove('selected'));
   document.getElementById('photoPreview').classList.remove('visible');
+  document.getElementById('galeriePreview').classList.remove('visible');
+  [1,2,3].forEach(i => document.getElementById(`previewRs${i}`).classList.remove('visible'));
   document.getElementById('lienBox').classList.remove('visible');
   document.getElementById('btnDelete').style.display = id ? 'inline-flex' : 'none';
   document.getElementById('formTitle').textContent = id ? 'Modifier le prospect' : 'Nouveau prospect';
 
-  document.getElementById('galeriePreview').classList.remove('visible');
   if (id) {
     const r = await fetch(`${PB}/api/collections/prospects/records/${id}`);
     const p = await r.json();
@@ -424,9 +473,12 @@ async function showForm(id) {
       prev.src = p.photo_url; prev.classList.add('visible');
     }
     if (p.photo_galerie) {
-      const file = p.photo_galerie.replace(GALERIE_BASE, '');
-      selectGalerie(file);
+      selectGalerie(p.photo_galerie.replace(GALERIE_BASE, ''));
     }
+    [1,2,3].forEach(i => {
+      const val = p[`photo_rs_${i}`];
+      if (val) selectRs(i, val.replace(GALERIE_BASE, ''));
+    });
     showLien(id);
   } else {
     document.getElementById('fNom').value = '';
@@ -454,7 +506,10 @@ async function saveProspect() {
     nom,
     ville: document.getElementById('fVille').value.trim(),
     photo_url: photoUrl,
-    photo_galerie: photoGalerie
+    photo_galerie: photoGalerie,
+    photo_rs_1: selectedRs[1] ? GALERIE_BASE + selectedRs[1] : '',
+    photo_rs_2: selectedRs[2] ? GALERIE_BASE + selectedRs[2] : '',
+    photo_rs_3: selectedRs[3] ? GALERIE_BASE + selectedRs[3] : '',
   };
 
   document.getElementById('saveLoader').style.display = 'inline-block';

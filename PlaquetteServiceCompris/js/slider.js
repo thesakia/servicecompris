@@ -111,6 +111,11 @@ async function loadProspect() {
         if (placeholder) placeholder.style.display = 'none';
       }
     }
+    [1,2,3].forEach(i => {
+      const url = p[`photo_rs_${i}`];
+      const img = document.getElementById(`rsImg${i}`);
+      if (url && img) { img.src = url; img.style.display = 'block'; }
+    });
   } catch(e) { /* silencieux */ }
 }
 
