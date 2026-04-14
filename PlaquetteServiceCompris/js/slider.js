@@ -65,18 +65,16 @@ slidesEl.addEventListener('touchend', e => {
 
 /* ── Slide 02 : charger photo prospect ── */
 function loadProspectPhoto(url) {
-  const src = url || document.getElementById('photoUrl').value.trim();
-  if (!src) return;
+  if (!url) return;
   const img         = document.getElementById('prospectImg');
   const placeholder = document.getElementById('phEmpty');
-  img.src = src;
+  if (!img) return;
+  img.src = url;
   img.style.display = 'block';
-  placeholder.style.display = 'none';
+  if (placeholder) placeholder.style.display = 'none';
   img.onerror = () => {
     img.style.display = 'none';
-    placeholder.style.display = 'flex';
-    const p = placeholder.querySelector('p');
-    if (p) p.textContent = 'Image inaccessible. Vérifiez l\'URL.';
+    if (placeholder) placeholder.style.display = 'flex';
   };
 }
 
@@ -97,27 +95,30 @@ async function loadProspect() {
     const r = await fetch(`https://pb.servicecompris.pro/api/collections/prospects/records/${id}`);
     if (!r.ok) return;
     const p = await r.json();
-    if (p.photo_url) {
-      document.getElementById('photoUrl').value = p.photo_url;
-      loadProspectPhoto(p.photo_url);
-    }
+    /* Slide 02 : photo prospect */
+    if (p.photo_url) loadProspectPhoto(p.photo_url);
+    /* Slide 02 : nom */
     if (p.nom) {
       const h2 = document.querySelector('.s2-inner h2');
       if (h2) h2.innerHTML = `Voici comment <strong>${p.nom}</strong><br>est perçu en ligne aujourd'hui.`;
     }
+    /* Slide 03 : photo galerie */
     if (p.photo_galerie) {
       const screenshot = document.querySelector('.site-screenshot');
       const placeholder = document.querySelector('.screenshot-placeholder');
       if (screenshot) {
-        screenshot.src = p.photo_galerie;
+        screenshot.removeAttribute('onerror');
         screenshot.style.display = 'block';
+        screenshot.src = p.photo_galerie;
         if (placeholder) placeholder.style.display = 'none';
       }
     }
+    /* Slide 04 : photos RS */
     [1,2,3].forEach(i => {
       const url = p[`photo_rs_${i}`];
       const wrap = document.getElementById(`rsImg${i}`);
       if (url && wrap) {
+        wrap.querySelectorAll('img.rs-photo').forEach(el => el.remove());
         const img = document.createElement('img');
         img.src = url;
         img.className = 'rs-photo';
