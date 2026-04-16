@@ -130,6 +130,22 @@ async function loadProspect() {
   } catch(e) { /* silencieux */ }
 }
 
+/* ── Slide 9 : fusion Web + Social → Combo ── */
+function triggerFusion() {
+  const packs  = document.getElementById('fusionPacks');
+  const result = document.getElementById('fusionResult');
+  if (!packs || !result) return;
+  packs.classList.add('hidden');
+  setTimeout(() => result.classList.add('visible'), 200);
+}
+function resetFusion() {
+  const packs  = document.getElementById('fusionPacks');
+  const result = document.getElementById('fusionResult');
+  if (!packs || !result) return;
+  result.classList.remove('visible');
+  setTimeout(() => packs.classList.remove('hidden'), 300);
+}
+
 /* ── Slide 13 : sélectionner un pack ── */
 function selectPack(btn, pack) {
   document.querySelectorAll('.pack-btn').forEach(b => b.classList.remove('active'));
