@@ -22,7 +22,7 @@
 <div class="pres" id="pres">
 
   <div class="top-bar">
-    <span class="counter" id="counter">01 / 13</span>
+    <span class="counter" id="counter">01 / 12</span>
     <span class="brand">SERVICE COMPRIS</span>
     <a href="backoffice.html" class="gear-btn" title="Backoffice">&#9881;</a>
   </div>
@@ -62,6 +62,45 @@
             </div>
             <img id="prospectImg" class="prospect-img" src="" alt="" style="display:none">
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02b: PageSpeed — conditionnel (affiché si has_website) -->
+    <section class="slide s2b" id="slidePagespeed" style="display:none">
+      <div class="slide-inner s2b-inner">
+        <div class="slide-label">Diagnostic</div>
+        <h2>Votre site actuel,<br>vu par Google.</h2>
+        <div class="ps-layout">
+          <div class="ps-scores" id="psScores">
+            <div class="ps-score-card ps-score-bad" id="psPerf">
+              <div class="ps-score-num" id="psPerfNum">--</div>
+              <div class="ps-score-label">Performance</div>
+            </div>
+            <div class="ps-score-card ps-score-mid" id="psSeo">
+              <div class="ps-score-num" id="psSeoNum">--</div>
+              <div class="ps-score-label">SEO</div>
+            </div>
+            <div class="ps-score-card ps-score-mid" id="psAccess">
+              <div class="ps-score-num" id="psAccessNum">--</div>
+              <div class="ps-score-label">Accessibilité</div>
+            </div>
+            <div class="ps-score-card ps-score-mid" id="psBp">
+              <div class="ps-score-num" id="psBpNum">--</div>
+              <div class="ps-score-label">Bonnes pratiques</div>
+            </div>
+          </div>
+          <div class="ps-screenshot-wrap" id="psScreenshotWrap">
+            <div class="ps-empty" id="psEmpty">
+              <div class="ps-empty-icon">📊</div>
+              <p>Résultat PageSpeed<br>à venir</p>
+            </div>
+            <img id="psScreenshot" class="ps-screenshot" src="" alt="Résultat PageSpeed" style="display:none">
+          </div>
+        </div>
+        <div class="ps-verdict" id="psVerdict">
+          <span class="ps-verdict-icon">⚠️</span>
+          <span id="psVerdictText">Votre visibilité Google est pénalisée. Nous pouvons faire beaucoup mieux.</span>
         </div>
       </div>
     </section>

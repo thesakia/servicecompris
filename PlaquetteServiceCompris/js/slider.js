@@ -2,8 +2,9 @@
    SERVICE COMPRIS — Slider + interactions
    ============================================= */
 
-const TOTAL = 12;
+let TOTAL = 12;
 let current = 0;
+let hasWebsiteSlide = false;
 
 const slidesEl  = document.getElementById('slides');
 const dotsEl    = document.getElementById('dots');
@@ -20,13 +21,17 @@ const STRIPE = {
 };
 
 /* ── Init dots ── */
-for (let i = 0; i < TOTAL; i++) {
-  const d = document.createElement('button');
-  d.className = 'dot' + (i === 0 ? ' active' : '');
-  d.setAttribute('aria-label', 'Slide ' + (i + 1));
-  d.addEventListener('click', () => goTo(i));
-  dotsEl.appendChild(d);
+function buildDots() {
+  dotsEl.innerHTML = '';
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Slide ' + (i + 1));
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  }
 }
+buildDots();
 
 /* ── Navigation ── */
 function goTo(n) {
@@ -101,6 +106,48 @@ async function loadProspect() {
     if (p.nom) {
       const h2 = document.querySelector('.s2-inner h2');
       if (h2) h2.innerHTML = `Voici comment <strong>${p.nom}</strong><br>est perçu en ligne aujourd'hui.`;
+    }
+    /* Slide 02b : PageSpeed — affiché uniquement si has_website */
+    const slidePs = document.getElementById('slidePagespeed');
+    if (p.has_website && slidePs) {
+      slidePs.style.display = '';
+      hasWebsiteSlide = true;
+      TOTAL = 13;
+      buildDots();
+      goTo(0);
+      /* URL du site dans le titre */
+      if (p.website_url) {
+        const h2ps = slidePs.querySelector('h2');
+        if (h2ps) {
+          const domain = p.website_url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+          h2ps.innerHTML = `<span style="color:var(--gold)">${domain}</span>,<br>vu par Google.`;
+        }
+      }
+      /* Scores PageSpeed */
+      const fields = ['perf','seo','access','bp'];
+      fields.forEach(f => {
+        const val = p[`ps_${f}`];
+        const el = document.getElementById(`ps${f.charAt(0).toUpperCase()+f.slice(1)}Num`);
+        const card = document.getElementById(`ps${f.charAt(0).toUpperCase()+f.slice(1)}`);
+        if (el && val != null) {
+          el.textContent = val;
+          if (card) {
+            card.classList.remove('ps-score-bad','ps-score-mid','ps-score-good');
+            card.classList.add(val >= 90 ? 'ps-score-good' : val >= 50 ? 'ps-score-mid' : 'ps-score-bad');
+          }
+        }
+      });
+      /* Screenshot PageSpeed */
+      if (p.pagespeed_screenshot) {
+        const psImg = document.getElementById('psScreenshot');
+        const psEmpty = document.getElementById('psEmpty');
+        const screenshotUrl = `https://pb.servicecompris.pro/api/files/prospects/${p.id}/${p.pagespeed_screenshot}`;
+        if (psImg) {
+          psImg.src = screenshotUrl;
+          psImg.style.display = 'block';
+          if (psEmpty) psEmpty.style.display = 'none';
+        }
+      }
     }
     /* Slide 03 : photo galerie */
     if (p.photo_galerie) {

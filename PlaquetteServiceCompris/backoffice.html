@@ -123,7 +123,19 @@
       font-family: inherit;
       transition: border-color .15s;
     }
-    input[type=text]:focus, input[type=url]:focus { outline: none; border-color: var(--lime); }
+    input[type=text]:focus, input[type=url]:focus, input[type=number]:focus { outline: none; border-color: var(--lime); }
+    input[type=number] {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--white);
+      font-size: .95rem;
+      font-family: inherit;
+      transition: border-color .15s;
+    }
+    input[type=checkbox] { cursor: pointer; }
     .divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
 
     /* ── GALERIE ── */
@@ -290,6 +302,64 @@
 
     <hr class="divider">
 
+    <!-- Slide 2b — PageSpeed (conditionnel) -->
+    <div class="form-group">
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;text-transform:none;letter-spacing:0;font-size:.88rem;font-weight:600;color:var(--white);">
+        <input type="checkbox" id="fHasWebsite" onchange="toggleWebsiteSection()" style="width:16px;height:16px;accent-color:var(--lime);cursor:pointer;flex-shrink:0;">
+        Le prospect a déjà un site web
+      </label>
+    </div>
+
+    <div id="websiteSection" style="display:none">
+      <div style="background:var(--s2);border:1px solid rgba(190,242,100,.15);border-radius:12px;padding:20px;margin-bottom:20px;">
+        <div class="galerie-label" style="margin-bottom:16px;">Slide 2b — Diagnostic PageSpeed <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--slate);font-size:.78rem;">(affiché uniquement si site existant)</span></div>
+
+        <div class="form-group">
+          <label>URL du site actuel</label>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <input type="url" id="fWebsiteUrl" placeholder="https://www.restaurant-exemple.fr" style="flex:1">
+            <button class="btn btn-ghost" onclick="openPageSpeed()" title="Ouvrir PageSpeed Insights" style="white-space:nowrap;flex-shrink:0;">
+              📊 Ouvrir PageSpeed
+            </button>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;">
+          <div class="form-group" style="margin-bottom:0">
+            <label>Performance</label>
+            <input type="number" id="fPsPerf" min="0" max="100" placeholder="--" style="text-align:center;font-size:1.1rem;font-weight:700;">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label>SEO</label>
+            <input type="number" id="fPsSeo" min="0" max="100" placeholder="--" style="text-align:center;font-size:1.1rem;font-weight:700;">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label>Accessibilité</label>
+            <input type="number" id="fPsAccess" min="0" max="100" placeholder="--" style="text-align:center;font-size:1.1rem;font-weight:700;">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label>Bonnes pratiques</label>
+            <input type="number" id="fPsBp" min="0" max="100" placeholder="--" style="text-align:center;font-size:1.1rem;font-weight:700;">
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:0">
+          <label>Screenshot PageSpeed <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--slate);font-size:.78rem;">(capture d'écran du résultat)</span></label>
+          <div id="psUploadZone" style="border:2px dashed var(--border);border-radius:10px;padding:20px;text-align:center;cursor:pointer;transition:border-color .15s;position:relative;" onclick="document.getElementById('fPsScreenshot').click()" ondragover="event.preventDefault();this.style.borderColor='var(--lime)'" ondragleave="this.style.borderColor=''" ondrop="handlePsDrop(event)">
+            <input type="file" id="fPsScreenshot" accept="image/*" style="display:none" onchange="onPsFileChange(event)">
+            <div id="psUploadContent">
+              <div style="font-size:1.8rem;margin-bottom:8px;">📸</div>
+              <div style="font-size:.85rem;color:var(--slate);">Cliquez ou glissez-déposez le screenshot PageSpeed</div>
+              <div style="font-size:.75rem;color:var(--slate);margin-top:4px;">PNG, JPG, WebP</div>
+            </div>
+            <img id="psScreenshotPreview" src="" alt="" style="display:none;max-width:100%;max-height:200px;border-radius:8px;margin-top:8px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
     <div class="galerie-label">Slide 3 — L'Électrochoc <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--slate);font-size:.78rem;">(photo de notre galerie à mettre en avant)</span></div>
     <p style="font-size:.82rem;color:var(--slate);margin-bottom:16px;">Choisissez une photo parmi nos réalisations.</p>
     <div class="galerie-grid" id="galerieGrid"><!-- remplie par JS --></div>
@@ -391,6 +461,8 @@ let currentId = null;
 let selectedGalerie = '';
 let selectedRs = { 1: '', 2: '', 3: '' };
 let currentSort = 'nom'; /* 'nom' | 'date' */
+let psFileToUpload = null; /* fichier screenshot pagespeed en attente */
+let existingPsFilename = ''; /* nom du fichier déjà enregistré dans PB */
 
 /* ── INIT ── */
 async function initApp() {
@@ -546,6 +618,19 @@ async function showForm(id) {
   document.getElementById('lienBox').classList.remove('visible');
   document.getElementById('btnDelete').style.display = id ? 'inline-flex' : 'none';
   document.getElementById('formTitle').textContent = id ? 'Modifier le prospect' : 'Nouveau prospect';
+  /* Reset PageSpeed */
+  psFileToUpload = null;
+  existingPsFilename = '';
+  document.getElementById('fHasWebsite').checked = false;
+  document.getElementById('fWebsiteUrl').value = '';
+  document.getElementById('fPsPerf').value = '';
+  document.getElementById('fPsSeo').value = '';
+  document.getElementById('fPsAccess').value = '';
+  document.getElementById('fPsBp').value = '';
+  document.getElementById('fPsScreenshot').value = '';
+  document.getElementById('psScreenshotPreview').style.display = 'none';
+  document.getElementById('psUploadContent').style.display = '';
+  document.getElementById('websiteSection').style.display = 'none';
 
   if (id) {
     const r = await fetch(`${PB}/api/collections/prospects/records/${id}`);
@@ -564,6 +649,23 @@ async function showForm(id) {
       const val = p[`photo_rs_${i}`];
       if (val) setRsColPhoto(i, val.replace(GALERIE_BASE, ''));
     });
+    /* PageSpeed */
+    if (p.has_website) {
+      document.getElementById('fHasWebsite').checked = true;
+      document.getElementById('websiteSection').style.display = '';
+      document.getElementById('fWebsiteUrl').value = p.website_url || '';
+      document.getElementById('fPsPerf').value   = p.ps_perf   != null ? p.ps_perf   : '';
+      document.getElementById('fPsSeo').value    = p.ps_seo    != null ? p.ps_seo    : '';
+      document.getElementById('fPsAccess').value = p.ps_access != null ? p.ps_access : '';
+      document.getElementById('fPsBp').value     = p.ps_bp     != null ? p.ps_bp     : '';
+      if (p.pagespeed_screenshot) {
+        existingPsFilename = p.pagespeed_screenshot;
+        const imgEl = document.getElementById('psScreenshotPreview');
+        imgEl.src = `${PB}/api/files/prospects/${p.id}/${p.pagespeed_screenshot}`;
+        imgEl.style.display = 'block';
+        document.getElementById('psUploadContent').style.display = 'none';
+      }
+    }
     showLien(id);
   } else {
     document.getElementById('fNom').value = '';
@@ -584,36 +686,56 @@ async function saveProspect() {
   const nom = document.getElementById('fNom').value.trim();
   if (!nom) { toast('Le nom est obligatoire'); return; }
 
-  const photoUrl = document.getElementById('fPhotoUrl').value.trim();
-  const photoGalerie = selectedGalerie ? GALERIE_BASE + selectedGalerie : '';
-
-  const body = {
-    nom,
-    ville: document.getElementById('fVille').value.trim(),
-    photo_url: photoUrl,
-    photo_galerie: photoGalerie,
-    photo_rs_1: selectedRs[1] ? GALERIE_BASE + selectedRs[1] : '',
-    photo_rs_2: selectedRs[2] ? GALERIE_BASE + selectedRs[2] : '',
-    photo_rs_3: selectedRs[3] ? GALERIE_BASE + selectedRs[3] : '',
-  };
+  const hasWebsite = document.getElementById('fHasWebsite').checked;
+  const toInt = id => { const v = document.getElementById(id).value; return v !== '' ? parseInt(v, 10) : null; };
 
   document.getElementById('saveLoader').style.display = 'inline-block';
 
-  const url = currentId
+  /* Si screenshot à uploader, on utilise FormData */
+  const useFormData = psFileToUpload != null;
+  let body;
+
+  const fields = {
+    nom,
+    ville:        document.getElementById('fVille').value.trim(),
+    photo_url:    document.getElementById('fPhotoUrl').value.trim(),
+    photo_galerie: selectedGalerie ? GALERIE_BASE + selectedGalerie : '',
+    photo_rs_1:   selectedRs[1] ? GALERIE_BASE + selectedRs[1] : '',
+    photo_rs_2:   selectedRs[2] ? GALERIE_BASE + selectedRs[2] : '',
+    photo_rs_3:   selectedRs[3] ? GALERIE_BASE + selectedRs[3] : '',
+    has_website:  hasWebsite,
+    website_url:  hasWebsite ? document.getElementById('fWebsiteUrl').value.trim() : '',
+    ps_perf:      hasWebsite ? toInt('fPsPerf')   : null,
+    ps_seo:       hasWebsite ? toInt('fPsSeo')    : null,
+    ps_access:    hasWebsite ? toInt('fPsAccess') : null,
+    ps_bp:        hasWebsite ? toInt('fPsBp')     : null,
+  };
+
+  const apiUrl = currentId
     ? `${PB}/api/collections/prospects/records/${currentId}`
     : `${PB}/api/collections/prospects/records`;
   const method = currentId ? 'PATCH' : 'POST';
 
-  const r = await fetch(url, {
-    method, headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
+  let r;
+  if (useFormData) {
+    const fd = new FormData();
+    Object.entries(fields).forEach(([k, v]) => { if (v != null) fd.append(k, v); });
+    fd.append('pagespeed_screenshot', psFileToUpload);
+    r = await fetch(apiUrl, { method, body: fd });
+  } else {
+    r = await fetch(apiUrl, {
+      method, headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(fields)
+    });
+  }
 
   document.getElementById('saveLoader').style.display = 'none';
 
   if (!r.ok) { toast('Erreur lors de la sauvegarde'); return; }
   const d = await r.json();
   currentId = d.id;
+  psFileToUpload = null;
+  if (d.pagespeed_screenshot) existingPsFilename = d.pagespeed_screenshot;
   document.getElementById('btnDelete').style.display = 'inline-flex';
   showLien(d.id);
   toast('Enregistré ✓');
@@ -647,6 +769,44 @@ function toast(msg) {
   const el = document.getElementById('toast');
   el.textContent = msg; el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+/* ── PageSpeed helpers ── */
+function toggleWebsiteSection() {
+  const checked = document.getElementById('fHasWebsite').checked;
+  document.getElementById('websiteSection').style.display = checked ? '' : 'none';
+}
+
+function openPageSpeed() {
+  const url = document.getElementById('fWebsiteUrl').value.trim();
+  const base = 'https://pagespeed.web.dev/?hl=fr';
+  window.open(url ? `${base}&url=${encodeURIComponent(url)}` : base, '_blank');
+}
+
+function onPsFileChange(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  setPsFile(file);
+}
+
+function handlePsDrop(event) {
+  event.preventDefault();
+  document.getElementById('psUploadZone').style.borderColor = '';
+  const file = event.dataTransfer.files[0];
+  if (!file || !file.type.startsWith('image/')) return;
+  setPsFile(file);
+}
+
+function setPsFile(file) {
+  psFileToUpload = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = document.getElementById('psScreenshotPreview');
+    img.src = e.target.result;
+    img.style.display = 'block';
+    document.getElementById('psUploadContent').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
 }
 
 /* ── START ── */
