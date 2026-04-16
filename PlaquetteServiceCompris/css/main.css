@@ -672,7 +672,7 @@ h3 {
   border-radius: var(--r);
   border: 1px solid var(--gold-brd);
   overflow: hidden;
-  background: var(--surface);
+  background: #fff;
 }
 
 /* =============================================
