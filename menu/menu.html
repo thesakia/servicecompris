@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a1a2e" />
+  <title>Menu</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <script src="config.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #BEF264;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --dark: #020717;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 14px;
+      --shadow: 0 1px 8px rgba(0,0,0,.05);
+      /* overridden by restaurant theme */
+      --accent: #BEF264;
+      --accent-text: #020717;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      min-height: 100vh;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* LOADER */
+    #loader {
+      position: fixed; inset: 0;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; transition: opacity .4s;
+    }
+    #loader.hidden { opacity: 0; pointer-events: none; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--dark);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* OFFLINE BANNER */
+    #offline-banner {
+      display: none;
+      background: #fef3c7; color: #92400e;
+      text-align: center; padding: 10px;
+      font-size: .85rem; font-weight: 600;
+    }
+    #offline-banner.show { display: block; }
+
+    /* HEADER */
+    .resto-header {
+      background: var(--accent);
+      color: var(--accent-text);
+      padding: 40px 20px 28px;
+      padding-top: calc(40px + env(safe-area-inset-top));
+      position: relative; overflow: hidden;
+    }
+    .resto-header::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 1px; background: rgba(0,0,0,.08);
+    }
+    .resto-header > * { position: relative; z-index: 1; }
+    .resto-logo {
+      width: 68px; height: 68px;
+      border-radius: 16px; object-fit: cover;
+      border: 2px solid rgba(0,0,0,.1);
+      margin-bottom: 14px;
+      background: rgba(255,255,255,.5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.1);
+    }
+    .resto-logo img { width: 100%; height: 100%; border-radius: 14px; object-fit: cover; }
+    .resto-name {
+      font-size: 1.5rem; font-weight: 800;
+      letter-spacing: -.5px; margin-bottom: 4px;
+      color: var(--accent-text);
+    }
+    .resto-address {
+      font-size: .85rem; opacity: .65;
+      margin-bottom: 16px;
+      color: var(--accent-text);
+    }
+    .lang-switcher {
+      display: flex; gap: 6px; flex-wrap: wrap;
+    }
+    .lang-btn {
+      background: rgba(0,0,0,.08);
+      border: 1px solid rgba(0,0,0,.12);
+      border-radius: 20px; color: var(--accent-text);
+      padding: 5px 12px; font-size: .78rem; font-weight: 700;
+      cursor: pointer; transition: background .15s;
+    }
+    .lang-btn.active, .lang-btn:hover { background: rgba(0,0,0,.15); }
+
+    /* MENUS TABS */
+    .menus-nav {
+      background: var(--dark);
+      display: flex; gap: 0;
+      overflow-x: auto; scrollbar-width: none;
+      padding: 0 12px;
+    }
+    .menus-nav::-webkit-scrollbar { display: none; }
+    .menu-tab {
+      white-space: nowrap;
+      padding: 14px 18px;
+      font-size: .88rem; font-weight: 700;
+      color: rgba(255,255,255,.45);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color .2s ease, border-color .2s ease;
+      background: none; border-top: none; border-left: none; border-right: none;
+      font-family: inherit;
+    }
+    .menu-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .menu-tab:hover { color: rgba(255,255,255,.75); }
+
+    /* STICKY NAV */
+    .category-nav {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      display: flex; gap: 0;
+      padding: 0 8px;
+      /* smooth collapse */
+      max-height: 52px;
+      opacity: 1;
+      transition: max-height .3s ease, opacity .25s ease, border-color .25s ease;
+      overflow: hidden;
+    }
+    .category-nav.hidden {
+      max-height: 0;
+      opacity: 0;
+      border-color: transparent;
+    }
+    .category-nav::-webkit-scrollbar { display: none; }
+    .cat-tab {
+      white-space: nowrap;
+      padding: 14px 14px;
+      font-size: .88rem; font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+      background: none; border-top: none; border-left: none; border-right: none;
+      letter-spacing: -.1px;
+    }
+    .cat-tab.active { color: var(--dark); border-bottom-color: var(--dark); }
+
+    /* SEARCH */
+    .search-wrap {
+      padding: 12px 16px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .search-wrap input {
+      width: 100%; padding: 11px 16px 11px 40px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: .92rem; background: var(--bg);
+      outline: none; transition: border-color .2s;
+      font-family: inherit; color: var(--dark);
+    }
+    .search-wrap input:focus { border-color: var(--dark); background: #fff; }
+    .search-icon {
+      position: absolute; left: 28px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted); pointer-events: none; font-size: .95rem;
+    }
+
+    /* MENU CONTENT */
+    .menu-content { padding: 20px 16px; max-width: 680px; margin: 0 auto; }
+    .menu-content.fade { animation: fadeIn .25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    .category-section { margin-bottom: 36px; }
+    .category-section h2 {
+      font-size: 1rem; font-weight: 800;
+      letter-spacing: -.2px; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+      color: var(--dark);
+      text-transform: uppercase; letter-spacing: .8px; font-size: .8rem;
+    }
+    .category-section h2 .cat-emoji { font-size: 1.1rem; }
+    .category-count {
+      font-size: .72rem; font-weight: 500;
+      color: var(--muted);
+    }
+
+    /* ITEM CARDS */
+    .items-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .item-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      box-shadow: var(--shadow);
+      transition: transform .15s, box-shadow .15s, border-color .15s;
+      cursor: pointer;
+      position: relative;
+    }
+    .item-card:hover { border-color: #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,.07); }
+    .item-card:active { transform: scale(.99); }
+    .item-card.sold-out { opacity: .5; }
+
+    .item-body {
+      flex: 1; padding: 14px 16px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .item-name {
+      font-size: .96rem; font-weight: 700; color: var(--dark);
+      line-height: 1.3;
+    }
+    .item-desc {
+      font-size: .82rem; color: var(--muted);
+      line-height: 1.5; display: -webkit-box;
+      -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .item-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 10px; gap: 8px;
+    }
+    .item-price {
+      font-size: 1rem; font-weight: 800;
+      color: var(--dark);
+      background: var(--accent);
+      padding: 3px 10px; border-radius: 6px;
+      display: inline-block;
+    }
+    .allergen-list {
+      display: flex; gap: 4px; flex-wrap: wrap;
+    }
+    .allergen-tag {
+      background: #f1f5f9; color: var(--muted);
+      font-size: .65rem; font-weight: 700;
+      padding: 2px 7px; border-radius: 4px;
+      text-transform: uppercase; letter-spacing: .3px;
+    }
+    .sold-out-badge {
+      position: absolute; top: 10px; right: 10px;
+      background: var(--dark); color: #fff;
+      font-size: .7rem; font-weight: 700;
+      padding: 3px 9px; border-radius: 6px;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+
+    .item-photo {
+      width: 100px; height: 100px;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+    .item-photo-placeholder {
+      width: 100px; height: 100px;
+      flex-shrink: 0;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; color: #cbd5e1;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(2,7,23,.55);
+      z-index: 200;
+      display: flex; align-items: flex-end;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--white);
+      border-radius: 24px 24px 0 0;
+      width: 100%; max-height: 85vh;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform .3s cubic-bezier(.32,1,.55,1);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-img {
+      width: 100%; height: 220px;
+      object-fit: cover;
+    }
+    .modal-img-placeholder {
+      width: 100%; height: 160px;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+    }
+    .modal-body { padding: 20px; }
+    .modal-name { font-size: 1.35rem; font-weight: 800; margin-bottom: 8px; color: var(--dark); }
+    .modal-desc { color: var(--muted); font-size: .92rem; line-height: 1.65; margin-bottom: 16px; }
+    .modal-price {
+      font-size: 1.4rem; font-weight: 800; color: var(--dark);
+      display: inline-block; background: var(--accent);
+      padding: 4px 14px; border-radius: 8px; margin-bottom: 16px;
+    }
+    .modal-allergens h4 { font-size: .78rem; font-weight: 700; margin-bottom: 8px; color: var(--muted); text-transform: uppercase; letter-spacing: .7px; }
+    .modal-allergens-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      background: rgba(0,0,0,.35); color: #fff;
+      border: none; border-radius: 50%;
+      font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10;
+    }
+    .modal-header { position: relative; }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center; padding: 60px 20px;
+      color: var(--muted);
+    }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+    .empty-state p { font-size: .95rem; }
+
+    /* À LA CARTE DIVIDER */
+    .alacarte-divider {
+      margin: 8px 0 20px;
+      font-size: .72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--muted);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .alacarte-divider::before, .alacarte-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* FOOTER */
+    .menu-footer {
+      text-align: center; padding: 32px 16px 20px;
+      font-size: .78rem; color: #cbd5e1;
+    }
+    .menu-footer a { color: var(--muted); text-decoration: none; font-weight: 600; }
+    .menu-footer a:hover { color: var(--dark); }
+
+    /* NO RESULTS */
+    #no-results {
+      display: none; text-align: center;
+      padding: 40px 20px; color: var(--muted);
+    }
+    #no-results.show { display: block; }
+  </style>
+</head>
+<body>
+
+  <div id="loader"><div class="spinner"></div></div>
+
+  <div id="offline-banner">📡 Vous êtes hors ligne — menu en cache</div>
+
+  <div id="app" style="display:none">
+    <!-- HEADER -->
+    <div class="resto-header" id="resto-header">
+      <div class="resto-logo" id="resto-logo">🍽️</div>
+      <div class="resto-name" id="resto-name">Chargement…</div>
+      <div class="resto-address" id="resto-address"></div>
+      <div class="lang-switcher" id="lang-switcher"></div>
+    </div>
+
+    <!-- MENUS TABS (masqué si 1 seul menu) -->
+    <div class="menus-nav" id="menus-nav" style="display:none"></div>
+
+    <!-- SEARCH -->
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="search" id="search-input" placeholder="Rechercher un plat…" />
+    </div>
+
+    <!-- CATEGORY NAV -->
+    <nav class="category-nav" id="category-nav"></nav>
+
+    <!-- MENU -->
+    <main class="menu-content" id="menu-content"></main>
+
+    <div id="no-results">
+      <div style="font-size:2.5rem;margin-bottom:8px">🔍</div>
+      <p>Aucun plat ne correspond à votre recherche.</p>
+    </div>
+
+    <footer class="menu-footer">
+      Propulsé par <a href="/">QRMenu</a>
+    </footer>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <div class="modal-header" id="modal-header"></div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // CONFIG
+    // ============================================================
+    const PB_URL = window.PB_URL || 'https://your-pocketbase-instance.com';
+
+    // ============================================================
+    // UTILS
+    // ============================================================
+    const $ = id => document.getElementById(id);
+    const slug = () => {
+      const path = window.location.pathname.replace(/^\//, '').split('/');
+      // Accept /resto-slug or /menu/resto-slug
+      const lastPart = path[path.length - 1];
+      if (lastPart && lastPart !== 'menu.html') return lastPart;
+      // Fallback: query param ?slug=xxx
+      return new URLSearchParams(location.search).get('slug') || 'demo';
+    };
+
+    // ============================================================
+    // OFFLINE CACHE
+    // ============================================================
+    const CACHE_KEY = `qrmenu_${slug()}`;
+    const saveCache = data => { try { localStorage.setItem(CACHE_KEY, JSON.stringify({ts: Date.now(), data})); } catch(e){} };
+    const loadCache = () => { try { const r = localStorage.getItem(CACHE_KEY); return r ? JSON.parse(r) : null; } catch(e){ return null; } };
+
+    window.addEventListener('offline', () => $('offline-banner').classList.add('show'));
+    window.addEventListener('online',  () => $('offline-banner').classList.remove('show'));
+
+    // ============================================================
+    // STATE
+    // ============================================================
+    let state = {
+      restaurant: null,
+      menus: [],
+      categories: [],
+      items: [],
+      activeMenuId: null,
+      activeCatId: null,   // null = toutes catégories
+      lang: 'fr',
+      langs: ['fr'],
+      filtered: [],
+    };
+
+    // ============================================================
+    // FETCH
+    // ============================================================
+    async function fetchMenu() {
+      const restoSlug = slug();
+      let data = null;
+
+      if (!navigator.onLine) {
+        const cached = loadCache();
+        if (cached) { data = cached.data; $('offline-banner').classList.add('show'); }
+        else { showError('Vous êtes hors ligne et aucun cache n\'est disponible.'); return; }
+      } else {
+        try {
+          // 1. Get restaurant by slug
+          const restoRes = await fetch(
+            `${PB_URL}/api/collections/restaurants/records?filter=(slug='${encodeURIComponent(restoSlug)}')`
+          );
+          if (!restoRes.ok) throw new Error('Restaurant introuvable');
+          const restoData = await restoRes.json();
+          if (!restoData.items?.length) { showError('Ce menu n\'existe pas.'); return; }
+          const restaurant = restoData.items[0];
+
+          // 2. Get menus
+          const menusRes = await fetch(
+            `${PB_URL}/api/collections/menus/records?filter=(restaurant='${restaurant.id}')&sort=order,name&perPage=200`
+          );
+          const menusData = await menusRes.json();
+
+          // 3. Get categories
+          const catRes = await fetch(
+            `${PB_URL}/api/collections/categories/records?filter=(restaurant='${restaurant.id}')&sort=order,name&perPage=200`
+          );
+          const catData = await catRes.json();
+
+          // 4. Get items
+          const itemsRes = await fetch(
+            `${PB_URL}/api/collections/items/records?filter=(restaurant='${restaurant.id}')&sort=category,order&perPage=500`
+          );
+          const itemsData = await itemsRes.json();
+
+          data = { restaurant, menus: menusData.items || [], categories: catData.items || [], items: itemsData.items || [] };
+          saveCache(data);
+
+        } catch(err) {
+          // Try cache fallback
+          const cached = loadCache();
+          if (cached) {
+            data = cached.data;
+            $('offline-banner').classList.add('show');
+          } else {
+            showError('Impossible de charger le menu. Veuillez réessayer.');
+            return;
+          }
+        }
+      }
+
+      // Paywall
+      if (data.restaurant.active === false) {
+        showPaywall(data.restaurant.inactive_reason);
+        return;
+      }
+
+      state.restaurant = data.restaurant;
+      state.menus      = data.menus || [];
+      state.categories = data.categories;
+      state.items      = data.items;
+      // Default to "Tout" tab (null = show everything)
+      state.activeMenuId = null;
+      state.filtered = activeItems();
+      detectLangs();
+      render();
+    }
+
+    // ============================================================
+    // LANGS
+    // ============================================================
+    function detectLangs() {
+      const r = state.restaurant;
+      const langs = ['fr'];
+      if (r.name_en || state.items.some(i => i.name_en)) langs.push('en');
+      if (r.name_es || state.items.some(i => i.name_es)) langs.push('es');
+      if (r.name_de || state.items.some(i => i.name_de)) langs.push('de');
+      state.langs = langs;
+      // Auto-detect browser lang
+      const bl = (navigator.language || 'fr').substring(0,2).toLowerCase();
+      if (langs.includes(bl)) state.lang = bl;
+    }
+
+    function t(obj, field) {
+      if (!obj) return '';
+      const locKey = `${field}_${state.lang}`;
+      if (obj[locKey]) return obj[locKey];
+      return obj[field] || '';
+    }
+
+    // ============================================================
+    // RENDER
+    // ============================================================
+    function activeCategories() {
+      // All categories — filtering is done at item level
+      return state.categories;
+    }
+
+    function activeItems() {
+      let base;
+      if (state.activeMenuId === null) {
+        // "À la carte" : all items, filtered by category if one is selected
+        base = state.items;
+        if (state.activeCatId) base = base.filter(i => i.category === state.activeCatId);
+      } else {
+        // Named menu: items belonging to this menu
+        base = state.items.filter(i => (i.menus || []).includes(state.activeMenuId));
+      }
+      return base;
+    }
+
+    function render() {
+      const r = state.restaurant;
+      applyTheme(r);
+      renderHeader(r);
+      renderLangSwitcher();
+      renderMenusNav();
+      renderCategoryNav();
+      renderItems();
+      $('loader').classList.add('hidden');
+      $('app').style.display = 'block';
+      document.title = t(r, 'name');
+    }
+
+    function renderMenusNav() {
+      const el = $('menus-nav');
+      if (!state.menus.length) { el.style.display = 'none'; return; }
+      el.style.display = 'flex';
+      // "Tout" tab + one per menu
+      el.innerHTML =
+        `<button class="menu-tab ${state.activeMenuId === null ? 'active' : ''}" onclick="switchMenu(null)">À la carte</button>` +
+        state.menus.map(m => {
+          const priceTag = (m.price != null && m.price !== '') ? ` <span style="font-size:.72rem;opacity:.7;font-weight:500">${formatPrice(m.price)}</span>` : '';
+          return `<button class="menu-tab ${m.id === state.activeMenuId ? 'active' : ''}" onclick="switchMenu('${m.id}')">${escHtml(m.name)}${priceTag}</button>`;
+        }).join('');
+    }
+
+    function switchMenu(menuId) {
+      state.activeMenuId = menuId;
+      state.activeCatId  = null;
+      state.filtered = activeItems();
+      renderMenusNav();
+      renderCategoryNav();
+      renderItems();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function applyTheme(r) {
+      const root = document.documentElement;
+      if (r.color_primary) root.style.setProperty('--accent', r.color_primary);
+      if (r.color_text)    root.style.setProperty('--accent-text', r.color_text);
+      if (r.color_bg)      root.style.setProperty('--bg', r.color_bg);
+      // Update theme-color meta
+      document.querySelector('meta[name=theme-color]').content = r.color_primary || '#1a1a2e';
+    }
+
+    function renderHeader(r) {
+      $('resto-name').textContent = t(r, 'name');
+      $('resto-address').textContent = r.address || '';
+      const logoEl = $('resto-logo');
+      if (r.logo) {
+        logoEl.innerHTML = `<img src="${PB_URL}/api/files/restaurants/${r.id}/${r.logo}" alt="logo" />`;
+      }
+    }
+
+    function renderLangSwitcher() {
+      const el = $('lang-switcher');
+      if (state.langs.length <= 1) { el.style.display = 'none'; return; }
+      el.innerHTML = state.langs.map(l =>
+        `<button class="lang-btn ${l === state.lang ? 'active' : ''}" onclick="setLang('${l}')">${l.toUpperCase()}</button>`
+      ).join('');
+    }
+
+    function renderCategoryNav() {
+      const nav = $('category-nav');
+      // All categories that have at least one item in ANY view (for tab list)
+      const allItems = state.activeMenuId === null
+        ? state.items
+        : state.items.filter(i => (i.menus || []).includes(state.activeMenuId));
+      const cats = activeCategories().filter(c => allItems.some(i => i.category === c.id));
+
+      // Hide nav if ≤1 category
+      if (cats.length <= 1) {
+        nav.classList.add('hidden');
+        nav.innerHTML = '';
+        return;
+      }
+      nav.classList.remove('hidden');
+
+      if (state.activeMenuId === null) {
+        // À la carte mode: tabs filter the view
+        // First tab = "Tout" (null), then one per category
+        const allTab = `<button class="cat-tab ${state.activeCatId === null ? 'active' : ''}" data-cat="all" onclick="filterByCategory(null)">Tout</button>`;
+        const catTabs = cats.map(cat =>
+          `<button class="cat-tab ${state.activeCatId === cat.id ? 'active' : ''}" data-cat="${cat.id}" onclick="filterByCategory('${cat.id}')">${cat.emoji ? cat.emoji + ' ' : ''}${t(cat,'name')}</button>`
+        ).join('');
+        nav.innerHTML = allTab + catTabs;
+      } else {
+        // Named menu mode: tabs scroll to section
+        nav.innerHTML = cats.map((cat, i) =>
+          `<button class="cat-tab ${i===0?'active':''}" data-cat="${cat.id}" onclick="scrollToCategory('${cat.id}', this)">${cat.emoji ? cat.emoji + ' ' : ''}${t(cat,'name')}</button>`
+        ).join('');
+      }
+    }
+
+    function filterByCategory(catId) {
+      state.activeCatId = catId;
+      state.filtered = activeItems();
+      renderCategoryNav();
+      renderItems();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderItems() {
+      const content = $('menu-content');
+      const noRes   = $('no-results');
+      const items   = state.filtered;
+      const cats    = activeCategories();
+
+      if (items.length === 0 && $('search-input').value) {
+        content.innerHTML = ''; noRes.classList.add('show'); return;
+      }
+      noRes.classList.remove('show');
+
+      // In a named menu view, hide individual item prices (menu has its own price)
+      const hidePrice = state.activeMenuId !== null;
+
+      const renderSection = (cat) => {
+        const catItems = items.filter(i => i.category === cat.id);
+        if (!catItems.length) return '';
+        return `
+          <section class="category-section" id="cat-${cat.id}">
+            <h2>
+              ${cat.emoji ? `<span class="cat-emoji">${cat.emoji}</span>` : ''}
+              ${t(cat,'name')}
+              <span class="category-count">(${catItems.length})</span>
+            </h2>
+            <div class="items-list">
+              ${catItems.map(item => renderItemCard(item, hidePrice)).join('')}
+            </div>
+          </section>
+        `;
+      };
+
+      content.innerHTML = cats.map(renderSection).join('');
+      // Trigger fade-in animation
+      content.classList.remove('fade');
+      void content.offsetWidth; // reflow
+      content.classList.add('fade');
+
+      // Attach click handlers
+      content.querySelectorAll('.item-card').forEach(card => {
+        card.addEventListener('click', () => openModal(card.dataset.id));
+      });
+
+      // Intersection observer for active nav tab — only in named menu mode (scroll nav)
+      if (state.activeMenuId !== null) setupIntersection();
+    }
+
+    function renderItemCard(item, hidePrice = false) {
+      const photoUrl = item.photo
+        ? `${PB_URL}/api/files/items/${item.id}/${item.photo}?thumb=200x200`
+        : null;
+      const allergenNames = (item.allergens || []).map(a => ALLERGENS[a] || a);
+
+      return `
+        <div class="item-card ${item.available === false ? 'sold-out' : ''}" data-id="${item.id}">
+          ${item.available === false ? '<span class="sold-out-badge">Épuisé</span>' : ''}
+          <div class="item-body">
+            <div class="item-name">${escHtml(t(item,'name'))}</div>
+            ${t(item,'description') ? `<div class="item-desc">${escHtml(t(item,'description'))}</div>` : ''}
+            <div class="item-footer">
+              ${hidePrice ? '' : `<div class="item-price">${formatPrice(item.price)}</div>`}
+              ${allergenNames.length ? `<div class="allergen-list">${allergenNames.slice(0,3).map(a=>`<span class="allergen-tag">${a}</span>`).join('')}${allergenNames.length>3?`<span class="allergen-tag">+${allergenNames.length-3}</span>`:''}</div>` : ''}
+            </div>
+          </div>
+          ${photoUrl
+            ? `<img class="item-photo" src="${photoUrl}" alt="${escHtml(t(item,'name'))}" loading="lazy" />`
+            : `<div class="item-photo-placeholder">🍽️</div>`
+          }
+        </div>
+      `;
+    }
+
+    // ============================================================
+    // MODAL
+    // ============================================================
+    function openModal(itemId) {
+      const item = state.items.find(i => i.id === itemId);
+      if (!item) return;
+
+      const header = $('modal-header');
+      const body   = $('modal-body');
+      const overlay = $('modal-overlay');
+
+      const photoUrl = item.photo
+        ? `${PB_URL}/api/files/items/${item.id}/${item.photo}`
+        : null;
+
+      header.innerHTML = `
+        ${photoUrl
+          ? `<img class="modal-img" src="${photoUrl}" alt="${escHtml(t(item,'name'))}" />`
+          : `<div class="modal-img-placeholder">🍽️</div>`
+        }
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      `;
+
+      const allergenNames = (item.allergens || []).map(a => ALLERGENS[a] || a);
+
+      const hidePrice = state.activeMenuId !== null;
+      const activeMenu = state.menus.find(m => m.id === state.activeMenuId);
+
+      body.innerHTML = `
+        <div class="modal-name">${escHtml(t(item,'name'))}</div>
+        ${t(item,'description') ? `<p class="modal-desc">${escHtml(t(item,'description'))}</p>` : ''}
+        ${hidePrice
+          ? (activeMenu?.price != null && activeMenu.price !== ''
+              ? `<div class="modal-price">${escHtml(activeMenu.name)} — ${formatPrice(activeMenu.price)}</div>`
+              : '')
+          : `<div class="modal-price">${formatPrice(item.price)}</div>`
+        }
+        ${item.available === false ? '<div style="color:#ef4444;font-weight:700;margin-bottom:12px">⚠️ Ce plat est actuellement épuisé</div>' : ''}
+        ${allergenNames.length ? `
+          <div class="modal-allergens">
+            <h4>Allergènes</h4>
+            <div class="modal-allergens-list">
+              ${allergenNames.map(a => `<span class="allergen-tag">${a}</span>`).join('')}
+            </div>
+          </div>
+        ` : ''}
+      `;
+
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      $('modal-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    $('modal-overlay').addEventListener('click', e => {
+      if (e.target === $('modal-overlay')) closeModal();
+    });
+
+    // ============================================================
+    // SEARCH
+    // ============================================================
+    $('search-input').addEventListener('input', function() {
+      const q    = this.value.toLowerCase().trim();
+      // When searching, ignore category filter to show all results
+      const base = q
+        ? (state.activeMenuId === null
+            ? state.items
+            : state.items.filter(i => (i.menus || []).includes(state.activeMenuId)))
+        : activeItems();
+      if (!q) {
+        state.filtered = base;
+      } else {
+        state.filtered = base.filter(item => {
+          const name = (t(item,'name') + ' ' + t(item,'description')).toLowerCase();
+          return name.includes(q);
+        });
+      }
+      renderItems();
+    });
+
+    // ============================================================
+    // SCROLL TO CATEGORY
+    // ============================================================
+    function scrollToCategory(catId, btn) {
+      const section = document.getElementById(`cat-${catId}`);
+      if (section) {
+        const offset = 64 + 48; // header + nav
+        const top = section.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function setupIntersection() {
+      const sections = document.querySelectorAll('.category-section');
+      const tabs = document.querySelectorAll('.cat-tab');
+      if (!sections.length) return;
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id.replace('cat-', '');
+            tabs.forEach(t => {
+              t.classList.toggle('active', t.dataset.cat === id);
+            });
+            // Scroll active tab into view
+            const activeTab = document.querySelector(`.cat-tab[data-cat="${id}"]`);
+            if (activeTab) activeTab.scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' });
+          }
+        });
+      }, { rootMargin: '-30% 0px -60% 0px' });
+
+      sections.forEach(s => io.observe(s));
+    }
+
+    // ============================================================
+    // LANG SWITCH
+    // ============================================================
+    function setLang(lang) {
+      state.lang      = lang;
+      state.activeCatId = null;
+      state.filtered  = activeItems();
+      renderHeader(state.restaurant);
+      renderLangSwitcher();
+      renderMenusNav();
+      renderCategoryNav();
+      renderItems();
+    }
+
+    // ============================================================
+    // HELPERS
+    // ============================================================
+    function showError(msg) {
+      $('loader').classList.add('hidden');
+      document.body.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;text-align:center;font-family:system-ui">
+          <div style="font-size:3rem;margin-bottom:16px">😕</div>
+          <h2 style="margin-bottom:8px">Oups !</h2>
+          <p style="color:#6b7280">${msg}</p>
+        </div>
+      `;
+    }
+
+    function showPaywall(reason) {
+      $('loader').classList.add('hidden');
+      document.body.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;text-align:center;font-family:system-ui;background:#f8f7f4">
+          <div style="font-size:3rem;margin-bottom:16px">⚠️</div>
+          <h2 style="margin-bottom:12px;font-size:1.4rem">Ce menu est temporairement indisponible</h2>
+          ${reason ? `<p style="color:#ef4444;font-weight:600;margin-bottom:16px;max-width:400px">${reason}</p>` : ''}
+          <p style="color:#6b7280;margin-bottom:24px">Pour rétablir l'accès, veuillez contacter :</p>
+          <a href="https://servicecompris.pro" style="display:inline-block;background:#FF5C35;color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;text-decoration:none;font-size:1rem">
+            servicecompris.pro
+          </a>
+        </div>
+      `;
+    }
+
+    function formatPrice(price) {
+      if (price === undefined || price === null) return '';
+      return new Intl.NumberFormat('fr-FR', { style:'currency', currency:'EUR' }).format(price);
+    }
+
+    function escHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    const ALLERGENS = {
+      gluten: 'Gluten', crustaceans: 'Crustacés', eggs: 'Œufs', fish: 'Poisson',
+      peanuts: 'Arachides', soy: 'Soja', milk: 'Lait', nuts: 'Fruits à coque',
+      celery: 'Céleri', mustard: 'Moutarde', sesame: 'Sésame', sulphites: 'Sulfites',
+      lupin: 'Lupin', molluscs: 'Mollusques'
+    };
+
+    // ============================================================
+    // BOOT
+    // ============================================================
+    fetchMenu();
+  </script>
+</body>
+</html>

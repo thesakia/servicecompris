@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QRMenu — Administration</title>
+  <script src="config.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #BEF264;
+      --primary-dark: #a3d94e;
+      --primary-light: #f3fde8;
+      --dark: #020717;
+      --mid: #f8fafc;
+      --white: #ffffff;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --danger: #ef4444;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --radius: 10px;
+      --sidebar: 240px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+      background: #f8fafc;
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* ===== AUTH SCREEN ===== */
+    #auth-screen {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--dark);
+    }
+    .auth-box {
+      background: var(--white); border-radius: 20px;
+      padding: 40px; width: 100%; max-width: 400px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.35);
+    }
+    .auth-logo {
+      font-size: 1.5rem; font-weight: 800; color: var(--dark); margin-bottom: 24px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .auth-logo span {
+      display: inline-block;
+      background: var(--primary); color: var(--dark);
+      border-radius: 6px; padding: 1px 8px;
+      font-size: 1.2rem;
+    }
+    .auth-box h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 4px; }
+    .auth-box p { color: var(--muted); font-size: .9rem; margin-bottom: 28px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: .82rem; font-weight: 600; margin-bottom: 6px; color: var(--dark); }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--border); border-radius: var(--radius);
+      font-size: .95rem; font-family: inherit;
+      outline: none; transition: border-color .2s;
+      background: var(--white);
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--dark);
+    }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 12px 20px; border-radius: var(--radius);
+      font-size: .9rem; font-weight: 600; cursor: pointer;
+      border: none; transition: .2s; text-decoration: none; font-family: inherit;
+    }
+    .btn-primary { background: var(--dark); color: #fff; }
+    .btn-primary:hover { background: #1e293b; }
+    .btn-full { width: 100%; }
+    .btn-ghost { background: transparent; border: 1.5px solid var(--border); color: var(--dark); }
+    .btn-ghost:hover { border-color: var(--dark); }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-danger:hover { background: #dc2626; }
+    .btn-sm { padding: 7px 14px; font-size: .82rem; }
+    .auth-error {
+      background: #fef2f2; color: var(--danger);
+      border: 1px solid #fecaca; border-radius: 8px;
+      padding: 10px 14px; font-size: .85rem;
+      margin-bottom: 16px; display: none;
+    }
+    .auth-error.show { display: block; }
+    .auth-success {
+      background: #f0fdf4; color: #166534;
+      border: 1px solid #bbf7d0; border-radius: 8px;
+      padding: 10px 14px; font-size: .85rem;
+      margin-bottom: 16px; display: none;
+    }
+    .auth-success.show { display: block; }
+
+    /* ===== APP LAYOUT ===== */
+    #app { display: none; }
+
+    .layout { display: flex; min-height: 100vh; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar); flex-shrink: 0;
+      background: var(--dark);
+      position: fixed; left: 0; top: 0; bottom: 0;
+      display: flex; flex-direction: column;
+      z-index: 100; overflow-y: auto;
+    }
+    .sidebar-logo {
+      padding: 20px;
+      font-size: 1.2rem; font-weight: 800; color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .sidebar-logo span {
+      display: inline-block;
+      background: var(--primary); color: var(--dark);
+      border-radius: 5px; padding: 0 6px;
+      font-size: 1rem;
+    }
+
+    .resto-select-wrap { padding: 12px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .resto-select-wrap select {
+      width: 100%; padding: 9px 12px;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px; color: #fff; font-size: .85rem; font-family: inherit;
+      cursor: pointer; outline: none;
+    }
+    .resto-select-wrap select option { background: #0f172a; }
+    .btn-new-resto {
+      width: 100%; margin-top: 6px;
+      background: rgba(190,242,100,.12); border: 1px solid rgba(190,242,100,.25);
+      border-radius: 8px; color: var(--primary); padding: 7px;
+      font-size: .82rem; font-weight: 600; cursor: pointer; font-family: inherit;
+      transition: .2s;
+    }
+    .btn-new-resto:hover { background: rgba(190,242,100,.22); }
+
+    /* SUPERADMIN */
+    .sa-table { width: 100%; border-collapse: collapse; color: var(--dark); }
+    .sa-table th { background: #f8fafc; text-align: left; padding: 10px 14px; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); border-bottom: 1px solid var(--border); }
+    .sa-table td { padding: 12px 14px; font-size: .88rem; border-bottom: 1px solid var(--border); vertical-align: middle; color: var(--dark); }
+    .sa-table tr:hover td { background: #f8fafc; }
+    #view-superadmin { color: var(--dark); }
+    .badge-active { background: #dcfce7; color: #166534; font-size: .75rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+    .badge-inactive { background: #fef2f2; color: #991b1b; font-size: .75rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+
+    .sidebar nav { flex: 1; padding: 10px 0; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 20px; cursor: pointer;
+      color: rgba(255,255,255,.45); font-size: .88rem; font-weight: 500;
+      border-left: 3px solid transparent;
+      transition: .15s; border-radius: 0 8px 8px 0; margin: 1px 8px 1px 0;
+      background: none; border-top: none; border-right: none; border-bottom: none;
+      width: calc(100% - 8px); text-align: left; font-family: inherit;
+    }
+    .nav-item .icon { font-size: 1rem; width: 20px; text-align: center; }
+    .nav-item:hover { color: #fff; background: rgba(255,255,255,.05); }
+    .nav-item.active { color: var(--primary); background: rgba(190,242,100,.1); border-left-color: var(--primary); }
+
+    .sidebar-footer {
+      padding: 16px; border-top: 1px solid rgba(255,255,255,.07);
+    }
+    .user-info { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .user-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--primary); color: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: .85rem; flex-shrink: 0;
+    }
+    .user-name { font-size: .85rem; font-weight: 600; color: #fff; }
+    .user-email { font-size: .75rem; color: rgba(255,255,255,.35); }
+    .btn-logout {
+      width: 100%; background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.09);
+      color: rgba(255,255,255,.5); padding: 9px;
+      border-radius: 8px; font-size: .82rem; cursor: pointer;
+      font-family: inherit; transition: .2s;
+    }
+    .btn-logout:hover { background: rgba(239,68,68,.15); border-color: rgba(239,68,68,.25); color: #fca5a5; }
+
+    /* MAIN */
+    .main { margin-left: var(--sidebar); flex: 1; display: flex; flex-direction: column; }
+
+    .topbar {
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 0 28px; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .topbar h1 { font-size: 1.05rem; font-weight: 700; color: var(--dark); }
+    .topbar-actions { display: flex; gap: 8px; align-items: center; }
+
+    .page-content { padding: 28px; flex: 1; }
+
+    /* VIEWS */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* DASHBOARD */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px; margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px;
+    }
+    .stat-card .label { font-size: .78rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .7px; margin-bottom: 8px; }
+    .stat-card .value { font-size: 2rem; font-weight: 800; color: var(--dark); }
+    .stat-card .sub { font-size: .78rem; color: var(--muted); margin-top: 4px; }
+
+    /* MENU EDITOR */
+    .editor-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 16px; align-items: start;
+    }
+    .panel {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+    }
+    .panel-header {
+      padding: 14px 18px;
+      font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .7px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    /* CATEGORY LIST */
+    #cat-list { list-style: none; }
+    .cat-item {
+      padding: 12px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; border-bottom: 1px solid var(--border);
+      transition: background .15s; gap: 8px;
+    }
+    .cat-item:last-child { border-bottom: none; }
+    .cat-item:hover { background: var(--mid); }
+    .cat-item.active { background: var(--primary-light); border-left: 3px solid var(--dark); }
+    .cat-name { font-size: .9rem; font-weight: 600; flex: 1; }
+    .cat-count { font-size: .75rem; color: var(--muted); }
+    .cat-actions { display: flex; gap: 4px; opacity: 0; transition: .15s; }
+    .cat-item:hover .cat-actions { opacity: 1; }
+    .icon-btn {
+      width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+      border: none; background: none; cursor: pointer; border-radius: 6px;
+      font-size: .85rem; transition: background .15s;
+    }
+    .icon-btn:hover { background: var(--border); }
+    .icon-btn.del:hover { background: #fef2f2; }
+
+    /* ITEMS TABLE */
+    .items-toolbar {
+      padding: 12px 18px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .items-toolbar input {
+      flex: 1; padding: 8px 12px; border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: .88rem; font-family: inherit; outline: none;
+      background: var(--mid);
+    }
+    .items-toolbar input:focus { border-color: var(--dark); background: #fff; }
+
+    .items-table { width: 100%; border-collapse: collapse; }
+    .items-table th {
+      background: var(--mid); text-align: left; padding: 10px 14px;
+      font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .7px;
+      color: var(--muted); border-bottom: 1px solid var(--border);
+    }
+    .items-table td {
+      padding: 12px 14px; font-size: .88rem;
+      border-bottom: 1px solid var(--border); vertical-align: middle;
+    }
+    .items-table tr:hover td { background: #f8fafc; }
+    .item-thumb {
+      width: 44px; height: 44px; border-radius: 8px;
+      object-fit: cover;
+    }
+    .item-thumb-placeholder {
+      width: 44px; height: 44px; border-radius: 8px;
+      background: var(--mid); display: flex; align-items: center;
+      justify-content: center; font-size: 1.2rem;
+    }
+    .badge-available { display: inline-flex; align-items: center; gap: 4px; }
+    .toggle {
+      position: relative; width: 38px; height: 22px;
+      display: inline-block; cursor: pointer;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-track {
+      position: absolute; inset: 0;
+      background: var(--border); border-radius: 11px;
+      transition: .25s;
+    }
+    .toggle input:checked + .toggle-track { background: var(--primary); }
+    .toggle-thumb {
+      position: absolute; top: 3px; left: 3px;
+      width: 16px; height: 16px;
+      background: #fff; border-radius: 50%;
+      transition: .25s; pointer-events: none;
+    }
+    .toggle input:checked ~ .toggle-thumb { transform: translateX(16px); }
+    .row-actions { display: flex; gap: 6px; }
+
+    /* MODAL / DRAWER */
+    .drawer-overlay {
+      position: fixed; inset: 0; background: rgba(2,7,23,.45);
+      z-index: 500; display: none; align-items: center; justify-content: flex-end;
+    }
+    .drawer-overlay.open { display: flex; }
+    .drawer {
+      background: var(--white); width: 460px; max-width: 96vw;
+      height: 100%; overflow-y: auto;
+      box-shadow: -12px 0 48px rgba(0,0,0,.12);
+      display: flex; flex-direction: column;
+    }
+    .drawer-header {
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; background: var(--white); z-index: 10;
+    }
+    .drawer-header h2 { font-size: 1.05rem; font-weight: 700; }
+    .drawer-body { padding: 24px; flex: 1; overflow-y: auto; }
+    .drawer-footer {
+      padding: 16px 24px; border-top: 1px solid var(--border);
+      display: flex; gap: 10px; justify-content: flex-end;
+      position: sticky; bottom: 0; background: var(--white);
+    }
+
+    .photo-upload {
+      width: 100%; aspect-ratio: 16/9;
+      border: 2px dashed var(--border); border-radius: var(--radius);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color .2s; position: relative;
+      overflow: hidden; background: var(--mid);
+    }
+    .photo-upload:hover { border-color: var(--dark); }
+    .photo-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .photo-upload img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .photo-upload .upload-label { pointer-events: none; text-align: center; }
+    .photo-upload .upload-label .icon { font-size: 2rem; display: block; margin-bottom: 8px; }
+    .photo-upload .upload-label span { font-size: .85rem; color: var(--muted); }
+
+    .allergen-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 6px;
+    }
+    .allergen-checkbox {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 8px;
+      cursor: pointer; font-size: .85rem; transition: .15s;
+    }
+    .allergen-checkbox:hover { border-color: var(--dark); background: var(--mid); }
+    .allergen-checkbox input { accent-color: var(--dark); }
+
+    /* COLOR PICKERS */
+    .color-row { display: flex; gap: 12px; }
+    .color-input-wrap {
+      flex: 1; display: flex; flex-direction: column; gap: 6px;
+    }
+    .color-input-wrap label { font-size: .82rem; font-weight: 600; color: var(--muted); }
+    .color-input-wrap input[type=color] {
+      width: 100%; height: 44px; border: 1.5px solid var(--border);
+      border-radius: 8px; cursor: pointer; padding: 4px;
+    }
+
+    /* QR PREVIEW */
+    .qr-section { text-align: center; padding: 20px 0; }
+    .qr-section img, .qr-section canvas {
+      border: 8px solid var(--white);
+      box-shadow: 0 4px 20px rgba(0,0,0,.1);
+      border-radius: 12px;
+    }
+    .qr-url {
+      font-size: .8rem; color: var(--muted);
+      margin-top: 8px; word-break: break-all;
+    }
+
+    /* TOAST */
+    #toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: var(--dark); color: #fff;
+      padding: 12px 20px; border-radius: 10px;
+      font-size: .9rem; font-weight: 500; z-index: 9999;
+      opacity: 0; transition: opacity .25s;
+      pointer-events: none; white-space: nowrap;
+    }
+    #toast.success { background: var(--success); color: #fff; }
+    #toast.error { background: var(--danger); }
+    #toast.show { opacity: 1; }
+
+    /* EMPTY STATE */
+    .empty { text-align: center; padding: 48px 20px; color: var(--muted); }
+    .empty .icon { font-size: 2.5rem; margin-bottom: 10px; }
+    .empty p { font-size: .9rem; margin-bottom: 16px; }
+
+    /* ===== RESPONSIVE ===== */
+
+    /* TABLET (≤ 1100px) : sidebar plus étroite */
+    @media (max-width: 1100px) {
+      :root { --sidebar: 200px; }
+      .editor-layout { grid-template-columns: 220px 1fr; gap: 12px; }
+    }
+
+    /* MOBILE / TABLETTE (≤ 860px) : sidebar → bottom nav */
+    @media (max-width: 860px) {
+      /* Hide desktop sidebar */
+      .sidebar { display: none; }
+      .main { margin-left: 0; padding-bottom: 64px; }
+
+      /* BOTTOM NAV */
+      .bottom-nav {
+        display: flex !important;
+        position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+        background: var(--dark);
+        border-top: 1px solid rgba(255,255,255,.07);
+        height: 60px;
+        safe-area-inset-bottom: env(safe-area-inset-bottom);
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      .bottom-nav-item {
+        flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 3px; color: rgba(255,255,255,.4); font-size: .62rem; font-weight: 600;
+        background: none; border: none; cursor: pointer; font-family: inherit;
+        transition: color .15s; padding: 0;
+      }
+      .bottom-nav-item .bn-icon { font-size: 1.2rem; }
+      .bottom-nav-item.active { color: var(--primary); }
+
+      /* TOPBAR mobile */
+      .topbar { padding: 0 16px; }
+      .topbar h1 { font-size: .95rem; }
+
+      /* RESTO SELECTOR : show in topbar on mobile */
+      .topbar-resto { display: flex !important; }
+
+      /* PAGE CONTENT */
+      .page-content { padding: 16px; }
+
+      /* EDITOR : stack 3 cols → tabs */
+      .editor-layout {
+        display: block;
+      }
+      .editor-panel {
+        display: none;
+      }
+      .editor-panel.active {
+        display: block;
+      }
+      .editor-tabs {
+        display: flex !important;
+        gap: 0;
+        margin-bottom: 12px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .editor-tab {
+        flex: 1; padding: 10px 6px; font-size: .8rem; font-weight: 700;
+        background: none; border: none; cursor: pointer; font-family: inherit;
+        color: var(--muted); transition: .15s; text-align: center;
+      }
+      .editor-tab.active { background: var(--dark); color: #fff; }
+
+      /* STATS GRID */
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* DRAWER full-screen on mobile */
+      .drawer { width: 100vw; }
+
+      /* SA TABLE scroll */
+      .panel { overflow-x: auto; }
+    }
+
+    /* SMALL MOBILE (≤ 480px) */
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .stat-card { padding: 14px; }
+      .stat-card .value { font-size: 1.6rem; }
+      .topbar h1 { font-size: .88rem; }
+      .page-content { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== AUTH SCREEN ===== -->
+<div id="auth-screen">
+  <div class="auth-box">
+    <div class="auth-logo">QRMenu<span>.</span></div>
+
+    <!-- TABS -->
+    <div style="display:flex;gap:0;margin-bottom:28px;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden">
+      <button id="tab-login" onclick="switchAuthTab('login')"
+        style="flex:1;padding:10px;font-size:.9rem;font-weight:700;border:none;cursor:pointer;background:var(--dark);color:#fff;font-family:inherit;transition:.15s">
+        Connexion
+      </button>
+      <button id="tab-register" onclick="switchAuthTab('register')"
+        style="flex:1;padding:10px;font-size:.9rem;font-weight:700;border:none;cursor:pointer;background:transparent;color:var(--muted);font-family:inherit;transition:.15s">
+        Créer un compte
+      </button>
+    </div>
+
+    <div class="auth-error" id="auth-error"></div>
+
+    <!-- LOGIN FORM -->
+    <div id="form-login">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="auth-email" placeholder="vous@restaurant.fr" autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <input type="password" id="auth-password" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <button class="btn btn-primary btn-full" onclick="login()" id="btn-login">Se connecter</button>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="form-register" style="display:none">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="reg-email" placeholder="vous@restaurant.fr" autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <input type="password" id="reg-password" placeholder="8 caractères minimum" autocomplete="new-password" />
+      </div>
+      <div class="form-group">
+        <label>Confirmer le mot de passe</label>
+        <input type="password" id="reg-password2" placeholder="••••••••" autocomplete="new-password" />
+      </div>
+      <button class="btn btn-primary btn-full" onclick="register()" id="btn-register">Créer mon compte</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div id="app">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">QRMenu<span>.</span></div>
+      <div class="resto-select-wrap">
+        <select id="resto-selector" onchange="selectRestaurant(this.value)"></select>
+        <button class="btn-new-resto" onclick="newRestaurant()" title="Nouvel établissement">+ Nouveau</button>
+      </div>
+      <nav>
+        <button class="nav-item active" data-view="dashboard" onclick="navigate('dashboard',this)">
+          <span class="icon">📊</span> Tableau de bord
+        </button>
+        <button class="nav-item" data-view="menu" onclick="navigate('menu',this)">
+          <span class="icon">🍽️</span> Menu
+        </button>
+        <button class="nav-item" data-view="qr" onclick="navigate('qr',this)">
+          <span class="icon">📱</span> QR Code
+        </button>
+        <button class="nav-item" data-view="settings" onclick="navigate('settings',this)">
+          <span class="icon">⚙️</span> Paramètres
+        </button>
+        <button class="nav-item" data-view="superadmin" id="nav-superadmin" onclick="navigate('superadmin',this)" style="display:none">
+          <span class="icon">🛡️</span> Superadmin
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar" id="user-avatar">?</div>
+          <div>
+            <div class="user-name" id="user-name">—</div>
+            <div class="user-email" id="user-email">—</div>
+          </div>
+        </div>
+        <button class="btn-logout" onclick="logout()">Déconnexion</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+      <div class="topbar">
+        <h1 id="topbar-title">Tableau de bord</h1>
+        <!-- Resto selector visible only on mobile (hidden on desktop via CSS) -->
+        <div class="topbar-resto" style="display:none;align-items:center;gap:6px;flex:1;margin:0 12px;max-width:180px">
+          <select id="resto-selector-mobile" onchange="selectRestaurant(this.value)"
+            style="width:100%;padding:6px 8px;background:var(--mid);border:1px solid var(--border);border-radius:8px;font-size:.82rem;font-family:inherit;outline:none;color:var(--dark)"></select>
+        </div>
+        <div class="topbar-actions" id="topbar-actions"></div>
+      </div>
+
+      <div class="page-content">
+
+        <!-- DASHBOARD -->
+        <div class="view active" id="view-dashboard">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="label">Menus</div>
+              <div class="value" id="stat-menus">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">Plats actifs</div>
+              <div class="value" id="stat-items">—</div>
+              <div class="sub">dans le menu</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">Catégories</div>
+              <div class="value" id="stat-cats">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">Plats épuisés</div>
+              <div class="value" id="stat-soldout">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">URL du menu</div>
+              <div class="value" style="font-size:1rem" id="stat-url">—</div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header">Actions rapides</div>
+            <div style="padding:20px;display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn btn-primary" onclick="navigate('menu',document.querySelector('[data-view=menu]'));openItemDrawer()">+ Ajouter un plat</button>
+              <button class="btn btn-ghost" onclick="navigate('qr',document.querySelector('[data-view=qr]'))">📱 Voir le QR code</button>
+              <a class="btn btn-ghost" id="preview-link" href="#" target="_blank">👁️ Aperçu du menu</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- MENU EDITOR -->
+        <div class="view" id="view-menu">
+
+          <!-- Menus section (collapsible strip) -->
+          <div class="panel" style="margin-bottom:16px">
+            <div class="panel-header">
+              Menus <span style="font-weight:400;color:var(--muted);font-size:.78rem;text-transform:none;letter-spacing:0">(les plats peuvent appartenir à un ou plusieurs menus)</span>
+              <button class="btn btn-primary btn-sm" onclick="openMenuDrawer()">+ Ajouter</button>
+            </div>
+            <div style="padding:12px 16px">
+              <ul id="menu-list" style="list-style:none;display:flex;flex-wrap:wrap;gap:8px">
+                <li style="color:var(--muted);font-size:.85rem;font-style:italic">Chargement…</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Mobile tabs (hidden on desktop) -->
+          <div class="editor-tabs" style="display:none" id="editor-tabs">
+            <button class="editor-tab active" onclick="switchEditorTab('cats',this)">Catégories</button>
+            <button class="editor-tab" onclick="switchEditorTab('items',this)">Plats</button>
+          </div>
+
+          <div class="editor-layout">
+            <!-- Categories panel -->
+            <div class="panel editor-panel active" id="editor-panel-cats">
+              <div class="panel-header">
+                Catégories
+                <button class="btn btn-primary btn-sm" onclick="openCatDrawer()">+ Ajouter</button>
+              </div>
+              <ul id="cat-list">
+                <li class="cat-item">
+                  <span class="cat-name" style="color:var(--muted);font-style:italic">Chargement…</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Items panel -->
+            <div class="panel editor-panel active" id="editor-panel-items">
+              <div class="panel-header">
+                <span id="items-panel-title">Plats</span>
+                <button class="btn btn-primary btn-sm" onclick="openItemDrawer()">+ Ajouter</button>
+              </div>
+              <div class="items-toolbar">
+                <input type="search" id="item-search" placeholder="Rechercher…" oninput="filterItems(this.value)" />
+              </div>
+              <div id="items-container">
+                <div class="empty"><div class="icon">🍽️</div><p>Sélectionnez une catégorie</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QR CODE -->
+        <div class="view" id="view-qr">
+          <div class="panel" style="max-width:520px;margin:0 auto">
+            <div class="panel-header">Votre QR Code</div>
+            <div style="padding:24px">
+              <div class="qr-section">
+                <div id="qr-canvas-wrap"></div>
+                <div class="qr-url" id="qr-url-display"></div>
+              </div>
+              <div style="display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap">
+                <button class="btn btn-primary" onclick="downloadQR('png')">⬇ Télécharger PNG</button>
+                <button class="btn btn-ghost" onclick="downloadQR('svg')">⬇ SVG haute définition</button>
+              </div>
+              <div style="margin-top:20px">
+                <div class="form-group">
+                  <label>Taille (px)</label>
+                  <input type="range" min="200" max="800" value="400" id="qr-size" oninput="generateQR()" style="width:100%" />
+                </div>
+                <div class="form-group">
+                  <label>Couleur du QR</label>
+                  <input type="color" value="#1a1a2e" id="qr-color" oninput="generateQR()" style="height:44px;width:100%;border:1px solid var(--border);border-radius:8px;padding:4px;cursor:pointer" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div class="view" id="view-settings">
+          <div class="panel" style="max-width:640px">
+            <div class="panel-header">Informations de l'établissement</div>
+            <div style="padding:24px">
+              <div class="form-group">
+                <label>Nom du restaurant *</label>
+                <input type="text" id="s-name" placeholder="Le Bistrot Parisien" />
+              </div>
+              <div class="form-group">
+                <label>Adresse</label>
+                <input type="text" id="s-address" placeholder="12 rue de la Paix, Paris" />
+              </div>
+              <div class="form-group">
+                <label>Description courte</label>
+                <textarea id="s-description" placeholder="Restaurant traditionnel français…"></textarea>
+              </div>
+              <div class="form-group">
+                <label>Logo</label>
+                <div class="photo-upload" id="logo-upload">
+                  <input type="file" accept="image/*" id="logo-file" onchange="previewLogo(event)" />
+                  <div class="upload-label" id="logo-label">
+                    <span class="icon">🖼️</span>
+                    <span>Cliquez pour importer votre logo</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Couleurs du menu</label>
+                <div class="color-row">
+                  <div class="color-input-wrap">
+                    <label>Couleur principale</label>
+                    <input type="color" id="s-color-primary" value="#FF5C35" />
+                  </div>
+                  <div class="color-input-wrap">
+                    <label>Couleur du texte</label>
+                    <input type="color" id="s-color-text" value="#ffffff" />
+                  </div>
+                  <div class="color-input-wrap">
+                    <label>Fond</label>
+                    <input type="color" id="s-color-bg" value="#f8f7f4" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" id="s-active-wrap" style="display:none">
+                <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+                  <label class="toggle">
+                    <input type="checkbox" id="s-active" checked />
+                    <div class="toggle-track"></div>
+                    <div class="toggle-thumb"></div>
+                  </label>
+                  Menu actif (décocher = page "Contactez servicecompris.pro")
+                </label>
+              </div>
+              <div style="display:flex;gap:10px">
+                <button class="btn btn-primary" onclick="saveSettings()">Enregistrer</button>
+                <a class="btn btn-ghost" id="preview-link-settings" href="#" target="_blank">👁️ Aperçu</a>
+              </div>
+            </div>
+          </div>
+        </div><!-- /view-settings -->
+
+        <!-- SUPERADMIN -->
+        <div class="view" id="view-superadmin">
+          <div class="panel">
+            <div class="panel-header">
+              Tous les établissements
+              <button class="btn btn-primary btn-sm" onclick="loadAllRestaurants()">🔄 Rafraîchir</button>
+            </div>
+            <div id="sa-content">
+              <div class="empty"><div class="icon">🛡️</div><p>Chargement…</p></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-content -->
+    </div><!-- /main -->
+  </div><!-- /layout -->
+  <!-- BOTTOM NAV (mobile only, hidden by default) -->
+  <nav class="bottom-nav" style="display:none" id="bottom-nav">
+    <button class="bottom-nav-item active" data-view="dashboard" onclick="navigate('dashboard',this);syncBottomNav(this)">
+      <span class="bn-icon">📊</span>Accueil
+    </button>
+    <button class="bottom-nav-item" data-view="menu" onclick="navigate('menu',this);syncBottomNav(this)">
+      <span class="bn-icon">🍽️</span>Menu
+    </button>
+    <button class="bottom-nav-item" data-view="qr" onclick="navigate('qr',this);syncBottomNav(this)">
+      <span class="bn-icon">📱</span>QR
+    </button>
+    <button class="bottom-nav-item" data-view="settings" onclick="navigate('settings',this);syncBottomNav(this)">
+      <span class="bn-icon">⚙️</span>Réglages
+    </button>
+  </nav>
+</div><!-- /app -->
+
+<!-- MENU DRAWER -->
+<div class="drawer-overlay" id="menu-drawer-overlay">
+  <div class="drawer">
+    <div class="drawer-header">
+      <h2 id="menu-drawer-title">Nouveau menu</h2>
+      <button class="icon-btn" onclick="closeMenuDrawer()">✕</button>
+    </div>
+    <div class="drawer-body">
+      <input type="hidden" id="menu-id" />
+      <div class="form-group">
+        <label>Nom du menu *</label>
+        <input type="text" id="menu-name" placeholder="Menu du midi, Carte du soir…" />
+      </div>
+      <div class="form-group">
+        <label>Prix du menu (€)</label>
+        <input type="number" id="menu-price" placeholder="14.90" min="0" step="0.01" />
+        <small style="color:var(--muted);font-size:.78rem;margin-top:4px;display:block">Le prix des plats inclus sera masqué dans ce menu.</small>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" id="menu-description" placeholder="Disponible 12h-14h30" />
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <button class="btn btn-ghost" onclick="closeMenuDrawer()">Annuler</button>
+      <button class="btn btn-primary" onclick="saveMenu()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORY DRAWER -->
+<div class="drawer-overlay" id="cat-drawer-overlay">
+  <div class="drawer">
+    <div class="drawer-header">
+      <h2 id="cat-drawer-title">Nouvelle catégorie</h2>
+      <button class="icon-btn" onclick="closeCatDrawer()">✕</button>
+    </div>
+    <div class="drawer-body">
+      <input type="hidden" id="cat-id" />
+      <div class="form-group">
+        <label>Nom de la catégorie *</label>
+        <input type="text" id="cat-name" placeholder="Entrées, Plats, Desserts…" />
+      </div>
+      <div class="form-group">
+        <label>Emoji</label>
+        <input type="text" id="cat-emoji" placeholder="🥗" maxlength="2" />
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <button class="btn btn-ghost" onclick="closeCatDrawer()">Annuler</button>
+      <button class="btn btn-primary" onclick="saveCategory()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ITEM DRAWER -->
+<div class="drawer-overlay" id="item-drawer-overlay">
+  <div class="drawer">
+    <div class="drawer-header">
+      <h2 id="item-drawer-title">Nouveau plat</h2>
+      <button class="icon-btn" onclick="closeItemDrawer()">✕</button>
+    </div>
+    <div class="drawer-body">
+      <input type="hidden" id="item-id" />
+      <div class="form-group">
+        <label>Photo du plat</label>
+        <div class="photo-upload" id="item-photo-upload">
+          <input type="file" accept="image/*" id="item-photo-file" onchange="previewItemPhoto(event)" />
+          <div class="upload-label" id="item-photo-label">
+            <span class="icon">📸</span>
+            <span>Importer une photo</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Nom du plat *</label>
+        <input type="text" id="item-name" placeholder="Salade Niçoise" />
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="item-desc" placeholder="Laitue, tomates cerises, thon, olives, anchois…"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Prix (€) *</label>
+        <input type="number" id="item-price" placeholder="12.50" min="0" step="0.01" />
+      </div>
+      <div class="form-group">
+        <label>Catégorie *</label>
+        <select id="item-category"></select>
+      </div>
+      <div class="form-group">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+          <label class="toggle">
+            <input type="checkbox" id="item-available" checked />
+            <div class="toggle-track"></div>
+            <div class="toggle-thumb"></div>
+          </label>
+          Disponible
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Allergènes</label>
+        <div class="allergen-grid" id="allergen-grid"></div>
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <button class="btn btn-ghost" onclick="closeItemDrawer()">Annuler</button>
+      <button class="btn btn-primary" onclick="saveItem()" id="btn-save-item">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ITEM MENUS DRAWER -->
+<div class="drawer-overlay" id="item-menus-overlay">
+  <div class="drawer" style="max-width:380px">
+    <div class="drawer-header">
+      <h2>Menus du plat</h2>
+      <button class="icon-btn" onclick="closeItemMenusDrawer()">✕</button>
+    </div>
+    <div class="drawer-body">
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px">
+        Cochez les menus dans lesquels ce plat apparaît. Sans sélection = à la carte uniquement.
+      </p>
+      <input type="hidden" id="item-menus-item-id" />
+      <div id="item-menus-grid" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+    <div class="drawer-footer">
+      <button class="btn btn-ghost" onclick="closeItemMenusDrawer()">Annuler</button>
+      <button class="btn btn-primary" onclick="saveItemMenus()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ============================================================
+// CONFIG — change this to your PocketBase URL
+// ============================================================
+const PB_URL = window.PB_URL || 'https://your-pocketbase-instance.com';
+const MENU_BASE_URL = window.MENU_BASE_URL || `${location.origin}/menu`;
+
+// ============================================================
+// SUPERADMINS
+// ============================================================
+const SUPERADMINS = ['ft@servicecompris.pro', 'romain@servicecompris.pro', 'damien@servicecompris.pro', 'vincent@servicecompris.pro'];
+
+// ============================================================
+// STATE
+// ============================================================
+let pb = {
+  token: localStorage.getItem('pb_token') || null,
+  userId: localStorage.getItem('pb_user_id') || null,
+  userEmail: localStorage.getItem('pb_user_email') || null,
+};
+let isSuperAdmin = false;
+let currentRestaurantId = localStorage.getItem('current_resto') || null;
+let restaurants = [];
+let menus       = [];
+let categories  = [];
+let items       = [];
+let activeCatId = null;
+
+// ============================================================
+// AUTH
+// ============================================================
+async function login() {
+  const email    = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value;
+  const errEl    = document.getElementById('auth-error');
+  const btnEl    = document.getElementById('btn-login');
+
+  errEl.classList.remove('show');
+  btnEl.textContent = 'Connexion…'; btnEl.disabled = true;
+
+  try {
+    const res = await fetch(`${PB_URL}/api/collections/users/auth-with-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identity: email, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Identifiants incorrects');
+
+    pb.token    = data.token;
+    pb.userId   = data.record.id;
+    pb.userEmail= data.record.email;
+    localStorage.setItem('pb_token', pb.token);
+    localStorage.setItem('pb_user_id', pb.userId);
+    localStorage.setItem('pb_user_email', pb.userEmail);
+
+    bootApp();
+  } catch(e) {
+    errEl.textContent = e.message;
+    errEl.classList.add('show');
+    btnEl.textContent = 'Se connecter'; btnEl.disabled = false;
+  }
+}
+
+function switchAuthTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('form-login').style.display    = isLogin ? 'block' : 'none';
+  document.getElementById('form-register').style.display = isLogin ? 'none'  : 'block';
+  document.getElementById('tab-login').style.background    = isLogin ? 'var(--dark)' : 'transparent';
+  document.getElementById('tab-login').style.color         = isLogin ? '#fff' : 'var(--muted)';
+  document.getElementById('tab-register').style.background = isLogin ? 'transparent' : 'var(--dark)';
+  document.getElementById('tab-register').style.color      = isLogin ? 'var(--muted)' : '#fff';
+  document.getElementById('auth-error').classList.remove('show');
+  const s = document.getElementById('auth-success');
+  if (s) s.classList.remove('show');
+}
+
+async function register() {
+  const email    = document.getElementById('reg-email').value.trim();
+  const password = document.getElementById('reg-password').value;
+  const password2= document.getElementById('reg-password2').value;
+  const errEl    = document.getElementById('auth-error');
+  const btnEl    = document.getElementById('btn-register');
+
+  errEl.classList.remove('show');
+
+  if (!email) { errEl.textContent = 'Email requis.'; errEl.classList.add('show'); return; }
+  if (password.length < 8) { errEl.textContent = 'Le mot de passe doit faire au moins 8 caractères.'; errEl.classList.add('show'); return; }
+  if (password !== password2) { errEl.textContent = 'Les mots de passe ne correspondent pas.'; errEl.classList.add('show'); return; }
+
+  btnEl.textContent = 'Création…'; btnEl.disabled = true;
+
+  try {
+    const res = await fetch(`${PB_URL}/api/collections/users/records`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, passwordConfirm: password2 }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      const msg = data.data?.email?.message || data.data?.password?.message || data.message || 'Erreur lors de la création.';
+      throw new Error(msg);
+    }
+    // Auto-login après inscription
+    document.getElementById('auth-email').value    = email;
+    document.getElementById('auth-password').value = password;
+    switchAuthTab('login');
+    await login();
+  } catch(e) {
+    errEl.textContent = e.message;
+    errEl.classList.add('show');
+    btnEl.textContent = 'Créer mon compte'; btnEl.disabled = false;
+  }
+}
+
+
+function logout() {
+  localStorage.removeItem('pb_token');
+  localStorage.removeItem('pb_user_id');
+  localStorage.removeItem('pb_user_email');
+  location.reload();
+}
+
+// Allow Enter key in auth form
+['auth-email','auth-password'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => { if(e.key==='Enter') login(); });
+});
+
+// ============================================================
+// PB HELPERS
+// ============================================================
+async function pbFetch(path, options = {}) {
+  const res = await fetch(`${PB_URL}/api${path}`, {
+    ...options,
+    headers: {
+      ...(options.headers || {}),
+      ...(pb.token ? { 'Authorization': `Bearer ${pb.token}` } : {}),
+      ...(options.body && !(options.body instanceof FormData) ? { 'Content-Type': 'application/json' } : {}),
+    },
+    body: options.body instanceof FormData ? options.body
+          : options.body ? JSON.stringify(options.body) : undefined,
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`);
+  return data;
+}
+
+// ============================================================
+// BOOT
+// ============================================================
+async function bootApp() {
+  if (!pb.token) {
+    document.getElementById('auth-screen').style.display = 'flex';
+    return;
+  }
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+
+  // user info
+  document.getElementById('user-email').textContent = pb.userEmail || '—';
+  const initials = (pb.userEmail || '?')[0].toUpperCase();
+  document.getElementById('user-avatar').textContent = initials;
+  document.getElementById('user-name').textContent = pb.userEmail?.split('@')[0] || '—';
+
+  isSuperAdmin = SUPERADMINS.includes(pb.userEmail?.toLowerCase());
+  if (isSuperAdmin) {
+    document.getElementById('nav-superadmin').style.display = 'flex';
+    document.getElementById('s-active-wrap').style.display = 'block';
+  }
+
+  await loadRestaurants();
+  buildAllergenGrid();
+}
+
+// ============================================================
+// RESTAURANTS
+// ============================================================
+async function loadRestaurants() {
+  try {
+    const filter = isSuperAdmin
+      ? '' // superadmin voit tout
+      : `filter=(owner='${pb.userId}')`;
+    const data = await pbFetch(`/collections/restaurants/records?${filter}&sort=name&perPage=200`);
+    restaurants = data.items || [];
+    buildRestoSelector();
+    // Restaurer le dernier resto sélectionné s'il appartient à l'user
+    if (currentRestaurantId && !restaurants.find(r => r.id === currentRestaurantId)) {
+      currentRestaurantId = null;
+    }
+    if (!currentRestaurantId && restaurants.length) currentRestaurantId = restaurants[0].id;
+    if (currentRestaurantId) { await loadMenuData(); }
+    updateDashboard();
+  } catch(e) {
+    restaurants = [];
+    buildRestoSelector();
+  }
+}
+
+function buildRestoSelector() {
+  const opts = restaurants.map(r =>
+    `<option value="${r.id}" ${r.id===currentRestaurantId?'selected':''}>${r.active===false?'⛔ ':''}${escHtml(r.name)}</option>`
+  ).join('') || '<option disabled>Aucun établissement</option>';
+  document.getElementById('resto-selector').innerHTML = opts;
+  const mob = document.getElementById('resto-selector-mobile');
+  if (mob) mob.innerHTML = opts;
+}
+
+function newRestaurant() {
+  currentRestaurantId = null;
+  localStorage.removeItem('current_resto');
+  menus = []; categories = []; items = [];
+  activeCatId = null;
+  document.getElementById('s-name').value = '';
+  document.getElementById('s-address').value = '';
+  document.getElementById('s-description').value = '';
+  document.getElementById('s-color-primary').value = '#BEF264';
+  document.getElementById('s-color-text').value = '#020717';
+  document.getElementById('s-color-bg').value = '#f8fafc';
+  renderMenus(); renderCategories(); renderItems(); updateDashboard();
+  navigate('settings', document.querySelector('[data-view=settings]'));
+  toast('Remplissez les infos du nouvel établissement', '');
+}
+
+async function selectRestaurant(id) {
+  currentRestaurantId = id;
+  localStorage.setItem('current_resto', id);
+  await loadMenuData();
+  updateDashboard();
+  renderCategories();
+  renderItems();
+}
+
+// ============================================================
+// MENU DATA
+// ============================================================
+async function loadMenuData() {
+  if (!currentRestaurantId) return;
+  const [menuData, catData, itemData] = await Promise.all([
+    pbFetch(`/collections/menus/records?filter=(restaurant='${currentRestaurantId}')&sort=order,name&perPage=200`),
+    pbFetch(`/collections/categories/records?filter=(restaurant='${currentRestaurantId}')&sort=order,name&perPage=200`),
+    pbFetch(`/collections/items/records?filter=(restaurant='${currentRestaurantId}')&sort=category,order&perPage=500`),
+  ]);
+  menus      = menuData.items || [];
+  categories = catData.items  || [];
+  items      = itemData.items || [];
+  if (!activeCatId || !categories.find(c => c.id === activeCatId)) {
+    activeCatId = categories[0]?.id || null;
+  }
+  renderMenus();
+  renderCategories();
+  renderItems();
+  updateDashboard();
+  generateQR();
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function updateDashboard() {
+  document.getElementById('stat-items').textContent = items.filter(i => i.available !== false).length;
+  document.getElementById('stat-cats').textContent  = categories.length;
+  document.getElementById('stat-soldout').textContent = items.filter(i => i.available === false).length;
+  document.getElementById('stat-menus').textContent = menus.length;
+  const resto = restaurants.find(r => r.id === currentRestaurantId);
+  if (resto) {
+    const url = `${MENU_BASE_URL}/menu.html?slug=${resto.slug}`;
+    document.getElementById('stat-url').textContent = url;
+    document.getElementById('preview-link').href = `/menu/menu.html?slug=${resto.slug}`;
+    document.getElementById('preview-link-settings').href = `/menu/menu.html?slug=${resto.slug}`;
+    document.getElementById('s-name').value        = resto.name || '';
+    document.getElementById('s-address').value     = resto.address || '';
+    document.getElementById('s-description').value = resto.description || '';
+    document.getElementById('s-color-primary').value = resto.color_primary || '#FF5C35';
+    document.getElementById('s-color-text').value    = resto.color_text || '#ffffff';
+    document.getElementById('s-color-bg').value      = resto.color_bg || '#f8f7f4';
+    if (isSuperAdmin) document.getElementById('s-active').checked = resto.active !== false;
+  }
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function navigate(viewName, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(`view-${viewName}`).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const titles = { dashboard: 'Tableau de bord', menu: 'Éditeur de menu', qr: 'QR Code', settings: 'Paramètres', superadmin: '🛡️ Superadmin' };
+  document.getElementById('topbar-title').textContent = titles[viewName] || viewName;
+  if (viewName === 'qr') generateQR();
+  if (viewName === 'superadmin') loadAllRestaurants();
+}
+
+function syncBottomNav(btn) {
+  document.querySelectorAll('.bottom-nav-item').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+let activeEditorTab = 'cats';
+function switchEditorTab(tab, btn) {
+  activeEditorTab = tab;
+  // Show/hide panels
+  ['cats','items'].forEach(t => {
+    document.getElementById(`editor-panel-${t}`).classList.toggle('active', t === tab);
+  });
+  // Update tab buttons
+  document.querySelectorAll('.editor-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+
+// ============================================================
+// SUPERADMIN
+// ============================================================
+async function loadAllRestaurants() {
+  const wrap = document.getElementById('sa-content');
+  wrap.innerHTML = '<div class="empty"><div class="icon">⏳</div><p>Chargement…</p></div>';
+  try {
+    const data = await pbFetch(`/collections/restaurants/records?sort=name&perPage=200`);
+    const all = data.items || [];
+    if (!all.length) { wrap.innerHTML = '<div class="empty"><p>Aucun établissement</p></div>'; return; }
+    wrap.innerHTML = `
+      <table class="sa-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Slug</th>
+            <th>Statut</th>
+            <th>Raison</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${all.map(r => `
+            <tr id="sa-row-${r.id}">
+              <td><strong>${escHtml(r.name)}</strong></td>
+              <td><code>${r.slug}</code></td>
+              <td>${r.active === false
+                ? '<span class="badge-inactive">⛔ Inactif</span>'
+                : '<span class="badge-active">✓ Actif</span>'
+              }</td>
+              <td style="color:var(--danger);font-size:.85rem">${r.inactive_reason ? escHtml(r.inactive_reason) : '—'}</td>
+              <td>
+                <div class="row-actions">
+                  <button class="btn btn-ghost btn-sm" onclick="saImpersonate('${r.id}')" title="Gérer ce resto">👁️</button>
+                  ${r.active === false
+                    ? `<button class="btn btn-primary btn-sm" onclick="saToggleActive('${r.id}', true)">Activer</button>`
+                    : `<button class="btn btn-danger btn-sm" onclick="saToggleActive('${r.id}', false)">Désactiver</button>`
+                  }
+                </div>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  } catch(e) { wrap.innerHTML = `<div class="empty"><p>Erreur : ${e.message}</p></div>`; }
+}
+
+async function saToggleActive(restoId, active) {
+  let reason = '';
+  if (!active) {
+    reason = prompt('Raison de la désactivation (visible côté client) :');
+    if (reason === null) return; // annulé
+    if (!reason.trim()) { toast('Raison requise', 'error'); return; }
+  }
+  try {
+    await pbFetch(`/collections/restaurants/records/${restoId}`, {
+      method: 'PATCH',
+      body: { active, inactive_reason: active ? '' : reason },
+    });
+    toast(active ? 'Menu activé' : 'Menu désactivé', active ? 'success' : 'error');
+    loadAllRestaurants();
+    await loadRestaurants();
+  } catch(e) { toast('Erreur : ' + e.message, 'error'); }
+}
+
+function saImpersonate(restoId) {
+  currentRestaurantId = restoId;
+  localStorage.setItem('current_resto', restoId);
+  loadMenuData();
+  updateDashboard();
+  navigate('dashboard', document.querySelector('[data-view=dashboard]'));
+}
+
+// ============================================================
+// MENUS
+// ============================================================
+function renderMenus() {
+  const list = document.getElementById('menu-list');
+  if (!menus.length) {
+    list.innerHTML = `<li style="color:var(--muted);font-size:.85rem;font-style:italic">Aucun menu — créez-en un pour regrouper des plats</li>`;
+    return;
+  }
+  list.innerHTML = menus.map(m => {
+    const count = items.filter(i => (i.menus || []).includes(m.id)).length;
+    const priceLabel = m.price != null && m.price !== '' ? `<span style="background:var(--dark);color:#fff;font-size:.72rem;font-weight:700;padding:2px 7px;border-radius:5px">${formatPrice(m.price)}</span>` : '';
+    return `
+      <li style="display:flex;align-items:center;gap:6px;background:var(--mid);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:.85rem">
+        <span style="font-weight:600">📋 ${escHtml(m.name)}</span>
+        ${priceLabel}
+        <span style="color:var(--muted);font-size:.75rem">${count} plat${count>1?'s':''}</span>
+        <div style="display:flex;gap:2px;margin-left:auto">
+          <button class="icon-btn" onclick="openMenuDrawer('${m.id}')" title="Modifier">✏️</button>
+          <button class="icon-btn del" onclick="deleteMenu('${m.id}')" title="Supprimer">🗑️</button>
+        </div>
+      </li>
+    `;
+  }).join('');
+}
+
+
+function openMenuDrawer(id = null) {
+  document.getElementById('menu-id').value = id || '';
+  document.getElementById('menu-name').value = '';
+  document.getElementById('menu-price').value = '';
+  document.getElementById('menu-description').value = '';
+  document.getElementById('menu-drawer-title').textContent = id ? 'Modifier le menu' : 'Nouveau menu';
+  if (id) {
+    const m = menus.find(x => x.id === id);
+    if (m) {
+      document.getElementById('menu-name').value = m.name;
+      document.getElementById('menu-price').value = m.price != null ? m.price : '';
+      document.getElementById('menu-description').value = m.description || '';
+    }
+  }
+  document.getElementById('menu-drawer-overlay').classList.add('open');
+}
+function closeMenuDrawer() { document.getElementById('menu-drawer-overlay').classList.remove('open'); }
+
+async function saveMenu() {
+  const id    = document.getElementById('menu-id').value;
+  const name  = document.getElementById('menu-name').value.trim();
+  const desc  = document.getElementById('menu-description').value.trim();
+  const priceVal = document.getElementById('menu-price').value;
+  const price = priceVal !== '' ? parseFloat(priceVal) : null;
+  if (!name) { toast('Nom requis', 'error'); return; }
+  try {
+    const body = { name, description: desc, price: price ?? '', restaurant: currentRestaurantId, order: id ? undefined : menus.length };
+    if (id) {
+      const updated = await pbFetch(`/collections/menus/records/${id}`, { method: 'PATCH', body });
+      const idx = menus.findIndex(m => m.id === id);
+      if (idx >= 0) menus[idx] = { ...menus[idx], ...updated };
+    } else {
+      const created = await pbFetch(`/collections/menus/records`, { method: 'POST', body });
+      menus.push(created);
+    }
+    closeMenuDrawer();
+    renderMenus();
+    renderCategories();
+    updateDashboard();
+    toast('Menu enregistré', 'success');
+  } catch(e) { toast('Erreur : ' + e.message, 'error'); }
+}
+
+async function deleteMenu(id) {
+  if (!confirm('Supprimer ce menu ? Les plats ne seront pas supprimés, ils deviendront simplement à la carte.')) return;
+  try {
+    await pbFetch(`/collections/menus/records/${id}`, { method: 'DELETE' });
+    menus = menus.filter(m => m.id !== id);
+    // Remove this menu from any items that reference it
+    items = items.map(i => ({
+      ...i,
+      menus: (i.menus || []).filter(mid => mid !== id),
+    }));
+    renderMenus(); renderItems(); updateDashboard();
+    toast('Menu supprimé');
+  } catch(e) { toast('Erreur : ' + e.message, 'error'); }
+}
+
+// ============================================================
+// CATEGORIES
+// ============================================================
+function renderCategories() {
+  const list = document.getElementById('cat-list');
+  if (!categories.length) {
+    list.innerHTML = `<li class="cat-item"><span class="cat-name" style="color:var(--muted);font-style:italic">Aucune catégorie</span></li>`;
+    return;
+  }
+  list.innerHTML = categories.map(cat => {
+    const count = items.filter(i => i.category === cat.id).length;
+    return `
+      <li class="cat-item ${cat.id === activeCatId ? 'active' : ''}" onclick="setActiveCategory('${cat.id}')">
+        <span class="cat-name">${cat.emoji || ''} ${escHtml(cat.name)}</span>
+        <span class="cat-count">${count}</span>
+        <div class="cat-actions">
+          <button class="icon-btn" onclick="event.stopPropagation();openCatDrawer('${cat.id}')" title="Modifier">✏️</button>
+          <button class="icon-btn del" onclick="event.stopPropagation();deleteCategory('${cat.id}')" title="Supprimer">🗑️</button>
+        </div>
+      </li>
+    `;
+  }).join('');
+}
+
+function setActiveCategory(id) {
+  activeCatId = id;
+  renderCategories();
+  renderItems();
+  document.getElementById('item-search').value = '';
+  // On mobile: auto-switch to items tab
+  if (window.innerWidth <= 860) {
+    const tabBtn = document.querySelector('.editor-tab:nth-child(2)');
+    switchEditorTab('items', tabBtn);
+  }
+}
+
+// ============================================================
+// ITEMS
+// ============================================================
+function renderItems(filter = '') {
+  const container = document.getElementById('items-container');
+  const cat = categories.find(c => c.id === activeCatId);
+  document.getElementById('items-panel-title').textContent = cat ? `${cat.emoji || ''} ${cat.name}` : 'Plats';
+
+  let catItems = items.filter(i => i.category === activeCatId);
+  if (filter) {
+    const q = filter.toLowerCase();
+    catItems = catItems.filter(i => (i.name + ' ' + (i.description || '')).toLowerCase().includes(q));
+  }
+
+  if (!activeCatId) {
+    container.innerHTML = `<div class="empty"><div class="icon">🍽️</div><p>Sélectionnez une catégorie</p></div>`;
+    return;
+  }
+  if (!catItems.length) {
+    container.innerHTML = `<div class="empty"><div class="icon">🥣</div><p>Aucun plat dans cette catégorie</p><button class="btn btn-primary" onclick="openItemDrawer()">+ Ajouter un plat</button></div>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <table class="items-table">
+      <thead>
+        <tr>
+          <th>Photo</th>
+          <th>Nom</th>
+          <th>Prix</th>
+          <th>Dispo</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${catItems.map(item => {
+          const photoUrl = item.photo ? `${PB_URL}/api/files/items/${item.id}/${item.photo}?thumb=100x100` : null;
+          return `
+            <tr>
+              <td>${photoUrl ? `<img class="item-thumb" src="${photoUrl}" alt="" />` : `<div class="item-thumb-placeholder">🍽️</div>`}</td>
+              <td>
+                <strong>${escHtml(item.name)}</strong>
+                ${item.description ? `<br><small style="color:var(--muted)">${escHtml(item.description.substring(0,50))}…</small>` : ''}
+              </td>
+              <td><strong>${formatPrice(item.price)}</strong></td>
+              <td>
+                <label class="toggle" title="${item.available !== false ? 'Disponible' : 'Épuisé'}">
+                  <input type="checkbox" ${item.available !== false ? 'checked' : ''} onchange="toggleAvailability('${item.id}', this.checked)" />
+                  <div class="toggle-track"></div>
+                  <div class="toggle-thumb"></div>
+                </label>
+              </td>
+              <td>
+                <div class="row-actions" style="flex-wrap:wrap;gap:4px">
+                  <button class="btn btn-ghost btn-sm" onclick="openItemMenusDrawer('${item.id}')" title="Gérer les menus" style="font-size:.75rem;padding:5px 8px">${(item.menus||[]).length ? `📋 ${(item.menus||[]).length}` : '📋 —'}</button>
+                  <button class="btn btn-ghost btn-sm" onclick="openItemDrawer('${item.id}')">✏️</button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteItem('${item.id}')">🗑️</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function filterItems(q) { renderItems(q); }
+
+// ============================================================
+// TOGGLE AVAILABILITY (1-click)
+// ============================================================
+async function toggleAvailability(itemId, available) {
+  try {
+    await pbFetch(`/collections/items/records/${itemId}`, {
+      method: 'PATCH', body: { available },
+    });
+    const item = items.find(i => i.id === itemId);
+    if (item) item.available = available;
+    updateDashboard();
+    toast(available ? 'Plat remis en disponibilité' : 'Plat marqué épuisé', available ? 'success' : 'error');
+  } catch(e) { toast('Erreur : ' + e.message, 'error'); }
+}
+
+// ============================================================
+// CATEGORY CRUD
+// ============================================================
+function openCatDrawer(id = null) {
+  document.getElementById('cat-id').value    = id || '';
+  document.getElementById('cat-name').value  = '';
+  document.getElementById('cat-emoji').value = '';
+  document.getElementById('cat-drawer-title').textContent = id ? 'Modifier la catégorie' : 'Nouvelle catégorie';
+
+  if (id) {
+    const cat = categories.find(c => c.id === id);
+    if (cat) {
+      document.getElementById('cat-name').value  = cat.name;
+      document.getElementById('cat-emoji').value = cat.emoji || '';
+    }
+  }
+  document.getElementById('cat-drawer-overlay').classList.add('open');
+}
+function closeCatDrawer() { document.getElementById('cat-drawer-overlay').classList.remove('open'); }
+
+async function saveCategory() {
+  const id    = document.getElementById('cat-id').value;
+  const name  = document.getElementById('cat-name').value.trim();
+  const emoji = document.getElementById('cat-emoji').value.trim();
+  if (!name) { toast('Nom requis', 'error'); return; }
+
+  try {
+    const body = { name, emoji, restaurant: currentRestaurantId, order: id ? undefined : categories.length };
+    if (id) {
+      const updated = await pbFetch(`/collections/categories/records/${id}`, { method:'PATCH', body });
+      const idx = categories.findIndex(c => c.id === id);
+      if (idx >= 0) categories[idx] = { ...categories[idx], ...updated };
+    } else {
+      const created = await pbFetch(`/collections/categories/records`, { method:'POST', body });
+      categories.push(created);
+      activeCatId = created.id;
+    }
+    closeCatDrawer();
+    renderMenus();
+    renderCategories();
+    renderItems();
+    updateDashboard();
+    toast('Catégorie enregistrée', 'success');
+  } catch(e) { toast('Erreur : ' + e.message, 'error'); }
+}
+
+async function deleteCategory(id) {
+  if (!confirm('Supprimer cette catégorie et tous ses plats ?')) return;
+  try {
+    await pbFetch(`/collections/categories/records/${id}`, { method:'DELETE' });
+    categories = categories.filter(c => c.id !== id);
+    items = items.filter(i => i.category !== id);
+    if (activeCatId === id) activeCatId = categories[0]?.id || null;
+    renderCategories(); renderItems(); updateDashboard();
+    toast('Catégorie supprimée');
+  } catch(e) { toast('Erreur : ' + e.message, 'error'); }
+}
+
+// ============================================================
+// ITEM CRUD
+// ============================================================
+function openItemDrawer(id = null) {
+  document.getElementById('item-id').value = id || '';
+  document.getElementById('item-name').value = '';
+  document.getElementById('item-desc').value = '';
+  document.getElementById('item-price').value = '';
+  document.getElementById('item-available').checked = true;
+  document.getElementById('item-drawer-title').textContent = id ? 'Modifier le plat' : 'Nouveau plat';
+  document.getElementById('item-photo-label').style.display = 'flex';
+  const existingImg = document.querySelector('#item-photo-upload img');
+  if (existingImg) existingImg.remove();
+
+  // Populate category selector
+  const sel = document.getElementById('item-category');
+  sel.innerHTML = categories.map(c => `<option value="${c.id}" ${c.id===activeCatId?'selected':''}>${c.emoji||''} ${c.name}</option>`).join('');
+
+  // Reset allergens
+  document.querySelectorAll('#allergen-grid input[type=checkbox]').forEach(cb => cb.checked = false);
+
+  if (id) {
+    const item = items.find(i => i.id === id);
+    if (item) {
+      document.getElementById('item-name').value  = item.name;
+      document.getElementById('item-desc').value  = item.description || '';
+      document.getElementById('item-price').value = item.price;
+      document.getElementById('item-available').checked = item.available !== false;
+      document.getElementById('item-category').value = item.category;
+      (item.allergens || []).forEach(a => {
+        const cb = document.querySelector(`#allergen-grid input[value="${a}"]`);
+        if (cb) cb.checked = true;
+      });
+      if (item.photo) {
+        const img = document.createElement('img');
+        img.src = `${PB_URL}/api/files/items/${item.id}/${item.photo}`;
+        img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px';
+        document.getElementById('item-photo-upload').appendChild(img);
+        document.getElementById('item-photo-label').style.display = 'none';
+      }
+    }
+  }
+  document.getElementById('item-drawer-overlay').classList.add('open');
+}
+function closeItemDrawer() { document.getElementById('item-drawer-overlay').classList.remove('open'); }
+
+async function saveItem() {
+  const id    = document.getElementById('item-id').value;
+  const name  = document.getElementById('item-name').value.trim();
+  const price = parseFloat(document.getElementById('item-price').value);
+  const catId = document.getElementById('item-category').value;
+
+  if (!name || isNaN(price) || !catId) { toast('Nom, prix et catégorie requis', 'error'); return; }
+
+  const allergens = Array.from(document.querySelectorAll('#allergen-grid input:checked')).map(cb => cb.value);
+  const fileInput = document.getElementById('item-photo-file');
+  const btn = document.getElementById('btn-save-item');
+  btn.textContent = 'Enregistrement…'; btn.disabled = true;
+
+  try {
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('description', document.getElementById('item-desc').value);
+    formData.append('price', price);
+    formData.append('category', catId);
+    formData.append('restaurant', currentRestaurantId);
+    formData.append('available', document.getElementById('item-available').checked);
+    allergens.forEach(a => formData.append('allergens', a));
+    if (fileInput.files[0]) formData.append('photo', fileInput.files[0]);
+
+    let saved;
+    if (id) {
+      saved = await fetch(`${PB_URL}/api/collections/items/records/${id}`, {
+        method: 'PATCH',
+        headers: { 'Authorization': `Bearer ${pb.token}` },
+        body: formData,
+      }).then(r => r.json());
+      const idx = items.findIndex(i => i.id === id);
+      if (idx >= 0) items[idx] = saved; else items.push(saved);
+    } else {
+      saved = await fetch(`${PB_URL}/api/collections/items/records`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${pb.token}` },
+        body: formData,
+      }).then(r => r.json());
+      items.push(saved);
+    }
+
+    closeItemDrawer();
+    renderItems();
+    updateDashboard();
+    toast('Plat enregistré', 'success');
+  } catch(e) { toast('Erreur : ' + e.message, 'error'); }
+  finally { btn.textContent = 'Enregistrer'; btn.disabled = false; }
+}
+
+async function deleteItem(id) {
+  if (!confirm('Supprimer ce plat ?')) return;
+  try {
+    await pbFetch(`/collections/items/records/${id}`, { method:'DELETE' });
+    items = items.filter(i => i.id !== id);
+    renderItems(); updateDashboard();
+    toast('Plat supprimé');
+  } catch(e) { toast('Erreur : ' + e.message, 'error'); }
+}
+
+// ============================================================
+// ITEM ↔ MENUS (many-to-many)
+// ============================================================
+function openItemMenusDrawer(itemId) {
+  const item = items.find(i => i.id === itemId);
+  if (!item) return;
+  document.getElementById('item-menus-item-id').value = itemId;
+  const grid = document.getElementById('item-menus-grid');
+  if (!menus.length) {
+    grid.innerHTML = `<p style="color:var(--muted);font-size:.85rem">Aucun menu créé. Créez d'abord un menu dans la section "Menus".</p>`;
+  } else {
+    const currentMenus = item.menus || [];
+    grid.innerHTML = menus.map(m => `
+      <label style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:.15s;font-size:.9rem" onmouseover="this.style.borderColor='var(--dark)'" onmouseout="this.style.borderColor='var(--border)'">
+        <input type="checkbox" value="${m.id}" ${currentMenus.includes(m.id) ? 'checked' : ''} style="accent-color:var(--dark);width:16px;height:16px;flex-shrink:0" />
+        <div>
+          <div style="font-weight:600">📋 ${escHtml(m.name)}</div>
+          ${m.description ? `<div style="font-size:.78rem;color:var(--muted)">${escHtml(m.description)}</div>` : ''}
+        </div>
+      </label>
+    `).join('');
+  }
+  document.getElementById('item-menus-overlay').classList.add('open');
+}
+
+function closeItemMenusDrawer() {
+  document.getElementById('item-menus-overlay').classList.remove('open');
+}
+
+async function saveItemMenus() {
+  const itemId = document.getElementById('item-menus-item-id').value;
+  const checked = Array.from(document.querySelectorAll('#item-menus-grid input[type=checkbox]:checked')).map(cb => cb.value);
+  try {
+    const updated = await pbFetch(`/collections/items/records/${itemId}`, {
+      method: 'PATCH',
+      body: { menus: checked },
+    });
+    const idx = items.findIndex(i => i.id === itemId);
+    if (idx >= 0) items[idx] = { ...items[idx], menus: checked };
+    closeItemMenusDrawer();
+    renderItems();
+    renderMenus();
+    toast('Menus enregistrés', 'success');
+  } catch(e) { toast('Erreur : ' + e.message, 'error'); }
+}
+
+// ============================================================
+// SETTINGS SAVE
+// ============================================================
+async function saveSettings() {
+  const name = document.getElementById('s-name').value.trim();
+  if (!name) { toast('Nom requis', 'error'); return; }
+
+  const slug = name.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g,'');
+
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('slug', slug);
+  formData.append('address', document.getElementById('s-address').value);
+  formData.append('description', document.getElementById('s-description').value);
+  formData.append('color_primary', document.getElementById('s-color-primary').value);
+  formData.append('color_text', document.getElementById('s-color-text').value);
+  formData.append('color_bg', document.getElementById('s-color-bg').value);
+  const logoFile = document.getElementById('logo-file').files[0];
+  if (logoFile) formData.append('logo', logoFile);
+  if (isSuperAdmin) {
+    const active = document.getElementById('s-active').checked;
+    formData.append('active', active);
+    if (!active) {
+      const reason = prompt('Raison de la désactivation (visible côté client) :');
+      if (!reason) { toast('Raison requise pour désactiver', 'error'); return; }
+      formData.append('inactive_reason', reason);
+    } else {
+      formData.append('inactive_reason', '');
+    }
+  }
+
+  try {
+    let saved;
+    if (currentRestaurantId) {
+      saved = await fetch(`${PB_URL}/api/collections/restaurants/records/${currentRestaurantId}`, {
+        method: 'PATCH',
+        headers: { 'Authorization': `Bearer ${pb.token}` },
+        body: formData,
+      }).then(r => r.json());
+      const idx = restaurants.findIndex(r => r.id === currentRestaurantId);
+      if (idx >= 0) restaurants[idx] = saved;
+    } else {
+      formData.append('owner', pb.userId);
+      saved = await fetch(`${PB_URL}/api/collections/restaurants/records`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${pb.token}` },
+        body: formData,
+      }).then(r => r.json());
+      restaurants.push(saved);
+      currentRestaurantId = saved.id;
+      localStorage.setItem('current_resto', saved.id);
+    }
+    buildRestoSelector();
+    updateDashboard();
+    toast('Paramètres enregistrés', 'success');
+  } catch(e) { toast('Erreur : ' + e.message, 'error'); }
+}
+
+// ============================================================
+// QR CODE (using qrcodejs via CDN, loaded lazily)
+// ============================================================
+let qrLib = null;
+
+async function generateQR() {
+  const wrap = document.getElementById('qr-canvas-wrap');
+  const resto = restaurants.find(r => r.id === currentRestaurantId);
+  if (!resto) { wrap.innerHTML = '<p style="color:var(--muted);text-align:center">Configurez d\'abord votre restaurant</p>'; return; }
+
+  const menuUrl = `/menu/menu.html?slug=${resto.slug}`;
+  const fullUrl = window.location.origin + menuUrl;
+  document.getElementById('qr-url-display').textContent = fullUrl;
+
+  const size  = parseInt(document.getElementById('qr-size')?.value || 400);
+  const color = document.getElementById('qr-color')?.value || '#1a1a2e';
+
+  if (!qrLib) {
+    // Lazy-load QRCode.js
+    await new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+      s.onload = res; s.onerror = rej;
+      document.head.appendChild(s);
+    });
+    qrLib = window.QRCode;
+  }
+
+  wrap.innerHTML = '';
+  new qrLib(wrap, {
+    text: fullUrl,
+    width: Math.min(size, 400),
+    height: Math.min(size, 400),
+    colorDark: color,
+    colorLight: '#ffffff',
+    correctLevel: qrLib.CorrectLevel.H,
+  });
+}
+
+function downloadQR(format) {
+  const canvas = document.querySelector('#qr-canvas-wrap canvas');
+  if (!canvas) return;
+  const link = document.createElement('a');
+  link.download = `qrcode-menu.${format}`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+// ============================================================
+// PHOTO PREVIEWS
+// ============================================================
+function previewLogo(e) {
+  const file = e.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const wrap = document.getElementById('logo-upload');
+    let img = wrap.querySelector('img');
+    if (!img) { img = document.createElement('img'); img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px'; wrap.appendChild(img); }
+    img.src = ev.target.result;
+    document.getElementById('logo-label').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function previewItemPhoto(e) {
+  const file = e.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const wrap = document.getElementById('item-photo-upload');
+    let img = wrap.querySelector('img');
+    if (!img) { img = document.createElement('img'); img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px'; wrap.appendChild(img); }
+    img.src = ev.target.result;
+    document.getElementById('item-photo-label').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+// ============================================================
+// ALLERGEN GRID
+// ============================================================
+const ALLERGENS = {
+  gluten:'Gluten', crustaceans:'Crustacés', eggs:'Œufs', fish:'Poisson',
+  peanuts:'Arachides', soy:'Soja', milk:'Lait', nuts:'Fruits à coque',
+  celery:'Céleri', mustard:'Moutarde', sesame:'Sésame', sulphites:'Sulfites',
+  lupin:'Lupin', molluscs:'Mollusques'
+};
+
+function buildAllergenGrid() {
+  const grid = document.getElementById('allergen-grid');
+  grid.innerHTML = Object.entries(ALLERGENS).map(([key, label]) => `
+    <label class="allergen-checkbox">
+      <input type="checkbox" value="${key}" />
+      ${label}
+    </label>
+  `).join('');
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+let toastTimer;
+function toast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `show ${type}`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function escHtml(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function formatPrice(p) {
+  if (p === undefined || p === null) return '—';
+  return new Intl.NumberFormat('fr-FR', {style:'currency', currency:'EUR'}).format(p);
+}
+
+// Close drawers on overlay click
+['menu-drawer-overlay','cat-drawer-overlay','item-drawer-overlay','item-menus-overlay'].forEach(id => {
+  document.getElementById(id).addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+});
+
+// ============================================================
+// INIT
+// ============================================================
+if (pb.token) {
+  bootApp();
+} else {
+  document.getElementById('auth-screen').style.display = 'flex';
+}
+</script>
+</body>
+</html>

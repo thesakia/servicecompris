@@ -1,0 +1,12 @@
+# PocketBase data (never commit)
+pb_data/
+pb_migrations/
+pb_public/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env / secrets
+.env
+*.env.local

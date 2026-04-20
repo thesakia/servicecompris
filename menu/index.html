@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QRMenu — Menus digitaux pour restaurateurs</title>
+  <meta name="description" content="Créez votre menu digital en 5 minutes. QR code personnalisé, mise à jour en temps réel, sans abonnement caché." />
+  <script src="config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #BEF264;
+      --primary-dark: #a3d94e;
+      --dark: #020717;
+      --light: #ffffff;
+      --bg: #f8fafc;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo { font-size: 1.3rem; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; }
+    .logo span {
+      display: inline-block;
+      background: var(--primary); color: var(--dark);
+      border-radius: 6px; padding: 1px 7px; margin-left: 2px;
+      font-size: 1.1rem;
+    }
+    nav .cta-nav {
+      background: var(--dark); color: #fff;
+      border: none; border-radius: 8px;
+      padding: 10px 20px; font-size: .9rem; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    nav .cta-nav:hover { background: #1e293b; transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: calc(100vh - 64px);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; text-align: center;
+      padding: 80px 5% 60px;
+      background: #fff;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--primary); color: var(--dark);
+      border-radius: 20px; padding: 6px 16px;
+      font-size: .8rem; font-weight: 700; letter-spacing: .3px;
+      margin-bottom: 32px;
+    }
+    .hero h1 {
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      font-weight: 800; line-height: 1.08;
+      letter-spacing: -2px; max-width: 820px;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: var(--primary);
+      border-radius: 8px;
+      padding: 0 6px;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--muted); max-width: 520px; margin-bottom: 40px;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: var(--dark); color: #fff;
+      padding: 15px 30px; border-radius: var(--radius);
+      font-size: 1rem; font-weight: 700; text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: #1e293b; transform: translateY(-1px); }
+    .btn-ghost {
+      background: #fff; color: var(--dark);
+      padding: 15px 30px; border-radius: var(--radius);
+      font-size: 1rem; font-weight: 600; text-decoration: none;
+      border: 2px solid var(--border); cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-ghost:hover { border-color: var(--dark); }
+
+    .hero-demo {
+      margin-top: 64px;
+      background: var(--dark);
+      border-radius: 28px;
+      padding: 8px;
+      box-shadow: 0 32px 100px rgba(2,7,23,.18);
+      max-width: 320px;
+      width: 100%;
+    }
+    .hero-demo img { width: 100%; border-radius: 22px; display: block; }
+    .hero-demo-placeholder {
+      width: 100%; aspect-ratio: 9/16;
+      border-radius: 22px;
+      background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; color: #fff;
+    }
+    .hero-demo-placeholder .phone-icon { font-size: 3rem; }
+    .hero-demo-placeholder p { font-size: .85rem; color: rgba(255,255,255,.5); }
+
+    /* SOCIAL PROOF */
+    .social-proof {
+      text-align: center; padding: 36px 5%;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .social-proof p { font-size: .78rem; font-weight: 700; color: var(--muted); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1.5px; }
+    .logos { display: flex; gap: 36px; justify-content: center; align-items: center; flex-wrap: wrap; }
+    .logos span {
+      font-size: .95rem; font-weight: 700; color: var(--muted);
+      opacity: .5; letter-spacing: -.3px;
+    }
+
+    /* FEATURES */
+    section.features {
+      padding: 100px 5%;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .section-label {
+      text-align: center;
+      font-size: .75rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 12px;
+    }
+    section h2 {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -1px; margin-bottom: 16px;
+      color: var(--dark);
+    }
+    section .subtitle {
+      text-align: center; color: var(--muted); font-size: 1.05rem;
+      max-width: 500px; margin: 0 auto 60px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: box-shadow .2s, transform .2s, border-color .2s;
+    }
+    .feature-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.06); transform: translateY(-3px); border-color: #cbd5e1; }
+    .feature-icon {
+      width: 46px; height: 46px;
+      background: var(--primary); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 16px;
+    }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
+    .feature-card p { font-size: .9rem; color: var(--muted); line-height: 1.6; }
+
+    /* PRICING */
+    section.pricing {
+      padding: 100px 5%;
+      background: var(--dark); color: #fff;
+    }
+    section.pricing h2 { color: #fff; }
+    section.pricing .section-label { color: rgba(255,255,255,.4); }
+    section.pricing .subtitle { color: rgba(255,255,255,.45); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; max-width: 860px; margin: 0 auto;
+    }
+    .pricing-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px; padding: 36px;
+      position: relative;
+    }
+    .pricing-card.featured {
+      border-color: var(--primary);
+      background: rgba(190,242,100,.06);
+    }
+    .pricing-card .pill {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--primary); color: var(--dark);
+      border-radius: 20px; padding: 4px 16px;
+      font-size: .75rem; font-weight: 800; white-space: nowrap;
+    }
+    .pricing-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
+    .pricing-card .price {
+      font-size: 2.8rem; font-weight: 800; color: #fff;
+      letter-spacing: -2px; margin: 12px 0 4px;
+    }
+    .pricing-card .price span { font-size: 1rem; font-weight: 400; opacity: .4; }
+    .pricing-card .desc { font-size: .85rem; color: rgba(255,255,255,.35); margin-bottom: 24px; }
+    .pricing-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .pricing-card ul li { font-size: .9rem; color: rgba(255,255,255,.7); display: flex; align-items: center; gap: 10px; }
+    .pricing-card ul li::before { content: '✓'; color: var(--primary); font-weight: 800; flex-shrink: 0; }
+    .pricing-card .btn-card {
+      display: block; width: 100%; text-align: center;
+      padding: 14px; border-radius: var(--radius);
+      font-weight: 700; font-size: .95rem; text-decoration: none;
+      transition: .2s; cursor: pointer;
+    }
+    .pricing-card .btn-card-outline {
+      background: transparent; color: rgba(255,255,255,.65);
+      border: 1px solid rgba(255,255,255,.15);
+    }
+    .pricing-card .btn-card-outline:hover { border-color: rgba(255,255,255,.4); color: #fff; }
+    .pricing-card .btn-card-filled {
+      background: var(--primary); color: var(--dark); border: none;
+    }
+    .pricing-card .btn-card-filled:hover { background: var(--primary-dark); }
+
+    /* HOW IT WORKS */
+    section.how {
+      padding: 100px 5%;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 60px; }
+    .step {
+      display: flex; gap: 28px; align-items: flex-start;
+      padding-bottom: 40px; position: relative;
+    }
+    .step:not(:last-child)::before {
+      content: '';
+      position: absolute; left: 23px; top: 52px; bottom: 0;
+      width: 2px; background: var(--border);
+    }
+    .step-num {
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: var(--primary); color: var(--dark);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1rem; z-index: 1;
+    }
+    .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: var(--dark); }
+    .step p { color: var(--muted); font-size: .9rem; }
+
+    /* CTA FINAL */
+    .cta-final {
+      padding: 100px 5%;
+      text-align: center;
+      background: var(--dark);
+      color: #fff;
+    }
+    .cta-final h2 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800; letter-spacing: -1.5px; margin-bottom: 16px;
+      color: #fff;
+    }
+    .cta-final h2 em { font-style: normal; color: var(--primary); }
+    .cta-final p { font-size: 1.1rem; color: rgba(255,255,255,.55); margin-bottom: 36px; }
+    .cta-final .btn-lime {
+      background: var(--primary); color: var(--dark);
+      padding: 16px 40px; border-radius: var(--radius);
+      font-size: 1rem; font-weight: 800; text-decoration: none;
+      display: inline-block; transition: .2s;
+    }
+    .cta-final .btn-lime:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,.3);
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 36px 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px; font-size: .85rem;
+    }
+    footer .logo { font-size: 1.1rem; }
+    footer .logo span { font-size: .95rem; }
+
+    @media (max-width: 640px) {
+      .step { flex-direction: column; }
+      .step:not(:last-child)::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">QR<span>Menu</span></div>
+    <a href="admin.html" class="cta-nav">Connexion</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">⚡ Zéro commission · Zéro app à télécharger</div>
+    <h1>Votre menu <em>digital</em><br>prêt en 5 minutes</h1>
+    <p>Un QR code. Vos plats à jour en temps réel. Vos clients satisfaits. Sans abonnement caché.</p>
+    <div class="hero-ctas">
+      <a href="admin.html" class="btn-primary">Créer mon menu gratuit</a>
+      <a href="#demo" class="btn-ghost">Voir la démo</a>
+    </div>
+    <div class="hero-demo" id="demo">
+      <div class="hero-demo-placeholder">
+        <div class="phone-icon">📱</div>
+        <p>Scannez → menu instantané</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <div class="social-proof">
+    <p>Ils font confiance à QRMenu</p>
+    <div class="logos">
+      <span>Le Bistrot Parisien</span>
+      <span>Casa Roma</span>
+      <span>Le Jardin</span>
+      <span>Sushi & Co</span>
+      <span>Brasserie du Port</span>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <p class="section-label">Fonctionnalités</p>
+    <h2>Tout ce dont vous avez besoin</h2>
+    <p class="subtitle">Simple pour vous. Impeccable pour vos clients.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Mise à jour instantanée</h3>
+        <p>Plat épuisé ? Changement de prix ? Modifiez en 1 clic depuis votre téléphone. Le menu se met à jour en temps réel.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>Menu à votre image</h3>
+        <p>Logo, couleurs, photos HD. Votre identité visuelle respectée sur chaque écran.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Optimisé mobile</h3>
+        <p>Chargement en moins d'une seconde. Interface fluide pensée pour le scroll du pouce.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>Multilingue automatique</h3>
+        <p>Traduction automatique de vos menus via IA. Accueillez vos clients internationaux sans effort.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔇</div>
+        <h3>Allergènes intégrés</h3>
+        <p>Affichez les 14 allergènes réglementaires par plat. Conformité légale assurée.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>QR code personnalisé</h3>
+        <p>Téléchargez votre QR code en HD pour l'imprimer sur vos tables, cartes de visite, vitrine.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <p class="section-label">Comment ça marche</p>
+    <h2>Opérationnel en 3 étapes</h2>
+    <p class="subtitle" style="text-align:center">Pas besoin de technicien. Vous le faites vous-même en 5 minutes.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Créez votre établissement</h3>
+          <p>Saisissez le nom de votre restaurant, ajoutez votre logo et choisissez vos couleurs. C'est tout pour commencer.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Ajoutez vos plats</h3>
+          <p>Créez vos catégories (Entrées, Plats, Desserts…) et renseignez chaque plat : nom, prix, photo, description, allergènes.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Imprimez votre QR code</h3>
+          <p>Téléchargez votre QR code en haute définition. Collez-le sur vos tables et c'est parti. Vos clients scannent, votre menu apparaît.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div style="max-width:1100px;margin:0 auto">
+      <p class="section-label">Tarifs</p>
+      <h2>Simple et transparent</h2>
+      <p class="subtitle">Aucune commission. Aucune surprise.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Starter</h3>
+          <div class="price">0€ <span>/ mois</span></div>
+          <p class="desc">Pour tester et démarrer</p>
+          <ul>
+            <li>1 établissement</li>
+            <li>Jusqu'à 30 plats</li>
+            <li>QR code inclus</li>
+            <li>Mise à jour en temps réel</li>
+          </ul>
+          <a href="admin.html" class="btn-card btn-card-outline">Commencer gratuitement</a>
+        </div>
+        <div class="pricing-card featured">
+          <div class="pill">Le plus populaire</div>
+          <h3>Pro</h3>
+          <div class="price">19€ <span>/ mois</span></div>
+          <p class="desc">Pour les restaurants actifs</p>
+          <ul>
+            <li>Établissements illimités</li>
+            <li>Plats illimités</li>
+            <li>Photos HD</li>
+            <li>Multilingue (IA)</li>
+            <li>Statistiques de scan</li>
+            <li>Support prioritaire</li>
+          </ul>
+          <a href="admin.html" class="btn-card btn-card-filled">Démarrer l'essai gratuit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <div class="cta-final">
+    <h2>Votre menu digital<br><em>vous attend</em></h2>
+    <p>Rejoignez les restaurateurs qui ont dit adieu aux menus plastifiés.</p>
+    <a href="admin.html" class="btn-lime">Créer mon menu maintenant →</a>
+  </div>
+
+  <footer>
+    <div class="logo">QRMenu</div>
+    <span>© 2025 QRMenu — Fait avec ❤️ en France</span>
+    <span>contact@qrmenu.fr</span>
+  </footer>
+
+</body>
+</html>

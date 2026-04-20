@@ -1,0 +1,41 @@
+#!/bin/bash
+# ─── Git post-receive hook ────────────────────────────────────────────────────
+# Déployé dans /opt/qrmenu-repo.git/hooks/post-receive
+# Exécuté automatiquement à chaque `git push vps main`
+
+set -e
+
+DEPLOY_DIR="/opt/qrmenu"
+GIT_DIR="/opt/qrmenu-repo.git"
+BRANCH="main"
+
+echo ""
+echo "═══════════════════════════════════════"
+echo "  QRMenu — Déploiement en cours…"
+echo "═══════════════════════════════════════"
+
+# Lire le ref poussé
+while read oldrev newrev refname; do
+  pushed_branch=$(git rev-parse --symbolic --abbrev-ref "$refname")
+  if [ "$pushed_branch" != "$BRANCH" ]; then
+    echo "  Branch '$pushed_branch' ignorée (on déploie seulement '$BRANCH')"
+    exit 0
+  fi
+done
+
+# Checkout du code dans le répertoire de deploy
+echo "--> Mise à jour du code dans $DEPLOY_DIR"
+git --work-tree="$DEPLOY_DIR" --git-dir="$GIT_DIR" checkout -f "$BRANCH"
+
+# Rendre les scripts exécutables
+chmod +x "$DEPLOY_DIR/deploy/*.sh" 2>/dev/null || true
+
+# Relancer nginx pour prendre en compte les changements HTML/config
+echo "--> Rechargement Nginx"
+docker exec qrmenu_nginx nginx -s reload 2>/dev/null || echo "  (Nginx pas encore démarré, pas de rechargement)"
+
+echo ""
+echo "  ✅ Deploy terminé !"
+echo "  Commit : $(git --git-dir=$GIT_DIR rev-parse --short HEAD)"
+echo "═══════════════════════════════════════"
+echo ""
