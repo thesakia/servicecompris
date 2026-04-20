@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doo | Crêperie &amp; Spectacles · Tarare</title>
+  <meta name="description" content="Crêperie, spectacles et jeux rétro au coeur de Tarare. Un lieu éclectique et familial où les crêpes bretonnes rencontrent la scène. 10 Rue Mezelle, 69170 Tarare.">
+  <meta property="og:title" content="Doo | Crêperie &amp; Spectacles · Tarare">
+  <meta property="og:description" content="Crêpes bretonnes, spectacles vivants et gaming rétro. Un lieu unique à Tarare, gourmand et festif.">
+  <meta property="og:url" content="https://servicecompris.pro/doo/">
+  <meta property="og:type" content="restaurant">
+  <meta property="og:locale" content="fr_FR">
+  <link rel="canonical" href="https://servicecompris.pro/doo/">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet"></noscript>
+
+  <link rel="stylesheet" href="css/aos.min.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Doo Crêperie Spectacles",
+    "description": "Crêperie festive et rétro avec spectacles vivants, gaming vintage et crêpes bretonnes à Tarare.",
+    "url": "https://servicecompris.pro/doo/",
+    "telephone": "+33474633029",
+    "email": "contact@doocreperiespectacles.fr",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "10 Rue Mezelle",
+      "addressLocality": "Tarare",
+      "postalCode": "69170",
+      "addressCountry": "FR"
+    },
+    "servesCuisine": ["Crêperie", "Bretonne"],
+    "priceRange": "€€",
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Wednesday"], "opens": "11:00", "closes": "22:30" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday","Friday"], "opens": "11:00", "closes": "15:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday","Friday"], "opens": "18:30", "closes": "00:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "11:00", "closes": "00:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "10:00", "closes": "15:00" }
+    ],
+    "sameAs": ["https://www.instagram.com/doocreperiespectacles/"]
+  }
+  </script>
+
+  <style>
+    /* ============================
+       RESET
+    ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; background: none; border: none; font-family: inherit; }
+    ul { list-style: none; }
+
+    /* ============================
+       VARIABLES MAGAZINE 90s
+    ============================ */
+    :root {
+      --paper:     #FBF7EE;
+      --paper2:    #F5F0E4;
+      --ink:       #1A1208;
+      --ink-soft:  #4A3F2F;
+
+      /* Palette blocs 90s (vives, pas de rouge/bleu/vert) */
+      --yellow:    #FFD93D;
+      --orange:    #FF9A3C;
+      --mauve:     #C589E8;
+      --rose:      #FFB3C6;
+      --teal:      #3CDBD3;   /* accent secondaire acceptable */
+      --lime:      #C8F135;
+
+      --hf: 'Syne', system-ui, sans-serif;
+      --bf: 'DM Sans', system-ui, sans-serif;
+      --hf2: 'Caveat', cursive;  /* annotations manuscrites */
+    }
+
+    /* ============================
+       BASE
+    ============================ */
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--bf);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    /* Texture papier légère */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: .032;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+
+    /* ============================
+       UTILITAIRES MAGAZINE
+    ============================ */
+
+    /* Numéro de page */
+    .page-num {
+      font-family: var(--hf);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      opacity: .4;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: 1.2rem;
+    }
+    .page-num::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    /* Bloc couleur surligneur */
+    .hl {
+      display: inline;
+      background: var(--yellow);
+      padding: 0 4px 2px;
+      border-radius: 1px;
+    }
+    .hl-orange { background: var(--orange); color: #fff; }
+    .hl-mauve  { background: var(--mauve); }
+    .hl-rose   { background: var(--rose); }
+    .hl-lime   { background: var(--lime); }
+
+    /* Grand titre expressif */
+    .mag-title {
+      font-family: var(--hf);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+
+    /* Sous-titre section */
+    .mag-sub {
+      font-family: var(--hf);
+      font-size: clamp(1.6rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+
+    /* Intro texte */
+    .mag-intro {
+      font-family: var(--hf);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+
+    /* Annotation manuscrite */
+    .handnote {
+      font-family: var(--hf2);
+      font-size: 1.1rem;
+      color: var(--ink-soft);
+      transform: rotate(-1.5deg);
+      display: inline-block;
+    }
+
+    /* Bloc coloré (section entière) */
+    .bloc {
+      padding: 80px 0;
+    }
+    .bloc--yellow  { background: var(--yellow); }
+    .bloc--orange  { background: var(--orange); color: #fff; }
+    .bloc--mauve   { background: var(--mauve); }
+    .bloc--rose    { background: var(--rose); }
+    .bloc--paper2  { background: var(--paper2); }
+    .bloc--ink     { background: var(--ink); color: var(--paper); }
+
+    /* Séparateur filet imprimé */
+    .filet {
+      border: none;
+      border-top: 2px solid var(--ink);
+      margin: 1.5rem 0;
+      opacity: .12;
+    }
+    .filet--bold { border-top-width: 4px; opacity: 1; }
+    .filet--color { border-top-color: currentColor; opacity: .3; }
+
+    /* Encadré magazine */
+    .encadre {
+      border: 2px solid var(--ink);
+      padding: 1.5rem 1.8rem;
+      position: relative;
+    }
+    .encadre--thick { border-width: 4px; }
+    .encadre-label {
+      position: absolute;
+      top: -0.7rem; left: 1rem;
+      background: var(--paper);
+      padding: 0 .5rem;
+      font-family: var(--hf);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    /* ============================
+       BOUTONS
+    ============================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--hf);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 12px 24px;
+      border: 2px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      transition: all .18s;
+      cursor: pointer;
+    }
+    .btn:hover { background: transparent; color: var(--ink); }
+    .btn-inv {
+      background: var(--paper);
+      color: var(--ink);
+      border-color: var(--paper);
+    }
+    .btn-inv:hover { background: transparent; color: var(--paper); border-color: var(--paper); }
+    .btn-yellow {
+      background: var(--yellow);
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+    .btn-yellow:hover { background: var(--ink); color: var(--yellow); }
+    .btn svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+
+    /* ============================
+       HEADER
+    ============================ */
+    #hdr {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      background: var(--paper);
+      border-bottom: 3px solid var(--ink);
+    }
+    .hdr-in {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 28px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .logo-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: .6rem;
+    }
+    .logo-name {
+      font-family: var(--hf);
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .logo-tag {
+      font-family: var(--hf);
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      opacity: .5;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-family: var(--hf);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .hbg { display: none; flex-direction: column; gap: 5px; padding: 4px; }
+    .hbg span { display: block; width: 22px; height: 2.5px; background: var(--ink); transition: all .3s; }
+    .hbg.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hbg.open span:nth-child(2) { opacity: 0; }
+    .hbg.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 60px 0 0 0;
+      background: var(--paper);
+      z-index: 800;
+      padding: 2rem 28px;
+      border-top: 2px solid var(--ink);
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .nav-overlay.open { display: flex; }
+    .nav-overlay a {
+      font-family: var(--hf);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--ink);
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: .5rem;
+      opacity: .85;
+    }
+
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 800;
+      background: var(--yellow);
+      color: var(--ink);
+      text-align: center;
+      padding: 16px;
+      font-family: var(--hf);
+      font-size: .88rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-top: 2px solid var(--ink);
+    }
+
+    /* ============================
+       HERO : COUVERTURE MAGAZINE
+    ============================ */
+    #hero {
+      padding-top: 60px;
+      min-height: 100vh;
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    /* Bandeau en-tête façon couverture */
+    .hero-band {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 10px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: var(--hf);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .hero-band-issue { color: var(--yellow); }
+
+    /* Corps hero */
+    .hero-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 130px);
+    }
+
+    /* Colonne gauche : le titre géant */
+    .hero-left {
+      padding: 4rem 3rem 4rem 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 3px solid var(--ink);
+      position: relative;
+    }
+    .hero-kicker {
+      font-family: var(--hf);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .hero-kicker::before {
+      content: '';
+      display: block;
+      width: 20px; height: 3px;
+      background: var(--orange);
+    }
+    .hero-h1 {
+      font-family: var(--hf);
+      font-weight: 800;
+      font-size: clamp(5rem, 14vw, 11rem);
+      line-height: .95;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+    /* Le "!" en orange */
+    .hero-h1 .excl { color: var(--orange); }
+
+    .hero-tagline {
+      font-family: var(--hf);
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--ink-soft);
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-tagline strong {
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* Bloc jaune décoratif hero-left */
+    .hero-sticker {
+      position: absolute;
+      bottom: 3rem; right: -1.5rem;
+      background: var(--yellow);
+      border: 3px solid var(--ink);
+      padding: .8rem 1.2rem;
+      font-family: var(--hf2);
+      font-size: 1.1rem;
+      transform: rotate(4deg);
+      z-index: 2;
+      line-height: 1.3;
+    }
+
+    /* Colonne droite : blocs visuels empilés */
+    .hero-right {
+      display: grid;
+      grid-template-rows: 1fr auto auto;
+    }
+    .hero-visual {
+      background: var(--mauve);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      min-height: 320px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-visual-placeholder {
+      font-family: var(--hf);
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      font-weight: 700;
+      color: var(--ink);
+      opacity: .35;
+      text-align: center;
+      letter-spacing: -.02em;
+    }
+    .hero-visual img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      position: absolute; inset: 0;
+    }
+
+    .hero-info-strip {
+      background: var(--orange);
+      padding: 1.2rem 2rem;
+      border-top: 3px solid var(--ink);
+      border-bottom: 3px solid var(--ink);
+    }
+    .hero-info-strip p {
+      font-family: var(--hf);
+      font-size: .82rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .hero-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 0;
+    }
+    .hero-feat {
+      padding: 1.2rem 1rem;
+      border-right: 3px solid var(--ink);
+      text-align: center;
+    }
+    .hero-feat:last-child { border-right: none; }
+    .hero-feat-icon {
+      font-family: var(--hf);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1;
+      display: block;
+    }
+    .hero-feat-label {
+      font-family: var(--hf);
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ============================
+       SECTION : L'UNIVERS
+    ============================ */
+    #univers { padding: 80px 0; background: var(--paper2); }
+
+    .univers-layout {
+      display: grid;
+      grid-template-columns: 1fr 2px 1fr;
+      gap: 0 3rem;
+      align-items: start;
+    }
+    .univers-divider {
+      background: var(--ink);
+      opacity: .12;
+      align-self: stretch;
+    }
+
+    .univers-col-title {
+      font-family: var(--hf);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.01em;
+      margin-bottom: 1.8rem;
+    }
+
+    .univers-col p {
+      font-size: .98rem;
+      color: var(--ink-soft);
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+    .univers-col p strong { color: var(--ink); font-weight: 600; }
+
+    /* Cards features façon encadrés magazine */
+    .univers-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: .5rem;
+    }
+    .univers-card {
+      border: 2px solid var(--ink);
+      padding: 1.2rem;
+      position: relative;
+      transition: background .15s;
+    }
+    .univers-card:nth-child(1) { background: var(--yellow); }
+    .univers-card:nth-child(2) { background: var(--mauve); }
+    .univers-card:nth-child(3) { background: var(--rose); }
+    .univers-card:nth-child(4) { background: var(--teal); }
+    .univers-card:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
+    .univers-card-num {
+      font-family: var(--hf);
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--ink);
+      opacity: .15;
+      position: absolute;
+      top: .5rem; right: .8rem;
+    }
+    .univers-card-title {
+      font-family: var(--hf);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: .3rem;
+    }
+    .univers-card-desc {
+      font-size: .82rem;
+      color: var(--ink);
+      opacity: .75;
+      line-height: 1.5;
+    }
+
+    /* ============================
+       SECTION : LA CARTE
+    ============================ */
+    #carte { padding: 80px 0; background: var(--paper); }
+
+    .carte-header {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      align-items: end;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 4px solid var(--ink);
+    }
+    .carte-big-num {
+      font-family: var(--hf);
+      font-size: clamp(5rem, 12vw, 10rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.04em;
+      color: var(--ink);
+      opacity: .08;
+      user-select: none;
+    }
+    .carte-header-text {}
+    .carte-header-text .page-num { margin-bottom: .5rem; }
+
+    /* Tabs façon onglets magazine */
+    .mag-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 0;
+      border-bottom: 3px solid var(--ink);
+    }
+    .mag-tab {
+      font-family: var(--hf);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      border: 2px solid var(--ink);
+      border-bottom: none;
+      margin-bottom: -3px;
+      background: var(--paper2);
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .mag-tab + .mag-tab { border-left: none; }
+    .mag-tab.on, .mag-tab:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .mag-tab.on { color: var(--yellow); }
+
+    /* Panneau carte */
+    .mag-panel { display: none; padding: 2.5rem 0; animation: fadeIn .25s ease; }
+    .mag-panel.on { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    /* Grille articles menu */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 4rem;
+    }
+    .menu-section-title {
+      font-family: var(--hf);
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      grid-column: 1 / -1;
+      padding: 1.2rem 0 .6rem;
+      border-bottom: 3px solid var(--ink);
+      margin-bottom: .2rem;
+    }
+    .menu-section-title:first-child { padding-top: 0; }
+
+    .menu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: .8rem;
+      padding: .7rem 0;
+      border-bottom: 1px solid rgba(26,18,8,.1);
+    }
+    .menu-row:last-child { border-bottom: none; }
+    .menu-name {
+      font-family: var(--hf);
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .menu-desc {
+      font-size: .78rem;
+      color: var(--ink-soft);
+      font-style: italic;
+      margin-top: 1px;
+    }
+    .menu-price {
+      font-family: var(--hf2);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--orange);
+      white-space: nowrap;
+    }
+
+    /* Formules en bloc coloré */
+    .formules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .formule-card {
+      border: 3px solid var(--ink);
+      padding: 2rem 1.8rem;
+      position: relative;
+      background: var(--paper);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .formule-card:nth-child(1) { background: var(--yellow); }
+    .formule-card:nth-child(2) { background: var(--mauve); }
+    .formule-card:hover { transform: translate(-3px, -3px); box-shadow: 5px 5px 0 var(--ink); }
+    .formule-label {
+      font-family: var(--hf);
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      display: block;
+      margin-bottom: .3rem;
+    }
+    .formule-name {
+      font-family: var(--hf);
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: .5rem;
+    }
+    .formule-price {
+      font-family: var(--hf);
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--ink);
+      letter-spacing: -.04em;
+    }
+    .formule-price sup { font-size: 1.4rem; vertical-align: super; }
+    .formule-content {
+      font-size: .85rem;
+      color: var(--ink-soft);
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Note bas de carte à la main */
+    .carte-note-hand {
+      font-family: var(--hf2);
+      font-size: 1rem;
+      color: var(--ink-soft);
+      margin-top: 2rem;
+      transform: rotate(-.5deg);
+      display: inline-block;
+      opacity: .7;
+    }
+
+    /* ============================
+       SECTION : SPECTACLES (programme TV)
+    ============================ */
+    #spectacles { padding: 0; background: var(--ink); color: var(--paper); }
+
+    .spectacles-header {
+      padding: 4rem 28px 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      border-bottom: 2px solid rgba(251,247,238,.15);
+    }
+    .spectacles-header-title {
+      font-family: var(--hf);
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.01em;
+    }
+    .spectacles-header-title span { color: var(--yellow); }
+    .spectacles-sub {
+      font-size: .95rem;
+      color: rgba(251,247,238,.6);
+      max-width: 300px;
+      line-height: 1.6;
+    }
+
+    /* Grille programme */
+    .programme {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 28px 5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .prog-item {
+      border-right: 1px solid rgba(251,247,238,.1);
+      border-bottom: 1px solid rgba(251,247,238,.1);
+      padding: 2.5rem 2rem;
+      transition: background .2s;
+    }
+    .prog-item:hover { background: rgba(251,247,238,.04); }
+    .prog-item:nth-child(3n) { border-right: none; }
+    .prog-item:nth-last-child(-n+3) { border-bottom: none; }
+
+    .prog-horaire {
+      font-family: var(--hf);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .8rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .prog-horaire::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--yellow);
+    }
+    .prog-title {
+      font-family: var(--hf);
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--paper);
+      margin-bottom: .6rem;
+      line-height: 1.1;
+    }
+    .prog-desc {
+      font-size: .88rem;
+      color: rgba(251,247,238,.55);
+      line-height: 1.65;
+    }
+    .prog-tag {
+      display: inline-block;
+      margin-top: 1.2rem;
+      background: var(--orange);
+      color: #fff;
+      font-family: var(--hf);
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+    }
+    .prog-tag--mauve { background: var(--mauve); color: var(--ink); }
+    .prog-tag--teal  { background: var(--teal);  color: var(--ink); }
+
+    /* ============================
+       SECTION : HISTOIRE (article portrait)
+    ============================ */
+    #histoire { padding: 80px 0; background: var(--paper); }
+
+    .article-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    /* Colonne article gauche */
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .article-rubrique {
+      background: var(--orange);
+      color: #fff;
+      font-family: var(--hf);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+    }
+    .article-date {
+      font-family: var(--hf);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      opacity: .5;
+    }
+
+    .article-titre {
+      font-family: var(--hf);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.01em;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-chapeau {
+      font-family: var(--hf);
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .article-body p {
+      font-size: .97rem;
+      color: var(--ink-soft);
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+    .article-body strong { color: var(--ink); font-weight: 600; }
+
+    /* Pull quote */
+    .pull-quote {
+      font-family: var(--hf);
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      border-left: 5px solid var(--orange);
+      padding: 1rem 0 1rem 1.5rem;
+      margin: 2rem 0;
+    }
+
+    /* Colonne droite : encadrés */
+    .article-aside {}
+
+    .portrait-box {
+      background: var(--mauve);
+      border: 3px solid var(--ink);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .portrait-box-label {
+      font-family: var(--hf);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: .6;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .portrait-box-quote {
+      font-family: var(--hf);
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+    .portrait-box-author {
+      font-family: var(--hf2);
+      font-size: .95rem;
+      color: var(--ink-soft);
+      margin-top: .8rem;
+      display: block;
+    }
+
+    /* Fiche pratique */
+    .fiche {
+      border: 3px solid var(--ink);
+      padding: 1.5rem;
+      background: var(--yellow);
+    }
+    .fiche-title {
+      font-family: var(--hf);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .fiche-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: var(--ink);
+    }
+    .fiche-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .4rem 0;
+      border-bottom: 1px solid rgba(26,18,8,.15);
+      font-size: .85rem;
+    }
+    .fiche-row:last-child { border-bottom: none; }
+    .fiche-row dt { font-weight: 600; color: var(--ink); }
+    .fiche-row dd { color: var(--ink-soft); text-align: right; }
+
+    .chiffres-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 3px solid var(--ink);
+      margin-top: 1.5rem;
+    }
+    .chiffre {
+      padding: 1.4rem 1rem;
+      text-align: center;
+      border-right: 2px solid var(--ink);
+    }
+    .chiffre:last-child { border-right: none; }
+    .chiffre-num {
+      font-family: var(--hf);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1;
+      display: block;
+    }
+    .chiffre-lbl {
+      font-family: var(--hf);
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      opacity: .6;
+      margin-top: 3px;
+      display: block;
+    }
+
+    /* ============================
+       SECTION : AVIS (courrier des lecteurs)
+    ============================ */
+    #avis { padding: 80px 0; background: var(--rose); }
+
+    .courrier-header {
+      display: flex;
+      align-items: flex-end;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .courrier-titre {
+      font-family: var(--hf);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.01em;
+      flex: 1;
+    }
+    .courrier-sub {
+      font-size: .88rem;
+      color: var(--ink-soft);
+      max-width: 260px;
+      line-height: 1.6;
+    }
+
+    .lettres {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .lettre {
+      background: var(--paper);
+      border: 2px solid var(--ink);
+      padding: 1.6rem;
+      position: relative;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .lettre:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
+    .lettre-stars {
+      font-size: .85rem;
+      letter-spacing: .1em;
+      color: var(--orange);
+      margin-bottom: .5rem;
+    }
+    .lettre-text {
+      font-size: .9rem;
+      color: var(--ink-soft);
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .lettre-sig {
+      font-family: var(--hf2);
+      font-size: 1rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .lettre-sig::before {
+      content: '';
+      display: block;
+      width: 14px;
+      height: 1px;
+      background: var(--ink);
+      opacity: .4;
+    }
+
+    /* ============================
+       SECTION : SOCIAL
+    ============================ */
+    #social { padding: 70px 0; background: var(--paper2); text-align: center; }
+    .social-wrap { max-width: 560px; margin: 0 auto; }
+    .social-titre {
+      font-family: var(--hf);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -.01em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .social-desc {
+      font-size: .95rem;
+      color: var(--ink-soft);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    .social-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .social-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 22px 36px;
+      border: 2px solid var(--ink);
+      background: var(--paper);
+      color: var(--ink);
+      min-width: 150px;
+      transition: all .15s;
+      cursor: pointer;
+    }
+    .social-btn:hover { background: var(--ink); color: var(--paper); transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--ink); }
+    .social-btn svg { width: 28px; height: 28px; }
+    .social-btn-label { font-family: var(--hf); font-size: .9rem; font-weight: 700; }
+    .social-btn-handle { font-size: .75rem; color: var(--ink-soft); }
+    .social-btn:hover .social-btn-handle { color: rgba(251,247,238,.6); }
+
+    /* ============================
+       SECTION : INFOS
+    ============================ */
+    #infos { padding: 80px 0; background: var(--paper); }
+
+    .infos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .infos-grid iframe {
+      width: 100%;
+      height: 340px;
+      border: 3px solid var(--ink);
+      display: block;
+    }
+
+    .info-block { margin-bottom: 2rem; }
+    .info-block-title {
+      font-family: var(--hf);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      color: var(--ink);
+      margin-bottom: .5rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .info-block-title::before {
+      content: '';
+      display: block;
+      width: 10px; height: 10px;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+    .info-block p { font-size: .92rem; color: var(--ink-soft); line-height: 1.8; }
+
+    .horaires-table { width: 100%; border-collapse: collapse; }
+    .horaires-table tr { border-bottom: 1px solid rgba(26,18,8,.1); }
+    .horaires-table tr:last-child { border-bottom: none; }
+    .horaires-table td { padding: .4rem 0; font-size: .9rem; }
+    .horaires-table td:first-child { font-weight: 600; color: var(--ink); }
+    .horaires-table td:last-child { color: var(--ink-soft); text-align: right; }
+    .horaires-table tr.today td { color: var(--orange); font-weight: 700; }
+    .horaires-table tr.closed td { opacity: .3; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .75rem; }
+    .chip {
+      font-family: var(--hf);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1.5px solid var(--ink);
+      color: var(--ink-soft);
+    }
+
+    .tel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--hf);
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      color: var(--ink);
+      transition: color .15s;
+    }
+    .tel-link:hover { color: var(--orange); }
+    .tel-link svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    footer {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 56px 0 36px;
+      border-top: 4px solid var(--yellow);
+    }
+    .ft-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .ft-brand-name {
+      font-family: var(--hf);
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      color: var(--paper);
+      margin-bottom: .5rem;
+    }
+    .ft-brand p { font-size: .85rem; color: rgba(251,247,238,.5); line-height: 1.7; }
+    .ft-col h4 {
+      font-family: var(--hf);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 1rem;
+    }
+    .ft-col li { margin-bottom: .45rem; }
+    .ft-col a { font-size: .86rem; color: rgba(251,247,238,.5); transition: color .15s; }
+    .ft-col a:hover { color: var(--paper); }
+    .ft-social { display: flex; gap: .5rem; margin-top: 1rem; }
+    .soc {
+      width: 34px; height: 34px;
+      border: 1.5px solid rgba(251,247,238,.2);
+      display: flex; align-items: center; justify-content: center;
+      transition: all .15s;
+    }
+    .soc:hover { border-color: var(--yellow); background: var(--yellow); }
+    .soc:hover svg { stroke: var(--ink); }
+    .soc svg { width: 15px; height: 15px; stroke: rgba(251,247,238,.5); fill: none; stroke-width: 1.8; transition: stroke .15s; }
+    .ft-bottom {
+      border-top: 1px solid rgba(251,247,238,.1);
+      padding-top: 1.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .5rem;
+      font-size: .75rem;
+      color: rgba(251,247,238,.3);
+    }
+    .ft-bottom a { color: inherit; transition: color .15s; }
+    .ft-bottom a:hover { color: var(--paper); }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 1024px) {
+      .hero-body { grid-template-columns: 1fr; }
+      .hero-left { border-right: none; border-bottom: 3px solid var(--ink); }
+      .hero-right { grid-template-rows: 260px auto auto; }
+      .univers-layout { grid-template-columns: 1fr; }
+      .univers-divider { display: none; }
+      .article-layout { gap: 3rem; }
+      .ft-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 900px) {
+      .article-layout { grid-template-columns: 1fr; }
+      .infos-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .programme { grid-template-columns: 1fr 1fr; }
+      .lettres { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: 1fr; gap: 0; }
+      .menu-section-title { grid-column: 1; }
+      .ft-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .hdr-tel { display: none; }
+      .hbg { display: flex; }
+      .mobile-cta { display: block; }
+      .formules-grid { grid-template-columns: 1fr; }
+      .chiffres-row { grid-template-columns: 1fr; }
+      .chiffre { border-right: none; border-bottom: 2px solid var(--ink); }
+      .chiffre:last-child { border-bottom: none; }
+      .programme { grid-template-columns: 1fr; }
+      .prog-item { border-right: none; }
+      .hero-features { grid-template-columns: 1fr; }
+      .hero-feat { border-right: none; border-bottom: 3px solid var(--ink); }
+      .hero-feat:last-child { border-bottom: none; }
+    }
+    @media (max-width: 560px) {
+      .hero-h1 { font-size: clamp(5rem, 22vw, 8rem); }
+      .univers-cards { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; }
+      .courrier-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  </style>
+</head>
+<body>
+
+<!-- ============================
+     HEADER
+============================ -->
+<header id="hdr">
+  <div class="hdr-in">
+    <a href="#hero" class="logo-wrap" onclick="scrollTo(0,0);return false;">
+      <span class="logo-name">Doo</span>
+      <span class="logo-tag">Crêperie &amp; Spectacles</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="#univers">L'univers</a>
+      <a href="#carte">La carte</a>
+      <a href="#spectacles">Spectacles</a>
+      <a href="#histoire">Notre histoire</a>
+      <a href="#infos">Infos</a>
+    </nav>
+
+    <div class="hdr-tel">
+      <a href="tel:+33474633029" class="btn">Réserver</a>
+    </div>
+
+    <button class="hbg" id="hbg" aria-label="Menu" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="nav-overlay" id="nav-overlay" aria-label="Navigation mobile">
+  <a href="#univers" onclick="toggleNav()">L'univers</a>
+  <a href="#carte" onclick="toggleNav()">La carte</a>
+  <a href="#spectacles" onclick="toggleNav()">Spectacles</a>
+  <a href="#histoire" onclick="toggleNav()">Notre histoire</a>
+  <a href="#infos" onclick="toggleNav()">Infos</a>
+</nav>
+
+<a href="tel:+33474633029" class="mobile-cta">Réserver : 04 74 63 30 29</a>
+
+<!-- ============================
+     HERO : COUVERTURE MAGAZINE
+============================ -->
+<section id="hero">
+
+  <!-- Bandeau numéro de magazine -->
+  <div class="hero-band">
+    <span>Doo Magazine</span>
+    <span class="hero-band-issue">N&deg;1 &mdash; Tarare, 2026</span>
+    <span>Crêperie &middot; Spectacles &middot; Gaming</span>
+  </div>
+
+  <div class="hero-body">
+
+    <!-- Gauche : titre + tagline -->
+    <div class="hero-left">
+      <div>
+        <p class="hero-kicker">Le lieu incontournable de Tarare</p>
+        <div class="hero-h1" aria-label="Doo">D<br>o<br>o<span class="excl">!</span></div>
+      </div>
+      <div>
+        <p class="hero-tagline">
+          <strong>Crêpes bretonnes, spectacles vivants et gaming rétro.</strong>
+          Un lieu éclectique comme il n'en existe pas d'autre à Tarare.
+        </p>
+        <div class="hero-ctas">
+          <a href="#carte" class="btn">Voir la carte</a>
+          <a href="#spectacles" class="btn btn-yellow">Les spectacles</a>
+        </div>
+      </div>
+
+      <div class="hero-sticker">
+        Cool<br>et waouh !
+      </div>
+    </div>
+
+    <!-- Droite : visuel + infos -->
+    <div class="hero-right">
+      <div class="hero-visual">
+        <p class="hero-visual-placeholder">Photo &amp; logo Doo<br>à venir</p>
+      </div>
+
+      <div class="hero-info-strip">
+        <p>10 Rue Mezelle, Tarare &nbsp;&middot;&nbsp; 04 74 63 30 29 &nbsp;&middot;&nbsp; Ouvert mer. au dim.</p>
+      </div>
+
+      <div class="hero-features">
+        <div class="hero-feat">
+          <span class="hero-feat-icon">100%</span>
+          <span class="hero-feat-label">Breton</span>
+        </div>
+        <div class="hero-feat">
+          <span class="hero-feat-icon">2x</span>
+          <span class="hero-feat-label">Spectacles / semaine</span>
+        </div>
+        <div class="hero-feat">
+          <span class="hero-feat-icon">Free</span>
+          <span class="hero-feat-label">Gaming rétro</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     L'UNIVERS
+============================ -->
+<section id="univers">
+  <div class="container">
+
+    <div class="univers-layout">
+      <div class="univers-col" data-aos="fade-right">
+        <div class="page-num">L'univers Doo</div>
+        <h2 class="univers-col-title">Gourmand,<br>festif<br><span class="hl">et un peu<br>nostalgique.</span></h2>
+        <p>
+          Doo, c'est un lieu rare à Tarare. Une crêperie bretonne aux recettes typiques, un espace gaming avec GameCube, PlayStation et bornes d'arcade, une scène pour des spectacles qui font rire et rêver.
+        </p>
+        <p>
+          Tout ça dans une ambiance rétro 90s-2000s qui donne envie de rester. C'est cool. C'est waouh. Et c'est éclectique <strong>par choix, pas par hasard.</strong>
+        </p>
+        <p>
+          Willy Wonka rencontre la Bretagne dans un salon de jeux rétro. Bienvenue chez Doo.
+        </p>
+      </div>
+
+      <div class="univers-divider"></div>
+
+      <div class="univers-col" data-aos="fade-left" data-aos-delay="80">
+        <div class="page-num">Ce qu'on trouve ici</div>
+        <div class="univers-cards">
+          <div class="univers-card">
+            <span class="univers-card-num">01</span>
+            <div class="univers-card-title">Crêpes bretonnes</div>
+            <p class="univers-card-desc">Recettes typiques, galettes de sarrasin, Le Castellet signature.</p>
+          </div>
+          <div class="univers-card">
+            <span class="univers-card-num">02</span>
+            <div class="univers-card-title">Spectacles vivants</div>
+            <p class="univers-card-desc">Humoristes le samedi, Guignol le dimanche. La scène est vivante.</p>
+          </div>
+          <div class="univers-card">
+            <span class="univers-card-num">03</span>
+            <div class="univers-card-title">Gaming rétro libre</div>
+            <p class="univers-card-desc">GameCube, PlayStation, bornes d'arcade. Accès gratuit.</p>
+          </div>
+          <div class="univers-card">
+            <span class="univers-card-num">04</span>
+            <div class="univers-card-title">Ambiance familiale</div>
+            <p class="univers-card-desc">Un lieu pour tous les âges. Décontracté et de proximité.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     LA CARTE
+============================ -->
+<section id="carte" class="bloc bloc--paper2">
+  <div class="container">
+
+    <div class="carte-header">
+      <div class="carte-big-num" aria-hidden="true">La<br>carte</div>
+      <div class="carte-header-text">
+        <div class="page-num">À table</div>
+        <h2 class="mag-sub">Des recettes typiquement<br>bretonnes, cuisinées avec soin.</h2>
+        <p style="font-size:.88rem;color:var(--ink-soft);margin-top:.6rem;">La carte reste fixe pour que vous puissiez retrouver vos favoris.</p>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="mag-tabs">
+      <button class="mag-tab on" onclick="magTab(this,'mp-galettes')">Galettes</button>
+      <button class="mag-tab" onclick="magTab(this,'mp-crepes')">Crêpes sucrées</button>
+      <button class="mag-tab" onclick="magTab(this,'mp-formules')">Formules</button>
+      <button class="mag-tab" onclick="magTab(this,'mp-boissons')">Boissons</button>
+    </div>
+
+    <!-- Galettes -->
+    <div class="mag-panel on" id="mp-galettes">
+      <div class="menu-grid">
+        <div class="menu-section-title">Galettes de sarrasin</div>
+        <div class="menu-row">
+          <div><div class="menu-name">La Complète</div><div class="menu-desc">Jambon, oeuf, emmental</div></div>
+          <span class="menu-price">10€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">La Forestière</div><div class="menu-desc">Champignons, crème fraîche, emmental</div></div>
+          <span class="menu-price">11€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">La Saumonée</div><div class="menu-desc">Saumon fumé, crème fraîche, câpres</div></div>
+          <span class="menu-price">13€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">La Chèvre-miel</div><div class="menu-desc">Chèvre frais, miel, noix, roquette</div></div>
+          <span class="menu-price">12€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">La Végétarienne</div><div class="menu-desc">Courgettes, poivrons, emmental, oeuf</div></div>
+          <span class="menu-price">11€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">La Savoyarde</div><div class="menu-desc">Reblochon, lardons, pommes de terre, crème</div></div>
+          <span class="menu-price">13€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">La Castellet</div><div class="menu-desc">Recette signature de la maison, faite avec amour</div></div>
+          <span class="menu-price">14€</span>
+        </div>
+      </div>
+      <span class="carte-note-hand">La Castellet, notre incontournable.</span>
+    </div>
+
+    <!-- Crêpes sucrées -->
+    <div class="mag-panel" id="mp-crepes">
+      <div class="menu-grid">
+        <div class="menu-section-title">Crêpes sucrées</div>
+        <div class="menu-row">
+          <div><div class="menu-name">Beurre-sucre</div><div class="menu-desc">La classique bretonne</div></div>
+          <span class="menu-price">5€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">Confiture maison</div><div class="menu-desc">Au choix du jour</div></div>
+          <span class="menu-price">6€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">Nutella</div></div>
+          <span class="menu-price">6€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">Caramel beurre salé</div><div class="menu-desc">Caramel maison au beurre salé de Bretagne</div></div>
+          <span class="menu-price">7€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">Chantilly-fraises</div><div class="menu-desc">Fraises fraîches, chantilly maison</div></div>
+          <span class="menu-price">8€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">Flambée Grand Marnier</div></div>
+          <span class="menu-price">9€</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formules -->
+    <div class="mag-panel" id="mp-formules">
+      <div class="formules-grid">
+        <div class="formule-card">
+          <span class="formule-label">Formule</span>
+          <div class="formule-name">Doo Classic</div>
+          <div class="formule-price">16<sup>€</sup></div>
+          <p class="formule-content">1 galette au choix &middot; 1 crêpe sucrée &middot; 1 boisson</p>
+        </div>
+        <div class="formule-card">
+          <span class="formule-label">Formule</span>
+          <div class="formule-name">Doo Show</div>
+          <div class="formule-price">24<sup>€</sup></div>
+          <p class="formule-content">1 galette &middot; 1 crêpe sucrée &middot; 1 boisson &middot; 1 place de spectacle</p>
+        </div>
+      </div>
+      <span class="carte-note-hand" style="margin-top:1.5rem;display:inline-block;">Sur réservation pour la formule Show.</span>
+    </div>
+
+    <!-- Boissons -->
+    <div class="mag-panel" id="mp-boissons">
+      <div class="menu-grid">
+        <div class="menu-section-title">Cidres</div>
+        <div class="menu-row">
+          <div><div class="menu-name">Cidre brut breton</div><div class="menu-desc">La bouteille partagée</div></div>
+          <span class="menu-price">12€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">Cidre doux</div></div>
+          <span class="menu-price">12€</span>
+        </div>
+        <div class="menu-section-title">Soft &amp; Chauds</div>
+        <div class="menu-row">
+          <div><div class="menu-name">Café / Thé / Chocolat chaud</div></div>
+          <span class="menu-price">2.50€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">Soft / Jus de fruits</div></div>
+          <span class="menu-price">3€</span>
+        </div>
+        <div class="menu-section-title">Bières &amp; Vins</div>
+        <div class="menu-row">
+          <div><div class="menu-name">Bière pression 25cl</div></div>
+          <span class="menu-price">3€</span>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-name">Verre de vin</div><div class="menu-desc">Rouge, blanc, rosé</div></div>
+          <span class="menu-price">4€</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     SPECTACLES (programme TV)
+============================ -->
+<section id="spectacles">
+  <div class="spectacles-header" data-aos="fade-up">
+    <h2 class="spectacles-header-title">Au<br>programme<br><span>cette semaine</span></h2>
+    <p class="spectacles-sub">Rire, s'émerveiller, partager. Doo est un lieu culturel rare à Tarare où la crêpe se déguste avec un spectacle en prime.</p>
+  </div>
+
+  <div class="programme">
+    <div class="prog-item" data-aos="fade-up" data-aos-delay="0">
+      <div class="prog-horaire">Samedi &mdash; 20h30</div>
+      <div class="prog-title">Soirées humoristiques</div>
+      <p class="prog-desc">Des artistes sur scène pour une soirée mémorable. L'humour en famille ou entre amis, dans une salle à taille humaine.</p>
+      <span class="prog-tag">Chaque semaine</span>
+    </div>
+    <div class="prog-item" data-aos="fade-up" data-aos-delay="80">
+      <div class="prog-horaire">Dimanche &mdash; 10h30</div>
+      <div class="prog-title">Guignol &amp; Marionnettes</div>
+      <p class="prog-desc">Les aventures de Guignol revisitées pour les petits et les grands. Drôle, vivant et émouvant.</p>
+      <span class="prog-tag prog-tag--mauve">Tous les dimanches</span>
+    </div>
+    <div class="prog-item" data-aos="fade-up" data-aos-delay="160">
+      <div class="prog-horaire">Tous les jours</div>
+      <div class="prog-title">Gaming rétro libre</div>
+      <p class="prog-desc">GameCube, PlayStation 1 &amp; 2, bornes d'arcade, jeux de plateau. Accès libre et gratuit pour tous les clients.</p>
+      <span class="prog-tag prog-tag--teal">Accès gratuit</span>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding-bottom:4rem;">
+    <a href="tel:+33786818282" class="btn btn-inv">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      Réserver pour un spectacle &mdash; 07 86 81 82 82
+    </a>
+  </div>
+</section>
+
+<!-- ============================
+     HISTOIRE (article portrait)
+============================ -->
+<section id="histoire">
+  <div class="container">
+    <div class="article-layout">
+
+      <!-- Colonne article -->
+      <div data-aos="fade-right">
+        <div class="article-meta">
+          <span class="article-rubrique">Portrait</span>
+          <span class="article-date">Tarare, 2026</span>
+        </div>
+        <h2 class="article-titre">Une histoire<br>de famille<br>avant tout.</h2>
+        <p class="article-chapeau">
+          Doo est né d'une passion simple : offrir à Tarare un lieu qui n'existait pas encore. Une crêperie bretonne sérieuse, une scène vivante, et un coin gaming pour ceux qui ont grandi avec une manette entre les mains.
+        </p>
+        <div class="article-body">
+          <p>
+            Ce qui rend Doo unique, c'est que c'est <strong>une vraie histoire de famille</strong>. Le Castellet, notre recette signature, est fabriqué par notre belle-soeur. Toute la belle-famille a mis la main à la pâte pour que ce lieu existe.
+          </p>
+          <div class="pull-quote">
+            "Si notre restaurant était une personne, ce serait notre chien : sympathique, drôle et avenant."
+          </div>
+          <p>
+            Décontracté, de proximité, ouvert à tous. On vous vouvoie parce qu'on vous respecte, mais on vous accueille comme si vous faisiez partie de la maison.
+          </p>
+          <p>
+            Ce n'est pas un restaurant comme les autres. C'est un projet de vie, un lieu culturel rare à Tarare, et une invitation permanente à revenir.
+          </p>
+        </div>
+      </div>
+
+      <!-- Colonne aside -->
+      <div data-aos="fade-left" data-aos-delay="80">
+        <div class="portrait-box">
+          <span class="portrait-box-label">Ce qu'on en dit</span>
+          <p class="portrait-box-quote">"Willy Wonka rencontre la Bretagne dans un salon de jeux rétro."</p>
+          <span class="portrait-box-author">L'équipe Doo</span>
+        </div>
+
+        <div class="fiche">
+          <div class="fiche-title">Fiche pratique</div>
+          <dl>
+            <div class="fiche-row"><dt>Adresse</dt><dd>10 Rue Mezelle, Tarare</dd></div>
+            <div class="fiche-row"><dt>Téléphone</dt><dd>04 74 63 30 29</dd></div>
+            <div class="fiche-row"><dt>Spectacles</dt><dd>07 86 81 82 82</dd></div>
+            <div class="fiche-row"><dt>Email</dt><dd>contact@doocreperiespectacles.fr</dd></div>
+            <div class="fiche-row"><dt>Cuisine</dt><dd>Crêperie bretonne</dd></div>
+          </dl>
+        </div>
+
+        <div class="chiffres-row">
+          <div class="chiffre">
+            <span class="chiffre-num">100%</span>
+            <span class="chiffre-lbl">Breton</span>
+          </div>
+          <div class="chiffre">
+            <span class="chiffre-num">2</span>
+            <span class="chiffre-lbl">Shows / semaine</span>
+          </div>
+          <div class="chiffre">
+            <span class="chiffre-num">1</span>
+            <span class="chiffre-lbl">Lieu unique</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     AVIS (courrier des lecteurs)
+============================ -->
+<section id="avis">
+  <div class="container">
+    <div class="courrier-header" data-aos="fade-up">
+      <h2 class="courrier-titre">Courrier<br>des<br>lecteurs</h2>
+      <p class="courrier-sub">Ce que nos clients ont écrit après leur visite. Du vrai, du vécu.</p>
+    </div>
+
+    <div class="lettres" id="reviews-grid"></div>
+
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="https://www.doocreperiespectacles.fr/" target="_blank" rel="noopener noreferrer" class="btn">
+        Voir le site officiel
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     SOCIAL
+============================ -->
+<section id="social">
+  <div class="social-wrap" data-aos="fade-up">
+    <h2 class="social-titre">Suivez<br><span class="hl-orange">l'ambiance</span></h2>
+    <p class="social-desc">Les crêpes du moment, les spectacles à venir, les parties gaming qui s'éternisent : tout ça en direct.</p>
+    <div class="social-btns">
+      <a href="https://www.instagram.com/doocreperiespectacles/" target="_blank" rel="noopener noreferrer" class="social-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+        <span class="social-btn-label">Instagram</span>
+        <span class="social-btn-handle">@doocreperiespectacles</span>
+      </a>
+      <a href="https://www.tiktok.com/@doo.crperie.spect" target="_blank" rel="noopener noreferrer" class="social-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.93a8.19 8.19 0 0 0 4.79 1.53V7.01a4.85 4.85 0 0 1-1.02-.32z"/></svg>
+        <span class="social-btn-label">TikTok</span>
+        <span class="social-btn-handle">@doo.crperie.spect</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     INFOS
+============================ -->
+<section id="infos" class="bloc bloc--paper2">
+  <div class="container">
+    <div style="margin-bottom:3rem;" data-aos="fade-up">
+      <div class="page-num">Nous trouver</div>
+      <h2 class="mag-sub">Infos pratiques</h2>
+      <hr class="filet filet--bold" style="margin-top:1rem;">
+    </div>
+
+    <div class="infos-grid">
+      <div data-aos="fade-right">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=4.480%2C45.894%2C4.492%2C45.900&layer=mapnik&marker=45.897%2C4.486"
+          title="Carte Doo Crêperie Spectacles Tarare"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <a href="https://maps.google.com/?q=10+Rue+Mezelle+69170+Tarare" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top:1rem;">
+          Ouvrir dans Google Maps
+        </a>
+      </div>
+
+      <div data-aos="fade-left" data-aos-delay="80">
+        <div class="info-block">
+          <div class="info-block-title">Adresse</div>
+          <p>10 Rue Mezelle<br>69170 Tarare</p>
+        </div>
+
+        <div class="info-block">
+          <div class="info-block-title">Horaires</div>
+          <table class="horaires-table" id="horaires-table">
+            <tr class="closed"><td>Lundi</td><td>Fermé</td></tr>
+            <tr class="closed"><td>Mardi</td><td>Fermé</td></tr>
+            <tr><td>Mercredi</td><td>11h &ndash; 22h30</td></tr>
+            <tr><td>Jeudi</td><td>11h &ndash; 15h / 18h30 &ndash; 00h30</td></tr>
+            <tr><td>Vendredi</td><td>11h &ndash; 15h / 18h30 &ndash; Minuit</td></tr>
+            <tr><td>Samedi</td><td>11h &ndash; Minuit</td></tr>
+            <tr><td>Dimanche</td><td>10h &ndash; 15h</td></tr>
+          </table>
+        </div>
+
+        <div class="info-block">
+          <div class="info-block-title">Équipements</div>
+          <div class="chips">
+            <span class="chip">Scène spectacles</span>
+            <span class="chip">Gaming rétro</span>
+            <span class="chip">Jeux de plateau</span>
+            <span class="chip">Crêperie bretonne</span>
+            <span class="chip">Famille bienvenue</span>
+            <span class="chip">CB acceptée</span>
+          </div>
+        </div>
+
+        <div style="margin-top:2rem;padding-top:2rem;border-top:2px solid var(--ink);">
+          <p style="font-size:.88rem;color:var(--ink-soft);margin-bottom:.8rem;">Réservation table ou spectacle ?</p>
+          <a href="tel:+33474633029" class="tel-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            04 74 63 30 29
+          </a>
+          <p style="font-size:.82rem;color:var(--ink-soft);margin-top:.6rem;">Spectacles : <a href="tel:+33786818282" style="color:var(--orange);font-weight:600;">07 86 81 82 82</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     FOOTER
+============================ -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="ft-brand-name">Doo</div>
+        <p>Crêperie &amp; Spectacles<br>10 Rue Mezelle, 69170 Tarare</p>
+        <div class="ft-social">
+          <a href="https://www.instagram.com/doocreperiespectacles/" target="_blank" rel="noopener noreferrer" class="soc" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@doo.crperie.spect" target="_blank" rel="noopener noreferrer" class="soc" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.93a8.19 8.19 0 0 0 4.79 1.53V7.01a4.85 4.85 0 0 1-1.02-.32z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#univers">L'univers</a></li>
+          <li><a href="#carte">La carte</a></li>
+          <li><a href="#spectacles">Spectacles</a></li>
+          <li><a href="#histoire">Notre histoire</a></li>
+          <li><a href="#infos">Infos pratiques</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+33474633029">04 74 63 30 29</a></li>
+          <li><a href="tel:+33786818282">07 86 81 82 82 (spectacles)</a></li>
+          <li><a href="mailto:contact@doocreperiespectacles.fr">contact@doocreperiespectacles.fr</a></li>
+          <li><a href="https://maps.google.com/?q=10+Rue+Mezelle+69170+Tarare" target="_blank" rel="noopener noreferrer">10 Rue Mezelle, 69170 Tarare</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span>&copy; <span id="year"></span> Doo Crêperie Spectacles &middot; Tous droits réservés</span>
+      <span>Site réalisé par <a href="https://servicecompris.pro" target="_blank" rel="noopener noreferrer">Service Compris</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/aos.min.js"></script>
+<script>
+  AOS.init({ duration: 650, once: true, offset: 60 });
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function toggleNav() {
+    document.getElementById('hbg').classList.toggle('open');
+    document.getElementById('nav-overlay').classList.toggle('open');
+  }
+  window.addEventListener('scroll', () => {
+    if (document.getElementById('nav-overlay').classList.contains('open')) toggleNav();
+  }, { passive: true });
+
+  function magTab(btn, id) {
+    document.querySelectorAll('.mag-tab').forEach(t => t.classList.remove('on'));
+    document.querySelectorAll('.mag-panel').forEach(p => p.classList.remove('on'));
+    btn.classList.add('on');
+    document.getElementById(id).classList.add('on');
+  }
+
+  (function() {
+    const days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+    const today = days[new Date().getDay()];
+    document.querySelectorAll('#horaires-table tr').forEach(row => {
+      if (row.cells[0] && row.cells[0].textContent === today) {
+        row.classList.add('today');
+        row.classList.remove('closed');
+      }
+    });
+  })();
+
+  const allReviews = [
+    { stars: '★★★★★', text: "Un endroit vraiment unique à Tarare. Les crêpes sont délicieuses et le spectacle du samedi soir était hilarant. On reviendra sans hésiter.", author: "Client Google", date: "2025" },
+    { stars: '★★★★★', text: "Doo c'est waouh. Le cadre rétro, les jeux, la crêpe au caramel beurre salé... et en plus un spectacle Guignol pour les enfants le dimanche. Parfait.", author: "Famille Tarare", date: "2025" },
+    { stars: '★★★★★', text: "Le Castellet est incroyable. Une vraie découverte. L'équipe est aux petits soins, l'ambiance est festive. Un lieu comme il en faut plus.", author: "Client Google", date: "2025" },
+    { stars: '★★★★★', text: "Excellent rapport qualité-prix, crêpes généreuses. Quand on a fini de manger on reste pour les jeux rétro. Trop bien.", author: "Client Google", date: "2025" },
+    { stars: '★★★★★', text: "La crêpe complète était parfaite, le cidre breton à tomber. Cadre nostalgique qui donne envie de rester. Service chaleureux.", author: "Client Google", date: "2025" },
+  ];
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  const picked = shuffle([...allReviews]).slice(0, 3);
+  document.getElementById('reviews-grid').innerHTML = picked.map(r => `
+    <div class="lettre" data-aos="fade-up">
+      <div class="lettre-stars">${r.stars}</div>
+      <p class="lettre-text">"${r.text}"</p>
+      <span class="lettre-sig">${r.author} &middot; ${r.date}</span>
+    </div>
+  `).join('');
+</script>
+
+</body>
+</html>
