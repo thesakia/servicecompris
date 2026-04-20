@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bar Restaurant 307 | Tarare — Terrasse, pétanque & bonne table</title>
+  <meta name="description" content="Bar-restaurant convivial au coeur de Tarare. Grande terrasse végétalisée, terrain de pétanque, diffusions sportives. Formule midi, carte du soir par saison. 5 Place de la Gare, 69170 Tarare.">
+  <meta property="og:title" content="Bar Restaurant 307 | Tarare">
+  <meta property="og:description" content="Grande terrasse, pétanque, matchs en direct. Un bar-restaurant convivial et chaleureux à Tarare.">
+  <meta property="og:url" content="https://servicecompris.pro/307/">
+  <meta property="og:type" content="restaurant">
+  <meta property="og:locale" content="fr_FR">
+  <link rel="canonical" href="https://servicecompris.pro/307/">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet"></noscript>
+
+  <link rel="stylesheet" href="css/aos.min.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Bar Restaurant 307",
+    "description": "Bar-restaurant convivial avec grande terrasse végétalisée, terrain de pétanque et diffusions sportives à Tarare.",
+    "url": "https://servicecompris.pro/307/",
+    "telephone": "+33603093961",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "5 Place de la Gare",
+      "addressLocality": "Tarare",
+      "postalCode": "69170",
+      "addressCountry": "FR"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 45.8985, "longitude": 4.4900 },
+    "servesCuisine": ["Française", "Traditionnelle", "Burgers"],
+    "priceRange": "€€",
+    "acceptsReservations": "True",
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday"], "opens": "10:00", "closes": "15:30" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday"], "opens": "10:00", "closes": "00:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday"], "opens": "10:00", "closes": "01:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "10:00", "closes": "15:30" }
+    ],
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.6", "reviewCount": "94", "bestRating": "5" },
+    "sameAs": ["https://www.instagram.com/bar_restaurant_307/"]
+  }
+  </script>
+
+  <style>
+    /* ============================
+       RESET
+    ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; background: none; border: none; font-family: inherit; }
+    ul { list-style: none; }
+
+    /* ============================
+       VARIABLES
+    ============================ */
+    :root {
+      --bg:        #F9FAF6;
+      --bg2:       #EDF2E7;
+      --surface:   #FFFFFF;
+      --text:      #1A2416;
+      --muted:     #4A6040;
+      --accent:    #2E6830;
+      --gold:      #8B6914;
+      --btn:       #2E6830;
+      --btn-text:  #FFFFFF;
+      --btn-hover: #1C4820;
+      --border:    rgba(46,104,48,.14);
+      --divider:   #8B6914;
+      --overlay:   rgba(12,22,10,.52);
+      --header-bg: rgba(249,250,246,.96);
+      --hf:        'EB Garamond', Georgia, serif;
+      --bf:        'EB Garamond', Georgia, serif;
+    }
+
+    /* ============================
+       BASE
+    ============================ */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--bf);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+    h1, h2, h3, h4 { font-family: var(--hf); line-height: 1.15; }
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+    section { padding: 96px 0; }
+    .alt { background: var(--bg2); }
+
+    .label {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: .6rem;
+    }
+    .title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+    .title em { font-style: italic; color: var(--accent); }
+    .rule {
+      height: 2px;
+      background: var(--divider);
+      border-radius: 2px;
+      width: 56px;
+      margin-bottom: 2.4rem;
+    }
+    .rule.center { margin-left: auto; margin-right: auto; }
+
+    /* ============================
+       BUTTONS
+    ============================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--btn);
+      color: var(--btn-text);
+      font-family: var(--bf);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 13px 26px;
+      border-radius: 4px;
+      transition: background .2s, transform .2s;
+    }
+    .btn:hover { background: var(--btn-hover); transform: translateY(-1px); }
+    .btn svg { width: 15px; height: 15px; fill: currentColor; flex-shrink: 0; }
+    .btn-ghost {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,.55);
+      color: #fff;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.12); transform: translateY(-1px); }
+
+    /* ============================
+       HEADER
+    ============================ */
+    #hdr {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      background: var(--header-bg);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .hdr-in {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 28px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .logo-wrap { display: flex; flex-direction: column; line-height: 1; }
+    .logo-name {
+      font-family: var(--hf);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      color: var(--text);
+    }
+    .logo-sub {
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.2rem;
+    }
+    .nav-links a {
+      font-size: .74rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      position: relative;
+      transition: color .2s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform .25s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .hdr-tel {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hbg {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .hbg span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+    .hbg.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hbg.open span:nth-child(2) { opacity: 0; }
+    .hbg.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* mobile nav overlay */
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 68px 0 0 0;
+      background: var(--surface);
+      z-index: 800;
+      padding: 2rem 28px;
+      border-top: 1px solid var(--border);
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .nav-overlay.open { display: flex; }
+    .nav-overlay a {
+      font-size: 1.2rem;
+      font-family: var(--hf);
+      font-weight: 600;
+      color: var(--text);
+      padding: .5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* mobile CTA */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 800;
+      background: var(--btn);
+      color: #fff;
+      text-align: center;
+      padding: 16px;
+      font-family: var(--bf);
+      font-size: .88rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    /* ============================
+       HERO
+    ============================ */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, #0e1e0c 0%, #1a3a18 35%, #2d5a27 65%, #1a3a18 100%);
+      z-index: 0;
+    }
+    /* Texture végétale subtile */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 70% 60% at 15% 85%, rgba(90,158,80,.22) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 70% at 88% 10%, rgba(61,122,53,.18) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 50% at 50% 50%, rgba(26,58,24,.4) 0%, transparent 70%);
+    }
+    .hero-ov {
+      position: absolute;
+      inset: 0;
+      background: var(--overlay);
+      z-index: 1;
+      animation: heroPulse 8s ease-in-out infinite;
+    }
+    @keyframes heroPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .82; }
+    }
+    .hero-body {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+      padding: 0 24px;
+      max-width: 820px;
+    }
+    .hero-pill {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.8);
+      border: 1px solid rgba(255,255,255,.3);
+      padding: 6px 18px;
+      border-radius: 999px;
+      margin-bottom: 1.75rem;
+    }
+    .hero-h1 {
+      font-family: var(--hf);
+      font-size: clamp(4rem, 13vw, 9rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: .9;
+      margin-bottom: 1.25rem;
+      letter-spacing: -.02em;
+      text-shadow: 0 2px 48px rgba(0,0,0,.35);
+    }
+    .hero-sub {
+      font-family: var(--bf);
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: rgba(255,255,255,.78);
+      font-style: italic;
+      margin-bottom: 2.5rem;
+      line-height: 1.55;
+    }
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero-arrow {
+      position: absolute;
+      bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,.45);
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      z-index: 2;
+      cursor: pointer;
+    }
+    .hero-arrow i {
+      display: block;
+      width: 14px; height: 14px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      animation: arrowbounce 2s infinite;
+    }
+    @keyframes arrowbounce {
+      0%,100% { transform: rotate(45deg) translateY(0); }
+      50%      { transform: rotate(45deg) translateY(6px); }
+    }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ============================
+       CADRE / TERRASSE
+    ============================ */
+    #cadre { text-align: center; }
+    .cadre-intro-wrap { max-width: 740px; margin: 0 auto 3.5rem; }
+    .cadre-accroche {
+      font-family: var(--hf);
+      font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 1.6rem;
+    }
+    .cadre-text {
+      font-size: 1.02rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    /* Mosaique terrasse */
+    .gallery {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 270px 270px;
+      gap: 10px;
+      text-align: left;
+    }
+    .g-item {
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      background: var(--bg2);
+    }
+    .g-item:first-child { grid-row: span 2; }
+    .g-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform .55s, filter .3s;
+    }
+    .g-item:hover img { transform: scale(1.06); filter: brightness(.88); }
+    .g-ov {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0);
+      transition: background .3s;
+    }
+    .g-ov svg {
+      width: 28px; height: 28px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 1.8;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .g-item:hover .g-ov { background: rgba(0,0,0,.22); }
+    .g-item:hover .g-ov svg { opacity: 1; }
+    .g-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #2d5a27, #3d7a35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .g-placeholder-text {
+      text-align: center;
+      color: rgba(255,255,255,.5);
+      font-family: var(--hf);
+      font-size: .88rem;
+      font-style: italic;
+      padding: 1rem;
+    }
+
+    /* Features list */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+      text-align: left;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.6rem 1.5rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .feature-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .feature-icon {
+      width: 36px; height: 36px;
+      margin-bottom: 1rem;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .feature-name {
+      font-family: var(--hf);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .4rem;
+      display: block;
+    }
+    .feature-desc { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ============================
+       CARTE / MENU
+    ============================ */
+    .carte-intro { font-size: 1.02rem; color: var(--muted); max-width: 620px; margin-bottom: .5rem; }
+    .carte-note { font-size: .8rem; font-style: italic; color: var(--muted); margin-bottom: 2.8rem; opacity: .7; }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 2.5rem;
+    }
+    .tab {
+      font-family: var(--bf);
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 9px 20px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .tab.on, .tab:hover { background: var(--btn); color: var(--btn-text); border-color: var(--btn); }
+
+    .panels-wrap {
+      position: relative;
+      overflow: hidden;
+      transition: height .42s cubic-bezier(.4,0,.2,1);
+    }
+    .panel {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px);
+      transition: opacity .38s cubic-bezier(.4,0,.2,1), transform .38s cubic-bezier(.4,0,.2,1);
+    }
+    .panel.on {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+      position: relative;
+    }
+    .panel-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 52px;
+    }
+
+    .mi {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: .95rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mi:last-child { border-bottom: none; }
+    .mi-name { font-family: var(--hf); font-size: .98rem; font-weight: 600; color: var(--text); }
+    .mi-desc { font-size: .8rem; color: var(--muted); font-style: italic; margin-top: 2px; }
+    .mi-price { font-size: .88rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
+
+    .panel-section-title {
+      font-family: var(--hf);
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--divider);
+      grid-column: 1 / -1;
+      margin: 1.8rem 0 .5rem;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-section-title:first-child { margin-top: 0; }
+
+    .menus-cards {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: .5rem;
+    }
+    .mc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem 1.75rem;
+      text-align: center;
+    }
+    .mc-label { font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: .4rem; }
+    .mc-name { font-family: var(--hf); font-size: 1.45rem; font-weight: 700; color: var(--text); margin-bottom: .5rem; }
+    .mc-price { font-family: var(--hf); font-size: 2.2rem; font-weight: 900; color: var(--accent); }
+    .mc-price sup { font-size: 1rem; vertical-align: super; }
+    .mc-content { font-size: .82rem; color: var(--muted); margin-top: 1rem; line-height: 1.7; }
+    .mc-note { font-size: .75rem; font-style: italic; color: var(--muted); opacity: .7; margin-top: .5rem; }
+
+    /* Food mosaic */
+    .mosaic {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 200px;
+      gap: 8px;
+      margin-top: 3rem;
+    }
+    .mo {
+      position: relative;
+      overflow: hidden;
+      border-radius: 6px;
+      cursor: pointer;
+      background: var(--bg2);
+    }
+    .mo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform .65s cubic-bezier(.25,.46,.45,.94);
+    }
+    .mo:hover img { transform: scale(1.07); }
+    .mo:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .mo-ov {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,20,8,.6) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity .35s;
+      display: flex; align-items: flex-end;
+      padding: .9rem 1.1rem;
+    }
+    .mo:hover .mo-ov { opacity: 1; }
+    .mo-label {
+      color: rgba(255,255,255,.9);
+      font-family: var(--hf);
+      font-size: .82rem;
+      font-style: italic;
+    }
+    .mo-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--hf);
+      font-size: .85rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    /* ============================
+       HISTOIRE
+    ============================ */
+    .histoire-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .histoire-text p {
+      font-size: 1.02rem;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+      line-height: 1.85;
+    }
+    .histoire-text strong { color: var(--text); }
+
+    /* Quote card */
+    .quote-card {
+      background: var(--text);
+      border-radius: 10px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .quote-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 1rem; left: 1.5rem;
+      font-family: var(--hf);
+      font-size: 5rem;
+      color: var(--accent);
+      line-height: 1;
+      opacity: .6;
+    }
+    .quote-card blockquote {
+      font-family: var(--hf);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: #fff;
+      line-height: 1.6;
+      padding-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    .quote-card cite {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .values-row {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .val {
+      flex: 1;
+      text-align: center;
+      padding: 1.25rem .75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .val-num {
+      font-family: var(--hf);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+    }
+    .val-lbl { font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-top: 4px; }
+
+    /* ============================
+       AVIS
+    ============================ */
+    #avis { text-align: center; }
+    .reviews {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+      text-align: left;
+    }
+    .review-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.6rem 1.5rem;
+    }
+    .review-stars { color: #00aa6c; font-size: .85rem; letter-spacing: .06em; margin-bottom: .55rem; }
+    .review-text {
+      font-size: .92rem;
+      color: var(--text);
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .review-meta { font-size: .72rem; color: var(--muted); }
+    .review-meta strong { color: var(--accent); font-weight: 600; }
+
+    /* ============================
+       SOCIAL
+    ============================ */
+    #social { text-align: center; padding: 70px 0; }
+    .social-wrap { max-width: 580px; margin: 0 auto; }
+    .social-desc { font-size: .95rem; color: var(--muted); line-height: 1.75; margin-top: 1.2rem; margin-bottom: 2.4rem; }
+    .social-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .social-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 28px 40px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      min-width: 160px;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+    }
+    .social-btn:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.1); }
+    .social-btn svg { width: 34px; height: 34px; }
+    .social-btn-label { font-family: var(--hf); font-size: 1rem; font-weight: 700; }
+    .social-btn-handle { font-size: .78rem; color: var(--muted); }
+    .social-btn--ig:hover { border-color: #E1306C; color: #E1306C; }
+    .social-btn--fb:hover { border-color: #1877F2; color: #1877F2; }
+
+    /* ============================
+       INFOS PRATIQUES
+    ============================ */
+    .infos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .infos-grid iframe {
+      width: 100%;
+      height: 380px;
+      border: 0;
+      border-radius: 8px;
+    }
+    .info-block { margin-bottom: 2rem; }
+    .info-block h3 {
+      font-family: var(--hf);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .6rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .info-block h3 svg {
+      width: 16px; height: 16px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      flex-shrink: 0;
+    }
+    .info-block p, .info-block li { font-size: .92rem; color: var(--muted); line-height: 1.8; }
+    .horaires-table { width: 100%; }
+    .horaires-table tr { border-bottom: 1px solid var(--border); }
+    .horaires-table tr:last-child { border-bottom: none; }
+    .horaires-table td { padding: .4rem 0; font-size: .88rem; color: var(--muted); }
+    .horaires-table td:first-child { font-weight: 600; color: var(--text); }
+    .horaires-table td:last-child { text-align: right; }
+    .horaires-table tr.today td { color: var(--accent); font-weight: 700; }
+    .horaires-table tr.closed td { color: var(--muted); opacity: .5; }
+    .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+    .chip {
+      font-size: .7rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+    }
+    .info-cta { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .info-cta p { font-size: .88rem; color: var(--muted); font-style: italic; margin-bottom: .85rem; }
+    .tel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--hf);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--accent);
+      transition: color .2s;
+    }
+    .tel-link:hover { color: var(--btn-hover); }
+    .tel-link svg { width: 22px; height: 22px; fill: currentColor; }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 64px 0 40px;
+    }
+    .ft-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .ft-brand-name {
+      font-family: var(--hf);
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: .5rem;
+    }
+    .ft-brand p { font-size: .85rem; color: var(--muted); line-height: 1.7; }
+    .ft-col h4 { font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); margin-bottom: .9rem; }
+    .ft-col ul { list-style: none; }
+    .ft-col li { margin-bottom: .45rem; }
+    .ft-col a { font-size: .86rem; color: var(--muted); transition: color .2s; }
+    .ft-col a:hover { color: var(--accent); }
+    .ft-social { display: flex; gap: .65rem; margin-top: 1rem; }
+    .soc {
+      width: 36px; height: 36px;
+      border-radius: 6px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, border-color .2s;
+    }
+    .soc:hover { background: var(--btn); border-color: var(--btn); }
+    .soc:hover svg { stroke: #fff; }
+    .soc svg { width: 16px; height: 16px; stroke: var(--muted); fill: none; stroke-width: 1.8; transition: stroke .2s; }
+    .ft-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .5rem;
+      font-size: .75rem;
+      color: var(--muted);
+      opacity: .7;
+    }
+    .ft-bottom a { color: inherit; transition: color .2s; }
+    .ft-bottom a:hover { color: var(--accent); opacity: 1; }
+
+    /* ============================
+       LIGHTBOX
+    ============================ */
+    #lb {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    #lb.open { display: flex; }
+    #lb-img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 4px;
+      display: block;
+    }
+    #lb-close {
+      position: absolute;
+      top: 1.2rem; right: 1.5rem;
+      color: rgba(255,255,255,.7);
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      transition: color .2s;
+    }
+    #lb-close:hover { color: #fff; }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .histoire-grid { gap: 48px; }
+      .infos-grid { gap: 48px; }
+    }
+    @media (max-width: 900px) {
+      .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 240px 240px; }
+      .g-item:first-child { grid-column: span 2; grid-row: span 1; }
+      .mosaic { grid-template-columns: 1fr 1fr; grid-auto-rows: 160px; }
+      .mo:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+      .panel-cols { grid-template-columns: 1fr; gap: 0; }
+      .menus-cards { grid-template-columns: 1fr; }
+      .histoire-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .infos-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .ft-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .reviews { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .hdr-tel { display: none; }
+      .hbg { display: flex; }
+      .mobile-cta { display: block; }
+      section { padding: 64px 0 80px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .gallery { grid-template-columns: 1fr; grid-template-rows: repeat(3, 200px); }
+      .g-item:first-child { grid-column: span 1; grid-row: span 1; }
+      .features-grid { grid-template-columns: 1fr; }
+      .mosaic { grid-auto-rows: 130px; gap: 5px; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================
+     HEADER
+============================ -->
+<header id="hdr">
+  <div class="hdr-in">
+    <a href="#hero" class="logo-wrap" onclick="scrollTo(0,0);return false;">
+      <span class="logo-name">307</span>
+      <span class="logo-sub">Bar &amp; Restaurant · Tarare</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="#cadre">La terrasse</a>
+      <a href="#carte">La carte</a>
+      <a href="#histoire">Notre histoire</a>
+      <a href="#infos">Infos pratiques</a>
+    </nav>
+
+    <div class="hdr-tel">
+      <a href="tel:+33603093961" class="btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        Nous appeler
+      </a>
+    </div>
+
+    <button class="hbg" id="hbg" aria-label="Menu" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<nav class="nav-overlay" id="nav-overlay" aria-label="Navigation mobile">
+  <a href="#cadre" onclick="toggleNav()">La terrasse</a>
+  <a href="#carte" onclick="toggleNav()">La carte</a>
+  <a href="#histoire" onclick="toggleNav()">Notre histoire</a>
+  <a href="#infos" onclick="toggleNav()">Infos pratiques</a>
+  <a href="tel:+33603093961" class="btn" style="margin-top:1rem;justify-content:center;">Nous appeler</a>
+</nav>
+
+<!-- Mobile CTA -->
+<a href="tel:+33603093961" class="mobile-cta">Appeler le 06 03 09 39 61</a>
+
+<!-- ============================
+     HERO
+============================ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+
+  <div class="hero-body">
+    <span class="hero-pill">Bar &middot; Restaurant &middot; Tarare</span>
+    <h1 class="hero-h1" aria-label="Bar Restaurant 307">307</h1>
+    <p class="hero-sub">La terrasse, la pétanque, les amis.<br>Un bar-restaurant comme on les aime.</p>
+    <div class="hero-ctas">
+      <a href="#cadre" class="btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Découvrir le cadre
+      </a>
+      <a href="#carte" class="btn btn-ghost">Voir la carte</a>
+    </div>
+  </div>
+
+  <div class="hero-arrow" onclick="document.getElementById('cadre').scrollIntoView({behavior:'smooth'})">
+    <span>Défiler</span>
+    <i></i>
+  </div>
+</section>
+
+<!-- ============================
+     TERRASSE / CADRE
+============================ -->
+<section id="cadre" class="alt">
+  <div class="container">
+    <div class="cadre-intro-wrap" data-aos="fade-up">
+      <span class="label">La terrasse</span>
+      <h2 class="title">Un cadre <em>vert et convivial</em></h2>
+      <div class="rule"></div>
+      <p class="cadre-accroche">Au coeur de Tarare, à deux pas de la gare, une terrasse comme on n'en fait plus.</p>
+      <p class="cadre-text">
+        Pergola envahie de verdure, bacs à plantes, mobilier chaleureux — le 307 a été pensé pour qu'on s'y sente bien. On vient pour souffler, pour rire, pour prendre le temps. La terrasse est grande, l'ambiance est là.
+      </p>
+      <p class="cadre-text">
+        Et quand le temps ne se prête pas à la terrasse, l'intérieur prend le relais avec la même générosité.
+      </p>
+    </div>
+
+    <!-- Gallery -->
+    <div class="gallery" data-aos="fade-up" data-aos-delay="100">
+      <div class="g-item" onclick="lb('img/307-planche-terrasse.jpg')">
+        <img src="img/307-planche-terrasse.jpg" alt="Ambiance terrasse du Bar Restaurant 307 à Tarare" loading="lazy">
+        <div class="g-ov">
+          <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        </div>
+      </div>
+      <div class="g-item" onclick="lb('img/307-burgers.jpg')">
+        <img src="img/307-burgers.jpg" alt="Burgers et viandes au Bar Restaurant 307" loading="lazy">
+        <div class="g-ov">
+          <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        </div>
+      </div>
+      <div class="g-item" onclick="lb('img/307-bar-boissons.jpg')">
+        <img src="img/307-bar-boissons.jpg" alt="Bar et boissons au Restaurant 307" loading="lazy">
+        <div class="g-ov">
+          <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        </div>
+      </div>
+      <div class="g-item" onclick="lb('img/307-plats-1.jpg')">
+        <img src="img/307-plats-1.jpg" alt="Plats du Restaurant 307 Tarare" loading="lazy">
+        <div class="g-ov">
+          <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features-grid">
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+        <svg class="feature-icon" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.63M17 8l-1-5M17 8c1 0 5-1 5-4M8.21 13.89C6.37 14.42 4 15.5 4 18s2.5 2.5 2.5 2.5h7M19.63 3.82C19.14 4.8 18 6.13 18 7"/></svg>
+        <span class="feature-name">Terrasse végétalisée</span>
+        <p class="feature-desc">Une pergola couverte de verdure pour profiter du plein air en toute saison.</p>
+      </div>
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="80">
+        <svg class="feature-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+        <span class="feature-name">Terrain de pétanque</span>
+        <p class="feature-desc">Un boulodrome à disposition — venez avec vos boules ou empruntez les nôtres.</p>
+      </div>
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="160">
+        <svg class="feature-icon" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <span class="feature-name">Diffusions sportives</span>
+        <p class="feature-desc">Tous les grands matchs en direct sur grand écran — foot, rugby, tennis.</p>
+      </div>
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="240">
+        <svg class="feature-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span class="feature-name">Accessible &amp; pratique</span>
+        <p class="feature-desc">Place de la Gare, parking à proximité, accès PMR, ouvert du mardi au samedi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     CARTE
+============================ -->
+<section id="carte">
+  <div class="container">
+    <div data-aos="fade-up">
+      <span class="label">À table</span>
+      <h2 class="title">La <em>carte</em></h2>
+      <div class="rule"></div>
+      <p class="carte-intro">Des produits frais, des circuits courts, une cuisine sincère. La carte du soir évolue chaque saison.</p>
+      <p class="carte-note">Tarifs indicatifs susceptibles d'évoluer selon les arrivages.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs" data-aos="fade-up" data-aos-delay="80">
+      <button class="tab on" onclick="tab(this,'p-midi')">Formule Midi</button>
+      <button class="tab" onclick="tab(this,'p-soir')">Carte du Soir</button>
+      <button class="tab" onclick="tab(this,'p-planches')">Planches &amp; Partage</button>
+      <button class="tab" onclick="tab(this,'p-boissons')">Boissons</button>
+    </div>
+
+    <div class="panels-wrap" id="panels-wrap">
+
+      <!-- Formule Midi -->
+      <div class="panel on" id="p-midi">
+        <div class="panel-section-title">Formule Midi &mdash; Du mardi au vendredi, 11h30 &ndash; 14h30</div>
+        <div class="menus-cards">
+          <div class="mc">
+            <span class="mc-label">Formule</span>
+            <div class="mc-name">Express</div>
+            <div class="mc-price">12<sup>€</sup></div>
+            <div class="mc-content">Plat du jour · Boisson</div>
+          </div>
+          <div class="mc">
+            <span class="mc-label">Formule</span>
+            <div class="mc-name">Complète</div>
+            <div class="mc-price">16<sup>€</sup></div>
+            <div class="mc-content">Entrée · Plat du jour · Dessert</div>
+          </div>
+          <div class="mc">
+            <span class="mc-label">Formule</span>
+            <div class="mc-name">Tout compris</div>
+            <div class="mc-price">18<sup>€</sup></div>
+            <div class="mc-content">Entrée · Plat · Dessert · Boisson</div>
+          </div>
+        </div>
+        <p class="mc-note" style="margin-top:2rem;">Plats du jour renouvelés chaque semaine selon le marché et les arrivages.</p>
+      </div>
+
+      <!-- Carte du soir -->
+      <div class="panel" id="p-soir">
+        <div class="panel-cols">
+          <div class="panel-section-title">Entrées</div>
+          <div class="mi">
+            <div><div class="mi-name">Planche charcuterie</div><div class="mi-desc">Sélection locale, cornichons, toasts grillés</div></div>
+            <div class="mi-price">12€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Salade du 307</div><div class="mi-desc">Roquette, tomates cerises, parmesan, croutons maison</div></div>
+            <div class="mi-price">11€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Soupe du moment</div><div class="mi-desc">Selon arrivage et saison</div></div>
+            <div class="mi-price">8€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Tartare de boeuf</div><div class="mi-desc">Fait maison, condiments, frites</div></div>
+            <div class="mi-price">15€</div>
+          </div>
+
+          <div class="panel-section-title">Burgers</div>
+          <div class="mi">
+            <div><div class="mi-name">Burger 307</div><div class="mi-desc">Steak haché maison, cheddar, salade, tomate, oignon, sauce maison</div></div>
+            <div class="mi-price">16€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Burger Forestier</div><div class="mi-desc">Champignons poêlés, emmental, sauce forestière</div></div>
+            <div class="mi-price">17€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Burger Végétarien</div><div class="mi-desc">Steak de légumes, chèvre frais, roquette, tomates séchées</div></div>
+            <div class="mi-price">15€</div>
+          </div>
+
+          <div class="panel-section-title">Plats</div>
+          <div class="mi">
+            <div><div class="mi-name">Paella maison</div><div class="mi-desc">Riz safrané, fruits de mer, poulet, chorizo &mdash; le jeudi</div></div>
+            <div class="mi-price">18€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Entrecôte grillée</div><div class="mi-desc">250g, sauce au choix, frites maison</div></div>
+            <div class="mi-price">22€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Poulet rôti</div><div class="mi-desc">Demi-poulet fermier, légumes de saison rôtis</div></div>
+            <div class="mi-price">17€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Salade César complète</div><div class="mi-desc">Poulet grillé, parmesan, anchois, croûtons</div></div>
+            <div class="mi-price">15€</div>
+          </div>
+
+          <div class="panel-section-title">Desserts</div>
+          <div class="mi">
+            <div><div class="mi-name">Fondant au chocolat</div><div class="mi-desc">Coeur coulant, glace vanille maison</div></div>
+            <div class="mi-price">7€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Crème brûlée</div><div class="mi-desc">Maison</div></div>
+            <div class="mi-price">6€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Dessert du jour</div><div class="mi-desc">Selon inspiration du chef</div></div>
+            <div class="mi-price">6€</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Planches & Partage -->
+      <div class="panel" id="p-planches">
+        <div class="panel-cols">
+          <div class="panel-section-title">Planches &amp; Partage</div>
+          <div class="mi">
+            <div><div class="mi-name">Planche mixte</div><div class="mi-desc">Charcuteries, fromages, olives, toasts — pour 2 personnes</div></div>
+            <div class="mi-price">22€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Planche charcuterie</div><div class="mi-desc">Sélection de charcuteries locales, cornichons, pain</div></div>
+            <div class="mi-price">14€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Planche fromages</div><div class="mi-desc">Sélection affinée, confiture maison, noix, pain</div></div>
+            <div class="mi-price">14€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Tapas du moment (6 pcs)</div><div class="mi-desc">Sélection du chef selon arrivage du jour</div></div>
+            <div class="mi-price">14€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Frites maison</div><div class="mi-desc">Faites maison</div></div>
+            <div class="mi-price">5€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Olives marinées</div></div>
+            <div class="mi-price">4€</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Boissons -->
+      <div class="panel" id="p-boissons">
+        <div class="panel-cols">
+          <div class="panel-section-title">Bières</div>
+          <div class="mi">
+            <div><div class="mi-name">Pression 25cl</div></div>
+            <div class="mi-price">3€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Pression 50cl</div></div>
+            <div class="mi-price">5€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Bières bouteilles</div><div class="mi-desc">Sélection locale et importée</div></div>
+            <div class="mi-price">dès 4€</div>
+          </div>
+
+          <div class="panel-section-title">Vins</div>
+          <div class="mi">
+            <div><div class="mi-name">Verre de vin</div><div class="mi-desc">Rouge, blanc, rosé</div></div>
+            <div class="mi-price">4€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Pichet 50cl</div></div>
+            <div class="mi-price">9€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Bouteille</div></div>
+            <div class="mi-price">dès 18€</div>
+          </div>
+
+          <div class="panel-section-title">Sans alcool &amp; Chauds</div>
+          <div class="mi">
+            <div><div class="mi-name">Soft / Jus</div></div>
+            <div class="mi-price">3€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Café</div></div>
+            <div class="mi-price">2€</div>
+          </div>
+          <div class="mi">
+            <div><div class="mi-name">Thé / Infusion</div></div>
+            <div class="mi-price">2.50€</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /panels-wrap -->
+
+    <!-- Food mosaic -->
+    <div class="mosaic" data-aos="fade-up">
+      <div class="mo" onclick="lb('img/307-planche-terrasse.jpg')">
+        <img src="img/307-planche-terrasse.jpg" alt="Burgers et terrasse du 307" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Terrasse &amp; bonne humeur</span></div>
+      </div>
+      <div class="mo" onclick="lb('img/307-plats-1.jpg')">
+        <img src="img/307-plats-1.jpg" alt="Plats du restaurant 307" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Les plats</span></div>
+      </div>
+      <div class="mo" onclick="lb('img/307-burgers.jpg')">
+        <img src="img/307-burgers.jpg" alt="Burgers maison" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Burgers maison</span></div>
+      </div>
+      <div class="mo" onclick="lb('img/307-bar-boissons.jpg')">
+        <img src="img/307-bar-boissons.jpg" alt="Bar et boissons" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Le bar</span></div>
+      </div>
+      <div class="mo">
+        <div class="mo-placeholder">Photos à venir</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     HISTOIRE
+============================ -->
+<section id="histoire" class="alt">
+  <div class="container">
+    <div class="histoire-grid">
+      <div class="histoire-text" data-aos="fade-right">
+        <span class="label">Notre histoire</span>
+        <h2 class="title">Un rêve de gamin<br><em>devenu réalité</em></h2>
+        <div class="rule"></div>
+        <p>
+          Avoir son bar. C'est le rêve que j'ai porté depuis toujours. Pas un palace, pas une vitrine — un endroit vrai, où les gens se sentent bien, où on revient parce que c'est <strong>chez soi</strong>.
+        </p>
+        <p>
+          Quand le 307 s'est libéré, c'était un établissement en difficulté. J'ai décidé de le reprendre et de lui redonner vie. Un défi de taille — mais c'est exactement ça que j'avais envie de faire : construire quelque chose, brique par brique, avec les gens du coin.
+        </p>
+        <p>
+          Aujourd'hui, le 307 c'est la terrasse qui se remplit le soir, les parties de pétanque qui s'improvisent, les matchs qu'on regarde ensemble et les formules midi qui cartonnent. <strong>Simple, convivial, comme on aime.</strong>
+        </p>
+
+        <div class="values-row" data-aos="fade-up" data-aos-delay="150">
+          <div class="val">
+            <span class="val-num">4.6</span>
+            <span class="val-lbl">Note Google<br>94 avis</span>
+          </div>
+          <div class="val">
+            <span class="val-num">5/5</span>
+            <span class="val-lbl">Facebook<br>6 avis</span>
+          </div>
+          <div class="val">
+            <span class="val-num">100%</span>
+            <span class="val-lbl">Faits<br>maison</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-aos="fade-left" data-aos-delay="100">
+        <div class="quote-card">
+          <blockquote>
+            "J'ai toujours voulu avoir un établissement comme ça. Le 307, c'est ce rêve qui s'est réalisé."
+          </blockquote>
+          <cite>Le patron du 307</cite>
+        </div>
+        <p style="font-size:.9rem;color:var(--muted);line-height:1.75;margin-top:1.5rem;">
+          Reprise d'un établissement en galère, renovation, réouverture. Derrière chaque assiette et chaque verre servi, il y a une histoire de passion et de persévérance. Le 307 est revenu — et il est là pour durer.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     AVIS
+============================ -->
+<section id="avis">
+  <div class="container" style="text-align:center;">
+    <span class="label" style="display:block;">Ce qu'ils en disent</span>
+    <h2 class="title">Ils ont <em>aimé</em></h2>
+    <div class="rule center"></div>
+
+    <div class="reviews" id="reviews-grid">
+      <!-- injected by JS -->
+    </div>
+
+    <div style="margin-top:2rem;">
+      <a href="https://g.co/kgs/ZTLVtG" target="_blank" rel="noopener noreferrer" class="btn" style="background:transparent;border:1.5px solid var(--border);color:var(--muted);font-size:.78rem;">
+        Voir tous les avis Google
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     SOCIAL
+============================ -->
+<section id="social" class="alt">
+  <div class="social-wrap" data-aos="fade-up">
+    <span class="label" style="display:block;text-align:center;">Nos réseaux</span>
+    <h2 class="title" style="text-align:center;">Suivez<br><em>l'ambiance</em></h2>
+    <div class="rule center"></div>
+    <p class="social-desc">
+      Les plats du moment, les soirées sur la terrasse, les matchs en direct — tout ça se passe en temps réel sur nos réseaux. Rejoignez la communauté du 307.
+    </p>
+    <div class="social-btns">
+      <a href="https://www.instagram.com/bar_restaurant_307/" target="_blank" rel="noopener noreferrer" class="social-btn social-btn--ig">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+        <span class="social-btn-label">Instagram</span>
+        <span class="social-btn-handle">@bar_restaurant_307</span>
+      </a>
+      <a href="https://www.facebook.com/p/Bar-restaurant-307-100076859177301/" target="_blank" rel="noopener noreferrer" class="social-btn social-btn--fb">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+        <span class="social-btn-label">Facebook</span>
+        <span class="social-btn-handle">Bar-restaurant 307</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     INFOS PRATIQUES
+============================ -->
+<section id="infos">
+  <div class="container">
+    <div data-aos="fade-up">
+      <span class="label">Nous trouver</span>
+      <h2 class="title">Infos <em>pratiques</em></h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="infos-grid">
+      <div data-aos="fade-right">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=4.483%2C45.896%2C4.495%2C45.901&layer=mapnik&marker=45.8985%2C4.489"
+          title="Carte Bar Restaurant 307 Tarare"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <a href="https://maps.google.com/?q=5+Place+de+la+Gare+69170+Tarare" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top:1rem;">
+          Ouvrir dans Google Maps
+        </a>
+      </div>
+
+      <div data-aos="fade-left" data-aos-delay="100">
+        <div class="info-block">
+          <h3>
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Adresse
+          </h3>
+          <p>5 Place de la Gare<br>69170 Tarare</p>
+        </div>
+
+        <div class="info-block">
+          <h3>
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Horaires
+          </h3>
+          <table class="horaires-table" id="horaires-table">
+            <tr class="closed"><td>Lundi</td><td>Fermé</td></tr>
+            <tr><td>Mardi</td><td>10h &ndash; 15h30</td></tr>
+            <tr><td>Mercredi</td><td>10h &ndash; 15h30</td></tr>
+            <tr><td>Jeudi</td><td>10h &ndash; Minuit</td></tr>
+            <tr><td>Vendredi</td><td>10h &ndash; 1h</td></tr>
+            <tr><td>Samedi</td><td>10h &ndash; 15h30</td></tr>
+            <tr class="closed"><td>Dimanche</td><td>Fermé</td></tr>
+          </table>
+          <p style="font-size:.78rem;font-style:italic;color:var(--muted);opacity:.7;margin-top:.75rem;">
+            Horaires susceptibles d'évoluer — vérifier sur Instagram ou appeler avant de venir.
+          </p>
+        </div>
+
+        <div class="info-block">
+          <h3>
+            <svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2z"/><path d="M7 7h.01"/></svg>
+            Équipements
+          </h3>
+          <div class="chips">
+            <span class="chip">Terrasse</span>
+            <span class="chip">Pétanque</span>
+            <span class="chip">Écran sport</span>
+            <span class="chip">Parking</span>
+            <span class="chip">Accès PMR</span>
+            <span class="chip">CB acceptée</span>
+          </div>
+        </div>
+
+        <div class="info-cta">
+          <p>Une question, une réservation pour un groupe&nbsp;?</p>
+          <a href="tel:+33603093961" class="tel-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            06 03 09 39 61
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     FOOTER
+============================ -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="ft-brand-name">307</div>
+        <p>Bar &amp; Restaurant<br>5 Place de la Gare, 69170 Tarare</p>
+        <div class="ft-social">
+          <a href="https://www.instagram.com/bar_restaurant_307/" target="_blank" rel="noopener noreferrer" class="soc" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/p/Bar-restaurant-307-100076859177301/" target="_blank" rel="noopener noreferrer" class="soc" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="ft-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#cadre">La terrasse</a></li>
+          <li><a href="#carte">La carte</a></li>
+          <li><a href="#histoire">Notre histoire</a></li>
+          <li><a href="#infos">Infos pratiques</a></li>
+        </ul>
+      </div>
+
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+33603093961">06 03 09 39 61</a></li>
+          <li><a href="https://maps.google.com/?q=5+Place+de+la+Gare+69170+Tarare" target="_blank" rel="noopener noreferrer">5 Place de la Gare, 69170 Tarare</a></li>
+          <li><a href="https://www.instagram.com/bar_restaurant_307/" target="_blank" rel="noopener noreferrer">@bar_restaurant_307</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ft-bottom">
+      <span>&copy; <span id="year"></span> Bar Restaurant 307 &mdash; Tous droits réservés</span>
+      <span>Site réalisé par <a href="https://servicecompris.pro" target="_blank" rel="noopener noreferrer">Service Compris</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================
+     LIGHTBOX
+============================ -->
+<div id="lb" role="dialog" aria-modal="true" onclick="closeLb()">
+  <button id="lb-close" aria-label="Fermer">&times;</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<!-- Umami Analytics -->
+<script defer src="https://cloud.umami.is/script.js" data-website-id="UMAMI_WEBSITE_ID"></script>
+<script src="js/aos.min.js"></script>
+<script>
+  /* ============================
+     INIT
+  ============================ */
+  AOS.init({ duration: 680, once: true, offset: 70 });
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ============================
+     NAV
+  ============================ */
+  function toggleNav() {
+    const hbg = document.getElementById('hbg');
+    const overlay = document.getElementById('nav-overlay');
+    hbg.classList.toggle('open');
+    overlay.classList.toggle('open');
+  }
+
+  /* Close nav on scroll */
+  window.addEventListener('scroll', () => {
+    const overlay = document.getElementById('nav-overlay');
+    if (overlay.classList.contains('open')) toggleNav();
+  }, { passive: true });
+
+  /* ============================
+     TABS
+  ============================ */
+  function tab(btn, id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+    document.querySelectorAll('.panel').forEach(p => { p.classList.remove('on'); p.style.position = 'absolute'; });
+    btn.classList.add('on');
+    const panel = document.getElementById(id);
+    panel.classList.add('on');
+    panel.style.position = 'relative';
+    // Animate panel height
+    const wrap = document.getElementById('panels-wrap');
+    wrap.style.height = panel.offsetHeight + 'px';
+    setTimeout(() => { wrap.style.height = ''; }, 450);
+  }
+
+  // Init height
+  window.addEventListener('load', () => {
+    const active = document.querySelector('.panel.on');
+    if (active) {
+      const wrap = document.getElementById('panels-wrap');
+      wrap.style.height = active.offsetHeight + 'px';
+      setTimeout(() => { wrap.style.height = ''; }, 50);
+    }
+  });
+
+  /* ============================
+     LIGHTBOX
+  ============================ */
+  function lb(src) {
+    const el = document.getElementById('lb');
+    const img = document.getElementById('lb-img');
+    img.src = src;
+    el.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() {
+    document.getElementById('lb').classList.remove('open');
+    document.getElementById('lb-img').src = '';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+  /* ============================
+     HORAIRES — highlight today
+  ============================ */
+  (function() {
+    const days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+    const today = days[new Date().getDay()];
+    const rows = document.querySelectorAll('#horaires-table tr');
+    const dayMap = { 'Lundi':0,'Mardi':1,'Mercredi':2,'Jeudi':3,'Vendredi':4,'Samedi':5,'Dimanche':6 };
+    rows.forEach(row => {
+      if (row.cells[0] && row.cells[0].textContent === today) {
+        row.classList.add('today');
+        row.classList.remove('closed');
+      }
+    });
+  })();
+
+  /* ============================
+     AVIS (shuffle & display)
+  ============================ */
+  const allReviews = [
+    { stars: '★★★★★', text: "Belle endroit pour passer un moment entre amis. Simple, efficace, accueil au top. On reviendra.", author: "Thomas B.", date: "mars 2026", source: "Google" },
+    { stars: '★★★★★', text: "Très bon burger, frites maison excellentes. Terrasse agréable, service souriant et rapide. Une bonne adresse à Tarare.", author: "Marie-Claire D.", date: "fév. 2026", source: "Google" },
+    { stars: '★★★★★', text: "Super ambiance, belle terrasse. Le patron est sympa, les prix raisonnables. On s'y sent comme chez soi.", author: "Julien R.", date: "janv. 2026", source: "Google" },
+    { stars: '★★★★★', text: "Formule midi vraiment bien — bon rapport qualité/prix, service rapide. Idéal pour une pause déjeuner.", author: "Sandrine M.", date: "déc. 2025", source: "Google" },
+    { stars: '★★★★☆', text: "La pétanque, la terrasse, les bières fraîches... exactement ce qu'on cherchait pour un apéro entre collègues.", author: "Équipe Dupont", date: "nov. 2025", source: "Google" },
+    { stars: '★★★★★', text: "Reprise réussie de cet établissement. On sent que le patron a mis tout son coeur dans ce projet. Bravo !", author: "Jacques V.", date: "oct. 2025", source: "Google" },
+  ];
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  const picked = shuffle([...allReviews]).slice(0, 3);
+  const grid = document.getElementById('reviews-grid');
+  grid.innerHTML = picked.map(r => `
+    <div class="review-card" data-aos="fade-up">
+      <div class="review-stars">${r.stars}</div>
+      <p class="review-text">"${r.text}"</p>
+      <div class="review-meta"><strong>${r.author}</strong> &mdash; ${r.date} &middot; ${r.source}</div>
+    </div>
+  `).join('');
+</script>
+
+</body>
+</html>
