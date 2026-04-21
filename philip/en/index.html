@@ -304,7 +304,7 @@
     .mo:hover img { transform: scale(1.07); }
     .mo-ov { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,20,8,.62) 0%, transparent 52%); opacity: 0; transition: opacity .35s; display: flex; align-items: flex-end; padding: .9rem 1.1rem; }
     .mo:hover .mo-ov { opacity: 1; }
-    .mo-label { color: rgba(255,255,255,.93); font-family: var(--hf); font-size: .8rem; font-style: italic; letter-spacing: .03em; line-height: 1.3; }
+    .mo-label { display: none; }
     .mo:nth-child(1) { grid-column: span 2; grid-row: span 2; }
     .mosaic { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 200px; }
     @media (max-width: 900px) { .mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; } .mo:nth-child(1) { grid-column: span 2; grid-row: span 1; } }
