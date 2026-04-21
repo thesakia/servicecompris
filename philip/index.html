@@ -571,13 +571,14 @@
     .hist-imgs {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px 16px;
-      padding: 16px 8px 8px;
+      gap: 16px 14px;
+      padding: 12px 6px 6px;
+      align-items: start;
     }
     .polaroid {
       background: #faf8f4;
       box-shadow: 0 4px 20px rgba(0,0,0,.14), 0 1px 4px rgba(0,0,0,.08);
-      padding: 10px 10px 38px;
+      padding: 8px 8px 32px;
       cursor: pointer;
       transition: transform .35s cubic-bezier(.22,.68,0,1.2), box-shadow .35s;
       position: relative;
@@ -593,7 +594,7 @@
     }
     .polaroid-img {
       width: 100%;
-      aspect-ratio: 1/1;
+      height: 160px;
       object-fit: cover;
       object-position: top;
       display: block;
