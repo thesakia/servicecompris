@@ -603,7 +603,7 @@
     .polaroid-caption {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 38px;
+      height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -614,6 +614,10 @@
       letter-spacing: .02em;
       padding: 0 8px;
       text-align: center;
+      line-height: 1.35;
+    }
+    @media (max-width: 768px) {
+      .polaroid-caption { font-size: .6rem; height: 44px; }
     }
 
     /* ============================
@@ -1534,19 +1538,19 @@
       <div class="hist-imgs" data-aos="fade-left">
         <div class="polaroid" onclick="lb('img/Famille1-hq.webp')">
           <img class="polaroid-img" src="img/Famille1-hq.webp" srcset="img/Famille1.webp 480w, img/Famille1-hq.webp 1200w" sizes="(max-width:640px) 100vw, 28vw" alt="Gaston Philip, fondateur du Restaurant Philip à Fontaine-de-Vaucluse" loading="lazy" width="800" height="600" style="object-position: top">
-          <span class="polaroid-caption">Gaston &amp; Isabelle · 1ère génération</span>
+          <span class="polaroid-caption">Gaston &amp; Isabelle<br>1ère génération</span>
         </div>
         <div class="polaroid" onclick="lb('img/Famille2-hq.webp')">
           <img class="polaroid-img" src="img/Famille2-hq.webp" srcset="img/Famille2.webp 480w, img/Famille2-hq.webp 1200w" sizes="(max-width:640px) 100vw, 28vw" alt="Jean-Charles Philip devant le restaurant familial" loading="lazy" width="800" height="600" style="object-position: top">
-          <span class="polaroid-caption">Charles &amp; Janine · 2e génération</span>
+          <span class="polaroid-caption">Charles &amp; Janine<br>2e génération</span>
         </div>
         <div class="polaroid" onclick="lb('img/herve-brigitte.jpeg')">
           <img class="polaroid-img" src="img/herve-brigitte.jpeg" alt="Hervé et Brigitte Philip, 3e génération du Restaurant Philip" loading="lazy" width="800" height="600" style="object-position: top">
-          <span class="polaroid-caption">Hervé &amp; Brigitte · 3e génération</span>
+          <span class="polaroid-caption">Hervé &amp; Brigitte<br>3e génération</span>
         </div>
         <div class="polaroid" onclick="lb('img/camille-hq.webp')">
           <img class="polaroid-img" src="img/camille-hq.webp" srcset="img/camille.webp 480w, img/camille-hq.webp 1400w" sizes="(max-width:640px) 100vw, 28vw" alt="La 4e génération aux commandes, cheffe et directeur du Restaurant Philip au bord de la Sorgue" loading="lazy" width="800" height="600">
-          <span class="polaroid-caption">Camille &amp; Sébastien · 4e génération</span>
+          <span class="polaroid-caption">Camille &amp; Sébastien<br>4e génération</span>
         </div>
       </div>
     </div>
@@ -1586,7 +1590,7 @@
     <span class="label" data-aos="fade-up">La carte</span>
     <h2 class="title" data-aos="fade-up">Cuisine de terroir,<br><em>produits d'exception</em></h2>
     <div class="rule" data-aos="fade-up"></div>
-    <p class="carte-intro" data-aos="fade-up">Notre cuisine s'inspire des saisons et du terroir provençal. Truffe des Monts du Vaucluse, truite de la Sorgue, écrevisses de notre vivier, agneau de Sisteron... Chaque assiette raconte notre terre.</p>
+    <p class="carte-intro" data-aos="fade-up">Notre cuisine s'inspire des saisons et du terroir provençal. Truffe des Monts de Vaucluse, truite de la Sorgue, écrevisses de notre vivier, agneau de Sisteron... Chaque assiette raconte notre terre.</p>
     <p class="carte-note" data-aos="fade-up">Carte variable selon la saison et les arrivages du marché.</p>
 
     <div class="tabs" role="tablist" aria-label="Catégories de la carte" data-aos="fade-up">
