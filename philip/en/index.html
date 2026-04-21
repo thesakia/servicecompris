@@ -335,7 +335,7 @@
     .polaroid {
       background: #faf8f4;
       box-shadow: 0 4px 20px rgba(0,0,0,.14), 0 1px 4px rgba(0,0,0,.08);
-      padding: 8px 8px 32px;
+      padding: 8px 8px 52px;
       cursor: pointer;
       transition: transform .35s cubic-bezier(.22,.68,0,1.2), box-shadow .35s;
       position: relative;
@@ -360,7 +360,7 @@
     .polaroid-caption {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 48px;
+      height: 52px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -371,10 +371,11 @@
       letter-spacing: .02em;
       padding: 0 8px;
       text-align: center;
-      line-height: 1.35;
+      line-height: 1.4;
     }
     @media (max-width: 768px) {
-      .polaroid-caption { font-size: .6rem; height: 44px; }
+      .polaroid-caption { font-size: .6rem; height: 46px; }
+      .polaroid { padding-bottom: 46px; }
     }
 
     /* CADRE */
