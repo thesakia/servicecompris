@@ -328,13 +328,50 @@
     .hist-imgs {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 420px 260px;
-      gap: 14px;
+      gap: 16px 14px;
+      padding: 12px 6px 6px;
+      align-items: start;
     }
-    .hist-img:nth-child(3) { grid-column: 1 / -1; }
-    .hist-img { border-radius: 8px; overflow: hidden; cursor: pointer; }
-    .hist-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-    .hist-img:hover img { transform: scale(1.05); }
+    .polaroid {
+      background: #faf8f4;
+      box-shadow: 0 4px 20px rgba(0,0,0,.14), 0 1px 4px rgba(0,0,0,.08);
+      padding: 8px 8px 32px;
+      cursor: pointer;
+      transition: transform .35s cubic-bezier(.22,.68,0,1.2), box-shadow .35s;
+      position: relative;
+    }
+    .polaroid:nth-child(1) { transform: rotate(-2.2deg); }
+    .polaroid:nth-child(2) { transform: rotate(1.6deg); }
+    .polaroid:nth-child(3) { transform: rotate(-1.1deg); }
+    .polaroid:nth-child(4) { transform: rotate(2.4deg); }
+    .polaroid:hover {
+      transform: rotate(0) scale(1.05) !important;
+      box-shadow: 0 14px 48px rgba(0,0,0,.22), 0 2px 8px rgba(0,0,0,.10);
+      z-index: 10;
+    }
+    .polaroid-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      filter: sepia(8%) contrast(1.04) brightness(1.01);
+    }
+    .polaroid-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--hf);
+      font-size: .72rem;
+      font-style: italic;
+      color: #6b5a48;
+      letter-spacing: .02em;
+      padding: 0 8px;
+      text-align: center;
+    }
 
     /* CADRE */
     #cadre { text-align: center; }
@@ -639,8 +676,8 @@
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .histoire-grid, .infos-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .hist-imgs { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 140px; }
-      .hist-img:nth-child(3) { grid-column: 1 / -1; }
+      .hist-imgs { grid-template-columns: 1fr 1fr; gap: 18px 14px; padding: 16px 8px 8px; }
+      .polaroid:nth-child(1), .polaroid:nth-child(2), .polaroid:nth-child(3), .polaroid:nth-child(4) { transform: rotate(0); }
       .gallery { grid-template-columns: 1fr 1fr; }
       .gallery .g-item:first-child { grid-row: span 1; }
       .menus-cards { grid-template-columns: 1fr 1fr; }
@@ -750,8 +787,8 @@
           <div class="tl-item">
             <div class="tl-dot"></div>
             <div>
-              <span class="tl-year">1950s</span>
-              <p class="tl-desc">Winston Churchill, a regular in Provence, often came to lunch at Philip's. Memories the family has passed down through the generations.</p>
+              <span class="tl-year">26 August 1948</span>
+              <p class="tl-desc">Winston Churchill lunches at Philip's during his stay in Provence. A memory the family has passed down through the generations.</p>
             </div>
           </div>
           <div class="tl-item">
@@ -771,14 +808,21 @@
         </div>
       </div>
       <div class="hist-imgs" data-aos="fade-left">
-        <div class="hist-img" onclick="lb('../img/Famille1-hq.webp')">
-          <img src="../img/Famille1-hq.webp" srcset="../img/Famille1.webp 480w, ../img/Famille1-hq.webp 1200w" sizes="(max-width:640px) 100vw, 33vw" alt="Gaston Philip, founder of Restaurant Philip in Fontaine-de-Vaucluse" loading="lazy" width="800" height="450" style="object-position: top">
+        <div class="polaroid" onclick="lb('../img/Famille1-hq.webp')">
+          <img class="polaroid-img" src="../img/Famille1-hq.webp" srcset="../img/Famille1.webp 480w, ../img/Famille1-hq.webp 1200w" sizes="(max-width:640px) 100vw, 28vw" alt="Gaston Philip, founder of Restaurant Philip in Fontaine-de-Vaucluse" loading="lazy" width="800" height="600" style="object-position: top">
+          <span class="polaroid-caption">Gaston &amp; Isabelle · 1st generation</span>
         </div>
-        <div class="hist-img" onclick="lb('../img/Famille2-hq.webp')">
-          <img src="../img/Famille2-hq.webp" srcset="../img/Famille2.webp 480w, ../img/Famille2-hq.webp 1200w" sizes="(max-width:640px) 100vw, 33vw" alt="Jean-Charles Philip outside the family restaurant" loading="lazy" width="800" height="450" style="object-position: top">
+        <div class="polaroid" onclick="lb('../img/Famille2-hq.webp')">
+          <img class="polaroid-img" src="../img/Famille2-hq.webp" srcset="../img/Famille2.webp 480w, ../img/Famille2-hq.webp 1200w" sizes="(max-width:640px) 100vw, 28vw" alt="Charles and Janine Philip outside the family restaurant" loading="lazy" width="800" height="600" style="object-position: top">
+          <span class="polaroid-caption">Charles &amp; Janine · 2nd generation</span>
         </div>
-        <div class="hist-img" onclick="lb('../img/camille-hq.webp')">
-          <img src="../img/camille-hq.webp" srcset="../img/camille.webp 480w, ../img/camille-hq.webp 1400w" sizes="(max-width:640px) 100vw, 33vw" alt="4th generation at the helm, head chef and director of Restaurant Philip by the Sorgue" loading="lazy" width="800" height="450">
+        <div class="polaroid" onclick="lb('../img/herve-brigitte.jpeg')">
+          <img class="polaroid-img" src="../img/herve-brigitte.jpeg" alt="Hervé and Brigitte Philip, 3rd generation of Restaurant Philip" loading="lazy" width="800" height="600" style="object-position: top">
+          <span class="polaroid-caption">Hervé &amp; Brigitte · 3rd generation</span>
+        </div>
+        <div class="polaroid" onclick="lb('../img/camille-hq.webp')">
+          <img class="polaroid-img" src="../img/camille-hq.webp" srcset="../img/camille.webp 480w, ../img/camille-hq.webp 1400w" sizes="(max-width:640px) 100vw, 28vw" alt="4th generation at the helm, head chef and director of Restaurant Philip by the Sorgue" loading="lazy" width="800" height="600">
+          <span class="polaroid-caption">Camille &amp; Sébastien · 4th generation</span>
         </div>
       </div>
     </div>
@@ -951,7 +995,9 @@
 
       </div>
       <div data-aos="fade-up" style="margin-top:1.8rem; padding:1.2rem 1.6rem; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--divider); border-radius:0 8px 8px 0; max-width:680px;">
-        <p style="font-size:.9rem; color:var(--muted); line-height:1.8;">Children's menu at €20 — amuse-bouche, main and dessert.<br>Our lamb, squab and poultry supreme are all of French origin.<br>Menu changes with the seasons and market arrivals.</p>
+        <p style="font-size:.9rem; color:var(--muted); line-height:1.8; margin:0;">Children's menu at €20: amuse-bouche, main and dessert.</p>
+        <p style="font-size:.9rem; color:var(--muted); line-height:1.8; margin:.6rem 0 0;">Our lamb, squab and poultry supreme are all of French origin.</p>
+        <p style="font-size:.9rem; color:var(--muted); line-height:1.8; margin:.6rem 0 0; font-style:italic;">Menu changes with the seasons and market arrivals.</p>
       </div>
     </div>
     <!-- Wine list -->
@@ -1021,8 +1067,8 @@
         <div class="mo-ov"><span class="mo-label">Local strawberry tart</span></div>
       </div>
       <div class="mo" onclick="lbGal(this,'../img/dessert-coupe-fraises-glace-maison-philip.webp')">
-        <img src="../img/dessert-coupe-fraises-glace-maison-philip.webp" alt="Strawberry and house ice cream sundae, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Strawberry &amp; house ice cream</span></div>
+        <img src="../img/dessert-coupe-fraises-glace-maison-philip.webp" alt="Strawberry and artisan ice cream sundae, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Strawberry &amp; artisan ice cream</span></div>
       </div>
     </div>
   </div>
@@ -1036,7 +1082,7 @@
     <div class="rule center" data-aos="fade-up"></div>
     <div class="bar-intro-wrap" data-aos="fade-up">
       <p class="bar-accroche">Before or after your meal, simply for the pleasure of it.</p>
-      <p class="bar-text">Our bar welcomes you on the terrace for an aperitif, a cold drink or a coffee. Salads, house-made ice creams, charcuterie boards, snacks, wines and chilled beers: something for everyone by the Sorgue, no need to dine, just a moment of Provençal bliss.</p>
+      <p class="bar-text">Our bar welcomes you on the terrace for an aperitif, a cold drink or a coffee. Salads, artisan ice creams, charcuterie boards, snacks, wines and chilled beers: something for everyone by the Sorgue, no need to dine, just a moment of Provençal bliss.</p>
     </div>
     <div class="bar-mosaic" data-aos="fade-up">
       <div class="mo" onclick="lbGal(this,'../img/terrasse-bord-sorgue-chaises-restaurant-philip-opt.webp')">
@@ -1261,8 +1307,8 @@
         <h2 class="title">Winston Churchill<br><em>at our table</em></h2>
         <div class="rule"></div>
         <div class="churchill-text">
-          <p class="ch-intro">In the 1950s, Winston Churchill, a great lover of Provence, made Fontaine-de-Vaucluse a regular stop on his trips to the South of France. He chose Philip's table for lunch, a loyalty of which the family still carefully preserves the traces.</p>
-          <p>The first photograph, signed by his own hand, shows him walking with his cane in front of the restaurant sign. An exceptional document, passed down from generation to generation. The second is taken from <em>Life Magazine</em> of February 1949: Churchill lunching on the terrace, by the water, under the plane trees, exactly as our guests do today.</p>
+          <p class="ch-intro">On 26 August 1948, Winston Churchill, a great lover of Provence, stopped in Fontaine-de-Vaucluse during his stay in the South of France. He chose Philip's table for lunch, a memory of which the family still carefully preserves the traces.</p>
+          <p>The first photograph, signed by his own hand, shows him walking with his cane in front of the restaurant sign. An exceptional document, passed down from generation to generation. The second is taken from <em>Life Magazine</em>: Churchill lunching on the terrace, by the water, under the plane trees, exactly as our guests do today.</p>
           <blockquote class="ch-quote">
             "My tastes are simple; I am easily satisfied with the best."
             <cite>Sir Winston Churchill</cite>
@@ -1274,10 +1320,10 @@
           <picture>
             <source srcset="../img/churchill/winston-churchill-restaurant-philip-fontaine-de-vaucluse-1952.webp" type="image/webp">
             <img src="../img/churchill/winston-churchill-restaurant-philip-fontaine-de-vaucluse-1952.jpg"
-                 alt="Winston Churchill in front of Restaurant Philip in Fontaine-de-Vaucluse, 1952, signed photograph"
+                 alt="Winston Churchill in front of Restaurant Philip in Fontaine-de-Vaucluse, 1948, signed photograph"
                  loading="lazy">
           </picture>
-          <div class="ch-caption">Fontaine-de-Vaucluse, 1952 · Signed photograph</div>
+          <div class="ch-caption">Fontaine-de-Vaucluse, 1948 · Signed photograph</div>
         </div>
         <div class="ch-photo" onclick="lb('../img/churchill/winston-churchill-dejeuner-provence-life-magazine-1949.webp')">
           <picture>
