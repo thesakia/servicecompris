@@ -571,23 +571,49 @@
     .hist-imgs {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 420px 260px;
-      gap: 14px;
+      gap: 28px 20px;
+      padding: 24px 12px 12px;
     }
-    .hist-img:nth-child(3) {
-      grid-column: 1 / -1;
-    }
-    .hist-img {
-      border-radius: 8px;
-      overflow: hidden;
+    .polaroid {
+      background: #faf8f4;
+      box-shadow: 0 4px 20px rgba(0,0,0,.14), 0 1px 4px rgba(0,0,0,.08);
+      padding: 10px 10px 38px;
       cursor: pointer;
+      transition: transform .35s cubic-bezier(.22,.68,0,1.2), box-shadow .35s;
+      position: relative;
     }
-    .hist-img img {
-      width: 100%; height: 100%;
+    .polaroid:nth-child(1) { transform: rotate(-2.2deg); }
+    .polaroid:nth-child(2) { transform: rotate(1.6deg); }
+    .polaroid:nth-child(3) { transform: rotate(-1.1deg); }
+    .polaroid:nth-child(4) { transform: rotate(2.4deg); }
+    .polaroid:hover {
+      transform: rotate(0) scale(1.05) !important;
+      box-shadow: 0 14px 48px rgba(0,0,0,.22), 0 2px 8px rgba(0,0,0,.10);
+      z-index: 10;
+    }
+    .polaroid-img {
+      width: 100%;
+      aspect-ratio: 4/3;
       object-fit: cover;
-      transition: transform .5s;
+      object-position: top;
+      display: block;
+      filter: sepia(8%) contrast(1.04) brightness(1.01);
     }
-    .hist-img:hover img { transform: scale(1.05); }
+    .polaroid-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--hf);
+      font-size: .72rem;
+      font-style: italic;
+      color: #6b5a48;
+      letter-spacing: .02em;
+      padding: 0 8px;
+      text-align: center;
+    }
 
     /* ============================
        SOCIAL
@@ -1354,8 +1380,8 @@
     ============================ */
     @media (max-width: 1024px) {
       .histoire-grid, .infos-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .hist-imgs { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 140px; }
-      .hist-img:nth-child(3) { grid-column: 1 / -1; }
+      .hist-imgs { grid-template-columns: 1fr 1fr; gap: 18px 14px; padding: 16px 8px 8px; }
+      .polaroid:nth-child(1), .polaroid:nth-child(2), .polaroid:nth-child(3), .polaroid:nth-child(4) { transform: rotate(0); }
       .gallery { grid-template-columns: 1fr 1fr; }
       .gallery .g-item:first-child { grid-row: span 1; }
       .menus-cards { grid-template-columns: 1fr 1fr; }
@@ -1505,14 +1531,21 @@
         </div>
       </div>
       <div class="hist-imgs" data-aos="fade-left">
-        <div class="hist-img" onclick="lb('img/Famille1-hq.webp')">
-          <img src="img/Famille1-hq.webp" srcset="img/Famille1.webp 480w, img/Famille1-hq.webp 1200w" sizes="(max-width:640px) 100vw, 33vw" alt="Gaston Philip, fondateur du Restaurant Philip à Fontaine-de-Vaucluse" loading="lazy" width="800" height="450" style="object-position: top">
+        <div class="polaroid" onclick="lb('img/Famille1-hq.webp')">
+          <img class="polaroid-img" src="img/Famille1-hq.webp" srcset="img/Famille1.webp 480w, img/Famille1-hq.webp 1200w" sizes="(max-width:640px) 100vw, 28vw" alt="Gaston Philip, fondateur du Restaurant Philip à Fontaine-de-Vaucluse" loading="lazy" width="800" height="600" style="object-position: top">
+          <span class="polaroid-caption">Gaston · 1ère génération</span>
         </div>
-        <div class="hist-img" onclick="lb('img/Famille2-hq.webp')">
-          <img src="img/Famille2-hq.webp" srcset="img/Famille2.webp 480w, img/Famille2-hq.webp 1200w" sizes="(max-width:640px) 100vw, 33vw" alt="Jean-Charles Philip devant le restaurant familial" loading="lazy" width="800" height="450" style="object-position: top">
+        <div class="polaroid" onclick="lb('img/Famille2-hq.webp')">
+          <img class="polaroid-img" src="img/Famille2-hq.webp" srcset="img/Famille2.webp 480w, img/Famille2-hq.webp 1200w" sizes="(max-width:640px) 100vw, 28vw" alt="Jean-Charles Philip devant le restaurant familial" loading="lazy" width="800" height="600" style="object-position: top">
+          <span class="polaroid-caption">Jean-Charles · 2e génération</span>
         </div>
-        <div class="hist-img" onclick="lb('img/camille-hq.webp')">
-          <img src="img/camille-hq.webp" srcset="img/camille.webp 480w, img/camille-hq.webp 1400w" sizes="(max-width:640px) 100vw, 33vw" alt="La 4e génération aux commandes, cheffe et directeur du Restaurant Philip au bord de la Sorgue" loading="lazy" width="800" height="450">
+        <div class="polaroid" onclick="lb('img/herve-brigitte.jpeg')">
+          <img class="polaroid-img" src="img/herve-brigitte.jpeg" alt="Hervé et Brigitte Philip, 3e génération du Restaurant Philip" loading="lazy" width="800" height="600" style="object-position: top">
+          <span class="polaroid-caption">Hervé &amp; Brigitte · 3e génération</span>
+        </div>
+        <div class="polaroid" onclick="lb('img/camille-hq.webp')">
+          <img class="polaroid-img" src="img/camille-hq.webp" srcset="img/camille.webp 480w, img/camille-hq.webp 1400w" sizes="(max-width:640px) 100vw, 28vw" alt="La 4e génération aux commandes, cheffe et directeur du Restaurant Philip au bord de la Sorgue" loading="lazy" width="800" height="600">
+          <span class="polaroid-caption">Camille &amp; Nicolas · 4e génération</span>
         </div>
       </div>
     </div>
