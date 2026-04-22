@@ -371,6 +371,14 @@
     }
     .innov-point p { font-size: .9rem; color: var(--slate); line-height: 1.65; }
     .innov-point strong { color: var(--white); font-weight: 600; }
+    .innov-demo-link {
+      display: inline-block; margin-top: 20px;
+      font-size: .9rem; font-weight: 700;
+      color: var(--lime); text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s;
+    }
+    .innov-demo-link:hover { border-color: var(--lime); }
     .qr-mockup {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -799,11 +807,12 @@
             <div class="innov-point-dot"></div>
             <p><strong>Expérience client premium</strong> : un menu beau, lisible, toujours à jour, consultable sur le smartphone du convive.</p>
           </div>
+          <a href="https://servicecompris.pro/menu/" target="_blank" rel="noopener" class="innov-demo-link">Voir un exemple de menu →</a>
         </div>
       </div>
       <div class="qr-mockup reveal">
         <span class="qr-label">Menu numérique</span>
-        <div class="qr-svg-wrap">
+        <a href="https://servicecompris.pro/menu/" target="_blank" rel="noopener" class="qr-svg-wrap" style="display:block;text-decoration:none;cursor:pointer;" title="Voir un exemple de menu">
           <svg width="140" height="140" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
             <rect width="140" height="140" fill="white"/>
             <!-- QR code pattern - top-left finder -->
@@ -863,7 +872,7 @@
             <rect x="59" y="59" width="22" height="22" rx="4" fill="#bef264"/>
             <text x="70" y="75" text-anchor="middle" font-family="Inter,sans-serif" font-weight="900" font-size="11" fill="#020617">SC</text>
           </svg>
-        </div>
+        </a>
         <p class="qr-tagline">Scannez. Consultez.<br><span>Modifiez en temps réel.</span></p>
         <span class="qr-update-badge">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
