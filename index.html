@@ -137,6 +137,15 @@
       padding: 100px 0 80px;
       overflow: hidden;
     }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('philip/img/terrasse-animee-platanes-sorgue-restaurant-philip.webp');
+      background-size: cover;
+      background-position: center;
+      opacity: .18;
+      pointer-events: none;
+    }
     .hero-glow {
       position: absolute;
       inset: 0;
@@ -648,6 +657,110 @@
     .team-bio { font-size: .85rem; color: var(--slate); line-height: 1.65; }
 
     /* ========================
+       RÉALISATIONS
+    ======================== */
+    #realisations {
+      padding: 80px 0;
+      background: var(--bg2);
+    }
+    .real-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .real-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color .2s, transform .2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .real-card:hover { border-color: rgba(190,242,100,.3); transform: translateY(-3px); }
+    .real-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .real-tag {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--lime);
+      background: rgba(190,242,100,.08);
+      border: 1px solid rgba(190,242,100,.2);
+      border-radius: 999px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+    .real-arrow {
+      color: var(--slate);
+      font-size: 1rem;
+      transition: color .2s, transform .2s;
+    }
+    .real-card:hover .real-arrow { color: var(--lime); transform: translateX(3px); }
+    .real-card h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .real-card p {
+      font-size: .85rem;
+      color: var(--slate);
+      line-height: 1.6;
+    }
+    .real-url {
+      font-size: .75rem;
+      color: rgba(148,163,184,.45);
+      margin-top: 4px;
+    }
+
+    /* ========================
+       PAS QUE DES RESTOS
+    ======================== */
+    #au-dela {
+      padding: 80px 0;
+    }
+    .au-dela-inner {
+      background: var(--surface);
+      border: 1px solid rgba(190,242,100,.15);
+      border-radius: 20px;
+      padding: 48px 40px;
+      text-align: center;
+    }
+    .au-dela-inner .section-title { margin-bottom: 16px; }
+    .au-dela-inner p {
+      font-size: .98rem;
+      color: var(--slate);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.75;
+    }
+    .au-dela-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+    .au-dela-tag {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--white);
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 16px;
+    }
+
+    /* ========================
        RESPONSIVE - TABLET +
     ======================== */
     @media (min-width: 640px) {
@@ -656,6 +769,7 @@
       .cards-3 { grid-template-columns: 1fr 1fr; }
       .pricing-grid { grid-template-columns: 1fr 1fr; }
       .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .real-grid { grid-template-columns: 1fr 1fr; }
     }
 
     @media (min-width: 768px) {
@@ -670,6 +784,8 @@
       .pricing-grid { grid-template-columns: repeat(3, 1fr); }
       .footer-grid { grid-template-columns: 1.6fr 1fr 1fr; }
       .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; }
+      .real-grid { grid-template-columns: repeat(2, 1fr); }
+      .au-dela-inner { padding: 64px 80px; }
     }
   </style>
   <script defer src="https://analytics.servicecompris.pro/script.js" data-website-id="cc7bac91-20de-4b81-a717-8e0105212a7e"></script>
@@ -694,6 +810,7 @@
 
 <!-- ========== HERO ========== -->
 <section id="hero">
+  <div class="hero-bg"></div>
   <div class="hero-glow"></div>
   <div class="hero-grid"></div>
   <div class="container hero-body">
@@ -772,7 +889,77 @@
         <img src="philip/img/produits-frais-terroir.webp" alt="" loading="lazy">
       </div>
     </div>
-    <div class="reveal"><a href="https://www.restaurant-philip.fr" target="_blank" rel="noopener" class="galerie-tag">Exemple réel : Restaurant Philip, Fontaine-de-Vaucluse →</a></div>
+  </div>
+</section>
+
+<!-- ========== RÉALISATIONS ========== -->
+<section id="realisations">
+  <div class="container">
+    <span class="section-label reveal">Ce qu'on a fait</span>
+    <h2 class="section-title reveal">Nos réalisations,<br><span class="lime">en vrai.</span></h2>
+    <div class="real-grid">
+
+      <a href="https://www.restaurant-philip.fr" target="_blank" rel="noopener" class="real-card reveal">
+        <div class="real-card-top">
+          <span class="real-tag">Restaurant</span>
+          <span class="real-arrow">→</span>
+        </div>
+        <h3>Restaurant Philip</h3>
+        <p>Site vitrine, photographie culinaire HD, réseaux sociaux et menu QR dynamique pour ce restaurant gastronomique de Fontaine-de-Vaucluse.</p>
+        <span class="real-url">restaurant-philip.fr</span>
+      </a>
+
+      <a href="https://www.thewisebeagle.com" target="_blank" rel="noopener" class="real-card reveal" style="transition-delay:.05s">
+        <div class="real-card-top">
+          <span class="real-tag">Conseil</span>
+          <span class="real-arrow">→</span>
+        </div>
+        <h3>The Wise Beagle</h3>
+        <p>Plateforme de services pour dirigeants — identité visuelle, positionnement éditorial et site sur-mesure pour un operating partner.</p>
+        <span class="real-url">thewisebeagle.com</span>
+      </a>
+
+      <a href="https://www.gwladysmonnier.fr" target="_blank" rel="noopener" class="real-card reveal" style="transition-delay:.1s">
+        <div class="real-card-top">
+          <span class="real-tag">Services à la personne</span>
+          <span class="real-arrow">→</span>
+        </div>
+        <h3>Gwladys Monnier</h3>
+        <p>Site vitrine pour une auxiliaire de vie indépendante à Mâcon — crédibilité, référencement local et prise de contact simplifiée.</p>
+        <span class="real-url">gwladysmonnier.fr</span>
+      </a>
+
+      <a href="https://www.protocole-aiforge.com" target="_blank" rel="noopener" class="real-card reveal" style="transition-delay:.15s">
+        <div class="real-card-top">
+          <span class="real-tag">Formation IA</span>
+          <span class="real-arrow">→</span>
+        </div>
+        <h3>AI Forge</h3>
+        <p>Landing page de conversion pour un programme d'immersion IA destiné aux dirigeants — copywriting, design et tunnel d'inscription.</p>
+        <span class="real-url">protocole-aiforge.com</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== AU-DELÀ DES RESTOS ========== -->
+<section id="au-dela">
+  <div class="container">
+    <div class="au-dela-inner reveal">
+      <span class="section-label">Notre terrain de jeu</span>
+      <h2 class="section-title">Pas que des restaurateurs.</h2>
+      <p>Coach, consultant, prestataire de services, entrepreneur… si vous avez besoin d'une présence en ligne sérieuse qui convertit, notre méthode s'adapte. On construit des vitrines numériques qui parlent à vos clients — peu importe votre secteur.</p>
+      <div class="au-dela-tags">
+        <span class="au-dela-tag">Restaurants & cafés</span>
+        <span class="au-dela-tag">Consultants & coachs</span>
+        <span class="au-dela-tag">Artisans & commerçants</span>
+        <span class="au-dela-tag">Professions libérales</span>
+        <span class="au-dela-tag">Entrepreneurs</span>
+        <span class="au-dela-tag">Formateurs</span>
+      </div>
+      <a href="#tarifs" class="btn btn-lime-lg" style="max-width:280px;margin:0 auto">Voir les offres →</a>
+    </div>
   </div>
 </section>
 
