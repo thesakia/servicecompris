@@ -730,6 +730,53 @@
       .churchill-photos { grid-template-columns: 1fr; height: auto; }
       .ch-photo { height: 220px; }
     }
+    .ch-video-wrap {
+      margin-top: 36px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 28px rgba(0,0,0,.18);
+      position: relative;
+      aspect-ratio: 16/9;
+      background: #000;
+      cursor: pointer;
+    }
+    .ch-video-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity .3s;
+    }
+    .ch-video-wrap .ch-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(0,0,0,.28);
+      transition: background .25s;
+    }
+    .ch-video-wrap:hover .ch-play { background: rgba(0,0,0,.42); }
+    .ch-play svg {
+      width: 64px; height: 64px;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.5));
+    }
+    .ch-play-label {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0,0,0,.6);
+    }
+    .ch-video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+    #video { padding: 60px 0; }
 
     /* ============================
        CADRE
@@ -2068,6 +2115,27 @@
                  loading="lazy">
           </picture>
           <div class="ch-caption">Life Magazine · Février 1949</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== VIDEO ========== -->
+<section id="video">
+  <div class="container">
+    <div class="churchill-wrap" data-aos="fade-up">
+      <div class="ch-video-wrap"
+           onclick="this.innerHTML='<iframe src=\'https://www.youtube-nocookie.com/embed/n1UASKhUSJ4?autoplay=1&rel=0\' allow=\'autoplay; encrypted-media\' allowfullscreen></iframe>'">
+        <img src="https://i.ytimg.com/vi/n1UASKhUSJ4/maxresdefault.jpg"
+             alt="Vidéo de présentation du Restaurant Philip à Fontaine-de-Vaucluse"
+             loading="lazy">
+        <div class="ch-play">
+          <svg viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="34" cy="34" r="34" fill="rgba(255,255,255,0.92)"/>
+            <polygon points="27,20 27,48 52,34" fill="#b8930a"/>
+          </svg>
+          <span class="ch-play-label">Voir la vidéo</span>
         </div>
       </div>
     </div>
