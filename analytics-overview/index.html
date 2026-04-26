@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vue globale | Umami</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --panel-2: #eef2f6;
+      --text: #14171a;
+      --muted: #68727d;
+      --line: #dfe5ea;
+      --accent: #0f766e;
+      --accent-2: #b45309;
+      --bad: #b42318;
+      --good: #067647;
+      --shadow: 0 12px 30px rgba(20, 23, 26, 0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .page {
+      width: min(1420px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .title h1 {
+      margin: 0;
+      font-size: clamp(26px, 3vw, 42px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .title p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .select,
+    .button,
+    .input {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--text);
+      min-height: 42px;
+    }
+
+    .select {
+      padding: 0 38px 0 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 14px;
+      cursor: pointer;
+      transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
+    }
+
+    .button:hover {
+      border-color: #b8c3cc;
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .metric,
+    .site-card,
+    .login-card,
+    .message {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric {
+      padding: 15px 16px;
+      min-height: 96px;
+    }
+
+    .label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .value {
+      margin-top: 10px;
+      font-size: clamp(24px, 2vw, 34px);
+      line-height: 1;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 14px;
+    }
+
+    .site-card {
+      padding: 16px;
+      min-height: 214px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .site-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .site-name {
+      min-width: 0;
+    }
+
+    .site-name h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.25;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .site-name a {
+      display: inline-block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    .pill {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 28px;
+      padding: 0 9px;
+      border-radius: 999px;
+      background: var(--panel-2);
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #94a3b8;
+    }
+
+    .dot.live {
+      background: var(--good);
+    }
+
+    .site-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .small-metric {
+      padding: 10px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #edf1f5;
+      min-width: 0;
+    }
+
+    .small-metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .small-metric strong {
+      display: block;
+      margin-top: 7px;
+      font-size: 20px;
+      line-height: 1;
+      overflow-wrap: anywhere;
+    }
+
+    .trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 7px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .trend.good {
+      color: var(--good);
+    }
+
+    .trend.bad {
+      color: var(--bad);
+    }
+
+    .site-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: auto;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .site-foot a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 650;
+    }
+
+    .login-wrap {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .login-card {
+      width: min(420px, 100%);
+      padding: 24px;
+    }
+
+    .login-card h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+      letter-spacing: 0;
+    }
+
+    .login-card p {
+      margin: 0 0 20px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 0 12px;
+    }
+
+    .message {
+      padding: 22px;
+      color: var(--muted);
+    }
+
+    .error {
+      color: var(--bad);
+      font-size: 13px;
+      min-height: 18px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .skeleton {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skeleton::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+      animation: loading 1.2s infinite;
+    }
+
+    @keyframes loading {
+      to {
+        transform: translateX(100%);
+      }
+    }
+
+    @media (max-width: 920px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .actions {
+        justify-content: flex-start;
+        width: 100%;
+      }
+
+      .summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        width: min(100vw - 20px, 1420px);
+        padding-top: 18px;
+      }
+
+      .summary,
+      .grid,
+      .site-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .actions > * {
+        width: 100%;
+      }
+
+      .button,
+      .select {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main id="app" class="page hidden">
+    <header class="topbar">
+      <div class="title">
+        <h1>Vue globale</h1>
+        <p id="subtitle">Tous les sites Umami, les signaux importants en un coup d'oeil.</p>
+      </div>
+      <div class="actions">
+        <select id="period" class="select" aria-label="Periode">
+          <option value="today">Aujourd'hui</option>
+          <option value="7d" selected>7 derniers jours</option>
+          <option value="30d">30 derniers jours</option>
+          <option value="90d">90 derniers jours</option>
+        </select>
+        <button id="refresh" class="button primary" type="button">Actualiser</button>
+        <button id="logout" class="button" type="button">Deconnexion</button>
+      </div>
+    </header>
+
+    <section class="summary" aria-label="Resume global">
+      <article class="metric">
+        <div class="label">Visiteurs</div>
+        <div id="total-visitors" class="value">-</div>
+      </article>
+      <article class="metric">
+        <div class="label">Visites</div>
+        <div id="total-visits" class="value">-</div>
+      </article>
+      <article class="metric">
+        <div class="label">Pages vues</div>
+        <div id="total-pageviews" class="value">-</div>
+      </article>
+      <article class="metric">
+        <div class="label">Rebond moyen</div>
+        <div id="avg-bounce" class="value">-</div>
+      </article>
+      <article class="metric">
+        <div class="label">Actifs maintenant</div>
+        <div id="total-active" class="value">-</div>
+      </article>
+    </section>
+
+    <section id="status" class="message">Chargement des sites...</section>
+    <section id="sites" class="grid" aria-label="Sites"></section>
+  </main>
+
+  <section id="login-wrap" class="login-wrap hidden">
+    <form id="login-form" class="login-card">
+      <h1>Connexion Umami</h1>
+      <p>Connecte-toi avec le compte Umami pour charger la vue globale.</p>
+      <div class="form">
+        <div class="field">
+          <label for="username">Identifiant</label>
+          <input id="username" class="input" autocomplete="username" value="admin" required>
+        </div>
+        <div class="field">
+          <label for="password">Mot de passe</label>
+          <input id="password" class="input" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="button primary" type="submit">Se connecter</button>
+        <div id="login-error" class="error" role="alert"></div>
+      </div>
+    </form>
+  </section>
+
+  <script>
+    const state = {
+      token: sessionStorage.getItem('umamiToken') || '',
+      websites: [],
+    };
+
+    const $ = selector => document.querySelector(selector);
+    const app = $('#app');
+    const loginWrap = $('#login-wrap');
+    const sitesEl = $('#sites');
+    const statusEl = $('#status');
+    const periodEl = $('#period');
+
+    const metricValue = metric => {
+      if (metric == null) return 0;
+      if (typeof metric === 'number') return metric;
+      if (typeof metric.value === 'number') return metric.value;
+      if (typeof metric.count === 'number') return metric.count;
+      return Number(metric) || 0;
+    };
+
+    const metricChange = metric => {
+      if (!metric || typeof metric !== 'object') return null;
+      if (typeof metric.change === 'number') return metric.change;
+      if (typeof metric.diff === 'number') return metric.diff;
+      return null;
+    };
+
+    const percentChange = (current, previous) => {
+      if (!Number.isFinite(previous) || previous === 0) return current ? 100 : 0;
+      return ((current - previous) / previous) * 100;
+    };
+
+    const formatNumber = value => new Intl.NumberFormat('fr-FR').format(Math.round(value || 0));
+
+    const formatPercent = value => {
+      if (!Number.isFinite(value)) return '-';
+      return `${Math.round(value)} %`;
+    };
+
+    const formatDuration = seconds => {
+      seconds = Math.max(0, Math.round(seconds || 0));
+      const minutes = Math.floor(seconds / 60);
+      const rest = seconds % 60;
+      if (minutes >= 60) {
+        const hours = Math.floor(minutes / 60);
+        return `${hours}h ${minutes % 60}m`;
+      }
+      if (minutes > 0) return `${minutes}m ${rest}s`;
+      return `${rest}s`;
+    };
+
+    const periodRange = key => {
+      const now = new Date();
+      const end = now.getTime();
+      const start = new Date(now);
+
+      if (key === 'today') {
+        start.setHours(0, 0, 0, 0);
+      } else {
+        const days = Number(key.replace('d', '')) || 7;
+        start.setDate(start.getDate() - days + 1);
+        start.setHours(0, 0, 0, 0);
+      }
+
+      return { startAt: start.getTime(), endAt: end };
+    };
+
+    const authHeaders = () => {
+      const headers = { Accept: 'application/json' };
+      if (state.token) headers.Authorization = `Bearer ${state.token}`;
+      return headers;
+    };
+
+    const api = async path => {
+      const response = await fetch(path, {
+        headers: authHeaders(),
+        credentials: 'include',
+      });
+
+      if (response.status === 401) throw new Error('unauthorized');
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    };
+
+    const showLogin = () => {
+      app.classList.add('hidden');
+      loginWrap.classList.remove('hidden');
+      $('#password').focus();
+    };
+
+    const showApp = () => {
+      loginWrap.classList.add('hidden');
+      app.classList.remove('hidden');
+    };
+
+    const normalizeWebsites = data => {
+      if (Array.isArray(data)) return data;
+      if (Array.isArray(data.data)) return data.data;
+      if (Array.isArray(data.websites)) return data.websites;
+      return [];
+    };
+
+    const siteUrl = site => {
+      const domain = site.domain || site.websiteDomain || '';
+      if (!domain) return '';
+      return domain.startsWith('http') ? domain : `https://${domain}`;
+    };
+
+    const dashboardUrl = site => {
+      const id = site.id || site.websiteId;
+      return id ? `/websites/${id}` : '/websites';
+    };
+
+    const loadSiteStats = async site => {
+      const id = site.id || site.websiteId;
+      const range = periodRange(periodEl.value);
+      const params = new URLSearchParams({
+        startAt: String(range.startAt),
+        endAt: String(range.endAt),
+      });
+
+      const [stats, active] = await Promise.all([
+        api(`/api/websites/${id}/stats?${params}`),
+        api(`/api/websites/${id}/active`).catch(() => ({ x: 0 })),
+      ]);
+
+      const pageviews = metricValue(stats.pageviews);
+      const visitors = metricValue(stats.visitors) || metricValue(stats.uniques);
+      const visits = metricValue(stats.visits) || metricValue(stats.sessions);
+      const bounces = metricValue(stats.bounces);
+      const totalTime = metricValue(stats.totaltime) || metricValue(stats.totalTime);
+      const bounceRate = visits ? (bounces / visits) * 100 : 0;
+      const avgTime = visits ? totalTime / visits : 0;
+      const activeNow = metricValue(active.x ?? active.active ?? active.visitors ?? active);
+
+      return {
+        ...site,
+        id,
+        pageviews,
+        visitors,
+        visits,
+        bounces,
+        bounceRate,
+        avgTime,
+        activeNow,
+        changes: {
+          visitors: metricChange(stats.visitors || stats.uniques) ?? percentChange(visitors, metricValue(stats.comparison?.visitors)),
+          pageviews: metricChange(stats.pageviews) ?? percentChange(pageviews, metricValue(stats.comparison?.pageviews)),
+          visits: metricChange(stats.visits || stats.sessions) ?? percentChange(visits, metricValue(stats.comparison?.visits)),
+        },
+      };
+    };
+
+    const trend = value => {
+      if (value == null || !Number.isFinite(value) || value === 0) return '<span class="trend">Stable</span>';
+      const cls = value > 0 ? 'good' : 'bad';
+      const sign = value > 0 ? '+' : '';
+      return `<span class="trend ${cls}">${sign}${Math.round(value)} %</span>`;
+    };
+
+    const renderTotals = sites => {
+      const totals = sites.reduce((acc, site) => {
+        acc.visitors += site.visitors;
+        acc.visits += site.visits;
+        acc.pageviews += site.pageviews;
+        acc.active += site.activeNow;
+        acc.bounces += site.bounces;
+        return acc;
+      }, { visitors: 0, visits: 0, pageviews: 0, active: 0, bounces: 0 });
+
+      $('#total-visitors').textContent = formatNumber(totals.visitors);
+      $('#total-visits').textContent = formatNumber(totals.visits);
+      $('#total-pageviews').textContent = formatNumber(totals.pageviews);
+      $('#avg-bounce').textContent = formatPercent(totals.visits ? (totals.bounces / totals.visits) * 100 : 0);
+      $('#total-active').textContent = formatNumber(totals.active);
+    };
+
+    const renderSites = sites => {
+      sitesEl.innerHTML = sites.map(site => {
+        const url = siteUrl(site);
+        const name = site.name || site.domain || 'Site sans nom';
+        const domain = site.domain || '';
+        return `
+          <article class="site-card">
+            <div class="site-head">
+              <div class="site-name">
+                <h2>${escapeHtml(name)}</h2>
+                ${url ? `<a href="${escapeAttr(url)}" target="_blank" rel="noreferrer">${escapeHtml(domain)}</a>` : ''}
+              </div>
+              <span class="pill"><span class="dot ${site.activeNow ? 'live' : ''}"></span>${formatNumber(site.activeNow)} actif</span>
+            </div>
+            <div class="site-metrics">
+              <div class="small-metric">
+                <span>Visiteurs</span>
+                <strong>${formatNumber(site.visitors)}</strong>
+                ${trend(site.changes.visitors)}
+              </div>
+              <div class="small-metric">
+                <span>Visites</span>
+                <strong>${formatNumber(site.visits)}</strong>
+                ${trend(site.changes.visits)}
+              </div>
+              <div class="small-metric">
+                <span>Pages vues</span>
+                <strong>${formatNumber(site.pageviews)}</strong>
+                ${trend(site.changes.pageviews)}
+              </div>
+              <div class="small-metric">
+                <span>Rebond</span>
+                <strong>${formatPercent(site.bounceRate)}</strong>
+              </div>
+              <div class="small-metric">
+                <span>Temps moyen</span>
+                <strong>${formatDuration(site.avgTime)}</strong>
+              </div>
+              <div class="small-metric">
+                <span>Pages / visite</span>
+                <strong>${site.visits ? (site.pageviews / site.visits).toFixed(1).replace('.', ',') : '-'}</strong>
+              </div>
+            </div>
+            <div class="site-foot">
+              <span>ID ${escapeHtml(String(site.id || '-'))}</span>
+              <a href="${escapeAttr(dashboardUrl(site))}">Detail Umami</a>
+            </div>
+          </article>
+        `;
+      }).join('');
+    };
+
+    const escapeHtml = value => String(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+
+    const escapeAttr = escapeHtml;
+
+    const setLoading = loading => {
+      $('#refresh').disabled = loading;
+      if (loading) {
+        statusEl.textContent = 'Chargement des statistiques...';
+        statusEl.classList.remove('hidden');
+      }
+    };
+
+    const load = async () => {
+      showApp();
+      setLoading(true);
+      sitesEl.innerHTML = '';
+
+      try {
+        const websites = normalizeWebsites(await api('/api/websites'));
+        state.websites = websites;
+
+        if (!websites.length) {
+          renderTotals([]);
+          statusEl.textContent = 'Aucun site trouve dans Umami.';
+          statusEl.classList.remove('hidden');
+          return;
+        }
+
+        const settled = await Promise.allSettled(websites.map(loadSiteStats));
+        const sites = settled
+          .filter(item => item.status === 'fulfilled')
+          .map(item => item.value)
+          .sort((a, b) => (b.activeNow - a.activeNow) || (b.visitors - a.visitors) || (b.pageviews - a.pageviews));
+
+        renderTotals(sites);
+        renderSites(sites);
+
+        const failed = settled.length - sites.length;
+        if (failed) {
+          statusEl.textContent = `${failed} site(s) n'ont pas pu etre charges.`;
+          statusEl.classList.remove('hidden');
+        } else {
+          statusEl.classList.add('hidden');
+        }
+
+        $('#subtitle').textContent = `${sites.length} site(s), periode ${periodEl.options[periodEl.selectedIndex].text.toLowerCase()}.`;
+      } catch (error) {
+        if (error.message === 'unauthorized') {
+          sessionStorage.removeItem('umamiToken');
+          state.token = '';
+          showLogin();
+        } else {
+          statusEl.textContent = `Erreur de chargement : ${error.message}`;
+          statusEl.classList.remove('hidden');
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    $('#login-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      $('#login-error').textContent = '';
+
+      const username = $('#username').value.trim();
+      const password = $('#password').value;
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ username, password }),
+        });
+
+        if (!response.ok) throw new Error('Identifiants invalides');
+        const data = await response.json();
+        state.token = data.token || data.accessToken || '';
+        if (state.token) sessionStorage.setItem('umamiToken', state.token);
+        await load();
+      } catch (error) {
+        $('#login-error').textContent = error.message;
+      }
+    });
+
+    $('#refresh').addEventListener('click', load);
+    periodEl.addEventListener('change', load);
+    $('#logout').addEventListener('click', () => {
+      sessionStorage.removeItem('umamiToken');
+      state.token = '';
+      showLogin();
+    });
+
+    load();
+  </script>
+</body>
+</html>
