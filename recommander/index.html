@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service Compris | Recommander un restaurateur</title>
+  <meta name="description" content="Recommandez un restaurateur ou commerçant à Service Compris. S'il devient client, recevez une carte cadeau jusqu'à 250 €." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background:#060b18; color:#ffffff; }
+    .lime { color:#bef264; }
+    .lime-bg { background:#bef264; }
+    .card { background:#0f172a; border:1px solid rgba(190,242,100,.18); }
+    .muted { color:#a8b3c7; }
+    .glow { box-shadow:0 0 60px rgba(190,242,100,.12); }
+    .hero-bg {
+      background:
+        radial-gradient(circle at 20% 5%, rgba(190,242,100,.16), transparent 30%),
+        radial-gradient(circle at 85% 12%, rgba(34,197,94,.10), transparent 34%),
+        linear-gradient(180deg, #060b18 0%, #071020 100%);
+    }
+    .field {
+      width:100%;
+      background:#060b18;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:14px 16px;
+      color:white;
+      outline:none;
+      transition:.2s;
+    }
+    .field:focus { border-color:#bef264; box-shadow:0 0 0 3px rgba(190,242,100,.08); }
+    .hp { display:none !important; }
+    .shine { position:relative; overflow:hidden; }
+    .shine:before {
+      content:""; position:absolute; top:0; left:-120%; width:80%; height:100%;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.32), transparent);
+      transform:skewX(-18deg); transition:.7s;
+    }
+    .shine:hover:before { left:130%; }
+  </style>
+</head>
+
+<body class="selection:bg-[#bef264] selection:text-[#060b18]">
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#060b18]/85 backdrop-blur-md border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between gap-5">
+    <a href="#top" class="flex items-center shrink-0" aria-label="Service Compris - haut de page">
+      <img src="service-compris-logo.png" alt="Service Compris" class="h-12 md:h-14 w-auto">
+    </a>
+    <div class="flex items-center gap-3">
+      <button onclick="copyPageLink()" class="hidden md:inline-flex border border-white/15 text-white px-4 py-2 rounded-full text-xs uppercase tracking-widest font-bold hover:border-[#bef264] hover:text-[#bef264] transition">
+        Partager cette page
+      </button>
+      <a href="https://servicecompris.pro" class="inline-flex border border-white/15 text-white px-4 py-2 rounded-full text-xs uppercase tracking-widest font-bold hover:border-[#bef264] hover:text-[#bef264] transition">
+        Retour au site
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero-bg min-h-screen flex items-center px-5 pt-32 pb-20">
+  <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-7">
+      <span class="inline-block border border-[#bef264]/40 text-[#bef264] px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.24em] mb-7 font-bold">
+        Programme de recommandation • Restaurants & commerces
+      </span>
+
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-7">
+        Tu connais un restaurateur<br>
+        <span class="lime">qui mérite mieux en ligne ?</span>
+      </h1>
+
+      <p class="text-lg md:text-xl muted max-w-3xl leading-relaxed mb-9">
+        Site vieillissant, réseaux sociaux à l’abandon, visibilité locale faible…
+        Recommande-nous un contact. S’il devient client, on te remercie concrètement.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 mb-8">
+        <a href="#formulaire" class="shine lime-bg text-[#060b18] font-extrabold py-4 px-8 rounded-xl uppercase text-sm tracking-[0.14em] hover:bg-white transition">
+          Je recommande quelqu’un
+        </a>
+        <button onclick="copyPageLink()" class="border border-white/15 text-white font-bold py-4 px-8 rounded-xl uppercase text-sm tracking-[0.14em] hover:border-[#bef264] hover:text-[#bef264] transition">
+          Partager cette page
+        </button>
+      </div>
+
+      <p class="text-sm muted">
+        Tu n’as pas besoin de vendre. Tu nous mets en relation, on s’occupe du reste.
+      </p>
+    </div>
+
+    <div class="lg:col-span-5">
+      <div class="card glow rounded-3xl p-8">
+        <p class="text-sm uppercase tracking-[0.22em] lime font-bold mb-5">Récompenses</p>
+        <div class="space-y-5">
+          <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div>
+              <h3 class="font-bold text-xl">Offre Web signée</h3>
+              <p class="muted text-sm">Site web professionnel</p>
+            </div>
+            <p class="lime text-4xl font-extrabold">100€</p>
+          </div>
+          <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div>
+              <h3 class="font-bold text-xl">Offre Social signée</h3>
+              <p class="muted text-sm">Réseaux sociaux</p>
+            </div>
+            <p class="lime text-4xl font-extrabold">150€</p>
+          </div>
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <h3 class="font-bold text-xl">Offre Combo signée</h3>
+              <p class="muted text-sm">Web + Social</p>
+            </div>
+            <p class="lime text-4xl font-extrabold">250€</p>
+          </div>
+        </div>
+        <p class="muted text-sm mt-6">
+          Récompense en carte cadeau après signature et encaissement du premier paiement client.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="px-5 py-24">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <span class="text-xs uppercase tracking-[0.25em] lime font-bold">Comment ça marche</span>
+      <h2 class="text-4xl md:text-5xl font-extrabold mt-4 mb-5">Simple. Rapide. Sans pression.</h2>
+      <p class="muted text-lg">Tu n’as pas à pitcher, négocier ou relancer. Ton rôle, c’est de nous ouvrir la porte.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card rounded-3xl p-8">
+        <div class="w-12 h-12 rounded-full lime-bg text-[#060b18] font-extrabold flex items-center justify-center mb-6">1</div>
+        <h3 class="text-2xl font-bold mb-3">Tu recommandes</h3>
+        <p class="muted">Tu remplis le formulaire avec les coordonnées du restaurant ou commerce recommandé.</p>
+      </div>
+      <div class="card rounded-3xl p-8">
+        <div class="w-12 h-12 rounded-full lime-bg text-[#060b18] font-extrabold flex items-center justify-center mb-6">2</div>
+        <h3 class="text-2xl font-bold mb-3">On prend le relais</h3>
+        <p class="muted">On contacte le prospect, on présente Service Compris, on gère la vente et la suite.</p>
+      </div>
+      <div class="card rounded-3xl p-8">
+        <div class="w-12 h-12 rounded-full lime-bg text-[#060b18] font-extrabold flex items-center justify-center mb-6">3</div>
+        <h3 class="text-2xl font-bold mb-3">Tu es récompensé</h3>
+        <p class="muted">Si le contact devient client et que le premier paiement est encaissé, tu reçois ta carte cadeau.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="px-5 py-24 bg-[#081124] border-y border-white/5">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 items-start">
+    <div class="lg:col-span-5">
+      <span class="text-xs uppercase tracking-[0.25em] lime font-bold">Qui recommander ?</span>
+      <h2 class="text-4xl md:text-5xl font-extrabold mt-4 mb-6">Le bon contact est souvent évident.</h2>
+      <p class="muted text-lg leading-relaxed">
+        Un restaurateur, un commerçant ou un indépendant qui a une vraie activité, mais une présence digitale qui ne lui rend pas justice.
+      </p>
+    </div>
+    <div class="lg:col-span-7 grid md:grid-cols-2 gap-5">
+      <div class="card rounded-2xl p-6">
+        <h3 class="font-bold text-xl mb-2">Site vieux ou inexistant</h3>
+        <p class="muted">Le commerce existe dans la vraie vie, mais son image en ligne ne suit pas.</p>
+      </div>
+      <div class="card rounded-2xl p-6">
+        <h3 class="font-bold text-xl mb-2">Réseaux sociaux morts</h3>
+        <p class="muted">Pas de régularité, pas de contenu, pas de mise en valeur.</p>
+      </div>
+      <div class="card rounded-2xl p-6">
+        <h3 class="font-bold text-xl mb-2">Bon potentiel local</h3>
+        <p class="muted">Un lieu qui mérite plus de visibilité et une meilleure présentation.</p>
+      </div>
+      <div class="card rounded-2xl p-6">
+        <h3 class="font-bold text-xl mb-2">Décideur accessible</h3>
+        <p class="muted">Tu connais la personne, ou tu peux faciliter une mise en relation réelle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="formulaire" class="px-5 py-24">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-xs uppercase tracking-[0.25em] lime font-bold">Formulaire</span>
+      <h2 class="text-4xl md:text-5xl font-extrabold mt-4 mb-5">Recommander un contact</h2>
+      <p class="muted text-lg">Plus tu nous donnes d’informations utiles, plus on peut qualifier vite.</p>
+    </div>
+
+    <form action="send-reco.php" method="POST" class="card rounded-3xl p-6 md:p-8 glow space-y-6">
+      <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off">
+
+      <div class="grid md:grid-cols-2 gap-5">
+        <div>
+          <label class="block text-sm font-bold mb-2">Ton prénom et nom *</label>
+          <input class="field" type="text" name="recommender_name" required>
+        </div>
+        <div>
+          <label class="block text-sm font-bold mb-2">Ton email *</label>
+          <input class="field" type="email" name="recommender_email" required>
+        </div>
+        <div>
+          <label class="block text-sm font-bold mb-2">Ton téléphone</label>
+          <input class="field" type="tel" name="recommender_phone">
+        </div>
+        <div>
+          <label class="block text-sm font-bold mb-2">Type de contact recommandé *</label>
+          <select class="field" name="business_type" required>
+            <option value="">Choisir...</option>
+            <option>Restaurant</option>
+            <option>Bar / café</option>
+            <option>Commerce</option>
+            <option>Indépendant</option>
+            <option>Autre</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5">
+        <div>
+          <label class="block text-sm font-bold mb-2">Nom du restaurant / commerce *</label>
+          <input class="field" type="text" name="business_name" required>
+        </div>
+        <div>
+          <label class="block text-sm font-bold mb-2">Ville *</label>
+          <input class="field" type="text" name="business_city" required>
+        </div>
+        <div>
+          <label class="block text-sm font-bold mb-2">Nom du contact recommandé</label>
+          <input class="field" type="text" name="contact_name">
+        </div>
+        <div>
+          <label class="block text-sm font-bold mb-2">Téléphone ou email du contact *</label>
+          <input class="field" type="text" name="contact_info" required>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-bold mb-2">Pourquoi tu penses qu’il a besoin de Service Compris ?</label>
+        <textarea class="field min-h-[130px]" name="message" placeholder="Ex : site vieux, réseaux inexistants, bon restaurant mais pas visible, patron intéressé par le digital..."></textarea>
+      </div>
+
+      <label class="flex gap-3 items-start text-sm muted">
+        <input type="checkbox" name="consent" value="yes" required class="mt-1 accent-[#bef264]">
+        <span>Je confirme connaître cette personne ou pouvoir faciliter une mise en relation réelle. *</span>
+      </label>
+
+      <div class="flex flex-col md:flex-row gap-4 items-center justify-between pt-4">
+        <p class="muted text-sm">* Champs obligatoires. Récompense due uniquement si le contact devient client et que le premier paiement est encaissé.</p>
+        <button type="submit" class="shine lime-bg text-[#060b18] font-extrabold py-4 px-8 rounded-xl uppercase text-sm tracking-[0.14em] hover:bg-white transition w-full md:w-auto">
+          Envoyer la recommandation
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="px-5 py-24 bg-[#081124] border-y border-white/5">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="text-xs uppercase tracking-[0.25em] lime font-bold">FAQ</span>
+      <h2 class="text-4xl md:text-5xl font-extrabold mt-4">Questions simples</h2>
+    </div>
+
+    <div class="space-y-5">
+      <div class="card rounded-2xl p-6">
+        <h3 class="font-bold text-xl mb-2">Je dois vendre ?</h3>
+        <p class="muted">Non. Tu peux simplement nous recommander quelqu’un et nous laisser gérer la suite.</p>
+      </div>
+      <div class="card rounded-2xl p-6">
+        <h3 class="font-bold text-xl mb-2">Quand suis-je récompensé ?</h3>
+        <p class="muted">Après signature du client recommandé et encaissement de son premier paiement.</p>
+      </div>
+      <div class="card rounded-2xl p-6">
+        <h3 class="font-bold text-xl mb-2">Comment suis-je récompensé ?</h3>
+        <p class="muted">En carte cadeau, selon l’offre signée : 100€, 150€ ou 250€.</p>
+      </div>
+      <div class="card rounded-2xl p-6">
+        <h3 class="font-bold text-xl mb-2">Puis-je partager cette page ?</h3>
+        <p class="muted">Oui. Il n’y a pas de récompense pour le simple partage de la page, mais tu peux l’envoyer à quelqu’un qui connaît un bon contact.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="px-5 py-24">
+  <div class="max-w-5xl mx-auto text-center">
+    <h2 class="text-4xl md:text-6xl font-extrabold mb-7">
+      Tu as quelqu’un en tête ?<br>
+      <span class="lime">Envoie-nous le contact.</span>
+    </h2>
+    <p class="muted text-lg max-w-2xl mx-auto mb-10">
+      Un bon contact peut devenir un client. Et un client signé peut devenir une carte cadeau pour toi.
+    </p>
+    <a href="#formulaire" class="shine lime-bg text-[#060b18] font-extrabold py-5 px-9 rounded-xl uppercase text-sm tracking-[0.14em] hover:bg-white transition">
+      Recommander maintenant
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer class="px-5 py-10">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 muted text-sm border-t border-white/5 pt-8">
+    <p>© Service Compris — Recommandation</p>
+    <div class="flex flex-col sm:flex-row gap-3 items-center">
+      <button onclick="copyPageLink()" class="hover:text-[#bef264]">Partager cette page</button>
+      <span class="hidden sm:inline">•</span>
+      <a href="https://servicecompris.pro" class="hover:text-[#bef264]">Retour au site principal</a>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Remonter en haut" onclick="window.scrollTo({top:0, behavior:'smooth'})" class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full lime-bg text-[#060b18] font-extrabold shadow-[0_0_30px_rgba(190,242,100,.25)] opacity-0 pointer-events-none transition-all hover:bg-white">
+  ↑
+</button>
+
+<div id="copyToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 card rounded-full px-5 py-3 text-sm opacity-0 pointer-events-none transition-all">
+  Lien copié.
+</div>
+
+<script>
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  const copyToast = document.getElementById('copyToast');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+      scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+      scrollTopBtn.classList.add('opacity-100');
+    } else {
+      scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
+      scrollTopBtn.classList.remove('opacity-100');
+    }
+  });
+
+  function showToast() {
+    copyToast.classList.remove('opacity-0');
+    copyToast.classList.add('opacity-100');
+    setTimeout(() => {
+      copyToast.classList.add('opacity-0');
+      copyToast.classList.remove('opacity-100');
+    }, 1800);
+  }
+
+  function copyPageLink() {
+    const url = window.location.href.split('#')[0];
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(showToast);
+    } else {
+      const temp = document.createElement('input');
+      temp.value = url;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      showToast();
+    }
+  }
+</script>
+
+</body>
+</html>
