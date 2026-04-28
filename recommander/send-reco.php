@@ -4,6 +4,7 @@
 
 $to = "contact@servicecompris.pro";
 $subject = "Recommandation Service Compris - Nouveau contact";
+$from_email = "contact@servicecompris.pro";
 
 function clean($value) {
     $value = trim($value ?? "");
@@ -77,13 +78,28 @@ $body .= "Date : " . date("Y-m-d H:i:s") . "\n";
 $body .= "IP : " . ($_SERVER["REMOTE_ADDR"] ?? "inconnue") . "\n";
 
 $headers = [];
-$headers[] = "From: Service Compris <contact@servicecompris.pro>";
+$headers[] = "From: Service Compris <" . $from_email . ">";
 $headers[] = "Reply-To: " . $recommender_name . " <" . $recommender_email . ">";
 $headers[] = "Content-Type: text/plain; charset=UTF-8";
 
-$sent = mail($to, $subject, $body, implode("\r\n", $headers));
+$sent = mail($to, $subject, $body, implode("\r\n", $headers), "-f" . $from_email);
 
 if ($sent) {
+    $confirmation_subject = "Service Compris - recommandation bien reçue";
+    $confirmation_body = "Bonjour $recommender_name,\n\n";
+    $confirmation_body .= "Merci, nous avons bien reçu ta recommandation pour $business_name à $business_city.\n\n";
+    $confirmation_body .= "Nous allons regarder le contact et revenir vers toi si besoin.\n\n";
+    $confirmation_body .= "Pour rappel, si le contact devient client et que son premier paiement est encaissé, tu pourras recevoir la récompense prévue selon l'offre signée.\n\n";
+    $confirmation_body .= "À bientôt,\n";
+    $confirmation_body .= "L'équipe Service Compris\n";
+
+    $confirmation_headers = [];
+    $confirmation_headers[] = "From: Service Compris <" . $from_email . ">";
+    $confirmation_headers[] = "Reply-To: Service Compris <" . $from_email . ">";
+    $confirmation_headers[] = "Content-Type: text/plain; charset=UTF-8";
+
+    mail($recommender_email, $confirmation_subject, $confirmation_body, implode("\r\n", $confirmation_headers), "-f" . $from_email);
+
     header("Location: merci.html");
     exit;
 }
