@@ -2,7 +2,7 @@
 // Service Compris - Traitement formulaire recommandation
 // Aucun stockage. Aucun MySQL. Envoi email uniquement.
 
-$to = "contact@service-compris.pro";
+$to = "contact@servicecompris.pro";
 $subject = "Recommandation Service Compris - Nouveau contact";
 
 function clean($value) {
@@ -77,7 +77,7 @@ $body .= "Date : " . date("Y-m-d H:i:s") . "\n";
 $body .= "IP : " . ($_SERVER["REMOTE_ADDR"] ?? "inconnue") . "\n";
 
 $headers = [];
-$headers[] = "From: Service Compris <contact@service-compris.pro>";
+$headers[] = "From: Service Compris <contact@servicecompris.pro>";
 $headers[] = "Reply-To: " . $recommender_name . " <" . $recommender_email . ">";
 $headers[] = "Content-Type: text/plain; charset=UTF-8";
 
