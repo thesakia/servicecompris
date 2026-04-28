@@ -77,7 +77,7 @@ $body .= "Date : " . date("Y-m-d H:i:s") . "\n";
 $body .= "IP : " . ($_SERVER["REMOTE_ADDR"] ?? "inconnue") . "\n";
 
 $headers = [];
-$headers[] = "From: Service Compris <no-reply@servicecompris.pro>";
+$headers[] = "From: Service Compris <contact@service-compris.pro>";
 $headers[] = "Reply-To: " . $recommender_name . " <" . $recommender_email . ">";
 $headers[] = "Content-Type: text/plain; charset=UTF-8";
 
