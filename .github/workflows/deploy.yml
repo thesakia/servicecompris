@@ -18,11 +18,16 @@ jobs:
       - name: Install SSH key
         run: |
           install -m 700 -d ~/.ssh
-          printf '%s
-' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
+          printf '%s\n' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H streammate.ai >> ~/.ssh/known_hosts
+          ssh-keyscan -T 20 -H streammate.ai >> ~/.ssh/known_hosts || true
 
       - name: Deploy website
         run: |
-          rsync -az --delete             --exclude='.git'             --exclude='.github'             --exclude='.env'             --exclude='.well-known/acme-challenge'             -e "ssh -i ~/.ssh/deploy_key"             ./ root@streammate.ai:/var/www/servicecompris/
+          rsync -az --delete \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.env' \
+            --exclude='.well-known/acme-challenge' \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new" \
+            ./ root@streammate.ai:/var/www/servicecompris/
