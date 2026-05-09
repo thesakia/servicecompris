@@ -32,3 +32,5 @@ jobs:
             --timeout=60 \
             -e "ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o ConnectTimeout=20 -o ServerAliveInterval=15 -o ServerAliveCountMax=2 -o StrictHostKeyChecking=accept-new" \
             ./ root@streammate.ai:/var/www/servicecompris/
+          ssh -i ~/.ssh/deploy_key -o BatchMode=yes -o ConnectTimeout=20 -o StrictHostKeyChecking=accept-new \
+            root@streammate.ai "printf '%s\n' '$GITHUB_SHA' > /var/www/servicecompris/.deploy-revision"
