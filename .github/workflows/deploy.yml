@@ -1,0 +1,28 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: servicecompris-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install SSH key
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s
+' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H streammate.ai >> ~/.ssh/known_hosts
+
+      - name: Deploy website
+        run: |
+          rsync -az --delete             --exclude='.git'             --exclude='.github'             --exclude='.env'             --exclude='.well-known/acme-challenge'             -e "ssh -i ~/.ssh/deploy_key"             ./ root@streammate.ai:/var/www/servicecompris/
