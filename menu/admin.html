@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-store" />
   <title>QRMenu — Administration</title>
   <script src="config.js"></script>
   <style>
@@ -487,6 +488,97 @@
       .topbar h1 { font-size: .88rem; }
       .page-content { padding: 12px; }
     }
+    /* ===== PREMIUM OVERRIDES ===== */
+    :root {
+      --primary: #b08d57;
+      --primary-dark: #8f7143;
+      --primary-light: #f1ede4;
+      --dark: #111318;
+      --mid: #f6f5f2;
+      --white: #fffdf8;
+      --muted: #6f7378;
+      --border: #dedbd2;
+      --radius: 8px;
+    }
+    body { background: var(--mid); }
+    #auth-screen { background: #111318; }
+    .auth-box,
+    .stat-card,
+    .panel,
+    .modal,
+    .qr-card,
+    .empty {
+      border-radius: 8px;
+      box-shadow: none;
+    }
+    .sidebar {
+      background: #111318;
+      border-right: 1px solid rgba(176,141,87,.18);
+    }
+    .sidebar-logo,
+    .sidebar-footer,
+    .resto-select-wrap {
+      border-color: rgba(176,141,87,.18);
+    }
+    .sidebar-logo span,
+    .auth-logo span,
+    .user-avatar {
+      border-radius: 4px;
+      background: var(--primary);
+      color: var(--dark);
+    }
+    .btn-new-resto {
+      background: rgba(176,141,87,.12);
+      border-color: rgba(176,141,87,.28);
+      color: #f3dfad;
+      border-radius: 6px;
+    }
+    .btn-new-resto:hover { background: rgba(176,141,87,.22); }
+    .nav-item {
+      border-radius: 0;
+      color: rgba(255,253,248,.58);
+    }
+    .nav-item.active {
+      color: #f3dfad;
+      background: rgba(176,141,87,.12);
+      border-left-color: var(--primary);
+    }
+    .main,
+    .topbar,
+    .panel,
+    .stat-card {
+      background: var(--white);
+    }
+    .main { background: var(--mid); }
+    .topbar { border-color: var(--border); }
+    .btn,
+    input,
+    select,
+    textarea,
+    .icon-btn,
+    .badge-active,
+    .badge-inactive,
+    .toast {
+      border-radius: 6px !important;
+    }
+    .btn-primary { background: var(--dark); color: #fff8e8; }
+    .btn-primary:hover { background: #2a2118; }
+    .btn-ghost { background: transparent; }
+    .cat-item.active {
+      background: #f1ede4;
+      border-left-color: var(--primary);
+    }
+    .items-table th,
+    .sa-table th {
+      background: #f6f5f2;
+      color: #5f5549;
+    }
+    .items-table tr:hover td,
+    .sa-table tr:hover td,
+    .cat-item:hover {
+      background: #f1ede4;
+    }
+    .bottom-nav { border-color: var(--border); }
   </style>
 </head>
 <body>
@@ -743,7 +835,7 @@
                 <div class="color-row">
                   <div class="color-input-wrap">
                     <label>Couleur principale</label>
-                    <input type="color" id="s-color-primary" value="#FF5C35" />
+                    <input type="color" id="s-color-primary" value="#b08d57" />
                   </div>
                   <div class="color-input-wrap">
                     <label>Couleur du texte</label>
@@ -751,7 +843,7 @@
                   </div>
                   <div class="color-input-wrap">
                     <label>Fond</label>
-                    <input type="color" id="s-color-bg" value="#f8f7f4" />
+                    <input type="color" id="s-color-bg" value="#f6f5f2" />
                   </div>
                 </div>
               </div>
@@ -948,6 +1040,11 @@
 // ============================================================
 const PB_URL = window.PB_URL || 'https://your-pocketbase-instance.com';
 const MENU_BASE_URL = window.MENU_BASE_URL || `${location.origin}/menu`;
+const ADMIN_BUILD = '20260425-auth-refresh-v3';
+if (localStorage.getItem('qrmenu_admin_build') !== ADMIN_BUILD) {
+  localStorage.removeItem('current_resto');
+  localStorage.setItem('qrmenu_admin_build', ADMIN_BUILD);
+}
 
 // ============================================================
 // SUPERADMINS
@@ -1062,7 +1159,22 @@ function logout() {
   localStorage.removeItem('pb_token');
   localStorage.removeItem('pb_user_id');
   localStorage.removeItem('pb_user_email');
+  localStorage.removeItem('current_resto');
   location.reload();
+}
+
+function clearSession(showLogin = true) {
+  pb.token = null;
+  pb.userId = null;
+  pb.userEmail = null;
+  localStorage.removeItem('pb_token');
+  localStorage.removeItem('pb_user_id');
+  localStorage.removeItem('pb_user_email');
+  localStorage.removeItem('current_resto');
+  if (showLogin) {
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('auth-screen').style.display = 'flex';
+  }
 }
 
 // Allow Enter key in auth form
@@ -1097,6 +1209,21 @@ async function bootApp() {
     document.getElementById('auth-screen').style.display = 'flex';
     return;
   }
+  try {
+    const auth = await pbFetch('/collections/users/auth-refresh', { method: 'POST' });
+    pb.token = auth.token;
+    pb.userId = auth.record.id;
+    pb.userEmail = auth.record.email;
+    localStorage.setItem('pb_token', pb.token);
+    localStorage.setItem('pb_user_id', pb.userId);
+    localStorage.setItem('pb_user_email', pb.userEmail);
+  } catch(e) {
+    clearSession(true);
+    const errEl = document.getElementById('auth-error');
+    errEl.textContent = 'Session expirée, reconnectez-vous.';
+    errEl.classList.add('show');
+    return;
+  }
   document.getElementById('auth-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
 
@@ -1126,12 +1253,21 @@ async function loadRestaurants() {
       : `filter=(owner='${pb.userId}')`;
     const data = await pbFetch(`/collections/restaurants/records?${filter}&sort=name&perPage=200`);
     restaurants = data.items || [];
-    buildRestoSelector();
     // Restaurer le dernier resto sélectionné s'il appartient à l'user
+    const current = currentRestaurantId ? restaurants.find(r => r.id === currentRestaurantId) : null;
+    if (current?.active === false && (current.inactive_reason || '').toLowerCase().includes('ancienne')) {
+      currentRestaurantId = null;
+      localStorage.removeItem('current_resto');
+    }
     if (currentRestaurantId && !restaurants.find(r => r.id === currentRestaurantId)) {
       currentRestaurantId = null;
+      localStorage.removeItem('current_resto');
     }
+    const serviceComprisDemo = restaurants.find(r => r.slug === 'servicecompris' && r.active !== false);
+    if (!currentRestaurantId && serviceComprisDemo) currentRestaurantId = serviceComprisDemo.id;
     if (!currentRestaurantId && restaurants.length) currentRestaurantId = restaurants[0].id;
+    if (currentRestaurantId) localStorage.setItem('current_resto', currentRestaurantId);
+    buildRestoSelector();
     if (currentRestaurantId) { await loadMenuData(); }
     updateDashboard();
   } catch(e) {
@@ -1157,9 +1293,10 @@ function newRestaurant() {
   document.getElementById('s-name').value = '';
   document.getElementById('s-address').value = '';
   document.getElementById('s-description').value = '';
-  document.getElementById('s-color-primary').value = '#BEF264';
-  document.getElementById('s-color-text').value = '#020717';
-  document.getElementById('s-color-bg').value = '#f8fafc';
+  document.getElementById('s-color-primary').value = '#b08d57';
+  document.getElementById('s-color-text').value = '#111318';
+  document.getElementById('s-color-bg').value = '#f6f5f2';
+  setLogoPreview(null);
   renderMenus(); renderCategories(); renderItems(); updateDashboard();
   navigate('settings', document.querySelector('[data-view=settings]'));
   toast('Remplissez les infos du nouvel établissement', '');
@@ -1207,16 +1344,17 @@ function updateDashboard() {
   document.getElementById('stat-menus').textContent = menus.length;
   const resto = restaurants.find(r => r.id === currentRestaurantId);
   if (resto) {
-    const url = `${MENU_BASE_URL}/menu.html?slug=${resto.slug}`;
+    const url = `${MENU_BASE_URL}/${resto.slug}`;
     document.getElementById('stat-url').textContent = url;
-    document.getElementById('preview-link').href = `/menu/menu.html?slug=${resto.slug}`;
-    document.getElementById('preview-link-settings').href = `/menu/menu.html?slug=${resto.slug}`;
+    document.getElementById('preview-link').href = `/menu/${resto.slug}`;
+    document.getElementById('preview-link-settings').href = `/menu/${resto.slug}`;
     document.getElementById('s-name').value        = resto.name || '';
     document.getElementById('s-address').value     = resto.address || '';
     document.getElementById('s-description').value = resto.description || '';
-    document.getElementById('s-color-primary').value = resto.color_primary || '#FF5C35';
-    document.getElementById('s-color-text').value    = resto.color_text || '#ffffff';
-    document.getElementById('s-color-bg').value      = resto.color_bg || '#f8f7f4';
+    document.getElementById('s-color-primary').value = resto.color_primary || '#b08d57';
+    document.getElementById('s-color-text').value    = resto.color_text || '#111318';
+    document.getElementById('s-color-bg').value      = resto.color_bg || '#f6f5f2';
+    setLogoPreview(resto.logo ? `${PB_URL}/api/files/restaurants/${resto.id}/${resto.logo}` : null);
     if (isSuperAdmin) document.getElementById('s-active').checked = resto.active !== false;
   }
 }
@@ -1749,7 +1887,13 @@ async function saveSettings() {
   const name = document.getElementById('s-name').value.trim();
   if (!name) { toast('Nom requis', 'error'); return; }
 
-  const slug = name.toLowerCase()
+  const selectedId = document.getElementById('resto-selector')?.value || document.getElementById('resto-selector-mobile')?.value || currentRestaurantId;
+  if (selectedId && restaurants.find(r => r.id === selectedId)) {
+    currentRestaurantId = selectedId;
+    localStorage.setItem('current_resto', selectedId);
+  }
+  const currentResto = restaurants.find(r => r.id === currentRestaurantId);
+  const slug = currentResto?.slug || name.toLowerCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
     .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g,'');
 
@@ -1778,26 +1922,29 @@ async function saveSettings() {
   try {
     let saved;
     if (currentRestaurantId) {
-      saved = await fetch(`${PB_URL}/api/collections/restaurants/records/${currentRestaurantId}`, {
-        method: 'PATCH',
-        headers: { 'Authorization': `Bearer ${pb.token}` },
-        body: formData,
-      }).then(r => r.json());
+      if (!currentResto) throw new Error('Sélection expirée : rechargez la page puis choisissez à nouveau le restaurant.');
+      await pbFetch(`/collections/restaurants/records/${currentRestaurantId}`);
+      try {
+        saved = await pbFetch(`/collections/restaurants/records/${currentRestaurantId}`, { method: 'PATCH', body: formData });
+      } catch (err) {
+        const detail = [
+          `id=${currentRestaurantId}`,
+          `slug=${slug}`,
+          `email=${pb.userEmail || 'inconnu'}`,
+          `owner=${currentResto.owner || 'inconnu'}`
+        ].join(' · ');
+        throw new Error(`${err.message} (${detail})`);
+      }
       const idx = restaurants.findIndex(r => r.id === currentRestaurantId);
       if (idx >= 0) restaurants[idx] = saved;
     } else {
       formData.append('owner', pb.userId);
-      saved = await fetch(`${PB_URL}/api/collections/restaurants/records`, {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${pb.token}` },
-        body: formData,
-      }).then(r => r.json());
+      saved = await pbFetch(`/collections/restaurants/records`, { method: 'POST', body: formData });
       restaurants.push(saved);
       currentRestaurantId = saved.id;
       localStorage.setItem('current_resto', saved.id);
     }
-    buildRestoSelector();
-    updateDashboard();
+    await loadRestaurants();
     toast('Paramètres enregistrés', 'success');
   } catch(e) { toast('Erreur : ' + e.message, 'error'); }
 }
@@ -1812,7 +1959,7 @@ async function generateQR() {
   const resto = restaurants.find(r => r.id === currentRestaurantId);
   if (!resto) { wrap.innerHTML = '<p style="color:var(--muted);text-align:center">Configurez d\'abord votre restaurant</p>'; return; }
 
-  const menuUrl = `/menu/menu.html?slug=${resto.slug}`;
+  const menuUrl = `/menu/${resto.slug}`;
   const fullUrl = window.location.origin + menuUrl;
   document.getElementById('qr-url-display').textContent = fullUrl;
 
@@ -1857,13 +2004,30 @@ function previewLogo(e) {
   const file = e.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = ev => {
-    const wrap = document.getElementById('logo-upload');
-    let img = wrap.querySelector('img');
-    if (!img) { img = document.createElement('img'); img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px'; wrap.appendChild(img); }
-    img.src = ev.target.result;
-    document.getElementById('logo-label').style.display = 'none';
+    setLogoPreview(ev.target.result);
   };
   reader.readAsDataURL(file);
+}
+
+function setLogoPreview(src) {
+  const wrap = document.getElementById('logo-upload');
+  const label = document.getElementById('logo-label');
+  const input = document.getElementById('logo-file');
+  if (!wrap || !label) return;
+  let img = wrap.querySelector('img');
+  if (!src) {
+    if (img) img.remove();
+    label.style.display = '';
+    if (input) input.value = '';
+    return;
+  }
+  if (!img) {
+    img = document.createElement('img');
+    img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:8px;background:#fff;padding:10px';
+    wrap.appendChild(img);
+  }
+  img.src = src;
+  label.style.display = 'none';
 }
 
 function previewItemPhoto(e) {

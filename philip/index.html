@@ -1135,6 +1135,55 @@
     .stat-lbl { font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-top: 4px; }
 
     /* ============================
+       RESERVATION
+    ============================ */
+    .reservation-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .reservation-desc {
+      max-width: 680px;
+      margin: 0 auto 2.2rem;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+    .fork-widget {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      box-shadow: 0 18px 50px rgba(22,36,18,.08);
+    }
+    .fork-widget iframe {
+      display: block;
+      width: 100%;
+      min-height: 800px;
+      border: 0;
+      overflow: auto;
+    }
+    .reservation-phone {
+      margin: 2rem auto 0;
+      padding: 1.8rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      text-align: left;
+    }
+    .reservation-phone h3 {
+      font-size: 1.35rem;
+      margin-bottom: .55rem;
+    }
+    .reservation-phone p {
+      color: var(--muted);
+      font-size: .95rem;
+      margin-bottom: .8rem;
+    }
+    .reservation-phone .tel-link {
+      margin-top: .2rem;
+    }
+
+    /* ============================
        INFOS
     ============================ */
     .infos-grid {
@@ -1493,8 +1542,7 @@
         <a href="./" class="lang-btn active" aria-label="Français" title="Version française"><img src="img/flag-fr.svg" alt="FR" width="30"></a>
         <a href="./en/" class="lang-btn" aria-label="English" title="English version"><img src="img/flag-gb.svg" alt="EN" width="30"></a>
       </div>
-      <a href="tel:+33975592863" aria-label="Appeler le Restaurant Philip au 09 75 59 28 63" class="btn">
-        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      <a href="#reservation" aria-label="Réserver une table au Restaurant Philip" class="btn">
         Réserver
       </a>
       <button class="hbg" id="hbg" aria-label="Menu">
@@ -1529,10 +1577,6 @@
     <h1 class="sr-only">Restaurant Philip, Cuisine provençale depuis 1926, Fontaine-de-Vaucluse</h1>
     <p class="hero-sub">Au pied de la fontaine, là où la Sorgue jaillit de la roche.</p>
     <div class="hero-ctas">
-      <a href="tel:+33975592863" aria-label="Appeler le Restaurant Philip au 09 75 59 28 63" class="btn">
-        <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-        Réserver par téléphone
-      </a>
       <a href="#cadre" class="btn btn-ghost">Découvrir</a>
     </div>
   </div>
@@ -1811,9 +1855,9 @@
     </div><!-- /panels-wrap -->
 
     <div class="mosaic" data-aos="fade-up">
-      <div class="mo" onclick="lbGal(this,'img/plat-truite-petit-jarp-dressage-cuisine-philip.webp')">
-        <img src="img/plat-truite-petit-jarp-dressage-cuisine-philip.webp" alt="Truite du Petit Jarp en trois façons, dressage en cuisine, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Truite du Petit Jarp</span></div>
+      <div class="mo" onclick="lbGal(this,'img/cuisine-philip-dressage-2.webp?v=20260426')">
+        <img src="img/cuisine-philip-dressage-2.webp?v=20260426" alt="Plat maison dressé en cuisine, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Cuisine du Restaurant Philip</span></div>
       </div>
       <div class="mo" onclick="lbGal(this,'img/entree-asperges-pays-declinaison-philip.webp')">
         <img src="img/entree-asperges-pays-declinaison-philip.webp" alt="Asperges du Pays en déclinaison, Restaurant Philip" loading="lazy">
@@ -1831,17 +1875,17 @@
         <img src="img/plat-agneau-croustillant-confit-legumes-philip.webp" alt="Croustillant d'épaule d'agneau confit aux parfums méditerranéens, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Croustillant d'agneau confit</span></div>
       </div>
-      <div class="mo" onclick="lbGal(this,'img/plat-confit-canard-abricots-restaurant-philip.webp')">
-        <img src="img/plat-confit-canard-abricots-restaurant-philip.webp" alt="Confit de canard aux abricots, dressage en cuisine, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Confit de canard aux abricots</span></div>
+      <div class="mo" onclick="lbGal(this,'img/cuisine-philip-dressage-1.webp?v=20260426')">
+        <img src="img/cuisine-philip-dressage-1.webp?v=20260426" alt="Assiette maison dressée en cuisine, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Cuisine du Restaurant Philip</span></div>
       </div>
-      <div class="mo" onclick="lbGal(this,'img/dessert-fromages-nathalie-morotti-philip.webp')">
-        <img src="img/dessert-fromages-nathalie-morotti-philip.webp" alt="Plateau de fromages de Nathalie Morotti, fromagère à Pernes-les-Fontaines, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Fromages Nathalie Morotti</span></div>
+      <div class="mo" onclick="lbGal(this,'img/dessert-philip-fromage.webp?v=20260426')">
+        <img src="img/dessert-philip-fromage.webp?v=20260426" alt="Assiette de fromage, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Assiette de fromage</span></div>
       </div>
-      <div class="mo" onclick="lbGal(this,'img/dessert-fraises-pays-tartelette-philip.webp')">
-        <img src="img/dessert-fraises-pays-tartelette-philip.webp" alt="Fraises du Pays en tartelette, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Fraises du Pays en tartelette</span></div>
+      <div class="mo" onclick="lbGal(this,'img/dessert-philip-maison.webp?v=20260426')">
+        <img src="img/dessert-philip-maison.webp?v=20260426" alt="Dessert maison, Restaurant Philip" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Dessert maison</span></div>
       </div>
       <div class="mo" onclick="lbGal(this,'img/dessert-coupe-fraises-glace-maison-philip.webp')">
         <img src="img/dessert-coupe-fraises-glace-maison-philip.webp" alt="Coupe de fraises et glace artisanale, Restaurant Philip" loading="lazy">
@@ -1862,9 +1906,9 @@
       <p class="bar-text">Notre bar vous accueille en terrasse pour un apéritif, une boisson fraîche ou un café. Salades, glaces artisanales, planches de charcuterie, snacks, vins et bières fraîches : de quoi se faire plaisir au bord de la Sorgue, sans nécessairement déjeuner, juste le temps d'une pause provençale.</p>
     </div>
     <div class="bar-mosaic" data-aos="fade-up">
-      <div class="mo" onclick="lbGal(this,'img/terrasse-bord-sorgue-chaises-restaurant-philip-opt.webp')">
-        <img src="img/terrasse-bord-sorgue-chaises-restaurant-philip-opt.webp" alt="Tables en terrasse au bord de la Sorgue turquoise, Restaurant Philip" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Au bord de la Sorgue</span></div>
+      <div class="mo" onclick="lbGal(this,'img/terrasse-philip-sorgue.webp?v=20260426')">
+        <img src="img/terrasse-philip-sorgue.webp?v=20260426" alt="Terrasse du Restaurant Philip au bord de la Sorgue" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Terrasse du Restaurant Philip</span></div>
       </div>
       <div class="mo" onclick="lbGal(this,'img/salade-truite-fumee-ecrevisses-gressins-philip.webp')">
         <img src="img/salade-truite-fumee-ecrevisses-gressins-philip.webp" alt="Salade à la truite fumée, queues d'écrevisses et gressins, Restaurant Philip" loading="lazy">
@@ -1878,9 +1922,9 @@
         <img src="img/terrasse-panoramique-platanes-sorgue-philip-opt.webp" alt="Terrasse panoramique sous les platanes au bord de la Sorgue, Restaurant Philip" loading="lazy">
         <div class="mo-ov"><span class="mo-label">Terrasse sous les platanes</span></div>
       </div>
-      <div class="mo" onclick="lbGal(this,'img/vue-falaise-nature-terrasse-philip-vaucluse-opt.webp')">
-        <img src="img/vue-falaise-nature-terrasse-philip-vaucluse-opt.webp" alt="Vue sur la falaise depuis la terrasse bar, Fontaine-de-Vaucluse" loading="lazy">
-        <div class="mo-ov"><span class="mo-label">Vue sur la falaise</span></div>
+      <div class="mo" onclick="lbGal(this,'img/terrasse-philip-fontaine-vaucluse.webp?v=20260426')">
+        <img src="img/terrasse-philip-fontaine-vaucluse.webp?v=20260426" alt="Terrasse du Restaurant Philip à Fontaine-de-Vaucluse" loading="lazy">
+        <div class="mo-ov"><span class="mo-label">Terrasse à Fontaine-de-Vaucluse</span></div>
       </div>
     </div>
     <div class="bar-infos" data-aos="fade-up">
@@ -2027,6 +2071,34 @@
   </div>
 </section>
 
+<!-- ========== RESERVATION ========== -->
+<section id="reservation">
+  <div class="container">
+    <div class="reservation-wrap" data-aos="fade-up">
+      <span class="label">Réservation</span>
+      <h2 class="title">Réserver <em>votre table</em></h2>
+      <div class="rule"></div>
+      <p class="reservation-desc">Choisissez votre date, votre horaire et le nombre de convives directement en ligne. En saison, la réservation est vivement recommandée.</p>
+      <div class="fork-widget">
+        <iframe
+          src="https://widget.thefork.com/285d2388-3e1b-423d-80fd-f52046fc726e"
+          allow="payment *"
+          title="Réservation Restaurant Philip avec TheFork"
+        ></iframe>
+      </div>
+      <div class="reservation-phone">
+        <h3>Vous préférez réserver par téléphone ?</h3>
+        <p>Appelez-nous directement : nous vous confirmerons les disponibilités, l'horaire et les informations utiles pour votre venue.</p>
+        <a href="tel:+33975592863" class="tel-link">
+          <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          +33 9 75 59 28 63
+        </a>
+        <p style="margin-top:.9rem">Restaurant Philip, Jardin de Pétrarque, 510 Chemin de la Fontaine, 84800 Fontaine-de-Vaucluse. Ouvert du 1er avril au 30 septembre, tous les jours de 10h à 20h30.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ========== INFOS ========== -->
 <section id="infos" class="alt">
   <div class="container">
@@ -2071,9 +2143,6 @@
             <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
             +33 9 75 59 28 63
           </a>
-          <div style="margin-top:1.5rem">
-            <a href="tel:+33975592863" aria-label="Appeler le Restaurant Philip au 09 75 59 28 63" class="btn">Appeler pour réserver</a>
-          </div>
         </div>
       </div>
     </div>
@@ -2186,9 +2255,6 @@
         <ul>
           <li><a href="tel:+33975592863">+33 9 75 59 28 63</a></li>
         </ul>
-        <div style="margin-top:1.4rem">
-          <a href="tel:+33975592863" aria-label="Appeler le Restaurant Philip au 09 75 59 28 63" class="btn" style="font-size:.76rem;padding:10px 18px;color:#fff">Réserver</a>
-        </div>
       </div>
     </div>
     <div class="ft-bottom">
@@ -2208,9 +2274,8 @@
 
 <!-- Mobile CTA -->
 <div class="mob-cta">
-  <a href="tel:+33975592863" aria-label="Appeler le Restaurant Philip au 09 75 59 28 63" class="btn">
-    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-    Appeler pour réserver
+  <a href="#reservation" aria-label="Réserver une table au Restaurant Philip" class="btn">
+    Réserver
   </a>
 </div>
 

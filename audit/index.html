@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Demandez un audit gratuit Service Compris et choisissez un créneau de rendez-vous.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#020617">
+  <link rel="canonical" href="https://servicecompris.pro/audit/">
+  <title>Audit gratuit | Service Compris</title>
+  <link rel="icon" href="../favicon.ico">
+  <style>
+    :root { --bg:#020617; --bg2:#0a0f1e; --surface:#0f172a; --text:#fff; --muted:#94a3b8; --line:rgba(255,255,255,.1); --accent:#bef264; --accent2:#a3e635; --danger:#ef4444; --ok:#22c55e; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:radial-gradient(circle at 18% 8%,rgba(190,242,100,.15),transparent 26rem),linear-gradient(135deg,var(--bg),var(--bg2)); color:var(--text); line-height:1.5; }
+    a { color:inherit; }
+    button,input,textarea,select { font:inherit; }
+    .wrap { width:min(980px,calc(100% - 32px)); margin:0 auto; padding:34px 0; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:18px; margin-bottom:32px; }
+    .logo img { height:34px; width:auto; }
+    .back { color:var(--muted); font-size:.86rem; font-weight:800; text-decoration:none; }
+    .panel { display:grid; grid-template-columns:1fr; overflow:hidden; background:rgba(15,23,42,.96); border:1px solid var(--line); border-radius:18px; box-shadow:0 28px 90px rgba(0,0,0,.35); transition:min-height .35s ease; }
+    .intro { padding:clamp(26px,5vw,48px); background:linear-gradient(160deg,rgba(190,242,100,.08),rgba(15,23,42,.96) 48%); border-bottom:1px solid var(--line); }
+    .eyebrow { color:var(--accent); font-size:.72rem; font-weight:900; letter-spacing:.16em; text-transform:uppercase; margin-bottom:14px; }
+    h1 { font-size:clamp(2.2rem,7vw,4.5rem); line-height:.98; letter-spacing:-.05em; font-style:italic; margin-bottom:16px; }
+    .intro p { color:var(--muted); max-width:55ch; }
+    form { padding:clamp(24px,5vw,48px); display:grid; gap:26px; transition:opacity .28s ease, transform .28s ease; }
+    .group { display:grid; gap:14px; }
+    .group-title { color:var(--accent); font-size:.72rem; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }
+    .grid { display:grid; grid-template-columns:1fr; gap:14px; }
+    label { display:grid; gap:7px; color:var(--muted); font-size:.78rem; font-weight:900; letter-spacing:.07em; text-transform:uppercase; }
+    input,textarea,select { width:100%; border:1px solid var(--line); border-radius:10px; background:#020617; color:var(--text); outline:none; }
+    input,select { min-height:54px; padding:0 14px; }
+    textarea { min-height:108px; padding:14px; resize:vertical; }
+    input:focus,textarea:focus,select:focus { border-color:var(--accent); box-shadow:0 0 0 4px rgba(190,242,100,.16); }
+    .booking-grid { display:grid; grid-template-columns:1fr; gap:18px; }
+    .calendar { border:1px solid var(--line); border-radius:14px; padding:14px; background:#020617; }
+    .calendar-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+    .calendar-title { font-weight:900; text-transform:capitalize; }
+    .calendar-nav { display:flex; gap:8px; }
+    .mini { min-height:44px; padding:0 12px; border-radius:9px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--text); font-weight:900; cursor:pointer; }
+    .calendar-weekdays,.calendar-days { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+    .calendar-weekdays span { color:var(--muted); font-size:.68rem; font-weight:900; text-align:center; text-transform:uppercase; }
+    .day { min-height:42px; border-radius:9px; border:1px solid transparent; background:transparent; color:var(--text); font-weight:900; cursor:pointer; }
+    .day:hover { border-color:rgba(190,242,100,.45); }
+    .day.muted { color:rgba(148,163,184,.35); cursor:default; }
+    .day.past { color:rgba(148,163,184,.25); cursor:not-allowed; }
+    .day.today { border-color:rgba(190,242,100,.35); }
+    .day.selected { background:var(--accent); color:#020617; border-color:var(--accent); }
+    .selected-date { color:var(--muted); font-size:.86rem; font-weight:800; }
+    .slots { display:grid; grid-template-columns:repeat(auto-fill,minmax(118px,1fr)); gap:10px; max-height:260px; overflow:auto; padding-right:4px; }
+    .slot { min-height:50px; border-radius:10px; border:1px solid var(--line); background:#020617; color:var(--text); font-weight:900; cursor:pointer; }
+    .slot.selected { background:var(--accent); color:#020617; border-color:var(--accent); }
+    .contact-methods { display:none; gap:10px; grid-template-columns:1fr; }
+    .contact-methods.show { display:grid; }
+    .contact-method-list { display:grid; grid-template-columns:1fr; gap:10px; }
+    .contact-method { min-height:74px; border:1px solid var(--line); border-radius:12px; background:#020617; color:var(--text); padding:14px; text-align:left; cursor:pointer; }
+    .contact-method strong { display:block; font-size:.95rem; margin-bottom:3px; }
+    .contact-method span { display:block; color:var(--muted); font-size:.78rem; }
+    .contact-method.selected { border-color:var(--accent); background:rgba(190,242,100,.1); }
+    .consent { display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:.84rem; text-transform:none; letter-spacing:0; font-weight:600; }
+    .consent input { width:18px; min-width:18px; height:18px; min-height:18px; margin-top:2px; }
+    .hidden-field { position:absolute; left:-9999px; opacity:0; }
+    .submit { min-height:56px; border:0; border-radius:10px; background:var(--accent); color:#020617; font-weight:900; cursor:pointer; }
+    .submit:hover { background:var(--accent2); }
+    .submit:disabled { opacity:.48; cursor:not-allowed; }
+    .message { display:none; padding:16px; border-radius:10px; font-size:.92rem; }
+    .message.show { display:block; }
+    .message.ok { background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.35); color:#bbf7d0; }
+    .message.error { background:rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.35); color:#fecaca; }
+    .gcal { display:inline-flex; margin-top:12px; min-height:46px; align-items:center; justify-content:center; padding:0 16px; border-radius:9px; background:var(--accent); color:#020617; font-weight:900; text-decoration:none; }
+    .success-screen {
+      display:none;
+      min-height:520px;
+      place-items:center;
+      padding:clamp(28px,6vw,72px);
+      text-align:center;
+      opacity:0;
+      transform:translateY(12px);
+      transition:opacity .35s ease, transform .35s ease;
+    }
+    .success-card { max-width:520px; }
+    .success-card h2 { font-size:clamp(2rem,6vw,3.7rem); line-height:1; letter-spacing:-.05em; font-style:italic; margin-bottom:14px; }
+    .success-card p { color:var(--muted); font-size:1.02rem; }
+    .panel.submitted { display:block; }
+    .panel.submitted .intro,
+    .panel.submitted form { display:none; }
+    .panel.submitted .success-screen { display:grid; animation:successIn .42s ease forwards; }
+    @keyframes successIn { to { opacity:1; transform:none; } }
+    @media (min-width:760px) { .panel { grid-template-columns:330px 1fr; } .intro { border-bottom:0; border-right:1px solid var(--line); } .grid.two { grid-template-columns:1fr 1fr; } .contact-method-list { grid-template-columns:repeat(3,1fr); } }
+    @media (min-width:920px) { .booking-grid { grid-template-columns:300px 1fr; align-items:start; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="logo" href="../" aria-label="Service Compris"><img src="../assets/logo large.png" alt="Service Compris" width="1050" height="330"></a>
+      <a class="back" href="../">Retour au site</a>
+    </header>
+
+    <main class="panel" id="audit-panel">
+      <section class="intro">
+        <div class="eyebrow">Audit gratuit</div>
+        <h1>Un point clair, un créneau calé.</h1>
+        <p>Laissez vos coordonnées, choisissez un rendez-vous, et nous préparons un premier audit de votre présence en ligne avant l'échange.</p>
+      </section>
+
+      <form id="audit-form">
+        <input class="hidden-field" name="website" id="website" autocomplete="off" tabindex="-1">
+        <input class="hidden-field" name="form_started_at" id="form-started-at" autocomplete="off" tabindex="-1">
+
+        <section class="group">
+          <div class="group-title">Vos informations</div>
+          <div class="grid two">
+            <label>Entreprise
+              <input id="business-name" name="business_name" required placeholder="Nom de votre entreprise">
+            </label>
+            <label>Type d'activité
+              <input id="business-type" name="business_type" placeholder="Restaurant, conseil, commerce...">
+            </label>
+          </div>
+          <div class="grid two">
+            <label>Votre nom
+              <input id="contact-name" name="contact_name" required placeholder="Prénom Nom">
+            </label>
+            <label>Email
+              <input id="email" name="email" type="email" required placeholder="vous@entreprise.fr">
+            </label>
+          </div>
+          <div class="grid two">
+            <label>Téléphone
+              <input id="phone" name="phone" type="tel" placeholder="06 12 34 56 78">
+            </label>
+            <label>Site ou réseau à auditer
+              <input id="website-url" name="website_url" placeholder="https://...">
+            </label>
+          </div>
+          <label>Contexte
+            <textarea id="message" name="message" placeholder="Ce que vous voulez améliorer, vos priorités, vos blocages..."></textarea>
+          </label>
+        </section>
+
+        <section class="group">
+          <div class="group-title">Créneau</div>
+          <div class="booking-grid">
+            <div class="calendar" aria-label="Calendrier de réservation">
+              <div class="calendar-head">
+                <button class="mini" type="button" id="prev-month" aria-label="Mois précédent">‹</button>
+                <div class="calendar-title" id="calendar-title"></div>
+                <button class="mini" type="button" id="next-month" aria-label="Mois suivant">›</button>
+              </div>
+              <div class="calendar-weekdays" aria-hidden="true">
+                <span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span>
+              </div>
+              <div class="calendar-days" id="calendar-days"></div>
+            </div>
+            <div>
+              <p class="selected-date" id="selected-date"></p>
+              <div class="slots" id="slots"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="group contact-methods" id="contact-methods" aria-label="Mode de contact">
+          <div class="group-title">Comment vous contacter ?</div>
+          <div class="contact-method-list">
+            <button class="contact-method" type="button" data-method="phone">
+              <strong>Téléphone</strong>
+              <span>On vous appelle au créneau choisi.</span>
+            </button>
+            <button class="contact-method" type="button" data-method="whatsapp">
+              <strong>WhatsApp</strong>
+              <span>Pratique si vous êtes souvent mobile.</span>
+            </button>
+            <button class="contact-method" type="button" data-method="meet">
+              <strong>Google Meet</strong>
+              <span>Idéal pour partager votre écran.</span>
+            </button>
+          </div>
+        </section>
+
+        <label class="consent">
+          <input id="consent" name="consent" type="checkbox" value="yes" required>
+          <span>J'accepte que Service Compris utilise ces informations pour me recontacter au sujet de ma demande d'audit. Voir la <a href="../legal/confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a>.</span>
+        </label>
+
+        <button class="submit" id="submit" type="submit">Envoyer ma demande d'audit</button>
+        <div class="message ok" id="ok"></div>
+        <div class="message error" id="error"></div>
+      </form>
+
+      <section class="success-screen" id="success-screen" aria-live="polite">
+        <div class="success-card">
+          <h2>Demande envoyée.</h2>
+          <p id="success-text"></p>
+          <a class="gcal" id="success-calendar" href="#" target="_blank" rel="noopener">Ajouter à Google Calendar</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const PB_URL = 'https://servicecompris.pro/menu';
+    const TEAM_EMAILS = ['romain@servicecompris.pro', 'ft@servicecompris.pro', 'damien@servicecompris.pro'];
+    const state = { booked: new Set(), selectedSlot: null, selectedDate: '', calendarMonth: null, method: null };
+    const $ = id => document.getElementById(id);
+    const pad = n => String(n).padStart(2, '0');
+    const todayKey = () => {
+      const d = new Date();
+      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    };
+    const dateKey = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    const monthLabel = d => new Intl.DateTimeFormat('fr-FR', { month:'long', year:'numeric' }).format(d);
+    const longDateLabel = dateStr => {
+      const d = new Date(`${dateStr}T12:00:00`);
+      return new Intl.DateTimeFormat('fr-FR', { weekday:'long', day:'numeric', month:'long' }).format(d);
+    };
+    const slotKey = (date, hour) => `${date}T${pad(hour)}:00`;
+    const formatSlotLabel = key => {
+      const [date, time] = key.split('T');
+      const d = new Date(`${date}T12:00:00`);
+      const day = new Intl.DateTimeFormat('fr-FR', { weekday:'short', day:'2-digit', month:'short' }).format(d);
+      return `${day} · ${time.replace(':00','h')}`;
+    };
+    const calendarUrl = data => {
+      const date = data.slot_key.slice(0, 10).replace(/-/g, '');
+      const hour = Number(data.slot_key.slice(11, 13));
+      const start = `${date}T${pad(hour)}0000`;
+      const end = `${date}T${pad(hour + 1)}0000`;
+      const title = encodeURIComponent(`Audit Service Compris - ${data.business_name}`);
+      const details = encodeURIComponent(`Contact : ${data.contact_name}\nCanal : ${methodLabel(data.contact_method)}\nEmail : ${data.email}\nTéléphone : ${data.phone || '-'}\nActivité : ${data.business_type || '-'}\nSite : ${data.website_url || '-'}\n\n${data.message || ''}`);
+      const attendees = encodeURIComponent([data.email].concat(TEAM_EMAILS).join(','));
+      return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&add=${attendees}`;
+    };
+    const methodLabel = method => method === 'phone' ? 'Téléphone' : method === 'whatsapp' ? 'WhatsApp' : 'Google Meet';
+    const contactValueForMethod = payload => payload.contact_method === 'meet' ? payload.email : payload.phone;
+
+    async function loadBookedSlots() {
+      const res = await fetch(`${PB_URL}/api/collections/booking_slots/records?perPage=500`);
+      const data = await res.json();
+      state.booked = new Set((data.items || []).map(item => item.slot_key));
+    }
+    function renderCalendar() {
+      const month = state.calendarMonth || new Date(`${state.selectedDate || todayKey()}T12:00:00`);
+      state.calendarMonth = new Date(month.getFullYear(), month.getMonth(), 1);
+      $('calendar-title').textContent = monthLabel(state.calendarMonth);
+      const first = new Date(state.calendarMonth);
+      const offset = (first.getDay() + 6) % 7;
+      const start = new Date(first);
+      start.setDate(first.getDate() - offset);
+      const today = todayKey();
+      const wrap = $('calendar-days');
+      wrap.innerHTML = '';
+      for (let i = 0; i < 42; i++) {
+        const d = new Date(start);
+        d.setDate(start.getDate() + i);
+        const key = dateKey(d);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'day';
+        btn.textContent = d.getDate();
+        if (d.getMonth() !== state.calendarMonth.getMonth()) btn.classList.add('muted');
+        if (key < today) {
+          btn.classList.add('past');
+          btn.disabled = true;
+        }
+        if (key === today) btn.classList.add('today');
+        if (key === state.selectedDate) btn.classList.add('selected');
+        btn.addEventListener('click', () => {
+          state.selectedDate = key;
+          state.selectedSlot = null;
+          renderCalendar();
+          renderSlots();
+        });
+        wrap.appendChild(btn);
+      }
+    }
+    function renderSlots() {
+      const date = state.selectedDate || todayKey();
+      const now = new Date();
+      const wrap = $('slots');
+      wrap.innerHTML = '';
+      $('selected-date').textContent = `Créneaux disponibles le ${longDateLabel(date)}`;
+      for (let hour = 8; hour <= 18; hour++) {
+        const key = slotKey(date, hour);
+        if (new Date(`${date}T${pad(hour)}:00:00`) < now) continue;
+        if (state.booked.has(key)) continue;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `slot${state.selectedSlot === key ? ' selected' : ''}`;
+        btn.textContent = `${pad(hour)}h00`;
+        btn.addEventListener('click', () => {
+          state.selectedSlot = key;
+          $('contact-methods').classList.add('show');
+          renderSlots();
+        });
+        wrap.appendChild(btn);
+      }
+      if (!wrap.children.length) wrap.innerHTML = '<p style="color:var(--muted);font-size:.9rem;">Aucun créneau disponible sur cette journée.</p>';
+    }
+    function shiftMonth(delta) {
+      const d = new Date(state.calendarMonth || new Date());
+      d.setMonth(d.getMonth() + delta);
+      state.calendarMonth = new Date(d.getFullYear(), d.getMonth(), 1);
+      renderCalendar();
+    }
+    function show(id, html) {
+      ['ok','error'].forEach(key => $(key).classList.remove('show'));
+      $(id).innerHTML = html;
+      $(id).classList.add('show');
+    }
+    function showSuccess(payload) {
+      $('success-text').textContent = `Votre créneau est réservé : ${payload.slot_label}.`;
+      $('success-calendar').href = payload.calendar_url;
+      $('audit-panel').classList.add('submitted');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    async function submitAudit(event) {
+      event.preventDefault();
+      if ($('website').value) return;
+      if (!state.selectedSlot) {
+        show('error', 'Choisissez un créneau avant d’envoyer la demande.');
+        return;
+      }
+      if (!state.method) {
+        show('error', 'Choisissez un mode de contact : téléphone, WhatsApp ou Google Meet.');
+        return;
+      }
+      const submit = $('submit');
+      submit.disabled = true;
+      submit.textContent = 'Envoi en cours...';
+      const payload = {
+        business_name: $('business-name').value.trim(),
+        business_type: $('business-type').value.trim(),
+        contact_name: $('contact-name').value.trim(),
+        email: $('email').value.trim(),
+        phone: $('phone').value.trim(),
+        website_url: $('website-url').value.trim(),
+        message: $('message').value.trim(),
+        contact_method: state.method,
+        form_started_at: $('form-started-at').value,
+        slot_key: state.selectedSlot,
+        slot_label: formatSlotLabel(state.selectedSlot),
+        consent: $('consent').checked ? 'yes' : ''
+      };
+      if ((payload.contact_method === 'phone' || payload.contact_method === 'whatsapp') && !payload.phone) {
+        show('error', 'Ajoutez un numéro de téléphone pour ce mode de contact.');
+        submit.disabled = false;
+        submit.textContent = "Envoyer ma demande d'audit";
+        return;
+      }
+      payload.calendar_url = calendarUrl(payload);
+      try {
+        const slotRes = await fetch(`${PB_URL}/api/collections/booking_slots/records`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            slot_key: payload.slot_key,
+            starts_label: payload.slot_label,
+            restaurant_name: `Audit - ${payload.business_name}`,
+            prospect_first_name: payload.contact_name
+          })
+        });
+        if (!slotRes.ok) {
+          await loadBookedSlots();
+          renderSlots();
+          throw new Error('Ce créneau vient d’être pris. Choisissez-en un autre.');
+        }
+        const bookingRes = await fetch(`${PB_URL}/api/collections/booking_requests/records`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            restaurant_name: `Audit - ${payload.business_name}`.slice(0, 200),
+            prospect_first_name: payload.contact_name.slice(0, 100),
+            slot_key: payload.slot_key,
+            starts_label: payload.slot_label,
+            contact_method: payload.contact_method,
+            contact_value: contactValueForMethod(payload),
+            invite_status: 'audit_request_google_calendar_link'
+          })
+        });
+        if (!bookingRes.ok) throw new Error('Impossible de créer le rendez-vous.');
+        const emailRes = await fetch('send-audit.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!emailRes.ok) throw new Error("Le rendez-vous est créé, mais l'email détaillé n'a pas pu être envoyé.");
+        state.booked.add(payload.slot_key);
+        showSuccess(payload);
+      } catch (error) {
+        show('error', error.message);
+      } finally {
+        submit.disabled = false;
+        submit.textContent = "Envoyer ma demande d'audit";
+      }
+    }
+    state.selectedDate = todayKey();
+    state.calendarMonth = new Date(`${state.selectedDate}T12:00:00`);
+    $('form-started-at').value = String(Date.now());
+    $('prev-month').addEventListener('click', () => shiftMonth(-1));
+    $('next-month').addEventListener('click', () => shiftMonth(1));
+    document.querySelectorAll('.contact-method').forEach(button => {
+      button.addEventListener('click', () => {
+        state.method = button.dataset.method;
+        document.querySelectorAll('.contact-method').forEach(item => item.classList.toggle('selected', item === button));
+      });
+    });
+    $('audit-form').addEventListener('submit', submitAudit);
+    loadBookedSlots().then(() => { renderCalendar(); renderSlots(); }).catch(() => show('error', 'Impossible de charger les créneaux pour le moment.'));
+  </script>
+</body>
+</html>

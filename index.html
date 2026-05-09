@@ -3,15 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Service Compris pilote l'intégralité de votre communication numérique : site web, réseaux sociaux, avis Google, menu numérique QR. Conçu pour les restaurateurs.">
-  <title>Service Compris · Votre image en ligne, bien cuisinée</title>
+  <meta name="description" content="Service Compris crée et pilote la présence numérique des restaurants : site internet, menu QR, réseaux sociaux, avis Google, photos et vidéos professionnelles.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#020617">
+  <link rel="canonical" href="https://servicecompris.pro/">
+  <title>Service Compris | Site internet, menu QR et réseaux sociaux pour restaurants</title>
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Service Compris">
+  <meta property="og:title" content="Service Compris | Présence numérique pour restaurants">
+  <meta property="og:description" content="Sites web, menus QR, réseaux sociaux, avis Google, photos et vidéos pour restaurateurs.">
+  <meta property="og:url" content="https://servicecompris.pro/">
+  <meta property="og:image" content="https://servicecompris.pro/philip/img/terrasse-animee-platanes-sorgue-restaurant-philip.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Service Compris | Présence numérique pour restaurants">
+  <meta name="twitter:description" content="Sites web, menus QR, réseaux sociaux, avis Google, photos et vidéos pour restaurateurs.">
+  <meta name="twitter:image" content="https://servicecompris.pro/philip/img/terrasse-animee-platanes-sorgue-restaurant-philip.webp">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://analytics.servicecompris.pro">
+  <link rel="preload" as="image" href="philip/img/terrasse-animee-platanes-sorgue-restaurant-philip.webp">
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Service Compris",
+    "url": "https://servicecompris.pro/",
+    "logo": "https://servicecompris.pro/assets/logo_service.png",
+    "description": "Service Compris crée et pilote la présence numérique des restaurants : site internet, menu QR, réseaux sociaux, avis Google, photos et vidéos professionnelles.",
+    "areaServed": "France",
+    "knowsAbout": [
+      "site internet restaurant",
+      "menu QR restaurant",
+      "réseaux sociaux restaurant",
+      "avis Google restaurant",
+      "photographie culinaire"
+    ],
+    "sameAs": [
+      "https://www.restaurant-philip.fr"
+    ],
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "name": "Pack Web",
+        "category": "Site internet restaurant et menu QR"
+      },
+      {
+        "@type": "Offer",
+        "name": "Pack Social",
+        "category": "Réseaux sociaux et avis Google"
+      },
+      {
+        "@type": "Offer",
+        "name": "Pack Combo",
+        "category": "Présence numérique complète pour restaurants"
+      }
+    ]
+  }
+  </script>
 
   <style>
     /* ========================
@@ -199,6 +255,10 @@
       flex-direction: column;
       gap: 12px;
     }
+    .hero-ctas .btn-lime-lg {
+      min-width: 300px;
+      white-space: nowrap;
+    }
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -225,6 +285,139 @@
     @keyframes dot-pulse {
       0%,100% { opacity: 1; }
       50%      { opacity: .3; }
+    }
+
+    /* ========================
+       ENTRY CHOICE
+    ======================== */
+    .entry-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(2,6,23,.82);
+      backdrop-filter: blur(18px);
+    }
+    .entry-modal.is-visible { display: flex; }
+    .entry-dialog {
+      width: min(680px, 100%);
+      background: linear-gradient(160deg, rgba(15,23,42,.98), rgba(2,6,23,.98));
+      border: 1px solid rgba(190,242,100,.22);
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 24px 90px rgba(0,0,0,.45);
+    }
+    .entry-dialog img {
+      width: 150px;
+      height: auto;
+      margin-bottom: 22px;
+    }
+    .entry-dialog h2 {
+      font-size: clamp(1.55rem, 5vw, 2.25rem);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1.12;
+      letter-spacing: -.02em;
+      margin-bottom: 10px;
+    }
+    .entry-dialog p {
+      color: var(--slate);
+      font-size: .95rem;
+      margin-bottom: 24px;
+    }
+    .entry-options {
+      display: grid;
+      gap: 12px;
+    }
+    .entry-choice {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--white);
+      text-align: left;
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .entry-choice:hover {
+      transform: translateY(-2px);
+      border-color: rgba(190,242,100,.45);
+      background: rgba(190,242,100,.08);
+    }
+    .entry-choice strong {
+      display: block;
+      color: var(--white);
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+    .entry-choice span {
+      display: block;
+      color: var(--slate);
+      font-size: .82rem;
+    }
+    .entry-choice::after {
+      content: "→";
+      color: var(--lime);
+      font-size: 1.2rem;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+    .privacy-banner {
+      position: fixed;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      z-index: 320;
+      width: min(880px, calc(100% - 40px));
+      margin: 0 auto;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px;
+      background: rgba(15,23,42,.98);
+      border: 1px solid rgba(190,242,100,.22);
+      border-radius: 12px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.4);
+    }
+    .privacy-banner.is-visible { display: flex; }
+    .privacy-banner strong {
+      display: block;
+      font-size: .9rem;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+    .privacy-banner p {
+      color: var(--slate);
+      font-size: .78rem;
+      line-height: 1.5;
+    }
+    .privacy-actions {
+      display: flex;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+    .privacy-btn {
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+    .privacy-refuse {
+      background: rgba(255,255,255,.06);
+      color: var(--slate);
+    }
+    .privacy-accept {
+      background: var(--lime);
+      color: var(--bg);
     }
 
     /* ========================
@@ -559,6 +752,35 @@
     #cta-band p { font-size: .95rem; color: var(--slate); margin-bottom: 28px; }
     #cta-band .btn-lime-lg { max-width: 360px; margin: 0 auto; }
 
+    .business-reminder {
+      padding: 34px 0;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .business-reminder-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .business-reminder p {
+      color: var(--slate);
+      font-size: .88rem;
+      line-height: 1.55;
+      max-width: 660px;
+    }
+    .business-reminder strong {
+      color: var(--white);
+      font-weight: 800;
+    }
+    .business-reminder a {
+      color: var(--lime);
+      font-size: .88rem;
+      font-weight: 800;
+      border-bottom: 1px solid rgba(190,242,100,.35);
+    }
+
     /* ========================
        FOOTER
     ======================== */
@@ -573,7 +795,7 @@
       gap: 36px;
       margin-bottom: 36px;
     }
-    .footer-brand img { height: 36px; margin-bottom: 12px; }
+    .footer-brand img { width: 180px; height: auto; margin-bottom: 12px; }
     .footer-brand p { font-size: .8rem; color: var(--slate); line-height: 1.7; }
     .footer-col h4 {
       font-size: .68rem;
@@ -723,41 +945,33 @@
     }
 
     /* ========================
-       PAS QUE DES RESTOS
+       FAQ
     ======================== */
-    #au-dela {
+    #faq {
       padding: 80px 0;
     }
-    .au-dela-inner {
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 34px;
+    }
+    .faq-item {
       background: var(--surface);
-      border: 1px solid rgba(190,242,100,.15);
-      border-radius: 20px;
-      padding: 48px 40px;
-      text-align: center;
-    }
-    .au-dela-inner .section-title { margin-bottom: 16px; }
-    .au-dela-inner p {
-      font-size: .98rem;
-      color: var(--slate);
-      max-width: 600px;
-      margin: 0 auto 32px;
-      line-height: 1.75;
-    }
-    .au-dela-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 36px;
-    }
-    .au-dela-tag {
-      font-size: .78rem;
-      font-weight: 600;
-      color: var(--white);
-      background: rgba(255,255,255,.06);
       border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 7px 16px;
+      border-radius: var(--r);
+      padding: 24px;
+    }
+    .faq-item h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .faq-item p {
+      font-size: .88rem;
+      color: var(--slate);
+      line-height: 1.65;
     }
 
     /* ========================
@@ -785,18 +999,58 @@
       .footer-grid { grid-template-columns: 1.6fr 1fr 1fr; }
       .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; }
       .real-grid { grid-template-columns: repeat(2, 1fr); }
-      .au-dela-inner { padding: 64px 80px; }
+      .faq-grid { grid-template-columns: repeat(2, 1fr); }
+      .entry-options { grid-template-columns: repeat(2, 1fr); }
+      .business-reminder-inner { flex-direction: row; align-items: center; }
+    }
+    @media (max-width: 680px) {
+      .privacy-banner {
+        align-items: stretch;
+        flex-direction: column;
+      }
+      .privacy-actions { width: 100%; }
+      .privacy-btn { flex: 1; }
+      .hero-ctas .btn-lime-lg {
+        min-width: 0;
+        white-space: normal;
+      }
     }
   </style>
-  <script defer src="https://analytics.servicecompris.pro/script.js" data-website-id="cc7bac91-20de-4b81-a717-8e0105212a7e"></script>
 </head>
 <body>
+
+<div class="entry-modal" id="entry-modal" role="dialog" aria-modal="true" aria-labelledby="entry-title">
+  <div class="entry-dialog">
+    <img src="assets/logo large.png" alt="Service Compris" width="1050" height="330" decoding="async">
+    <h2 id="entry-title">On vous emmène au bon endroit.</h2>
+    <p>Choisissez votre profil pour découvrir la version la plus adaptée de Service Compris.</p>
+    <div class="entry-options">
+      <button class="entry-choice" type="button" data-choice="restaurant" data-umami-event="Orientation - Restaurateur">
+        <span><strong>Je travaille dans la restauration</strong><span>Restaurants, cafés, brasseries, hôtels-restaurants.</span></span>
+      </button>
+      <button class="entry-choice" type="button" data-choice="business" data-umami-event="Orientation - Autre entreprise">
+        <span><strong>J'ai un autre type d'entreprise</strong><span>Services, conseil, commerce, formation, indépendants.</span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="privacy-banner" id="privacy-banner" role="region" aria-label="Préférences de confidentialité">
+  <div>
+    <strong>Confidentialité</strong>
+    <p>Nous mémorisons votre choix d'entrée pour ne pas vous le redemander. Avec votre accord, nous utilisons aussi une mesure d'audience simple pour améliorer le site.</p>
+  </div>
+  <div class="privacy-actions">
+    <button type="button" class="privacy-btn privacy-refuse" data-privacy-choice="refuse">Refuser</button>
+    <button type="button" class="privacy-btn privacy-accept" data-privacy-choice="accept">Accepter</button>
+  </div>
+</div>
 
 <!-- ========== NAV ========== -->
 <nav>
   <div class="container nav-in">
     <a href="/" class="nav-logo" aria-label="Service Compris">
-      <img src="assets/logo large.png" alt="Service Compris">
+      <img src="assets/logo large.png" alt="Service Compris" width="1050" height="330" decoding="async">
     </a>
     <div class="nav-links">
       <a href="#probleme">Notre approche</a>
@@ -804,7 +1058,7 @@
       <a href="#innovation">Menu numérique</a>
       <a href="#equipe">L'équipe</a>
     </div>
-    <a href="#tarifs" class="btn btn-lime">Voir les offres</a>
+      <a href="#tarifs" class="btn btn-lime" data-umami-event="Nav - Audit gratuit">Audit gratuit</a>
   </div>
 </nav>
 
@@ -823,8 +1077,8 @@
       Nous pilotons l'intégralité de votre communication numérique pour étendre votre zone de chalandise. Libérez-vous du temps, concentrez-vous sur vos cuisines, nous sublimons votre vitrine numérique.
     </p>
     <div class="hero-ctas">
-      <a href="#tarifs" class="btn btn-lime-lg" style="max-width:260px">Découvrir les offres</a>
-      <a href="https://www.restaurant-philip.fr" target="_blank" rel="noopener" class="btn btn-outline" style="padding:15px 28px;font-size:.95rem">Voir un exemple →</a>
+      <a href="#tarifs" class="btn btn-lime-lg" data-umami-event="Hero - Audit gratuit">Demander mon audit gratuit</a>
+      <a href="https://www.restaurant-philip.fr" target="_blank" rel="noopener" class="btn btn-outline" style="padding:15px 28px;font-size:.95rem" data-umami-event="Hero - Voir exemple Philip">Voir une réalisation →</a>
     </div>
   </div>
 </section>
@@ -874,19 +1128,19 @@
     </div>
     <div class="galerie-grid reveal">
       <div class="galerie-item g-big">
-        <img src="philip/img/hero-village-riviere.webp" alt="" loading="lazy">
+        <img src="philip/img/hero-village-riviere.webp" alt="" width="1920" height="1279" loading="lazy" decoding="async">
       </div>
       <div class="galerie-item">
-        <img src="philip/img/plat-viande-gastronomique.webp" alt="" loading="lazy">
+        <img src="philip/img/plat-viande-gastronomique.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
       </div>
       <div class="galerie-item">
-        <img src="philip/img/cuisine-flambe.webp" alt="" loading="lazy">
+        <img src="philip/img/cuisine-flambe.webp" alt="" width="900" height="600" loading="lazy" decoding="async">
       </div>
       <div class="galerie-item">
-        <img src="philip/img/chef-en-cuisine.webp" alt="" loading="lazy">
+        <img src="philip/img/chef-en-cuisine.webp" alt="" width="900" height="600" loading="lazy" decoding="async">
       </div>
       <div class="galerie-item">
-        <img src="philip/img/produits-frais-terroir.webp" alt="" loading="lazy">
+        <img src="philip/img/produits-frais-terroir.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
       </div>
     </div>
   </div>
@@ -899,7 +1153,7 @@
     <h2 class="section-title reveal">Nos réalisations,<br><span class="lime">en vrai.</span></h2>
     <div class="real-grid">
 
-      <a href="https://www.restaurant-philip.fr" target="_blank" rel="noopener" class="real-card reveal">
+      <a href="https://www.restaurant-philip.fr" target="_blank" rel="noopener" class="real-card reveal" data-umami-event="Réalisation - Restaurant Philip">
         <div class="real-card-top">
           <span class="real-tag">Restaurant</span>
           <span class="real-arrow">→</span>
@@ -909,7 +1163,7 @@
         <span class="real-url">restaurant-philip.fr</span>
       </a>
 
-      <a href="https://www.thewisebeagle.com" target="_blank" rel="noopener" class="real-card reveal" style="transition-delay:.05s">
+      <a href="https://www.thewisebeagle.com" target="_blank" rel="noopener" class="real-card reveal" style="transition-delay:.05s" data-umami-event="Réalisation - The Wise Beagle">
         <div class="real-card-top">
           <span class="real-tag">Conseil</span>
           <span class="real-arrow">→</span>
@@ -919,7 +1173,7 @@
         <span class="real-url">thewisebeagle.com</span>
       </a>
 
-      <a href="https://www.gwladysmonnier.fr" target="_blank" rel="noopener" class="real-card reveal" style="transition-delay:.1s">
+      <a href="https://www.gwladysmonnier.fr" target="_blank" rel="noopener" class="real-card reveal" style="transition-delay:.1s" data-umami-event="Réalisation - Gwladys Monnier">
         <div class="real-card-top">
           <span class="real-tag">Services à la personne</span>
           <span class="real-arrow">→</span>
@@ -929,7 +1183,7 @@
         <span class="real-url">gwladysmonnier.fr</span>
       </a>
 
-      <a href="https://www.protocole-aiforge.com" target="_blank" rel="noopener" class="real-card reveal" style="transition-delay:.15s">
+      <a href="https://www.protocole-aiforge.com" target="_blank" rel="noopener" class="real-card reveal" style="transition-delay:.15s" data-umami-event="Réalisation - AI Forge">
         <div class="real-card-top">
           <span class="real-tag">Formation IA</span>
           <span class="real-arrow">→</span>
@@ -943,22 +1197,28 @@
   </div>
 </section>
 
-<!-- ========== AU-DELÀ DES RESTOS ========== -->
-<section id="au-dela">
+<!-- ========== FAQ ========== -->
+<section id="faq">
   <div class="container">
-    <div class="au-dela-inner reveal">
-      <span class="section-label">Notre terrain de jeu</span>
-      <h2 class="section-title">Pas que des restaurateurs.</h2>
-      <p>Coach, consultant, prestataire de services, entrepreneur… si vous avez besoin d'une présence en ligne sérieuse qui convertit, notre méthode s'adapte. On construit des vitrines numériques qui parlent à vos clients, peu importe votre secteur.</p>
-      <div class="au-dela-tags">
-        <span class="au-dela-tag">Restaurants & cafés</span>
-        <span class="au-dela-tag">Consultants & coachs</span>
-        <span class="au-dela-tag">Artisans & commerçants</span>
-        <span class="au-dela-tag">Professions libérales</span>
-        <span class="au-dela-tag">Entrepreneurs</span>
-        <span class="au-dela-tag">Formateurs</span>
+    <span class="section-label reveal">Questions fréquentes</span>
+    <h2 class="section-title reveal">Avant de confier votre image,<br><span class="lime">vous voulez du concret.</span></h2>
+    <div class="faq-grid">
+      <div class="faq-item reveal">
+        <h3>Est-ce que vous vous occupez vraiment de tout ?</h3>
+        <p>Oui. Selon l'offre choisie, nous cadrons votre identité, créons le site, mettons en place le menu QR, produisons les contenus et pilotons les réseaux sociaux.</p>
       </div>
-      <a href="#tarifs" class="btn btn-lime-lg" style="max-width:280px;margin:0 auto">Voir les offres →</a>
+      <div class="faq-item reveal" style="transition-delay:.05s">
+        <h3>Combien de temps faut-il pour démarrer ?</h3>
+        <p>Après validation, nous lançons le cadrage sous 48 heures. Le calendrier dépend ensuite des contenus à produire et du niveau de personnalisation du site.</p>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:.1s">
+        <h3>Puis-je modifier ma carte moi-même ?</h3>
+        <p>Oui. Le menu QR dynamique est pensé pour être mis à jour simplement, sans imprimer de nouvelles cartes et sans attendre une intervention technique.</p>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:.15s">
+        <h3>Que se passe-t-il si j'ai déjà un site ?</h3>
+        <p>Nous auditons l'existant et proposons le chemin le plus utile : amélioration, refonte ou simple renfort social si votre site fait déjà le travail.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -984,12 +1244,12 @@
             <div class="innov-point-dot"></div>
             <p><strong>Expérience client premium</strong> : un menu beau, lisible, toujours à jour, consultable sur le smartphone du convive.</p>
           </div>
-          <a href="https://servicecompris.pro/menu/" target="_blank" rel="noopener" class="innov-demo-link">Voir un exemple de menu →</a>
+          <a href="https://servicecompris.pro/menu/" target="_blank" rel="noopener" class="innov-demo-link" data-umami-event="Menu QR - Voir exemple">Voir un exemple de menu →</a>
         </div>
       </div>
       <div class="qr-mockup reveal">
         <span class="qr-label">Menu numérique</span>
-        <a href="https://servicecompris.pro/menu/" target="_blank" rel="noopener" class="qr-svg-wrap" style="display:block;text-decoration:none;cursor:pointer;border-radius:12px;overflow:hidden;">
+        <a href="https://servicecompris.pro/menu/" target="_blank" rel="noopener" class="qr-svg-wrap" style="display:block;text-decoration:none;cursor:pointer;border-radius:12px;overflow:hidden;" data-umami-event="Menu QR - Clic QR">
           <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 31 31" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h31v31H0z"/><path stroke="#020617" d="M1 1.5h7m1 0h2m1 0h5m1 0h3m2 0h7M1 2.5h1m5 0h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m3 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m2 0h1m1 0h2m3 0h1m5 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m3 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h4m2 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m2 0h3m1 0h1m1 0h2m2 0h2m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h3m4 0h3m2 0h1M1 9.5h1m1 0h2m1 0h3m1 0h1m1 0h3m1 0h1m1 0h2m3 0h1m2 0h1m1 0h2M1 10.5h1m3 0h2m7 0h3m3 0h6m3 0h1M1 11.5h7m1 0h1m1 0h4m2 0h1m3 0h1m1 0h3m1 0h2M2 12.5h1m1 0h3m2 0h1m2 0h1m4 0h1m4 0h3m4 0h1M2 13.5h2m2 0h2m1 0h3m3 0h2m1 0h1m2 0h1m2 0h1m1 0h2M1 14.5h1m1 0h2m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1m2 0h1m2 0h1m3 0h3M1 15.5h5m1 0h2m1 0h5m1 0h5m2 0h1m1 0h1m1 0h3M1 16.5h1m1 0h1m1 0h1m2 0h5m2 0h1m1 0h1m5 0h1m1 0h1m2 0h1M2 17.5h1m2 0h4m2 0h2m2 0h2m5 0h1m2 0h2m1 0h1M2 18.5h2m5 0h1m1 0h1m3 0h1m1 0h2m2 0h1m2 0h1m1 0h3M1 19.5h1m3 0h4m1 0h9m2 0h1m2 0h2m1 0h1M3 20.5h1m1 0h2m3 0h10m2 0h1m4 0h1M2 21.5h2m1 0h1m1 0h4m2 0h7m1 0h7M9 22.5h3m1 0h1m4 0h2m1 0h1m3 0h5M1 23.5h7m1 0h1m1 0h2m2 0h1m1 0h5m1 0h1m1 0h2m1 0h1M1 24.5h1m5 0h1m1 0h4m1 0h2m3 0h1m1 0h1m3 0h2m2 0h1M1 25.5h1m1 0h3m1 0h1m2 0h4m2 0h3m2 0h5m1 0h2M1 26.5h1m1 0h3m1 0h1m1 0h3m2 0h1m1 0h3m1 0h1m1 0h1m1 0h3m2 0h1M1 27.5h1m1 0h3m1 0h1m1 0h1m4 0h2m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m1 0h1M1 28.5h1m5 0h1m4 0h1m1 0h2m1 0h1m3 0h2m1 0h1m1 0h1m1 0h1M1 29.5h7m1 0h1m1 0h2m2 0h2m2 0h6m1 0h1m1 0h1"/></svg>
         </a>
         <p class="qr-tagline">Scannez. Consultez.<br><span>Modifiez en temps réel.</span></p>
@@ -1008,7 +1268,7 @@
     <div class="tarifs-header">
       <span class="section-label">Nos offres</span>
       <h2 class="section-title">Simple. Direct. <span class="lime">Efficace.</span></h2>
-      <p>Un paiement en ligne, et on démarre.</p>
+    <p>Demandez un audit gratuit, puis choisissez l'offre adaptée.</p>
     </div>
     <div class="pricing-grid">
 
@@ -1032,8 +1292,8 @@
           <li>Mise à jour de la carte en autonomie</li>
           <li>Photos &amp; vidéos par un professionnel</li>
         </ul>
-        <a href="https://pay.streammate.ai/b/4gM14newLex57ED1Nqc7u01?locale=fr" class="btn btn-outline" style="padding:14px;font-size:.88rem;text-align:center" target="_blank" rel="noopener">
-          Démarrer avec Pack Web
+        <a href="audit/" class="btn btn-outline" style="padding:14px;font-size:.88rem;text-align:center" data-umami-event="Tarifs - Audit Pack Web">
+          Demander un audit Web
         </a>
       </div>
 
@@ -1057,8 +1317,8 @@
           </div>
         </div>
         <p class="combo-tagline">L'offre idéale pour transmettre votre univers et votre passion au plus grand nombre.</p>
-        <a href="https://pay.streammate.ai/b/14A9ATgET4Wv8IH8bOc7u00?locale=fr" class="btn btn-lime-lg" style="font-size:.9rem" target="_blank" rel="noopener">
-          Démarrer avec Combo
+        <a href="audit/" class="btn btn-lime-lg" style="font-size:.9rem" data-umami-event="Tarifs - Audit Pack Combo">
+          Demander un audit Combo
         </a>
       </div>
 
@@ -1081,8 +1341,8 @@
           <li>Stratégie éditoriale personnalisée</li>
           <li>Rapport mensuel</li>
         </ul>
-        <a href="https://pay.streammate.ai/b/3cI00jbkz60z6Azcs4c7u02?locale=fr" class="btn btn-outline" style="padding:14px;font-size:.88rem;text-align:center" target="_blank" rel="noopener">
-          Démarrer avec Social
+        <a href="audit/" class="btn btn-outline" style="padding:14px;font-size:.88rem;text-align:center" data-umami-event="Tarifs - Audit Pack Social">
+          Demander un audit Social
         </a>
       </div>
 
@@ -1104,28 +1364,28 @@
     <div class="team-grid">
 
       <div class="team-card reveal">
-        <img src="../assets/Romain.png" alt="Romain Tixier" class="team-avatar">
+        <img src="assets/Romain.webp" alt="Romain Tixier" class="team-avatar" width="480" height="640" loading="lazy" decoding="async">
         <div class="team-name">Romain Tixier</div>
         <div class="team-role">Co-fondateur &amp; Expert Marketing Digital</div>
         <p class="team-bio">Diplômé de l'Institut Vatel Lyon et titulaire d'un master en marketing, Romain cumule 15 ans d'expertise numérique. Ancien animateur d'émissions culinaires et cuisinier passionné, il pilote la stratégie digitale globale avec une connaissance millimétrée des réalités du secteur CHR.</p>
       </div>
 
       <div class="team-card reveal" style="transition-delay:.1s">
-        <img src="../assets/FT.jpg" alt="François-Thomas Fenaux" class="team-avatar">
+        <img src="assets/FT.webp" alt="François-Thomas Fenaux" class="team-avatar" width="480" height="640" loading="lazy" decoding="async">
         <div class="team-name">François-Thomas Fenaux</div>
         <div class="team-role">Co-fondateur &amp; Expert Développement Web</div>
         <p class="team-bio">Issu de SUPINFO, François-Thomas est le pilier technique de l'équipe. Expert en développement d'écosystèmes web, en SEO et en marketing numérique, ce fin gourmet conçoit des outils sur mesure et ultra-performants pour digitaliser les acteurs de la restauration.</p>
       </div>
 
       <div class="team-card reveal" style="transition-delay:.2s">
-        <img src="../assets/damien.jpg" alt="Damien Femy" class="team-avatar">
+        <img src="assets/damien.webp" alt="Damien Femy" class="team-avatar" width="480" height="564" loading="lazy" decoding="async">
         <div class="team-name">Damien Femy</div>
         <div class="team-role">Co-fondateur &amp; Directeur Artistique (Photo &amp; Vidéo)</div>
         <p class="team-bio">Fort d'une formation en cinéma et de 15 ans d'expérience visuelle (Meltyprod, Démotivateur FOOD), Damien sublime chaque assiette. Habitué aux standards MasterChef, il garantit une production photo et vidéo appétissante et d'une qualité exceptionnelle.</p>
       </div>
 
       <div class="team-card reveal" style="transition-delay:.3s">
-        <img src="../assets/vincent.jpg" alt="Vincent Le Gaudu" class="team-avatar">
+        <img src="assets/vincent.webp" alt="Vincent Le Gaudu" class="team-avatar" width="480" height="480" loading="lazy" decoding="async">
         <div class="team-name">Vincent Le Gaudu</div>
         <div class="team-role">Co-fondateur &amp; Expert Social Media</div>
         <p class="team-bio">Spécialiste aguerri des réseaux sociaux, Vincent maîtrise l'art de la viralité. Fort de ses succès sur TikTok pour faire exploser des concepts culinaires, ce grand amateur de bonnes tables déploie des stratégies de communication percutantes qui transforment les abonnés en clients.</p>
@@ -1139,8 +1399,15 @@
 <section id="cta-band">
   <div class="container">
     <h2 class="reveal">Prêt à étendre votre zone de chalandise ?</h2>
-    <p class="reveal">Choisissez votre offre et démarrez en moins de 48 heures.</p>
-    <a href="#tarifs" class="btn btn-lime-lg reveal">Choisir mon offre →</a>
+    <p class="reveal">On regarde votre présence actuelle, puis on vous propose le meilleur point de départ.</p>
+    <a href="#tarifs" class="btn btn-lime-lg reveal" data-umami-event="CTA final - Audit gratuit">Demander mon audit gratuit →</a>
+  </div>
+</section>
+
+<section class="business-reminder" aria-label="Autres entreprises">
+  <div class="container business-reminder-inner">
+    <p><strong>Vous n'êtes pas restaurateur ?</strong> Service Compris accompagne aussi les consultants, artisans, commerçants, professions libérales et entrepreneurs avec une approche plus généraliste.</p>
+    <a href="entreprises/" data-umami-event="Rappel bas de page - Entreprises">Voir la version entreprises →</a>
   </div>
 </section>
 
@@ -1149,7 +1416,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="assets/logo_service.png" alt="Service Compris">
+        <img src="assets/logo large.png" alt="Service Compris" width="1050" height="330" loading="lazy" decoding="async">
         <p>Service Compris est une marque de <strong>Streammate AI, Inc.</strong>, société constituée dans l'État du Delaware (USA), opérant depuis Austin, Texas. Nous aidons les restaurateurs français à construire leur présence numérique.</p>
       </div>
       <div class="footer-col">
@@ -1159,8 +1426,8 @@
           <li><a href="#innovation">Menu numérique</a></li>
           <li><a href="#equipe">L'équipe</a></li>
           <li><a href="#tarifs">Tarifs</a></li>
-          <li><a href="https://www.restaurant-philip.fr" target="_blank" rel="noopener">Exemple client</a></li>
-          <li><a href="questionnaire/">Brief questionnaire</a></li>
+          <li><a href="https://www.restaurant-philip.fr" target="_blank" rel="noopener" data-umami-event="Footer - Exemple client">Exemple client</a></li>
+          <li><a href="audit/" data-umami-event="Footer - Audit gratuit">Audit gratuit</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1169,7 +1436,7 @@
           <li><a href="legal/mentions-legales.html">Mentions légales</a></li>
           <li><a href="legal/cgv.html">Conditions générales</a></li>
           <li><a href="legal/confidentialite.html">Politique de confidentialité</a></li>
-          <li><a href="mailto:contact@servicecompris.pro">contact@servicecompris.pro</a></li>
+          <li><a href="mailto:contact@servicecompris.pro" data-umami-event="Footer - Email">contact@servicecompris.pro</a></li>
           <li><a href="partenaire/" style="color:rgba(148,163,184,.25)">Espace partenaire</a></li>
         </ul>
       </div>
@@ -1193,17 +1460,55 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Stripe placeholder — replace href values with actual Stripe payment links
-  // data-stripe="web"   → Pack Web payment link
-  // data-stripe="combo" → Combo payment link
-  // data-stripe="social"→ Pack Social payment link
-  const STRIPE_LINKS = {
-    web:    '#',  // TODO: https://buy.stripe.com/...
-    combo:  '#',  // TODO: https://buy.stripe.com/...
-    social: '#',  // TODO: https://buy.stripe.com/...
-  };
-  document.querySelectorAll('[data-stripe]').forEach(btn => {
-    btn.href = STRIPE_LINKS[btn.dataset.stripe] || '#';
+  const entryModal = document.getElementById('entry-modal');
+  const entrySeenKey = 'servicecompris-entry-choice';
+  const profileParam = new URLSearchParams(window.location.search).get('profil');
+  if (profileParam === 'restaurant' || profileParam === 'business') {
+    localStorage.setItem(entrySeenKey, profileParam);
+    window.history.replaceState({}, '', window.location.pathname + window.location.hash);
+  }
+  const entryChoice = localStorage.getItem(entrySeenKey);
+  if (entryChoice === 'business' && !window.location.pathname.includes('/entreprises')) {
+    window.location.href = 'entreprises/';
+  } else if (entryModal && !entryChoice) {
+    entryModal.classList.add('is-visible');
+  }
+  document.querySelectorAll('[data-choice]').forEach(button => {
+    button.addEventListener('click', () => {
+      const choice = button.dataset.choice;
+      localStorage.setItem(entrySeenKey, choice);
+      if (choice === 'business') {
+        window.location.href = 'entreprises/';
+        return;
+      }
+      entryModal.classList.remove('is-visible');
+    });
+  });
+
+  const privacyBanner = document.getElementById('privacy-banner');
+  const privacyKey = 'servicecompris-analytics-consent';
+  const analyticsId = 'cc7bac91-20de-4b81-a717-8e0105212a7e';
+  function loadAnalytics() {
+    if (document.querySelector('script[data-website-id="' + analyticsId + '"]')) return;
+    const script = document.createElement('script');
+    script.defer = true;
+    script.src = 'https://analytics.servicecompris.pro/script.js';
+    script.dataset.websiteId = analyticsId;
+    document.head.appendChild(script);
+  }
+  const privacyChoice = localStorage.getItem(privacyKey);
+  if (privacyChoice === 'accept') {
+    loadAnalytics();
+  } else if (!privacyChoice && privacyBanner) {
+    privacyBanner.classList.add('is-visible');
+  }
+  document.querySelectorAll('[data-privacy-choice]').forEach(button => {
+    button.addEventListener('click', () => {
+      const choice = button.dataset.privacyChoice;
+      localStorage.setItem(privacyKey, choice);
+      if (privacyBanner) privacyBanner.classList.remove('is-visible');
+      if (choice === 'accept') loadAnalytics();
+    });
   });
 </script>
 </body>

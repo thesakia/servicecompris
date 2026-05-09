@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAGE AGAINST THE BIBINE | Brasserie Indépendante</title>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- VARIABLES MODERNES --- */
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-light: #161616;
+            --primary-red: #d90429;
+            --red-hover: #ef233c;
+            --text-light: #edf2f4;
+            --text-muted: #8d99ae;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .stencil {
+            font-family: 'Black Ops One', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* --- NAVIGATION GLASSMORPHISM --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-container {
+            display: flex; align-items: center;
+        }
+
+        /* Intégration du logo PNG */
+        .logo-img {
+            height: 55px; /* Ajuste la hauteur de ton logo ici si besoin */
+            width: auto;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(2px 2px 0px var(--primary-red)); /* Petit effet punk sur le logo */
+        }
+        .logo-container:hover .logo-img { transform: scale(1.05) rotate(-2deg); }
+
+        .nav-links { display: flex; gap: 40px; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px;}
+        .nav-links a { transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary-red); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative; height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            padding: 0 20px;
+        }
+
+        /* Filtre assombrissant par-dessus la vidéo */
+        .hero::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(10,10,10,0.9) 100%);
+            z-index: -1;
+        }
+
+        /* Vidéo locale en fond */
+        .hero-video {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: -2; 
+            filter: contrast(110%); 
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.1; margin-bottom: 20px;
+            text-shadow: 4px 4px 0px var(--primary-red);
+        }
+
+        .hero p {
+            font-size: 1.2rem; font-weight: 400; color: var(--text-light);
+            max-width: 600px; margin-bottom: 40px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        /* --- BOUTONS MODERNES BRUTALISTES --- */
+        .btn {
+            display: inline-block; padding: 16px 32px;
+            font-family: 'Black Ops One', cursive; font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer; position: relative; overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .btn-red {
+            background-color: var(--primary-red); color: white;
+            border: 2px solid var(--primary-red);
+            box-shadow: 6px 6px 0px rgba(255, 255, 255, 0.1);
+        }
+        .btn-red:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px rgba(255, 255, 255, 0.2); }
+
+        .btn-outline {
+            background-color: transparent; color: var(--text-light);
+            border: 2px solid var(--text-light);
+            box-shadow: 6px 6px 0px rgba(217, 4, 41, 0.5);
+            margin-left: 15px;
+        }
+        .btn-outline:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px rgba(217, 4, 41, 0.8); background: var(--text-light); color: var(--bg-dark);}
+
+        /* --- SECTION : LE MANIFESTE (AVEC VIDÉO) --- */
+        .manifesto {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+            padding: 120px 5%; align-items: center;
+        }
+
+        .video-container {
+            width: 100%;
+            border: 4px solid var(--bg-light);
+            box-shadow: -15px 15px 0px var(--primary-red);
+            background-color: #000;
+        }
+
+        /* Style pour la vidéo HTML5 locale */
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block; /* Évite la bordure noire en bas */
+        }
+
+        .manifesto-text h2 { font-size: 3.5rem; color: var(--primary-red); margin-bottom: 25px; line-height: 1;}
+        .manifesto-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px;}
+
+        /* --- SECTION : L'ARSENAL (SHOP) --- */
+        .arsenal { padding: 120px 5%; background-color: var(--bg-light); text-align: center; }
+        .arsenal h2 { font-size: 3.5rem; margin-bottom: 60px; }
+
+        .grid-produits {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;
+        }
+
+        .produit-card {
+            background: var(--bg-dark); border: 1px solid #333;
+            padding: 30px; text-align: left;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .produit-card:hover { transform: translateY(-10px); border-color: var(--primary-red); }
+
+        .produit-img {
+            width: 100%; height: 350px; object-fit: cover;
+            margin-bottom: 25px; filter: contrast(110%);
+        }
+
+        .produit-card h3 { font-size: 1.8rem; margin-bottom: 10px; color: var(--text-light); }
+        .produit-card p { color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem;}
+        .price { font-family: 'Black Ops One', cursive; font-size: 1.4rem; color: var(--primary-red); display: block; margin-bottom: 15px;}
+
+        /* --- SECTION : LE QG (TAPROOM) --- */
+        .qg-section {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+            background-color: var(--bg-dark); border-top: 1px solid #333;
+        }
+
+        .qg-img {
+            width: 100%; height: 100%; min-height: 500px;
+            background: url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1600&auto=format&fit=crop') center/cover;
+            filter: grayscale(50%);
+        }
+
+        .qg-text { padding: 100px 10%; display: flex; flex-direction: column; justify-content: center; }
+        .qg-text h2 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.1; }
+        .qg-text p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; }
+        
+        .feature-list { list-style: none; margin-bottom: 40px; }
+        .feature-list li {
+            position: relative; padding-left: 30px; margin-bottom: 15px; font-weight: 600; color: var(--text-light);
+        }
+        .feature-list li::before {
+            content: '⚡'; position: absolute; left: 0; color: var(--primary-red);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-light); padding: 80px 5% 40px; text-align: center;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;
+            margin-bottom: 60px; text-align: left; border-bottom: 1px solid #333; padding-bottom: 40px;
+        }
+        .footer-grid h3 { color: var(--primary-red); margin-bottom: 20px; font-size: 1.2rem; }
+        .footer-grid p, .footer-grid a { color: var(--text-muted); font-size: 0.9rem; transition: color 0.3s; display: block; margin-bottom: 10px;}
+        .footer-grid a:hover { color: var(--text-light); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .manifesto, .qg-section { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .btn-outline { margin-left: 0; margin-top: 15px; display: block; width: max-content; margin: 15px auto 0; }
+            .qg-img { height: 300px; min-height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo R.A.T.B." class="logo-img">
+        </div>
+        <div class="nav-links">
+            <a href="#manifeste">MANIFESTE</a>
+            <a href="#arsenal">ARSENAL</a>
+            <a href="#qg">TAPROOM</a>
+        </div>
+        <div class="stencil" style="cursor:pointer;">CART (0)</div>
+    </nav>
+
+    <header class="hero">
+        <video autoplay loop muted playsinline class="hero-video">
+            <source src="video_hero.mp4" type="video/mp4">
+        </video>
+        
+        <h1>SANS FILTRE.<br>SANS COMPROMIS.</h1>
+        <p>L'industrie vous endort. On est là pour réveiller vos palais. Brassage brutal et indépendant.</p>
+        
+        <div>
+            <a href="#arsenal" class="btn btn-red">L'ARSENAL SHOP</a>
+            <a href="#qg" class="btn btn-outline">VOIR LA TAPLIST</a>
+        </div>
+    </header>
+
+    <section id="manifeste" class="manifesto">
+        <div class="video-container">
+            <video controls>
+                <source src="biere2.mp4" type="video/mp4">
+                Ton navigateur ne supporte pas la lecture de vidéos.
+            </video>
+        </div>
+        <div class="manifesto-text">
+            <h2>KNOW YOUR ENEMY.</h2>
+            <p>On ne brasse pas pour plaire à tout le monde. On brasse contre l'aseptisation du goût. Contre les extraits aromatiques et les bières coupées à l'eau.</p>
+            <p>Nos armes ? Du malt sourcé à moins de 50km, des houblons balancés à la tractopelle, et du son poussé à 11 dans la brasserie. <strong>Rage Against The Bibine</strong>, c'est l'artisanat qui refuse de se taire.</p>
+            <br>
+            <p><em>👉 Regardez notre dernier brassin collaboratif capturé en vidéo.</em></p>
+        </div>
+    </section>
+
+    <section id="arsenal" class="arsenal">
+        <h2>⬇️ CHOISISSEZ VOTRE ARME ⬇️</h2>
+        
+        <div class="grid-produits">
+            <div class="produit-card">
+                <img src="guerilla_radio.png" alt="Guerrilla Radio IPA" class="produit-img">
+                <h3 class="stencil">GUERRILLA RADIO</h3>
+                <span class="price">7.50 €</span>
+                <p><strong>Double NEIPA - 8.2%</strong><br>Une explosion tropicale massive. Citra et Mosaic en dry-hop intensif. Le jus qui réveille.</p>
+                <a href="#" class="btn btn-red" style="width: 100%; text-align: center; padding: 12px;">AJOUTER</a>
+            </div>
+
+            <div class="produit-card">
+                <img src="bulls_parade.png" alt="Bulls on Parade Stout" class="produit-img">
+                <h3 class="stencil">BULLS ON PARADE</h3>
+                <span class="price">8.90 €</span>
+                <p><strong>Imperial Stout - 11%</strong><br>Lourd. Sombre. Brutal. Notes de café torréfié et de cacao amer. Vieilli en fût de bourbon.</p>
+                <a href="#" class="btn btn-red" style="width: 100%; text-align: center; padding: 12px;">AJOUTER</a>
+            </div>
+
+            <div class="produit-card">
+                <img src="sleep_now.png" alt="Sleep Now Porter" class="produit-img" style="filter: grayscale(80%) contrast(150%);">
+                <h3 class="stencil">SLEEP NOW...</h3>
+                <span class="price">6.50 €</span>
+                <p><strong>Smoked Chilli Porter - 7%</strong><br>Fumée au bois de hêtre et infusée au piment Habanero. Dangereuse.</p>
+                <a href="#" class="btn btn-outline" style="width: 100%; text-align: center; padding: 12px; margin: 0; pointer-events: none;">SOLD OUT</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="qg" class="qg-section">
+        <div class="qg-img"></div>
+        <div class="qg-text">
+            <h2>LE QG EST OUVERT.<br>LA CARTE EN DIRECT.</h2>
+            <p>Tu passes boire une pinte à la brasserie ? Oublie les ardoises illisibles et les menus plastifiés qui collent aux coudes.</p>
+            <ul class="feature-list">
+                <li><strong>Stock synchronisé :</strong> Si le fût pète, il disparaît de ton tel.</li>
+                <li><strong>Data Brute :</strong> IBUs, houblons, levures... Tout est sourcé.</li>
+                <li><strong>Pas de file d'attente :</strong> Choisis avant d'arriver au bar.</li>
+            </ul>
+            <a href="#" class="btn btn-red" style="width:max-content;">SCANNER LE MENU DIGITAL</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="logo-container" style="margin-bottom: 20px;">
+                    <img src="logo.png" alt="Logo R.A.T.B." class="logo-img" style="height: 40px; filter: grayscale(100%) brightness(200%);">
+                </div>
+                <p>La bière craft pour ceux qui refusent le statu quo. Indépendants jusqu'à l'os.</p>
+            </div>
+            <div>
+                <h3 class="stencil">📍 LE QG</h3>
+                <p>1992 Rue de la Révolte<br>69000 Lyon<br>Mer - Sam : 17h - 00h</p>
+            </div>
+            <div>
+                <h3 class="stencil">TRANSMISSIONS</h3>
+                <a href="#">Shop / Arsenal</a>
+                <a href="#">Politique de livraison</a>
+                <a href="#">CGV & Mentions légales</a>
+            </div>
+        </div>
+        <p style="color: #444; font-size: 0.8rem; text-transform: uppercase; font-weight: bold;">La révolution se fait avec modération. L'abus d'alcool est dangereux pour la santé.</p>
+    </footer>
+
+</body>
+</html>

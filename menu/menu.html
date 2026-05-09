@@ -113,10 +113,13 @@
       background: var(--dark);
       display: flex; gap: 0;
       overflow-x: auto; scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
       padding: 0 12px;
     }
     .menus-nav::-webkit-scrollbar { display: none; }
     .menu-tab {
+      flex: 0 0 auto;
       white-space: nowrap;
       padding: 14px 18px;
       font-size: .88rem; font-weight: 700;
@@ -140,11 +143,15 @@
       -ms-overflow-style: none;
       display: flex; gap: 0;
       padding: 0 8px;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
       /* smooth collapse */
       max-height: 52px;
       opacity: 1;
       transition: max-height .3s ease, opacity .25s ease, border-color .25s ease;
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
+      mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 28px), transparent 100%);
     }
     .category-nav.hidden {
       max-height: 0;
@@ -153,6 +160,7 @@
     }
     .category-nav::-webkit-scrollbar { display: none; }
     .cat-tab {
+      flex: 0 0 auto;
       white-space: nowrap;
       padding: 14px 14px;
       font-size: .88rem; font-weight: 600;
@@ -363,6 +371,151 @@
       padding: 40px 20px; color: var(--muted);
     }
     #no-results.show { display: block; }
+
+    /* PREMIUM THEME OVERRIDES */
+    :root {
+      --primary: #b08d57;
+      --bg: #f6f5f2;
+      --white: #fffdf8;
+      --dark: #111318;
+      --muted: #6f7378;
+      --border: #dedbd2;
+      --radius: 8px;
+      --shadow: none;
+      --accent: #b08d57;
+      --accent-text: #111318;
+    }
+    body {
+      background:
+        linear-gradient(180deg, rgba(17,19,24,.04), transparent 240px),
+        var(--bg);
+      color: var(--dark);
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+    }
+    button, input { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .resto-header {
+      background: var(--dark);
+      color: #f8f1df;
+      padding-bottom: 34px;
+    }
+    .resto-header::after { background: color-mix(in srgb, var(--accent) 48%, transparent); }
+    .resto-logo {
+      border-radius: 8px;
+      border-color: color-mix(in srgb, var(--accent) 46%, transparent);
+      background: rgba(255,255,255,.08);
+      box-shadow: none;
+    }
+    .resto-logo img { border-radius: 6px; }
+    .resto-name {
+      color: #fff8e8;
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      font-size: 1.75rem;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+    .resto-address { color: rgba(248,241,223,.72); opacity: 1; }
+    .lang-btn {
+      border-radius: 4px;
+      border-color: color-mix(in srgb, var(--accent) 46%, transparent);
+      background: transparent;
+      color: #f8f1df;
+    }
+    .lang-btn.active, .lang-btn:hover { background: var(--accent); color: var(--dark); }
+    .menus-nav {
+      background: #0f0c09;
+      border-top: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+    }
+    .menu-tab {
+      color: rgba(248,241,223,.55);
+      border-bottom-width: 1px;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .menu-tab.active { color: #f8f1df; border-bottom-color: var(--accent); }
+    .search-wrap,
+    .category-nav {
+      background: rgba(246,245,242,.94);
+      backdrop-filter: blur(14px);
+    }
+    .search-wrap input {
+      border-radius: 6px;
+      background: #fffdf8;
+      border-width: 1px;
+    }
+    .cat-tab {
+      font-size: .78rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-weight: 700;
+      border-bottom-width: 1px;
+    }
+    .cat-tab.active { border-bottom-color: var(--accent); color: var(--accent); }
+    .menu-content { max-width: 760px; padding-top: 28px; }
+    .category-section h2 {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: .72rem;
+      letter-spacing: .15em;
+    }
+    .category-section h2 .cat-emoji,
+    .item-photo-placeholder,
+    .empty-state .icon,
+    #no-results > div { display: none; }
+    .item-card {
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      box-shadow: none;
+      padding: 14px 0;
+    }
+    .item-card:hover {
+      border-color: var(--accent);
+      box-shadow: none;
+    }
+    .item-body { padding: 0 18px 0 0; }
+    .item-name {
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      font-size: 1.12rem;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .item-desc { font-size: .9rem; line-height: 1.55; }
+    .item-price {
+      background: transparent;
+      color: var(--accent);
+      padding: 0;
+      border-radius: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: .95rem;
+    }
+    .item-photo {
+      width: 92px;
+      height: 92px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .allergen-tag {
+      border-radius: 3px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .sold-out-badge { border-radius: 3px; background: var(--dark); }
+    .modal {
+      border-radius: 12px 12px 0 0;
+      background: var(--white);
+    }
+    .modal-price {
+      background: transparent;
+      padding: 0;
+      color: var(--dark);
+    }
+    .modal-close { border-radius: 4px; }
+    .menu-footer { color: var(--muted); }
   </style>
 </head>
 <body>
@@ -401,7 +554,7 @@
     </div>
 
     <footer class="menu-footer">
-      Propulsé par <a href="/">QRMenu</a>
+      Propulsé par <a href="/">Service Compris</a>
     </footer>
   </div>
 
@@ -431,6 +584,7 @@
       // Fallback: query param ?slug=xxx
       return new URLSearchParams(location.search).get('slug') || 'demo';
     };
+    const pbFilterValue = value => String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
     // ============================================================
     // OFFLINE CACHE
@@ -463,46 +617,40 @@
     async function fetchMenu() {
       const restoSlug = slug();
       let data = null;
+      const cached = loadCache();
 
       if (!navigator.onLine) {
-        const cached = loadCache();
         if (cached) { data = cached.data; $('offline-banner').classList.add('show'); }
         else { showError('Vous êtes hors ligne et aucun cache n\'est disponible.'); return; }
       } else {
         try {
           // 1. Get restaurant by slug
           const restoRes = await fetch(
-            `${PB_URL}/api/collections/restaurants/records?filter=(slug='${encodeURIComponent(restoSlug)}')`
+            `${PB_URL}/api/collections/restaurants/records?filter=(slug='${encodeURIComponent(pbFilterValue(restoSlug))}')`
           );
           if (!restoRes.ok) throw new Error('Restaurant introuvable');
           const restoData = await restoRes.json();
           if (!restoData.items?.length) { showError('Ce menu n\'existe pas.'); return; }
           const restaurant = restoData.items[0];
 
-          // 2. Get menus
-          const menusRes = await fetch(
-            `${PB_URL}/api/collections/menus/records?filter=(restaurant='${restaurant.id}')&sort=order,name&perPage=200`
-          );
-          const menusData = await menusRes.json();
-
-          // 3. Get categories
-          const catRes = await fetch(
-            `${PB_URL}/api/collections/categories/records?filter=(restaurant='${restaurant.id}')&sort=order,name&perPage=200`
-          );
-          const catData = await catRes.json();
-
-          // 4. Get items
-          const itemsRes = await fetch(
-            `${PB_URL}/api/collections/items/records?filter=(restaurant='${restaurant.id}')&sort=category,order&perPage=500`
-          );
-          const itemsData = await itemsRes.json();
+          // 2. Get menu data in parallel
+          const [menusRes, catRes, itemsRes] = await Promise.all([
+            fetch(`${PB_URL}/api/collections/menus/records?filter=(restaurant='${restaurant.id}')&sort=order,name&perPage=200`),
+            fetch(`${PB_URL}/api/collections/categories/records?filter=(restaurant='${restaurant.id}')&sort=order,name&perPage=200`),
+            fetch(`${PB_URL}/api/collections/items/records?filter=(restaurant='${restaurant.id}')&sort=category,order&perPage=500`),
+          ]);
+          if (!menusRes.ok || !catRes.ok || !itemsRes.ok) throw new Error('Donnees menu inaccessibles');
+          const [menusData, catData, itemsData] = await Promise.all([
+            menusRes.json(),
+            catRes.json(),
+            itemsRes.json(),
+          ]);
 
           data = { restaurant, menus: menusData.items || [], categories: catData.items || [], items: itemsData.items || [] };
           saveCache(data);
 
         } catch(err) {
           // Try cache fallback
-          const cached = loadCache();
           if (cached) {
             data = cached.data;
             $('offline-banner').classList.add('show');
@@ -611,7 +759,10 @@
 
     function applyTheme(r) {
       const root = document.documentElement;
-      if (r.color_primary) root.style.setProperty('--accent', r.color_primary);
+      if (r.color_primary) {
+        root.style.setProperty('--accent', r.color_primary);
+        root.style.setProperty('--primary', r.color_primary);
+      }
       if (r.color_text)    root.style.setProperty('--accent-text', r.color_text);
       if (r.color_bg)      root.style.setProperty('--bg', r.color_bg);
       // Update theme-color meta
@@ -656,13 +807,13 @@
         // First tab = "Tout" (null), then one per category
         const allTab = `<button class="cat-tab ${state.activeCatId === null ? 'active' : ''}" data-cat="all" onclick="filterByCategory(null)">Tout</button>`;
         const catTabs = cats.map(cat =>
-          `<button class="cat-tab ${state.activeCatId === cat.id ? 'active' : ''}" data-cat="${cat.id}" onclick="filterByCategory('${cat.id}')">${cat.emoji ? cat.emoji + ' ' : ''}${t(cat,'name')}</button>`
+          `<button class="cat-tab ${state.activeCatId === cat.id ? 'active' : ''}" data-cat="${escHtml(cat.id)}" onclick="filterByCategory('${cat.id}')">${cat.emoji ? escHtml(cat.emoji) + ' ' : ''}${escHtml(t(cat,'name'))}</button>`
         ).join('');
         nav.innerHTML = allTab + catTabs;
       } else {
         // Named menu mode: tabs scroll to section
         nav.innerHTML = cats.map((cat, i) =>
-          `<button class="cat-tab ${i===0?'active':''}" data-cat="${cat.id}" onclick="scrollToCategory('${cat.id}', this)">${cat.emoji ? cat.emoji + ' ' : ''}${t(cat,'name')}</button>`
+          `<button class="cat-tab ${i===0?'active':''}" data-cat="${escHtml(cat.id)}" onclick="scrollToCategory('${cat.id}', this)">${cat.emoji ? escHtml(cat.emoji) + ' ' : ''}${escHtml(t(cat,'name'))}</button>`
         ).join('');
       }
     }
@@ -695,8 +846,8 @@
         return `
           <section class="category-section" id="cat-${cat.id}">
             <h2>
-              ${cat.emoji ? `<span class="cat-emoji">${cat.emoji}</span>` : ''}
-              ${t(cat,'name')}
+              ${cat.emoji ? `<span class="cat-emoji">${escHtml(cat.emoji)}</span>` : ''}
+              ${escHtml(t(cat,'name'))}
               <span class="category-count">(${catItems.length})</span>
             </h2>
             <div class="items-list">
@@ -739,7 +890,7 @@
             </div>
           </div>
           ${photoUrl
-            ? `<img class="item-photo" src="${photoUrl}" alt="${escHtml(t(item,'name'))}" loading="lazy" />`
+            ? `<img class="item-photo" src="${photoUrl}" alt="${escHtml(t(item,'name'))}" loading="lazy" decoding="async" />`
             : `<div class="item-photo-placeholder">🍽️</div>`
           }
         </div>
@@ -763,7 +914,7 @@
 
       header.innerHTML = `
         ${photoUrl
-          ? `<img class="modal-img" src="${photoUrl}" alt="${escHtml(t(item,'name'))}" />`
+          ? `<img class="modal-img" src="${photoUrl}" alt="${escHtml(t(item,'name'))}" decoding="async" />`
           : `<div class="modal-img-placeholder">🍽️</div>`
         }
         <button class="modal-close" onclick="closeModal()">✕</button>

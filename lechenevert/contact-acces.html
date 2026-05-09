@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact et accès | Hôtel Restaurant Le Chêne Vert</title>
+  <meta name="description" content="Adresse, téléphone, email, horaires d'arrivée, accès spa et formulaire de contact du Chêne Vert à Rocher en Ardèche.">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header" data-header>
+    <a class="brand" href="./" aria-label="Le Chêne Vert accueil">
+      <span class="brand-mark">CV</span>
+      <span><strong>Le Chêne Vert</strong><small>Hôtel restaurant à Rocher</small></span>
+    </a>
+    <nav class="main-nav" data-nav aria-label="Navigation principale">
+      <a href="hotel-spa-ardeche.html">Hôtel</a>
+      <a href="restaurant-ardeche-rocher.html">Restaurant</a>
+      <a href="chambres-hotel-ardeche.html">Chambres</a>
+      <a href="offres-week-end-ardeche.html">Offres</a>
+      <a href="groupes-ardeche.html">Groupes</a>
+      <a href="decouvrir-ardeche.html">Ardèche</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="contact-acces.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="phone-link" href="tel:+33475883402">04 75 88 34 02</a>
+      <a class="btn btn-primary" href="https://www.logishotels.com/fr/hotel/logis-hotel-le-chene-vert-1062" target="_blank" rel="noopener">Réserver</a>
+      <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Ouvrir le menu">Menu</button>
+    </div>
+  </header>
+  <main>
+    <section class="contact-section page-contact">
+      <div class="contact-copy">
+        <p class="eyebrow">Contact</p>
+        <h1>Venir au Chêne Vert</h1>
+        <p>10 Impasse du Rouchas, 07110 Rocher<br><a href="tel:+33475883402">04 75 88 34 02</a><br><a href="mailto:contact@hotellechenevert.com">contact@hotellechenevert.com</a></p>
+        <p>Arrivées de 16h à 19h. Départs de 08h10 à 10h30. L'espace spa est accessible sur réservation de 9h à 19h.</p>
+        <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=10%20Impasse%20du%20Rouchas%2007110%20Rocher" target="_blank" rel="noopener">Voir l'itinéraire</a>
+      </div>
+      <form class="contact-form" action="send.php" method="post">
+        <input class="hp" name="website" tabindex="-1">
+        <label>Nom <input name="name" required></label>
+        <label>Email <input name="email" type="email" required></label>
+        <label>Téléphone <input name="phone"></label>
+        <label>Message <textarea name="message" rows="5" required></textarea></label>
+        <button class="btn btn-primary" type="submit">Envoyer</button>
+      </form>
+    </section>
+  </main>
+  <footer class="site-footer"><div><strong>Le Chêne Vert</strong><p>Contact et accès.</p></div><nav><a href="./">Accueil</a><a href="mentions-legales.html">Mentions légales</a></nav></footer>
+  <script src="script.js" defer></script>
+</body>
+</html>

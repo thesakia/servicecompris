@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#020617">
+  <title>Booking | Service Compris</title>
+  <link rel="icon" href="/favicon.ico">
+  <style>
+    :root {
+      --bg: #020617;
+      --bg2: #0a0f1e;
+      --surface: #0f172a;
+      --surface2: #111827;
+      --text: #ffffff;
+      --muted: #94a3b8;
+      --line: rgba(255,255,255,.09);
+      --accent: #bef264;
+      --accent2: #a3e635;
+      --danger: #ef4444;
+      --ok: #22c55e;
+      --radius: 12px;
+      --shadow: 0 28px 90px rgba(0,0,0,.35);
+    }
+    :root.light {
+      --bg: #f7f8f3;
+      --bg2: #ffffff;
+      --surface: #ffffff;
+      --surface2: #f1f5e8;
+      --text: #07101f;
+      --muted: #64748b;
+      --line: rgba(2,6,23,.11);
+      --accent: #9bd526;
+      --accent2: #84cc16;
+      --shadow: 0 24px 70px rgba(15,23,42,.12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(190,242,100,.16), transparent 26rem),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      color: var(--text);
+      line-height: 1.45;
+    }
+    button, input { font: inherit; }
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+    header {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(18px, 4vw, 42px);
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(16px);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; }
+    .brand img { height: 34px; width: auto; }
+    .brand span { color: var(--accent); }
+    .theme {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: .82rem;
+    }
+    main {
+      display: grid;
+      place-items: center;
+      padding: clamp(18px, 4vw, 44px);
+    }
+    .app {
+      width: min(1080px, 100%);
+      min-height: 680px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      background: color-mix(in srgb, var(--surface) 96%, transparent);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .side {
+      padding: 32px;
+      background: color-mix(in srgb, var(--surface2) 90%, var(--bg));
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .eyebrow { color: var(--accent); font-size: .72rem; font-weight: 900; text-transform: uppercase; letter-spacing: .16em; }
+    h1 { margin-top: 12px; font-size: clamp(2rem, 4vw, 3.6rem); line-height: .95; letter-spacing: -.05em; }
+    .side p { color: var(--muted); margin-top: 16px; font-size: .95rem; }
+    .steps { display: grid; gap: 10px; }
+    .step-pill {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+    .step-pill b {
+      width: 28px; height: 28px; border-radius: 8px;
+      display: inline-grid; place-items: center;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: var(--surface);
+    }
+    .step-pill.active { color: var(--text); }
+    .step-pill.active b { background: var(--accent); color: #020617; border-color: var(--accent); }
+    .content { padding: clamp(24px, 5vw, 52px); display: flex; flex-direction: column; }
+    .slide { display: none; animation: in .22s ease; }
+    .slide.active { display: block; }
+    @keyframes in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .topline { color: var(--muted); font-weight: 800; font-size: .82rem; text-transform: uppercase; letter-spacing: .12em; }
+    h2 { margin-top: 10px; font-size: clamp(1.8rem, 3vw, 3rem); letter-spacing: -.04em; line-height: 1; }
+    .hint { margin-top: 12px; color: var(--muted); max-width: 56ch; }
+    .fields { margin-top: 34px; display: grid; gap: 16px; max-width: 620px; }
+    label { display: grid; gap: 8px; color: var(--muted); font-size: .82rem; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+    input {
+      width: 100%;
+      min-height: 58px;
+      padding: 0 16px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+    }
+    input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent); }
+    .actions { margin-top: 34px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      font-weight: 900;
+      cursor: pointer;
+      background: var(--surface);
+      color: var(--text);
+    }
+    .btn.primary { background: var(--accent); color: #020617; border-color: var(--accent); }
+    .btn.primary:hover { background: var(--accent2); }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .summary {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 10px;
+    }
+    .summary div {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+    .summary strong { display: block; color: var(--text); font-size: .95rem; margin-top: 4px; overflow-wrap: anywhere; }
+    .slot-toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; align-items: center; }
+    #date-filter {
+      min-height: 52px;
+      padding: 0 14px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--text);
+      font-weight: 900;
+      font-size: .95rem;
+      cursor: pointer;
+      width: auto;
+    }
+    #date-filter::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; transform: scale(1.3); }
+    :root.light #date-filter::-webkit-calendar-picker-indicator { filter: none; }
+    .slots {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+      gap: 10px;
+      max-height: 360px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+    .slot {
+      min-height: 58px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 1.05rem;
+    }
+    .slot.selected { background: var(--accent); color: #020617; border-color: var(--accent); }
+    .contact-grid { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .contact-card {
+      min-height: 130px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 18px;
+      text-align: left;
+      cursor: pointer;
+      display: grid;
+      align-content: space-between;
+    }
+    .contact-card b { font-size: 1.05rem; }
+    .contact-card span { color: var(--muted); font-size: .86rem; }
+    .contact-card.selected { border-color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent); }
+    .contact-box {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      background: color-mix(in srgb, var(--surface2) 78%, transparent);
+      display: none;
+    }
+    .contact-box.show { display: block; }
+    .result {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid color-mix(in srgb, var(--ok) 40%, transparent);
+      background: color-mix(in srgb, var(--ok) 12%, transparent);
+      color: var(--text);
+    }
+    .result.show { display: block; }
+    .error {
+      display: none;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--danger) 15%, transparent);
+      border: 1px solid color-mix(in srgb, var(--danger) 42%, transparent);
+      color: var(--text);
+    }
+    .error.show { display: block; }
+    @media (max-width: 850px) {
+      .app { grid-template-columns: 1fr; min-height: 0; }
+      .side { border-right: 0; border-bottom: 1px solid var(--line); padding: 18px 20px; }
+      .side h1 { font-size: 1.6rem; margin-top: 6px; }
+      .side p { display: none; }
+      .steps { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .step-pill { font-size: .75rem; }
+      .content { padding: 20px; }
+      h2 { font-size: 1.5rem; }
+      .hint { display: none; }
+      .summary { grid-template-columns: 1fr 1fr; }
+      .summary div:last-child { grid-column: 1 / -1; }
+      .contact-grid { grid-template-columns: 1fr; gap: 8px; }
+      .contact-card { min-height: 64px; padding: 14px; flex-direction: row; display: flex; align-items: center; justify-content: space-between; }
+      .slots { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); max-height: 280px; }
+      .slot { min-height: 48px; font-size: .95rem; }
+      .slot-toolbar { gap: 8px; }
+      #date-filter { font-size: .9rem; }
+      header { height: 58px; }
+      .brand { font-size: .82rem; }
+      .brand img { height: 28px; }
+      .actions { gap: 8px; }
+      .btn { min-height: 46px; padding: 0 16px; font-size: .9rem; }
+    }
+    @media (max-width: 480px) {
+      .summary { grid-template-columns: 1fr; }
+      .summary div:last-child { grid-column: auto; }
+      .slots { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand">
+        <img src="/assets/logo seul.png" alt="Service Compris">
+        Service <span>Compris</span>
+      </div>
+      <button class="theme" id="theme-btn" type="button">Mode clair</button>
+    </header>
+
+    <main>
+      <section class="app" aria-live="polite">
+        <aside class="side">
+          <div>
+            <div class="eyebrow">Prise de RDV rapide</div>
+            <h1>3 clics. Un créneau. C'est calé.</h1>
+          </div>
+          <div class="steps">
+            <div class="step-pill active" data-step-pill="0"><b>1</b> Identité</div>
+            <div class="step-pill" data-step-pill="1"><b>2</b> Créneau</div>
+            <div class="step-pill" data-step-pill="2"><b>3</b> Contact</div>
+          </div>
+        </aside>
+
+        <div class="content">
+          <div class="slide active" data-slide="0">
+            <div class="topline">Étape 1</div>
+            <h2>Qui avez-vous en face ?</h2>
+            <div class="fields">
+              <label>Nom du restaurant
+                <input id="restaurant-name" autocomplete="organization" placeholder="Ex. Le Bistrot des Halles">
+              </label>
+              <label>Prénom du contact
+                <input id="contact-first-name" autocomplete="given-name" placeholder="Ex. Camille">
+              </label>
+            </div>
+            <div class="actions">
+              <button class="btn primary" type="button" onclick="goStep(1)">Choisir un créneau</button>
+            </div>
+          </div>
+
+          <div class="slide" data-slide="1">
+            <div class="topline">Étape 2</div>
+            <h2>Date et heure du RDV</h2>
+            <div class="summary">
+              <div>Restaurant<strong id="sum-restaurant">-</strong></div>
+              <div>Contact<strong id="sum-name">-</strong></div>
+              <div>Créneau<strong id="sum-slot">À choisir</strong></div>
+            </div>
+            <div class="slot-toolbar">
+              <input id="date-filter" type="date" onchange="onDateChange()">
+              <button class="btn" type="button" onclick="shiftDay(-1)">←</button>
+              <button class="btn" type="button" onclick="shiftDay(1)">→</button>
+            </div>
+            <div class="slots" id="slots"></div>
+            <div class="actions">
+              <button class="btn" type="button" onclick="goStep(0)">Retour</button>
+              <button class="btn primary" id="slot-next" type="button" onclick="goStep(2)" disabled>Valider ce créneau</button>
+            </div>
+          </div>
+
+          <div class="slide" data-slide="2">
+            <div class="topline">Étape 3</div>
+            <h2>Comment le contacter ?</h2>
+            <div class="summary">
+              <div>Restaurant<strong id="sum2-restaurant">-</strong></div>
+              <div>Contact<strong id="sum2-name">-</strong></div>
+              <div>Créneau<strong id="sum2-slot">-</strong></div>
+            </div>
+            <div class="contact-grid">
+              <button class="contact-card" type="button" data-method="phone" onclick="selectMethod('phone')"><b>Téléphone</b><span>Appel classique</span></button>
+              <button class="contact-card" type="button" data-method="whatsapp" onclick="selectMethod('whatsapp')"><b>WhatsApp</b><span>Conversation rapide</span></button>
+              <button class="contact-card" type="button" data-method="meet" onclick="selectMethod('meet')"><b>Google Meet</b><span>Invitation par email</span></button>
+            </div>
+            <div class="contact-box" id="contact-box">
+              <label id="contact-label">Coordonnée
+                <input id="contact-value" placeholder="">
+              </label>
+            </div>
+            <div class="actions">
+              <button class="btn" type="button" onclick="goStep(1)">Retour</button>
+              <button class="btn primary" id="submit-btn" type="button" onclick="submitBooking()" disabled>Confirmer le RDV</button>
+            </div>
+            <div class="result" id="result"></div>
+            <div class="error" id="error"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const PB_URL = 'https://servicecompris.pro/menu';
+    const TEAM_EMAILS = ['romain@servicecompris.pro', 'ft@servicecompris.pro'];
+    const state = {
+      step: 0,
+      booked: new Set(),
+      selectedSlot: null,
+      method: null,
+      lastSlotsLoadedAt: 0
+    };
+    const $ = id => document.getElementById(id);
+    const pad = n => String(n).padStart(2, '0');
+    const todayKey = () => {
+      const d = new Date();
+      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    };
+    const slotKey = (date, hour) => `${date}T${pad(hour)}:00`;
+    const formatDateLabel = dateStr => {
+      const d = new Date(`${dateStr}T12:00:00`);
+      return new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }).format(d);
+    };
+    const formatSlotLabel = key => {
+      const [date, time] = key.split('T');
+      const d = new Date(`${date}T12:00:00`);
+      const day = new Intl.DateTimeFormat('fr-FR', { weekday: 'short', day: '2-digit', month: 'short' }).format(d);
+      return `${day} · ${time.replace(':00','h')}`;
+    };
+    const calendarUrl = (booking) => {
+      const slotKey = booking.slot_key;
+      const dateStr = slotKey.slice(0, 10).replace(/-/g, '');
+      const hour = Number(slotKey.slice(11, 13));
+      const start = `${dateStr}T${String(hour).padStart(2, '0')}0000`;
+      const end   = `${dateStr}T${String(hour + 1).padStart(2, '0')}0000`;
+      const text = encodeURIComponent(`RDV Service Compris — ${booking.restaurant_name}`);
+      const canal = booking.contact_method === 'meet' ? 'Google Meet' : booking.contact_method === 'whatsapp' ? 'WhatsApp' : 'Téléphone';
+      const coordLine = booking.contact_method === 'meet' ? `Email : ${booking.contact_value}` : `Tél : ${booking.contact_value}`;
+      const details = encodeURIComponent(`Contact : ${booking.prospect_first_name}\n${coordLine}\nCanal : ${canal}`);
+      const attendees = encodeURIComponent(TEAM_EMAILS.join(','));
+      return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}&details=${details}&add=${attendees}`;
+    };
+
+    function init() {
+      const theme = localStorage.getItem('booking_theme') || 'dark';
+      document.documentElement.classList.toggle('light', theme === 'light');
+      $('theme-btn').textContent = theme === 'light' ? 'Mode sombre' : 'Mode clair';
+      $('date-filter').value = todayKey();
+      $('contact-value').addEventListener('input', () => {
+        $('submit-btn').disabled = !state.method || !$('contact-value').value.trim();
+      });
+      loadBookedSlots().then(renderSlots);
+    }
+
+    function onDateChange() {
+      const val = $('date-filter').value;
+      if (state.selectedSlot && !state.selectedSlot.startsWith(val)) {
+        state.selectedSlot = null;
+        $('slot-next').disabled = true;
+        updateSummary();
+      }
+      renderSlots();
+    }
+
+    $('theme-btn').addEventListener('click', () => {
+      const isLight = document.documentElement.classList.toggle('light');
+      localStorage.setItem('booking_theme', isLight ? 'light' : 'dark');
+      $('theme-btn').textContent = isLight ? 'Mode sombre' : 'Mode clair';
+    });
+
+    function goStep(next) {
+      if (next === 1 && (!$('restaurant-name').value.trim() || !$('contact-first-name').value.trim())) {
+        showError('Renseigne le restaurant et le prénom du contact.');
+        return;
+      }
+      if (next === 2 && !state.selectedSlot) {
+        showError('Choisis un créneau avant de continuer.');
+        return;
+      }
+      hideMessages();
+      state.step = next;
+      document.querySelectorAll('[data-slide]').forEach(el => el.classList.toggle('active', Number(el.dataset.slide) === next));
+      document.querySelectorAll('[data-step-pill]').forEach(el => el.classList.toggle('active', Number(el.dataset.stepPill) === next));
+      updateSummary();
+      if (next === 1 && Date.now() - state.lastSlotsLoadedAt > 8000) loadBookedSlots().then(renderSlots);
+    }
+
+    function updateSummary() {
+      const restaurant = $('restaurant-name').value.trim() || '-';
+      const name = $('contact-first-name').value.trim() || '-';
+      const slot = state.selectedSlot ? formatSlotLabel(state.selectedSlot) : 'À choisir';
+      ['sum-restaurant','sum2-restaurant'].forEach(id => $(id).textContent = restaurant);
+      ['sum-name','sum2-name'].forEach(id => $(id).textContent = name);
+      ['sum-slot','sum2-slot'].forEach(id => $(id).textContent = slot);
+    }
+
+    async function loadBookedSlots() {
+      const res = await fetch(`${PB_URL}/api/collections/booking_slots/records?perPage=500`);
+      const data = await res.json();
+      state.booked = new Set((data.items || []).map(item => item.slot_key));
+      state.lastSlotsLoadedAt = Date.now();
+    }
+
+    function renderSlots() {
+      const date = $('date-filter').value || todayKey();
+      const now = new Date();
+      const wrap = $('slots');
+      wrap.innerHTML = '';
+      for (let hour = 8; hour <= 18; hour++) {
+        const key = slotKey(date, hour);
+        const start = new Date(`${date}T${pad(hour)}:00:00`);
+        if (start < now) continue;
+        if (state.booked.has(key)) continue;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `slot${state.selectedSlot === key ? ' selected' : ''}`;
+        btn.textContent = `${pad(hour)}h00`;
+        btn.onclick = () => {
+          state.selectedSlot = key;
+          $('slot-next').disabled = false;
+          updateSummary();
+          renderSlots();
+        };
+        wrap.appendChild(btn);
+      }
+      if (!wrap.children.length) wrap.innerHTML = '<p class="hint">Aucun créneau disponible sur cette journée.</p>';
+    }
+
+    function shiftDay(delta) {
+      const d = new Date(`${$('date-filter').value || todayKey()}T12:00:00`);
+      d.setDate(d.getDate() + delta);
+      const newVal = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+      $('date-filter').value = newVal;
+      onDateChange();
+    }
+
+    function selectMethod(method) {
+      state.method = method;
+      document.querySelectorAll('.contact-card').forEach(card => card.classList.toggle('selected', card.dataset.method === method));
+      const box = $('contact-box');
+      const label = $('contact-label');
+      const input = $('contact-value');
+      box.classList.add('show');
+      input.value = '';
+      if (method === 'meet') {
+        label.firstChild.nodeValue = 'Adresse email du contact';
+        input.type = 'email';
+        input.placeholder = 'camille@restaurant.fr';
+      } else {
+        label.firstChild.nodeValue = method === 'whatsapp' ? 'Numéro WhatsApp' : 'Numéro de téléphone';
+        input.type = 'tel';
+        input.placeholder = '06 12 34 56 78';
+      }
+      input.focus();
+      $('submit-btn').disabled = true;
+    }
+
+    async function submitBooking() {
+      hideMessages();
+      const btn = $('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Réservation...';
+      const restaurant = $('restaurant-name').value.trim();
+      const firstName = $('contact-first-name').value.trim();
+      const contactValue = $('contact-value').value.trim();
+      const slot = state.selectedSlot;
+      try {
+        if (!restaurant || !firstName || !slot || !state.method || !contactValue) throw new Error('Il manque une information.');
+        const slotPayload = {
+          slot_key: slot,
+          starts_label: formatSlotLabel(slot),
+          restaurant_name: restaurant,
+          prospect_first_name: firstName
+        };
+        const slotRes = await fetch(`${PB_URL}/api/collections/booking_slots/records`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(slotPayload)
+        });
+        if (!slotRes.ok) {
+          await loadBookedSlots();
+          renderSlots();
+          throw new Error('Ce créneau vient d’être pris. Choisis-en un autre.');
+        }
+        const bookingPayload = {
+          ...slotPayload,
+          contact_method: state.method,
+          contact_value: contactValue,
+          invite_status: state.method === 'meet' ? 'email_sent_google_calendar_link' : 'team_notified'
+        };
+        const bookingRes = await fetch(`${PB_URL}/api/collections/booking_requests/records`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(bookingPayload)
+        });
+        const booking = await bookingRes.json();
+        if (!bookingRes.ok) throw new Error(booking.message || 'Impossible de créer la demande.');
+        state.booked.add(slot);
+        renderSlots();
+        const gcalHref = calendarUrl({ ...booking, prospect_first_name: firstName, restaurant_name: restaurant, slot_key: slot, contact_value: contactValue });
+        $('result').innerHTML = `<strong>RDV confirmé.</strong><br>${firstName} · ${restaurant} · ${formatSlotLabel(slot)}<br><br><a class="btn primary" href="${gcalHref}" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;margin-top:4px;">Ajouter au calendrier Google</a>`;
+        $('result').classList.add('show');
+      } catch (e) {
+        showError(e.message);
+      } finally {
+        btn.textContent = 'Confirmer le RDV';
+        btn.disabled = !state.method || !$('contact-value').value.trim();
+      }
+    }
+
+    function showError(message) {
+      $('error').textContent = message;
+      $('error').classList.add('show');
+    }
+    function hideMessages() {
+      $('error').classList.remove('show');
+      $('result').classList.remove('show');
+    }
+    init();
+  </script>
+</body>
+</html>
