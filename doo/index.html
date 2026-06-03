@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Doo | Crêperie &amp; Spectacles · Tarare</title>
-  <meta name="description" content="Crêperie, spectacles et jeux rétro au coeur de Tarare. Un lieu éclectique et familial où les crêpes bretonnes rencontrent la scène. 10 Rue Mezelle, 69170 Tarare.">
+  <meta name="description" content="Crêperie, spectacles et jeux rétro au coeur de Tarare. Un lieu éclectique et familial où les crêpes bretonnes rencontrent la scène. 6 Av. Edouard Herriot, 69170 Tarare.">
   <meta property="og:title" content="Doo | Crêperie &amp; Spectacles · Tarare">
   <meta property="og:description" content="Crêpes bretonnes, spectacles vivants et gaming rétro. Un lieu unique à Tarare, gourmand et festif.">
-  <meta property="og:url" content="https://ftfenaux.com/servicecompris/doo/">
+  <meta property="og:url" content="https://servicecompris.pro/doo/">
   <meta property="og:type" content="restaurant">
   <meta property="og:locale" content="fr_FR">
-  <link rel="canonical" href="https://ftfenaux.com/servicecompris/doo/">
+  <link rel="canonical" href="https://servicecompris.pro/doo/">
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 
   <script defer src="https://analytics.servicecompris.pro/script.js" data-website-id="c90b4172-ff16-47af-9e0f-c2eaed8c3b61" data-domains="servicecompris.pro,www.servicecompris.pro"></script>
@@ -29,12 +29,12 @@
     "@type": "Restaurant",
     "name": "Doo Crêperie Spectacles",
     "description": "Crêperie festive et rétro avec spectacles vivants, gaming vintage et crêpes bretonnes à Tarare.",
-    "url": "https://ftfenaux.com/servicecompris/doo/",
+    "url": "https://servicecompris.pro/doo/",
     "telephone": "+33474633029",
     "email": "contact@doocreperiespectacles.fr",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "10 Rue Mezelle",
+      "streetAddress": "6 Av. Edouard Herriot",
       "addressLocality": "Tarare",
       "postalCode": "69170",
       "addressCountry": "FR"
@@ -48,7 +48,10 @@
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "11:00", "closes": "00:00" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "10:00", "closes": "15:00" }
     ],
-    "sameAs": ["https://www.instagram.com/doocreperiespectacles/"]
+    "sameAs": [
+      "https://www.instagram.com/doocreperiespectacles/",
+      "https://www.facebook.com/doocreperiespectacles/"
+    ]
   }
   </script>
 
@@ -412,7 +415,7 @@
     #hero {
       padding-top: 60px;
       min-height: 100vh;
-      background: var(--paper);
+      background: #130c08;
       position: relative;
       overflow: hidden;
       display: grid;
@@ -439,18 +442,32 @@
     /* Corps hero */
     .hero-body {
       display: grid;
-      grid-template-columns: 1fr 1fr;
       min-height: calc(100vh - 130px);
+      position: relative;
+      isolation: isolate;
+    }
+    .hero-body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(19,12,8,.84) 0%, rgba(19,12,8,.58) 42%, rgba(19,12,8,.18) 100%),
+        linear-gradient(0deg, rgba(19,12,8,.82) 0%, rgba(19,12,8,.16) 46%, rgba(19,12,8,.42) 100%);
     }
 
-    /* Colonne gauche : le titre géant */
+    /* Texte posé sur la photo pleine largeur */
     .hero-left {
-      padding: 4rem 3rem 4rem 28px;
+      width: min(760px, 100%);
+      padding: clamp(3rem, 8vw, 7rem) 28px clamp(10rem, 18vh, 14rem);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      border-right: 3px solid var(--ink);
+      justify-content: center;
+      gap: clamp(2rem, 7vh, 5rem);
+      border-right: 0;
       position: relative;
+      z-index: 3;
     }
     .hero-kicker {
       font-family: var(--hf);
@@ -458,7 +475,7 @@
       font-weight: 700;
       letter-spacing: .2em;
       text-transform: uppercase;
-      color: var(--ink-soft);
+      color: rgba(251,247,238,.78);
       margin-bottom: 1.2rem;
       display: flex;
       align-items: center;
@@ -468,40 +485,48 @@
       content: '';
       display: block;
       width: 20px; height: 3px;
-      background: var(--orange);
+      background: var(--yellow);
     }
-    .hero-h1 {
-      font-family: var(--hf);
-      font-weight: 800;
-      font-size: clamp(5rem, 14vw, 11rem);
-      line-height: .95;
-      letter-spacing: -.02em;
-      color: var(--ink);
-      margin-bottom: 2rem;
-    }
-    /* Le "!" en orange */
-    .hero-h1 .excl { color: var(--orange); }
-
     .hero-tagline {
       font-family: var(--hf);
       font-size: clamp(1rem, 2vw, 1.4rem);
       font-weight: 400;
       line-height: 1.4;
-      color: var(--ink-soft);
-      max-width: 420px;
+      color: rgba(251,247,238,.84);
+      max-width: 520px;
       margin-bottom: 2.5rem;
+      text-shadow: 0 2px 18px rgba(0,0,0,.28);
     }
     .hero-tagline strong {
       font-weight: 700;
-      color: var(--ink);
+      color: var(--paper);
     }
 
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-left .btn {
+      border-color: var(--paper);
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .hero-left .btn:hover {
+      background: transparent;
+      color: var(--paper);
+    }
+    .hero-left .btn-yellow {
+      border-color: var(--yellow);
+      background: var(--yellow);
+      color: var(--ink);
+    }
+    .hero-left .btn-yellow:hover {
+      background: transparent;
+      color: var(--yellow);
+    }
 
     /* Bloc jaune décoratif hero-left */
     .hero-sticker {
       position: absolute;
-      bottom: 3rem; right: -1.5rem;
+      left: min(28px, 5vw);
+      bottom: clamp(6.4rem, 11vh, 8.5rem);
       background: var(--yellow);
       border: 3px solid var(--ink);
       padding: .8rem 1.2rem;
@@ -512,19 +537,17 @@
       line-height: 1.3;
     }
 
-    /* Colonne droite : blocs visuels empilés */
+    /* Photo hero pleine largeur */
     .hero-right {
-      display: grid;
-      grid-template-rows: 1fr auto auto;
+      position: absolute;
+      inset: 0;
     }
     .hero-visual {
-      background: var(--mauve);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      min-height: 320px;
-      position: relative;
+      position: absolute;
+      inset: 0;
+      background: #130c08;
+      padding: 0;
+      min-height: 100%;
       overflow: hidden;
     }
     .hero-visual-placeholder {
@@ -642,7 +665,7 @@
     /* Polaroid — taille unique */
     .pol {
       background: #f5f0e8;
-      padding: 10px 10px 36px;
+      padding: 10px;
       box-shadow: 0 6px 28px rgba(0,0,0,.55), 0 1px 4px rgba(0,0,0,.3);
       position: relative;
       flex-shrink: 0;
@@ -668,6 +691,10 @@
     .pol:nth-child(6)  { transform: rotate( 0.9deg)  translateY(-4px); }
     .pol:nth-child(7)  { transform: rotate(-3.8deg)  translateY(8px); }
     .pol:nth-child(8)  { transform: rotate( 2.2deg)  translateY(-12px); }
+    .pol:nth-child(4n+9)  { transform: rotate(-2.4deg) translateY(7px); }
+    .pol:nth-child(4n+10) { transform: rotate( 1.6deg) translateY(-8px); }
+    .pol:nth-child(4n+11) { transform: rotate(-.8deg) translateY(3px); }
+    .pol:nth-child(4n+12) { transform: rotate( 2.8deg) translateY(-5px); }
 
     .pol:nth-child(1):hover  { transform: rotate(-1.5deg) scale(1.08) translateY(0); }
     .pol:nth-child(2):hover  { transform: rotate( 0.8deg) scale(1.08) translateY(0); }
@@ -688,20 +715,20 @@
     .gal-zone--plats .pol img {
       filter: saturate(.78) sepia(.18) contrast(1.06) brightness(.95);
     }
-
-    .pol-caption {
-      position: absolute;
-      bottom: 7px; left: 0; right: 0;
-      text-align: center;
-      font-family: var(--hf2);
-      font-size: .82rem;
-      color: #5a4a3a;
-      padding: 0 8px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .gal-zone--cocktails .pol img {
+      filter: saturate(.92) sepia(.08) contrast(1.08) brightness(.95);
     }
-
+    .gal-zone--ambiance .pol img {
+      filter: saturate(.86) sepia(.15) contrast(1.08) brightness(.94);
+    }
+    .galerie-note {
+      max-width: 1200px;
+      margin: -2.5rem auto 4rem;
+      padding: 0 28px;
+      color: rgba(251,247,238,.5);
+      font-size: .82rem;
+      line-height: 1.7;
+    }
     /* Responsive galerie */
     @media (max-width: 900px) {
       .pol { width: 180px; margin: 6px -10px; }
@@ -712,24 +739,40 @@
     }
 
     .hero-info-strip {
-      background: var(--orange);
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 82px;
+      z-index: 2;
+      background: rgba(19,12,8,.72);
       padding: 1.2rem 2rem;
-      border-top: 3px solid var(--ink);
-      border-bottom: 3px solid var(--ink);
+      border-top: 3px solid rgba(251,247,238,.38);
+      border-bottom: 3px solid rgba(251,247,238,.38);
+      backdrop-filter: blur(8px);
     }
     .hero-info-strip p {
       font-family: var(--hf);
       font-size: .82rem;
       font-weight: 700;
-      color: var(--ink);
+      color: var(--paper);
       letter-spacing: .06em;
       text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .hero-features {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       border-top: 0;
+      background: rgba(251,247,238,.92);
+      backdrop-filter: blur(8px);
     }
     .hero-feat {
       padding: 1.2rem 1rem;
@@ -1534,9 +1577,7 @@
        RESPONSIVE
     ============================ */
     @media (max-width: 1024px) {
-      .hero-body { grid-template-columns: 1fr; }
-      .hero-left { border-right: none; border-bottom: 3px solid var(--ink); }
-      .hero-right { grid-template-rows: 260px auto auto; }
+      .hero-left { border-right: none; }
       .univers-layout { grid-template-columns: 1fr; }
       .univers-divider { display: none; }
       .article-layout { gap: 3rem; }
@@ -1561,14 +1602,22 @@
       .chiffre:last-child { border-bottom: none; }
       .programme { grid-template-columns: 1fr; }
       .prog-item { border-right: none; }
-      .hero-features { grid-template-columns: 1fr; }
-      .hero-feat { border-right: none; border-bottom: 3px solid var(--ink); }
+      .hero-left { padding-bottom: 11rem; }
+      .hero-info-strip {
+        bottom: 68px;
+        padding: .75rem 1rem;
+      }
+      .hero-info-strip p { font-size: .62rem; }
+      .hero-features { grid-template-columns: repeat(3, 1fr); }
+      .hero-feat { padding: .8rem .35rem; border-right: 2px solid rgba(19,12,8,.72); border-bottom: none; }
       .hero-feat:last-child { border-bottom: none; }
+      .hero-feat-icon { font-size: 1.1rem; }
+      .hero-feat-label { font-size: .48rem; letter-spacing: .08em; }
     }
     @media (max-width: 560px) {
-      .hero-h1 { font-size: clamp(5rem, 22vw, 8rem); }
       .univers-cards { grid-template-columns: 1fr; }
       .hero-ctas { flex-direction: column; }
+      .hero-sticker { display: none; }
       .courrier-header { flex-direction: column; align-items: flex-start; }
     }
 
@@ -1627,13 +1676,7 @@
     }
 
     #lb-caption {
-      position: fixed;
-      bottom: 2rem; left: 0; right: 0;
-      text-align: center;
-      font-family: var(--hf2);
-      font-size: 1.1rem;
-      color: rgba(251,247,238,.6);
-      pointer-events: none;
+      display: none;
     }
 
     #lb-close {
@@ -1699,7 +1742,7 @@
     </nav>
 
     <div class="hdr-tel">
-      <a href="https://www.billetweb.fr/pro/doocreperiespectacles" target="_blank" rel="noopener noreferrer" class="btn">Réserver</a>
+      <a href="https://www.billetweb.fr/pro/doocreperiespectacles" target="_blank" rel="noopener noreferrer" class="btn">Billetterie</a>
     </div>
 
     <button class="hbg" id="hbg" aria-label="Menu" onclick="toggleNav()">
@@ -1717,7 +1760,7 @@
   <a href="#infos" onclick="toggleNav()">Infos</a>
 </nav>
 
-<a href="https://www.billetweb.fr/pro/doocreperiespectacles" target="_blank" rel="noopener noreferrer" class="mobile-cta">Réserver en ligne</a>
+<a href="https://www.billetweb.fr/pro/doocreperiespectacles" target="_blank" rel="noopener noreferrer" class="mobile-cta">Billetterie</a>
 
 <!-- ============================
      HERO : COUVERTURE MAGAZINE
@@ -1737,7 +1780,6 @@
     <div class="hero-left">
       <div>
         <p class="hero-kicker">Le lieu incontournable de Tarare</p>
-        <div class="hero-h1" aria-label="Doo">D<br>o<br>o<span class="excl">!</span></div>
       </div>
       <div>
         <p class="hero-tagline">
@@ -1762,7 +1804,7 @@
       </div>
 
       <div class="hero-info-strip">
-        <p>10 Rue Mezelle, Tarare &nbsp;&middot;&nbsp; 04 74 63 30 29 &nbsp;&middot;&nbsp; Ouvert mer. au dim.</p>
+        <p>6 Av. Edouard Herriot, Tarare &nbsp;&middot;&nbsp; 04 74 63 30 29 &nbsp;&middot;&nbsp; Ouvert mer. au dim.</p>
       </div>
 
       <div class="hero-features">
@@ -2018,7 +2060,7 @@
   <div style="text-align:center;padding-bottom:4rem;">
     <a href="https://www.billetweb.fr/pro/doocreperiespectacles" target="_blank" rel="noopener noreferrer" class="btn btn-inv">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7M22 7H2v5h20V7zM12 19V7M9 7l1-4h4l1 4"/></svg>
-      Réserver pour un spectacle
+      Billetterie spectacles
     </a>
   </div>
 </section>
@@ -2034,85 +2076,8 @@
       <p class="galerie-sub">Quelques instantanés. Comme si vous y étiez déjà.</p>
     </div>
 
-    <!-- ZONE 1 : L'AMBIANCE -->
-    <div class="galerie-zone gal-zone--ambiance" data-aos="fade-up">
-      <div class="galerie-zone-label">
-        <span>L'ambiance &mdash; spectacles &amp; déco</span>
-      </div>
-      <div class="gal-strip">
-
-        <div class="pol" data-aos="fade-up" data-aos-delay="0">
-          <img src="img/photos/web/spectacle-public.webp" alt="Le public pendant le spectacle Guignol" loading="lazy">
-          <span class="pol-caption">Guignol, dim. 10h30</span>
-        </div>
-
-        <div class="pol" data-aos="fade-up" data-aos-delay="60">
-          <img src="img/photos/web/marionnettes-gros.webp" alt="Marionnettes Guignol sur scène" loading="lazy">
-          <span class="pol-caption">Sur scène</span>
-        </div>
-
-        <div class="pol" data-aos="fade-up" data-aos-delay="110">
-          <img src="img/photos/web/chien-scene.webp" alt="Mascotte devant le théâtre de marionnettes" loading="lazy">
-          <span class="pol-caption">Le théâtre</span>
-        </div>
-
-        <div class="pol" data-aos="fade-up" data-aos-delay="160">
-          <img src="img/photos/web/marionnette-bras.webp" alt="Marionnette bras levé" loading="lazy">
-          <span class="pol-caption">Kids Doo</span>
-        </div>
-
-        <div class="pol" data-aos="fade-up" data-aos-delay="210">
-          <img src="img/photos/web/bar-cocktails.webp" alt="Le bar à cocktails" loading="lazy">
-          <span class="pol-caption">Le bar</span>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ZONE 2 : À TABLE -->
-    <div class="galerie-zone gal-zone--plats" data-aos="fade-up">
-      <div class="galerie-zone-label">
-        <span>À table &mdash; galettes, crêpes &amp; cocktails</span>
-      </div>
-      <div class="gal-strip">
-
-        <div class="pol" data-aos="fade-up" data-aos-delay="0">
-          <img src="img/photos/web/galette-billig.webp" alt="Galette de sarrasin sur le billig" loading="lazy">
-          <span class="pol-caption">Sur le billig</span>
-        </div>
-
-        <div class="pol" data-aos="fade-up" data-aos-delay="60">
-          <img src="img/photos/web/galette-complete.webp" alt="Galette complète jambon œuf" loading="lazy">
-          <span class="pol-caption">La Complète</span>
-        </div>
-
-        <div class="pol" data-aos="fade-up" data-aos-delay="110">
-          <img src="img/photos/web/galette-saumonee.webp" alt="Galette au saumon fumé" loading="lazy">
-          <span class="pol-caption">La Saumonée</span>
-        </div>
-
-        <div class="pol" data-aos="fade-up" data-aos-delay="160">
-          <img src="img/photos/web/crepe-myrtilles.webp" alt="Crêpe myrtilles glace vanille" loading="lazy">
-          <span class="pol-caption">Myrtilles &amp; glace</span>
-        </div>
-
-        <div class="pol" data-aos="fade-up" data-aos-delay="200">
-          <img src="img/photos/web/crepe-chocolat.webp" alt="Crêpe chocolat framboise" loading="lazy">
-          <span class="pol-caption">Chocolat</span>
-        </div>
-
-        <div class="pol" data-aos="fade-up" data-aos-delay="240">
-          <img src="img/photos/web/cocktail-mario.webp" alt="Cocktail maison façon Mario" loading="lazy">
-          <span class="pol-caption">Cocktail maison</span>
-        </div>
-
-        <div class="pol" data-aos="fade-up" data-aos-delay="280">
-          <img src="img/photos/web/cocktail-orange.webp" alt="Cocktail orange sanguine" loading="lazy">
-          <span class="pol-caption">Orange sanguine</span>
-        </div>
-
-      </div>
-    </div>
+    <p class="galerie-note">Ambiance, scène, assiettes et bar : la galerie mélange les photos comme un mur de souvenirs, avec les images web optimisées pour garder une page rapide.</p>
+    <div id="galerie-albums"></div>
 
   </div>
 </section>
@@ -2161,9 +2126,8 @@
         <div class="fiche">
           <div class="fiche-title">Fiche pratique</div>
           <dl>
-            <div class="fiche-row"><dt>Adresse</dt><dd>10 Rue Mezelle, Tarare</dd></div>
+            <div class="fiche-row"><dt>Adresse</dt><dd>6 Av. Edouard Herriot, Tarare</dd></div>
             <div class="fiche-row"><dt>Téléphone</dt><dd>04 74 63 30 29</dd></div>
-            <div class="fiche-row"><dt>Spectacles</dt><dd>07 86 81 82 82</dd></div>
             <div class="fiche-row"><dt>Email</dt><dd>contact@doocreperiespectacles.fr</dd></div>
             <div class="fiche-row"><dt>Cuisine</dt><dd>Crêperie bretonne</dd></div>
           </dl>
@@ -2226,6 +2190,11 @@
         <span class="social-btn-label">TikTok</span>
         <span class="social-btn-handle">@doo.crperie.spect</span>
       </a>
+      <a href="https://www.facebook.com/doocreperiespectacles/" target="_blank" rel="noopener noreferrer" class="social-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.6V7.1c0-.7.2-1.1 1.2-1.1H17V3h-2.6C11.7 3 10 4.7 10 7v1.6H7v3.2h3V21h4v-9.2h2.7l.5-3.2H14z"/></svg>
+        <span class="social-btn-label">Facebook</span>
+        <span class="social-btn-handle">Doo Crêperie Spectacles</span>
+      </a>
     </div>
   </div>
 </section>
@@ -2244,12 +2213,12 @@
     <div class="infos-grid">
       <div data-aos="fade-right">
         <iframe
-          src="https://www.openstreetmap.org/export/embed.html?bbox=4.480%2C45.894%2C4.492%2C45.900&layer=mapnik&marker=45.897%2C4.486"
+          src="https://maps.google.com/maps?q=6%20Av.%20Edouard%20Herriot%2C%2069170%20Tarare&z=16&output=embed"
           title="Carte Doo Crêperie Spectacles Tarare"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
-        <a href="https://maps.google.com/?q=10+Rue+Mezelle+69170+Tarare" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top:1rem;">
+        <a href="https://maps.google.com/?q=6+Av.+Edouard+Herriot+69170+Tarare" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top:1rem;">
           Ouvrir dans Google Maps
         </a>
       </div>
@@ -2257,7 +2226,7 @@
       <div data-aos="fade-left" data-aos-delay="80">
         <div class="info-block">
           <div class="info-block-title">Adresse</div>
-          <p>10 Rue Mezelle<br>69170 Tarare</p>
+          <p>6 Av. Edouard Herriot<br>69170 Tarare</p>
         </div>
 
         <div class="info-block">
@@ -2286,13 +2255,12 @@
         </div>
 
         <div style="margin-top:2rem;padding-top:2rem;border-top:2px solid var(--ink);">
-          <p style="font-size:.88rem;color:var(--ink-soft);margin-bottom:.8rem;">Réservation table ou spectacle ?</p>
-          <a href="https://www.billetweb.fr/pro/doocreperiespectacles" target="_blank" rel="noopener noreferrer" class="btn btn-yellow" style="margin-bottom:1rem;">Réserver en ligne</a>
+          <p style="font-size:.88rem;color:var(--ink-soft);margin-bottom:.8rem;">Spectacles et événements à venir</p>
+          <a href="https://www.billetweb.fr/pro/doocreperiespectacles" target="_blank" rel="noopener noreferrer" class="btn btn-yellow" style="margin-bottom:1rem;">Billetterie</a>
           <a href="tel:+33474633029" class="tel-link" style="margin-top:.8rem;display:inline-flex;">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
             04 74 63 30 29
           </a>
-          <p style="font-size:.82rem;color:var(--ink-soft);margin-top:.6rem;">Spectacles : <a href="tel:+33786818282" style="color:var(--orange);font-weight:600;">07 86 81 82 82</a></p>
         </div>
       </div>
     </div>
@@ -2309,13 +2277,16 @@
         <div class="ft-brand-name">
           <img class="ft-brand-logo" src="img/DOO_LOGO.svg" alt="Doo">
         </div>
-        <p>Crêperie &amp; Spectacles<br>10 Rue Mezelle, 69170 Tarare</p>
+        <p>Crêperie &amp; Spectacles<br>6 Av. Edouard Herriot, 69170 Tarare</p>
         <div class="ft-social">
           <a href="https://www.instagram.com/doocreperiespectacles/" target="_blank" rel="noopener noreferrer" class="soc" aria-label="Instagram">
             <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           </a>
           <a href="https://www.tiktok.com/@doo.crperie.spect" target="_blank" rel="noopener noreferrer" class="soc" aria-label="TikTok">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.93a8.19 8.19 0 0 0 4.79 1.53V7.01a4.85 4.85 0 0 1-1.02-.32z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/doocreperiespectacles/" target="_blank" rel="noopener noreferrer" class="soc" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.6V7.1c0-.7.2-1.1 1.2-1.1H17V3h-2.6C11.7 3 10 4.7 10 7v1.6H7v3.2h3V21h4v-9.2h2.7l.5-3.2H14z"/></svg>
           </a>
         </div>
       </div>
@@ -2334,9 +2305,8 @@
         <h4>Contact</h4>
         <ul>
           <li><a href="tel:+33474633029">04 74 63 30 29</a></li>
-          <li><a href="tel:+33786818282">07 86 81 82 82 (spectacles)</a></li>
           <li><a href="mailto:contact@doocreperiespectacles.fr">contact@doocreperiespectacles.fr</a></li>
-          <li><a href="https://maps.google.com/?q=10+Rue+Mezelle+69170+Tarare" target="_blank" rel="noopener noreferrer">10 Rue Mezelle, 69170 Tarare</a></li>
+          <li><a href="https://maps.google.com/?q=6+Av.+Edouard+Herriot+69170+Tarare" target="_blank" rel="noopener noreferrer">6 Av. Edouard Herriot, 69170 Tarare</a></li>
         </ul>
       </div>
     </div>
@@ -2400,6 +2370,90 @@
       }
     });
   })();
+
+  const photoAlbums = [
+    {
+      className: 'gal-zone--ambiance',
+      title: 'Ambiance & spectacles',
+      photos: [
+        ['img/photos/web/hero-salle.webp', 'Photo ambiance Doo'],
+        ['img/photos/web/hero-scene.webp', 'Photo ambiance Doo'],
+        ['img/photos/web/salle-pleine.webp', 'Photo ambiance Doo'],
+        ['img/photos/web/chien-scene.webp', 'Photo ambiance Doo'],
+        ['img/photos/web/marionnettes-gros.webp', 'Photo spectacle Doo'],
+        ['img/photos/web/marionnette-bras.webp', 'Photo spectacle Doo'],
+        ['img/photos/web/spectacle-public.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOGUIGNOL-1.webp', 'Photo ambiance Doo'],
+        ['img/photos/DOOGUIGNOL-2.webp', 'Photo ambiance Doo'],
+        ['img/photos/DOOGUIGNOL-4.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOGUIGNOL-5.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOGUIGNOL-6.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOGUIGNOL-7.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOGUIGNOL-8.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOGUIGNOL-10.webp', 'Photo ambiance Doo'],
+        ['img/photos/DOOGUIGNOL-12.webp', 'Photo ambiance Doo'],
+        ['img/photos/DOOGUIGNOL-13.webp', 'Photo ambiance Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-1.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-2.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-3.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-4.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-5.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-6.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-7.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-8.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-9.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-10.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-11.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-12.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-13.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-14.webp', 'Photo spectacle Doo'],
+        ['img/photos/DOOSPECTACLES_KAMINI-15.webp', 'Photo spectacle Doo']
+      ]
+    },
+    {
+      className: 'gal-zone--plats',
+      title: 'Plats',
+      photos: [
+        ['img/photos/web/galette-billig.webp', 'Photo plat Doo'],
+        ['img/photos/web/galette-complete.webp', 'Photo plat Doo'],
+        ['img/photos/web/galette-saumonee.webp', 'Photo plat Doo'],
+        ['img/photos/web/crepe-myrtilles.webp', 'Photo plat Doo'],
+        ['img/photos/web/crepe-chocolat.webp', 'Photo plat Doo'],
+        ['img/photos/DOOGUIGNOL-11.webp', 'Photo plat Doo'],
+        ['img/photos/planche-apéro.webp', 'Photo plat Doo'],
+        ['img/photos/planche-apéro_2.webp', 'Photo plat Doo']
+      ]
+    },
+    {
+      className: 'gal-zone--cocktails',
+      title: 'Cocktails',
+      photos: [
+        ['img/photos/web/bar-cocktails.webp', 'Photo cocktail Doo'],
+        ['img/photos/web/cocktail-mario.webp', 'Photo cocktail Doo'],
+        ['img/photos/web/cocktail-orange.webp', 'Photo cocktail Doo'],
+        ['img/photos/DOOGUIGNOL-14.webp', 'Photo bar Doo']
+      ]
+    }
+  ];
+
+  function renderGallery() {
+    const root = document.getElementById('galerie-albums');
+    if (!root) return;
+    root.innerHTML = photoAlbums.map(album => `
+      <div class="galerie-zone ${album.className}" data-aos="fade-up">
+        <div class="galerie-zone-label"><span>${album.title}</span></div>
+        <div class="gal-strip">
+          ${album.photos.map((p, i) => `
+            <div class="pol" data-aos="fade-up" data-aos-delay="${Math.min((i % 8) * 45, 315)}">
+              <img src="${p[0]}" alt="${p[1]}" loading="lazy">
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+    if (window.AOS && typeof AOS.refreshHard === 'function') AOS.refreshHard();
+  }
+  renderGallery();
 
   const allReviews = [
     { stars: '★★★★★', text: "Un endroit vraiment unique à Tarare. Les crêpes sont délicieuses et le spectacle du samedi soir était hilarant. On reviendra sans hésiter.", author: "Client Google", date: "2025" },
@@ -2541,8 +2595,7 @@
       pols = [];
       document.querySelectorAll('.pol').forEach(function(pol) {
         var img = pol.querySelector('img');
-        var cap = pol.querySelector('.pol-caption');
-        if (img) pols.push({ src: img.src, alt: img.alt, caption: cap ? cap.textContent : '' });
+        if (img) pols.push({ src: img.src, alt: img.alt });
       });
     }
 
@@ -2552,7 +2605,7 @@
       cur = (idx + pols.length) % pols.length;
       lbImg.src = pols[cur].src;
       lbImg.alt = pols[cur].alt;
-      lbCap.textContent = pols[cur].caption;
+      lbCap.textContent = '';
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
       lbImg.focus && lbImg.focus();
