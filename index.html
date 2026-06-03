@@ -23,7 +23,6 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://analytics.parentsdejumeaux.fr">
   <link rel="preload" as="image" href="philip/img/terrasse-animee-platanes-sorgue-restaurant-philip.webp">
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
@@ -1004,12 +1003,6 @@
       .business-reminder-inner { flex-direction: row; align-items: center; }
     }
     @media (max-width: 680px) {
-      .privacy-banner {
-        align-items: stretch;
-        flex-direction: column;
-      }
-      .privacy-actions { width: 100%; }
-      .privacy-btn { flex: 1; }
       .hero-ctas .btn-lime-lg {
         min-width: 0;
         white-space: normal;
@@ -1032,17 +1025,6 @@
         <span><strong>J'ai un autre type d'entreprise</strong><span>Services, conseil, commerce, formation, indépendants.</span></span>
       </button>
     </div>
-  </div>
-</div>
-
-<div class="privacy-banner" id="privacy-banner" role="region" aria-label="Préférences de confidentialité">
-  <div>
-    <strong>Confidentialité</strong>
-    <p>Nous mémorisons votre choix d'entrée pour ne pas vous le redemander. Avec votre accord, nous utilisons aussi une mesure d'audience simple pour améliorer le site.</p>
-  </div>
-  <div class="privacy-actions">
-    <button type="button" class="privacy-btn privacy-refuse" data-privacy-choice="refuse">Refuser</button>
-    <button type="button" class="privacy-btn privacy-accept" data-privacy-choice="accept">Accepter</button>
   </div>
 </div>
 
@@ -1484,32 +1466,6 @@
     });
   });
 
-  const privacyBanner = document.getElementById('privacy-banner');
-  const privacyKey = 'servicecompris-analytics-consent';
-  const analyticsId = 'aaa62fbe-5748-4ce3-8d6f-94b81cef829e';
-  function loadAnalytics() {
-    if (document.querySelector('script[data-website-id="' + analyticsId + '"]')) return;
-    const script = document.createElement('script');
-    script.defer = true;
-    script.src = 'https://analytics.parentsdejumeaux.fr/script.js';
-    script.dataset.domains = 'ftfenaux.com,www.ftfenaux.com';
-    script.dataset.websiteId = analyticsId;
-    document.head.appendChild(script);
-  }
-  const privacyChoice = localStorage.getItem(privacyKey);
-  if (privacyChoice === 'accept') {
-    loadAnalytics();
-  } else if (!privacyChoice && privacyBanner) {
-    privacyBanner.classList.add('is-visible');
-  }
-  document.querySelectorAll('[data-privacy-choice]').forEach(button => {
-    button.addEventListener('click', () => {
-      const choice = button.dataset.privacyChoice;
-      localStorage.setItem(privacyKey, choice);
-      if (privacyBanner) privacyBanner.classList.remove('is-visible');
-      if (choice === 'accept') loadAnalytics();
-    });
-  });
 </script>
 </body>
 </html>

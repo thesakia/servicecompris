@@ -19,7 +19,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://images.unsplash.com">
-  <link rel="preconnect" href="https://analytics.parentsdejumeaux.fr">
   <link rel="preload" as="image" href="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80">
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
@@ -105,20 +104,9 @@
     @media (min-width:640px) { .hero-ctas { flex-direction:row; } .btn-lime-lg { width:auto; } .cards-3,.proof-grid,.pricing-grid,.faq-grid { grid-template-columns:1fr 1fr; } }
     @media (min-width:768px) { .nav-links { display:flex; } }
     @media (min-width:900px) { .cards-3,.pricing-grid { grid-template-columns:repeat(3,1fr); } .visual-grid { grid-template-columns:2fr 1fr 1fr; grid-template-rows:240px 240px; } .proof-grid { grid-template-columns:repeat(3,1fr); } .footer-grid { grid-template-columns:1.6fr 1fr 1fr; } .footer-bottom { flex-direction:row; justify-content:space-between; } }
-    @media (max-width:680px) { .privacy-banner { align-items:stretch; flex-direction:column; } .privacy-actions { width:100%; } .privacy-btn { flex:1; } }
   </style>
 </head>
 <body>
-<div class="privacy-banner" id="privacy-banner" role="region" aria-label="Préférences de confidentialité">
-  <div>
-    <strong>Confidentialité</strong>
-    <p>Nous utilisons, avec votre accord, une mesure d'audience simple pour améliorer le site. Vous pouvez refuser sans impact sur votre navigation.</p>
-  </div>
-  <div class="privacy-actions">
-    <button type="button" class="privacy-btn privacy-refuse" data-privacy-choice="refuse">Refuser</button>
-    <button type="button" class="privacy-btn privacy-accept" data-privacy-choice="accept">Accepter</button>
-  </div>
-</div>
 <nav>
   <div class="container nav-in">
     <a href="../" class="nav-logo" aria-label="Service Compris"><img src="../assets/logo large.png" alt="Service Compris" width="1050" height="330" decoding="async"></a>
@@ -256,32 +244,6 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  const privacyBanner = document.getElementById('privacy-banner');
-  const privacyKey = 'servicecompris-analytics-consent';
-  const analyticsId = 'aaa62fbe-5748-4ce3-8d6f-94b81cef829e';
-  function loadAnalytics() {
-    if (document.querySelector('script[data-website-id="' + analyticsId + '"]')) return;
-    const script = document.createElement('script');
-    script.defer = true;
-    script.src = 'https://analytics.parentsdejumeaux.fr/script.js';
-    script.dataset.domains = 'ftfenaux.com,www.ftfenaux.com';
-    script.dataset.websiteId = analyticsId;
-    document.head.appendChild(script);
-  }
-  const privacyChoice = localStorage.getItem(privacyKey);
-  if (privacyChoice === 'accept') {
-    loadAnalytics();
-  } else if (!privacyChoice && privacyBanner) {
-    privacyBanner.classList.add('is-visible');
-  }
-  document.querySelectorAll('[data-privacy-choice]').forEach(button => {
-    button.addEventListener('click', () => {
-      const choice = button.dataset.privacyChoice;
-      localStorage.setItem(privacyKey, choice);
-      if (privacyBanner) privacyBanner.classList.remove('is-visible');
-      if (choice === 'accept') loadAnalytics();
-    });
-  });
 </script>
 </body>
 </html>
